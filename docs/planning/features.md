@@ -10,11 +10,11 @@ Each feature page links to its epic issue, and each epic links back to its page.
 | Feature | Release | Priority | Spec | Epic |
 |---|---|---|---|---|
 | Recipe management | MVP | Must | [Recipe management](/planning/epic-description/recipe-management/) | [Epic](https://github.com/Luitzzi/RecipeMate/issues/2) |
-| Cooking mode | MVP | Must | [Cooking mode](cooking-mode.md) | [Epic](https://github.com/Luitzzi/RecipeMate/issues/3) |
-| AI recipe assistance (import + chatbot) | V1 | Should | [AI recipe assistance](ai-recipe-assistance.md) | [Epic](https://github.com/Luitzzi/RecipeMate/issues/1) |
-| Meal planning & shopping list | V1 | Should | [Meal planning](meal-planning.md) | #TODO |
+| Cooking mode | MVP | Must | [Cooking mode]() | [Epic](https://github.com/Luitzzi/RecipeMate/issues/3) |
+| AI recipe assistance (import + chatbot) | V1 | Should | [AI recipe assistance]() | [Epic](https://github.com/Luitzzi/RecipeMate/issues/1) |
+| Meal planning & shopping list | V1 | Should | [Meal planning]() | #TODO |
 | Ingredient and category standing data and associate management | V2 | Should | #TODO | #TODO |
-| Sharing, groups & feed | V2 | Could | [Sharing & feed](sharing-and-feed.md) | #TODO |
+| Sharing, groups & feed | V2 | Could | [Sharing & feed]() | #TODO |
 
 ## Release plan
 
