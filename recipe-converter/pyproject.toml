@@ -1,0 +1,18 @@
+[project]
+name = "recipe-converter"
+version = "0.1.0"
+description = "Converts recipe web pages to schema.org Recipe JSON with an LLM"
+requires-python = ">=3.12"
+dependencies = [
+    "beautifulsoup4>=4.12",
+    "html2text>=2024.2.26",
+    "jsonschema>=4.23",
+    "lxml>=5.2",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

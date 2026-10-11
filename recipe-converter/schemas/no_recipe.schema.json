@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "no_recipe.schema.json",
+  "title": "Extractor reply for a page without a complete recipe",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["error", "reason"],
+  "properties": {
+    "error": { "const": "no_recipe" },
+    "reason": { "type": "string", "pattern": "\\S" }
+  }
+}

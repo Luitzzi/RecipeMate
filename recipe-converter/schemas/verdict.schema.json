@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "verdict.schema.json",
+  "title": "Evaluator answers to the audit checklist",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["checks"],
+  "properties": {
+    "checks": {
+      "type": "array",
+      "minItems": 13,
+      "maxItems": 13,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "answer", "findings"],
+        "properties": {
+          "id": {
+            "enum": [
+              "ingredients_complete", "instructions_complete", "nothing_invented", "values_match", "language_kept",
+              "ingredient_lines", "step_focus", "steps_clear", "no_foreign_text", "grouping", "metadata", "tips_kept", "other"
+            ]
+          },
+          "answer": { "enum": ["yes", "no"] },
+          "findings": { "type": "array", "items": { "type": "string", "pattern": "\\S" } }
+        },
+        "if": { "properties": { "answer": { "const": "no" } } },
+        "then": { "properties": { "findings": { "minItems": 1 } } }
+      }
+    }
+  }
+}
