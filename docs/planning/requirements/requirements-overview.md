@@ -5,7 +5,7 @@
 - **Security:** 
     Dedicated login provider. Should be easy to integrate more applications (HolidayMate, InventoryMate)
 
-    → OAuth 2.0 with keycloak (Johannes / Luis)
+    → OAuth 2.0 with keycloak
 
 - **Internationalisation:**
     Translation (German, English) of the UI as well as automatic translation of recipes.
