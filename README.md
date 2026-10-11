@@ -30,6 +30,7 @@ Requires:
 Then install the pinned Java and Node versions from [mise.toml](mise.toml) and the npm dependencies:
 
 ```sh
+mise trust
 mise install
 mise run install
 ```

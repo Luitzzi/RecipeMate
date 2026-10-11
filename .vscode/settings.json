@@ -7,6 +7,9 @@
         "**/.venv": true,
         "**/node_modules": true,
         "**/Thumbs.db": true,
+        "**/__pycache__": true,
+        "**/.pytest_cache": true,
+        "**/.playwright-mcp": true,
     },
     "java.compile.nullAnalysis.mode": "automatic",
     "explorer.fileNesting.patterns": {
