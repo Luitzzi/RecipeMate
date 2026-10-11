@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+.venv/
+
+# Node
+node_modules/
+
+# Docs build output
+site/
+public/
+
+# Environment
+.env
+compose.override.yaml
+
+# Tooling
+.playwright-mcp/

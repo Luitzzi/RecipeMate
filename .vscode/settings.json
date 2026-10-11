@@ -1,0 +1,15 @@
+{
+    "files.exclude": {
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.hg": true,
+        "**/.svn": true,
+        "**/.venv": true,
+        "**/node_modules": true,
+        "**/Thumbs.db": true,
+    },
+    "java.compile.nullAnalysis.mode": "automatic",
+    "explorer.fileNesting.patterns": {
+        "compose.yaml": "compose.*.yaml",
+    }
+}

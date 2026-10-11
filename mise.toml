@@ -1,0 +1,36 @@
+[tools]
+node = "24"
+java = "temurin-21"
+
+[tasks.install]
+description = "Install frontend npm dependencies"
+dir = "{{config_root}}/frontend"
+run = "npm install"
+
+[tasks."dev:db"]
+description = "Start the Postgres DB and wait until it is healthy"
+run = "docker compose up -d --wait"
+
+[tasks."dev:backend"]
+description = "Start the backend"
+dir = "{{config_root}}/backend"
+run = "./mvnw spring-boot:run"
+depends = ["dev:db"]
+
+[tasks."dev:frontend"]
+description = "Start the frontend dev server"
+dir = "{{config_root}}/frontend"
+run = "npm run dev"
+
+[tasks.dev]
+description = "Start DB, backend and frontend"
+depends = ["dev:backend", "dev:frontend"]
+
+[tasks.ts-gen]
+description = "Generate TS interfaces from *UiDTO backend classes"
+dir = "{{config_root}}/backend"
+run = "./mvnw compile typescript-generator:generate"
+
+[tasks.docs]
+description = "Serve the mkdocs docs pages"
+run = "uv run mkdocs serve"

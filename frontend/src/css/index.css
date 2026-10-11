@@ -1,0 +1,17 @@
+/* Minimal global reset. Colors, spacing and sizes come from
+   src/theme/tokens.ts and are applied at the component/layout level —
+   not by global class overrides. */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+}
+
+#root {
+    min-height: 100vh;
+}
