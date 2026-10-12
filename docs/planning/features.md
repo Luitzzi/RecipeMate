@@ -9,7 +9,7 @@ Each feature page links to its epic issue, and each epic links back to its page.
 
 | Feature | Release | Priority | Spec | Epic |
 |---|---|---|---|---|
-| Recipe management | MVP | Must | [Recipe management](/planning/epic-description/recipe-management/) | [Epic](https://github.com/Luitzzi/RecipeMate/issues/2) |
+| Recipe management | MVP | Must | [Recipe management](epic-description/recipe-management/) | [Epic](https://github.com/Luitzzi/RecipeMate/issues/2) |
 | Cooking mode | MVP | Must | [Cooking mode]() | [Epic](https://github.com/Luitzzi/RecipeMate/issues/3) |
 | AI recipe assistance (import + chatbot) | V1 | Should | [AI recipe assistance]() | [Epic](https://github.com/Luitzzi/RecipeMate/issues/1) |
 | Meal planning & shopping list | V1 | Should | [Meal planning]() | #TODO |
@@ -57,12 +57,12 @@ flowchart LR
 
 | Page | Description | Ui-Draft | Target device |
 | --- | --- | --- | --- |
-| **Recipe creation** | User can create a recipe. | <img src="/images/ui-drafts/recipe-creation-uidraft.png" width="150"> | Laptop / Mobile   |
-| **Recipe List** | Search and Filterable overview over the user's own and subscribed recipes. Focus is on overview over recipes.| <img src="/images/ui-drafts/recipe-overview-uidraft.png" width="600"> | Mobile |
-| **Recipe Feed** | Search and Filterable overview over all recipes. Focus is on discovering new recipes fitting to the user's preferences | <img src="/images/ui-drafts/recipe-feed-uidraft.png" width="600"> | Mobile |
-| **Cooking Mode** | User can cook a recipe following a controlled structure. Checkboxes for ingredients/steps. | <img src="/images/ui-drafts/recipe-cooking-uidraft.png" width="150"> | Mobile / Tablet|
-| **Meal Prepping** | User can add recipes to the days of the week. He can select the days he want to go shopping -> A shopping list is generated | <img src="/images/ui-drafts/meal-prepping-uidraft.png" width="150"> | Mobile / Laptop |
-| **Shopping List** | Ingredients can be added directly from an recipe, or from the meal prepping page. The user can add free-text non ingredients (exp. Spühli...) too. | <img src="/images/ui-drafts/shopping-list-uidraft.png" width="150"> | Mobile |
+| **Recipe creation** | User can create a recipe. | <img src="../images/ui-drafts/recipe-creation-uidraft.png" width="150"> | Laptop / Mobile   |
+| **Recipe List** | Search and Filterable overview over the user's own and subscribed recipes. Focus is on overview over recipes.| <img src="../images/ui-drafts/recipe-overview-uidraft.png" width="600"> | Mobile |
+| **Recipe Feed** | Search and Filterable overview over all recipes. Focus is on discovering new recipes fitting to the user's preferences | <img src="../images/ui-drafts/recipe-feed-uidraft.png" width="600"> | Mobile |
+| **Cooking Mode** | User can cook a recipe following a controlled structure. Checkboxes for ingredients/steps. | <img src="../images/ui-drafts/recipe-cooking-uidraft.png" width="150"> | Mobile / Tablet|
+| **Meal Prepping** | User can add recipes to the days of the week. He can select the days he want to go shopping -> A shopping list is generated | <img src="../images/ui-drafts/meal-prepping-uidraft.png" width="150"> | Mobile / Laptop |
+| **Shopping List** | Ingredients can be added directly from an recipe, or from the meal prepping page. The user can add free-text non ingredients (exp. Spühli...) too. | <img src="../images/ui-drafts/shopping-list-uidraft.png" width="150"> | Mobile |
 
 
 ## Requirements
