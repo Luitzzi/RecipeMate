@@ -25,15 +25,15 @@ The user can add ingredients directly from a recipe to the shopping list
 
 - **Recipe creation:**
 
-<img src="../images/ui-drafts/recipe-creation-uidraft.png" width="200"> 
+<img src="../../images/ui-drafts/recipe-creation-uidraft.png" width="200"> 
 
 - **Recipe List**
 
-<img src="../images/ui-drafts/recipe-overview-uidraft.png" width="600">
+<img src="../../images/ui-drafts/recipe-overview-uidraft.png" width="600">
 
 - **Shopping List**
 
-<img src="../images/ui-drafts/shopping-list-uidraft.png" width="150">
+<img src="../../images/ui-drafts/shopping-list-uidraft.png" width="150">
 
 ## User stories
 
