@@ -1,4 +1,4 @@
-# Recipe management
+# Epic template
 
 **Release:** TODO · **Priority:** TODO · [**Epic**]()
 
