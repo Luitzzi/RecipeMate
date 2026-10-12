@@ -3,9 +3,7 @@
 ## Planning
 
 - [Features](planning/features.md)
-- [Requirements](planning/requirements/requirements-overview.md)
 - [Data model](planning/data-model.md)
-- Epics: [Recipe management](planning/epic-description/recipe-management.md)
 
 ## Conventions
 
