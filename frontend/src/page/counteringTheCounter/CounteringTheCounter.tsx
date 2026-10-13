@@ -30,8 +30,9 @@ export const CounteringTheCounter = () => {
   useEffectOnce(() => {
     notify.success({
       title: "Success",
-      description: "jgle",
+      description: "Example success",
     });
+
     notify.info({
       title: "Rezeptgenerierung vollendet",
       description: (
@@ -46,10 +47,12 @@ export const CounteringTheCounter = () => {
       ),
       duration: false,
     });
+
     notify.warn({
       title: "Warn",
       description: "Example warn",
     });
+
     notify.error({
       title: "Error",
       description: "Example error",
