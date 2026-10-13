@@ -1,4 +1,4 @@
-import { Button, Flex, Result, Spin } from "antd";
+import { Button, Flex, Spin, Typography } from "antd";
 
 import { tokens } from "#/theme/tokens.ts";
 import { SectionHeader } from "#/common/components/SectionHeader.tsx";
@@ -30,11 +30,21 @@ export const CounteringTheCounter = () => {
   useEffectOnce(() => {
     notify.success({
       title: "Success",
-      description: "Example success",
+      description: "jgle",
     });
     notify.info({
-      title: "Info",
-      description: "Example info",
+      title: "Rezeptgenerierung vollendet",
+      description: (
+        <>
+          Das Rezept ist nun unter dem{" "}
+          <Typography.Link href={"https://www.chefkoch.de/"}>
+            {" "}
+            Link{" "}
+          </Typography.Link>{" "}
+          erreichbar.
+        </>
+      ),
+      duration: false,
     });
     notify.warn({
       title: "Warn",
