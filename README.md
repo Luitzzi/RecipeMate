@@ -7,6 +7,8 @@ install -m 0600 .env.example .env
 sed -i "s/^POSTGRES_PASSWORD=.*/POSTGRES_PASSWORD=$(openssl rand -hex 16)/" .env
 ```
 
+Get an Anthropic API key and paste it after `ANTHROPIC_API_KEY=` in `.env`.
+
 ## Production
 
 Requires only **Docker & Docker Compose v2**.
