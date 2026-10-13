@@ -5,13 +5,12 @@ import {
   InfoCircleTwoTone,
   WarningTwoTone,
 } from "@ant-design/icons";
-import type { ArgsProps } from "antd/lib/notification";
 import { tokens } from "#/theme/tokens.ts";
+import type { ArgsProps } from "antd/es/notification";
 
-export type NotificationProps = {
+export type NotificationProps = Omit<ArgsProps, "type"> & {
   title: ReactNode;
   description?: ReactNode;
-  props?: ArgsProps;
 };
 
 const commonProps = {
@@ -23,40 +22,32 @@ const commonProps = {
 export const useNotification = () => {
   const { notification } = App.useApp();
 
-  const success = ({ title, description, props }: NotificationProps) => {
+  const success = (props: NotificationProps) => {
     notification.success({
-      title,
-      description,
       ...commonProps,
       icon: <CheckCircleTwoTone twoToneColor={tokens.color.success} />,
       ...props,
     });
   };
 
-  const info = ({ title, description, props }: NotificationProps) => {
+  const info = (props: NotificationProps) => {
     notification.info({
-      title,
-      description,
       ...commonProps,
       icon: <InfoCircleTwoTone twoToneColor={tokens.color.info} />,
       ...props,
     });
   };
 
-  const warn = ({ title, description, props }: NotificationProps) => {
+  const warn = (props: NotificationProps) => {
     notification.info({
-      title,
-      description,
       ...commonProps,
       icon: <WarningTwoTone twoToneColor={tokens.color.warning} />,
       ...props,
     });
   };
 
-  const error = ({ title, description, props }: NotificationProps) => {
+  const error = (props: NotificationProps) => {
     notification.error({
-      title,
-      description,
       ...commonProps,
       icon: <WarningTwoTone twoToneColor={tokens.color.error} />,
       ...props,
