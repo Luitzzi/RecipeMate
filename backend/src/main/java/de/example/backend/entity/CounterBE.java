@@ -20,6 +20,10 @@ import java.util.UUID;
 public class CounterBE {
     public static final String tableName = "example";
 
+    public CounterBE(int count) {
+        this.count = count;
+    }
+
     @Id
     @GeneratedValue
     @EqualsAndHashCode.Include
