@@ -14,5 +14,6 @@
     "java.compile.nullAnalysis.mode": "automatic",
     "explorer.fileNesting.patterns": {
         "compose.yaml": "compose.*.yaml",
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

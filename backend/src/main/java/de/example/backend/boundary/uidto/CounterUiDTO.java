@@ -1,6 +1,5 @@
 package de.example.backend.boundary.uidto;
 
-import jakarta.annotation.Nullable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,10 +9,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ExampleUiDTO {
+public class CounterUiDTO {
 
-    @Nullable
     private UUID id;
 
-    private int counter;
+    private int count;
 }
