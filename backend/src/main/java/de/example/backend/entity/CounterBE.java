@@ -12,12 +12,12 @@ import lombok.Setter;
 import java.util.UUID;
 
 @Entity
-@Table(name = ExampleBE.tableName)
+@Table(name = CounterBE.tableName)
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class ExampleBE {
+public class CounterBE {
     public static final String tableName = "example";
 
     @Id

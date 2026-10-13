@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>4.1.1</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <groupId>de.example</groupId>
     <artifactId>backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>backend</name>
     <description>backend</description>
-    <url/>
+    <url />
     <licenses>
-        <license/>
+        <license />
     </licenses>
     <developers>
-        <developer/>
+        <developer />
     </developers>
     <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
+        <connection />
+        <developerConnection />
+        <tag />
+        <url />
     </scm>
 
     <properties>
@@ -43,6 +44,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -143,23 +148,32 @@
                 <groupId>cz.habarta.typescript-generator</groupId>
                 <artifactId>typescript-generator-maven-plugin</artifactId>
                 <version>3.2.1263</version>
+
                 <executions>
                     <execution>
-                        <id>generate-ui-dtos</id>
+                        <id>generate-ui-api</id>
                         <phase>process-classes</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                     </execution>
                 </executions>
+
                 <configuration>
-                    <jsonLibrary>jackson2</jsonLibrary>
-                    <classPatterns>
-                        <classPattern>${groupId}.backend.**.*UiDTO</classPattern>
-                    </classPatterns>
+                    <!-- Output -->
                     <outputKind>module</outputKind>
                     <outputFileType>implementationFile</outputFileType>
                     <outputFile>${project.basedir}/../frontend/src/generated/interface-api.ts</outputFile>
+                    <noFileComment>true</noFileComment>
+
+                    <!-- Input: DTOs + REST controllers -->
+                    <jsonLibrary>jackson2</jsonLibrary>
+                    <classPatterns>
+                        <classPattern>${groupId}.backend.**.*UiDTO</classPattern>
+                        <classPattern>${groupId}.backend.**.*Controller</classPattern>
+                    </classPatterns>
+
+                    <!-- Type mapping -->
                     <mapEnum>asUnion</mapEnum>
                     <mapDate>asString</mapDate>
                     <customTypeMappings>
@@ -169,8 +183,20 @@
                     <optionalAnnotations>
                         <annotation>jakarta.annotation.Nullable</annotation>
                     </optionalAnnotations>
-                    <noFileComment>true</noFileComment>
+
+                    <!-- API client -->
+                    <generateSpringApplicationClient>true</generateSpringApplicationClient>
+                    <restNamespacing>perResource</restNamespacing>
+                    <restOptionsType>RequestInit</restOptionsType>
                 </configuration>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>cz.habarta.typescript-generator</groupId>
+                        <artifactId>typescript-generator-spring</artifactId>
+                        <version>3.2.1263</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
