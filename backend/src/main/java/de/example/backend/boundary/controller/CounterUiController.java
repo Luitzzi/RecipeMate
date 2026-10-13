@@ -55,7 +55,7 @@ public class CounterUiController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("{id}")
+    @PutMapping("{id}")
     @Operation(summary = "Set counter")
     @ApiResponse(responseCode = "404", description = "Counter not found")
     public ResponseEntity<CounterUiDTO> set(@PathVariable UUID id,
