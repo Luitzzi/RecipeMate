@@ -33,27 +33,19 @@ export class CounterUiControllerClient {
     }
 
     /**
+     * HTTP PUT /api/counter
+     * Java method: de.example.backend.boundary.controller.CounterUiController.update
+     */
+    update(counterUiDTO: CounterUiDTO, options?: RequestInit): RestResponse<CounterUiDTO> {
+        return this.httpClient.request({ method: "PUT", url: uriEncoding`api/counter`, data: counterUiDTO, options: options });
+    }
+
+    /**
      * HTTP GET /api/counter/{id}
      * Java method: de.example.backend.boundary.controller.CounterUiController.getById
      */
     getById(id: string, options?: RequestInit): RestResponse<CounterUiDTO> {
         return this.httpClient.request({ method: "GET", url: uriEncoding`api/counter/${id}`, options: options });
-    }
-
-    /**
-     * HTTP PUT /api/counter/{id}
-     * Java method: de.example.backend.boundary.controller.CounterUiController.set
-     */
-    set(id: string, counterSetUiDTO: CounterSetUiDTO, options?: RequestInit): RestResponse<CounterUiDTO> {
-        return this.httpClient.request({ method: "PUT", url: uriEncoding`api/counter/${id}`, data: counterSetUiDTO, options: options });
-    }
-
-    /**
-     * HTTP POST /api/counter/{id}/increment
-     * Java method: de.example.backend.boundary.controller.CounterUiController.increment
-     */
-    increment(id: string, counterIncrementUiDTO: CounterIncrementUiDTO, options?: RequestInit): RestResponse<CounterUiDTO> {
-        return this.httpClient.request({ method: "POST", url: uriEncoding`api/counter/${id}/increment`, data: counterIncrementUiDTO, options: options });
     }
 }
 

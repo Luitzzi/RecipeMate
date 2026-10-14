@@ -1,18 +1,20 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import { RootLayout } from "./page/layout/RootLayout.tsx";
-import {DocsPage} from "./page/docs/DocsPage.tsx";
-import {ComponentsDocsPage} from "./page/docs/ComponentsDocsPage.tsx";
-import {CounterPage} from "./page/counter/CounterPage.tsx";
+import { DocsPage } from "./page/docs/DocsPage.tsx";
+import { ComponentsDocsPage } from "./page/docs/ComponentsDocsPage.tsx";
+import { CounteringTheCounter } from "#/page/counteringTheCounter/CounteringTheCounter.tsx";
+import { TestPage } from "#/page/test/TestPage.tsx";
 export const AllRoutes = () => {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route element={<RootLayout />}>
-                    <Route path={"/"} element={<CounterPage />} />
-                    <Route path={"/docs"} element={<DocsPage />} />
-                    <Route path={"/docs/components"} element={<ComponentsDocsPage />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<RootLayout />}>
+          <Route path={"/"} element={<CounteringTheCounter />} />
+          <Route path={"/test"} element={<TestPage />} />
+          <Route path={"/docs"} element={<DocsPage />} />
+          <Route path={"/docs/components"} element={<ComponentsDocsPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 };

@@ -5,8 +5,12 @@ import de.example.backend.entity.CounterBE;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface CounterMapper {
+public abstract class CounterMapper implements AbstractMapper<CounterBE, CounterUiDTO> {
 
-    CounterUiDTO toDTO(CounterBE counter);
+    @Override
+    public abstract CounterUiDTO toDTO(CounterBE counter);
+
+    @Override
+    public abstract CounterBE toBE(CounterUiDTO counter);
 
 }
