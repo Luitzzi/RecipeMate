@@ -19,7 +19,7 @@ Each feature page links to its epic issue, and each epic links back to its page.
 | Page: Profile Page             | -       | Must     | -                        | -                                                      |
 | AI recipe assistance - Chatbot | -       | Must     | [AI recipe assistance]() | [Epic](https://github.com/Luitzzi/RecipeMate/issues/1) |
 | AI recipe assistance - Plugins | -       | Should   | [AI recipe assistance]() | [Epic](https://github.com/Luitzzi/RecipeMate/issues/1) |
-| Sharing, groups & feed         | V2      | Could    | -                        | -                                                      |
+| Sharing, groups & feed         | -       | Could    | -                        | -                                                      |
 
 ## Release plan
 
