@@ -1,6 +1,8 @@
 package de.example.backend.service;
 
 import de.example.backend.boundary.uidto.CounterUiDTO;
+import de.example.backend.boundary.uidto.CounterIncrementUiDTO;
+import de.example.backend.boundary.uidto.CounterSetUiDTO;
 import de.example.backend.entity.CounterBE;
 import de.example.backend.repository.CounterRepository;
 import de.example.backend.service.mapper.CounterMapper;

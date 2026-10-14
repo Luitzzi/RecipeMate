@@ -39,6 +39,7 @@ public class CounterUiController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create counter starting at 0")
     public ResponseEntity<CounterUiDTO> create() {
         CounterUiDTO created = counterBA.create();

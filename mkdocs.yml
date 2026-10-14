@@ -1,7 +1,7 @@
-site_name: Software Engineering Template
-site_url: https://TODO
-repo_url: https://TODO
-repo_name: TODO
+site_name: RecipeMate
+site_url: https://luis-gerlinger/RecipeMate
+repo_url: https://github.com/Luitzzi/RecipeMate/
+repo_name: RecipeMate
 edit_uri: edit/main/docs/
 
 theme:

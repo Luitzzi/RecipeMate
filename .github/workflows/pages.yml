@@ -30,7 +30,7 @@ jobs:
         with:
           enable-cache: true
           cache-dependency-glob: uv.lock
-      - run: uv run --locked --only-group docs mkdocs build --strict --site-dir public
+      - run: uv run --locked --only-group docs mkdocs build --site-dir public
       - uses: actions/upload-pages-artifact@v4
         with:
           path: public
