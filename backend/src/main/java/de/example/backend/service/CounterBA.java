@@ -1,9 +1,11 @@
 package de.example.backend.service;
 
+import de.example.backend.boundary.uidto.CounterUiDTO;
 import de.example.backend.boundary.uidto.CounterIncrementUiDTO;
 import de.example.backend.boundary.uidto.CounterSetUiDTO;
 import de.example.backend.entity.CounterBE;
 import de.example.backend.repository.CounterRepository;
+import de.example.backend.service.mapper.CounterMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,33 +17,32 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CounterBA {
 
+    private static final int INITIAL_COUNTER = 0;
     private final CounterRepository counterRepository;
+    private final CounterMapper counterMapper;
 
+    // @Transactional is only necessary when multiple writes are performed.
+    // Then everything is done in one transaction.
+    // If it is only one write it isn't directly necessary but is also not a problem. Better to have it then forget it
     @Transactional(readOnly = true)
-    public Optional<CounterBE> getById(UUID id) {
-        return counterRepository.findById(id);
-    }
-
-    @Transactional
-    public CounterBE create() {
-        return counterRepository.save(new CounterBE());
-    }
-
-    @Transactional
-    public Optional<CounterBE> increment(UUID id, CounterIncrementUiDTO counterIncrementUiDTO) {
+    public Optional<CounterUiDTO> getById(UUID id) {
         return counterRepository.findById(id)
-                .map(counter -> {
-                    counter.setCount(counter.getCount() + counterIncrementUiDTO.getIncrement());
-                    return counter;
-                });
+                .map(counterMapper::toDTO);
     }
 
-    @Transactional
-    public Optional<CounterBE> set(UUID id, CounterSetUiDTO counterSetUiDTO) {
-        return counterRepository.findById(id)
-                .map(counter -> {
-                    counter.setCount(counterSetUiDTO.getCount());
-                    return counter;
-                });
+    public CounterUiDTO create() {
+        CounterBE initialCounter = new CounterBE(INITIAL_COUNTER);
+        // Use persist instead of save
+        // save checks if BE has an id if true calls merge and updates the BE
+        // On create this must be avoided else the FE can update arbitrary BEs just by using its id
+        // If an id is set on persist it throws an error
+        CounterBE created = counterRepository.persist(initialCounter);
+        return counterMapper.toDTO(created);
+    }
+
+    public CounterUiDTO update(CounterUiDTO counterUiDTO) {
+        CounterBE updated = counterRepository.save(
+                counterMapper.toBE(counterUiDTO));
+        return counterMapper.toDTO(updated);
     }
 }

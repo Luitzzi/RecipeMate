@@ -9,7 +9,9 @@ import {
   TokenLabel,
 } from "./DocsLayout.tsx";
 import { blockStyle, panelStyle } from "./docsStyles.ts";
-import {SectionHeader} from "../../common/components/SectionHeader.tsx";
+import { SectionHeader } from "../../common/components/SectionHeader.tsx";
+import { useEffectOnce } from "#/common/hooks/useEffectOnce.ts";
+import { useNotification } from "#/common/hooks/useNotification.tsx";
 
 /**
  * Living reference for docs/design-tokens.md: every example is rendered
@@ -536,32 +538,69 @@ const ShapeSection = () => (
   </Section>
 );
 
-export const DocsPage = () => (
-  <Flex vertical style={{ paddingBottom: tokens.padding.large }}>
-    <SectionHeader
-      title="Design Tokens"
-      extra={<DocsNav />}
-      description="Living reference for docs/design-tokens.md. Every example reads its values from src/theme/tokens.ts."
-    />
+export const DocsPage = () => {
+  const notify = useNotification();
 
-    <Flex vertical gap={tokens.gap.small}>
-      <Typography.Text strong>Principles</Typography.Text>
-      <ol style={{ margin: 0, paddingInlineStart: tokens.padding.large }}>
-        <li>
-          One source: every visual value comes from tokens; hex values only for
-          one-off problems.
-        </li>
-        <li>No antd tokens (theme.useToken, --ant-*) in components.</li>
-        <li>Three sizes: small / medium / large.</li>
-        <li>Role over value: pick a token by its purpose.</li>
-        <li>4 px grid for all spacing.</li>
-      </ol>
+  // Display all errors
+  useEffectOnce(() => {
+    notify.success({
+      title: "Success",
+      description: "jgle",
+    });
+
+    notify.info({
+      title: "Rezeptgenerierung vollendet",
+      description: (
+        <>
+          Das Rezept ist nun unter dem{" "}
+          <Typography.Link href={"https://www.chefkoch.de/"}>
+            {" "}
+            Link{" "}
+          </Typography.Link>{" "}
+          erreichbar.
+        </>
+      ),
+      duration: false,
+    });
+
+    notify.warn({
+      title: "Warn",
+      description: "Example warn",
+    });
+
+    notify.error({
+      title: "Error",
+      description: "Example error",
+    });
+  });
+
+  return (
+    <Flex vertical style={{ paddingBottom: tokens.padding.large }}>
+      <SectionHeader
+        title="Design Tokens"
+        extra={<DocsNav />}
+        description="Living reference for docs/design-tokens.md. Every example reads its values from src/theme/tokens.ts."
+      />
+
+      <Flex vertical gap={tokens.gap.small}>
+        <Typography.Text strong>Principles</Typography.Text>
+        <ol style={{ margin: 0, paddingInlineStart: tokens.padding.large }}>
+          <li>
+            One source: every visual value comes from tokens; hex values only
+            for one-off problems.
+          </li>
+          <li>No antd tokens (theme.useToken, --ant-*) in components.</li>
+          <li>Three sizes: small / medium / large.</li>
+          <li>Role over value: pick a token by its purpose.</li>
+          <li>4 px grid for all spacing.</li>
+        </ol>
+      </Flex>
+
+      <SpacingSection />
+      <LayoutSection />
+      <ColorSection />
+      <TypographySection />
+      <ShapeSection />
     </Flex>
-
-    <SpacingSection />
-    <LayoutSection />
-    <ColorSection />
-    <TypographySection />
-    <ShapeSection />
-  </Flex>
-);
+  );
+};
