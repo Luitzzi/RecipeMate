@@ -7,19 +7,19 @@ Each feature page links to its epic issue, and each epic links back to its page.
 
 ## Feature Overview
 
-| Feature                        | Release | Priority | Spec                                                      | Epic |
-|--------------------------------|---------|----------|-----------------------------------------------------------|------|
-| Page: Rezepte Erstellung       | MVP     | Must     | -                                                         | -    |
-| Page: Meine Rezepte            | MVP     | Must     | -                                                         | -    |
-| Page: Rezepte Übersicht        | MVP     | Must     | -                                                         | -    |
-| Page: Rezepte Zubereitung      | MVP     | Must     | -                                                         | -    |
-| Page: Rezepte Feed             | -       | Must     | -                                                         | -    |
-| Page: Meal prepping            | -       | Should   | -                                                         | -    |
-| Page: Shopping Liste           | -       | Should   | -                                                         | -    |
-| Page: Profile Page             | -       | Must     | -                                                         | -    |
-| AI recipe assistance - Chatbot | -       | Must     | [AI recipe assistance](../epic-description/ai-assistance) | -    |
-| AI recipe assistance - Plugins | -       | Should   | [AI recipe assistance](../epic-description/ai-assistance) | -)   |
-| Sharing, groups & feed         | -       | Could    | -                                                         | -    |
+| Feature                        | Release | Priority | Spec                                                | Epic                                                      |
+|--------------------------------|---------|----------|-----------------------------------------------------|-----------------------------------------------------------|
+| Page: Rezepte Erstellung       | MVP     | Must     | [Rezepte Erstellung](../epic-specs/recipe-creation) | [GitHub](https://github.com/Luitzzi/RecipeMate/issues/11) |
+| Page: Meine Rezepte            | MVP     | Must     | -                                                   | -                                                         |
+| Page: Rezepte Übersicht        | MVP     | Must     | -                                                   | -                                                         |
+| Page: Rezepte Zubereitung      | MVP     | Must     | -                                                   | -                                                         |
+| Page: Rezepte Feed             | -       | Must     | -                                                   | -                                                         |
+| Page: Meal prepping            | -       | Should   | -                                                   | -                                                         |
+| Page: Shopping Liste           | -       | Should   | -                                                   | -                                                         |
+| Page: Profile Page             | -       | Must     | -                                                   | -                                                         |
+| AI recipe assistance - Chatbot | -       | Must     | [AI recipe assistance](../epic-specs/ai-assistance) | -                                                         |
+| AI recipe assistance - Plugins | -       | Should   | [AI recipe assistance](../epic-specs/ai-assistance) | -                                                         |
+| Sharing, groups & feed         | -       | Could    | -                                                   | -                                                         |
 
 ## Release plan
 

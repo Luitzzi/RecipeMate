@@ -25,3 +25,7 @@ From there product can be evaluated and the next steps planned accordingly.
   → Transform the domain model into a db schema
 
     - How do we want save ingredients? Freetext / standing data
+
+  → Both: There is a set with standing data, providing suggestions, however, if the ingredient is not in the set the
+  user can add it.
+  Then the ingredient is just saved for the recipe.
