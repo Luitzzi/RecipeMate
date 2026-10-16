@@ -1,12 +1,5 @@
 import type { SelectOption } from "#/common/components/input/SelectOption.ts";
-import {
-  Button,
-  Divider,
-  type RefSelectProps,
-  Select,
-  type SelectProps,
-} from "antd";
-import { tokens } from "#/theme/tokens.ts";
+import { Button, type RefSelectProps, Select, type SelectProps } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useRef, useState } from "react";
 
@@ -52,6 +45,17 @@ export const AddableSelect = <ValueT extends string | number>({
       }}
       open={open}
       onOpenChange={setOpen}
+      notFoundContent={
+        <Button
+          type="text"
+          disabled={!canCreate}
+          block
+          icon={<PlusOutlined />}
+          onClick={create}
+        >
+          Add "{newName}"
+        </Button>
+      }
       showSearch={{
         searchValue: search,
         onSearch: setSearch,
@@ -72,30 +76,6 @@ export const AddableSelect = <ValueT extends string | number>({
         selectProps.onInputKeyDown?.(event);
       }}
       style={{ width: "100%" }}
-      popupRender={(menu) => (
-        <>
-          {menu}
-          {
-            <>
-              <Divider
-                style={{
-                  marginTop: tokens.margin.small,
-                  marginBottom: tokens.margin.small,
-                }}
-              />
-              <Button
-                type="text"
-                disabled={!canCreate}
-                block
-                icon={<PlusOutlined />}
-                onClick={create}
-              >
-                Create "{newName}"
-              </Button>
-            </>
-          }
-        </>
-      )}
     />
   );
 };
