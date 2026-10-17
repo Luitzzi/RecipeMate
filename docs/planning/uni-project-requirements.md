@@ -18,7 +18,7 @@ Overview of the required features for the uni project.
 | 1. Anthropic API (via Spring AI) | LLM for all AI features                   | Johannes |
 | 2. Resend                        | E-mail sending API                        |          |
 | 3. Zitadel Cloud                 | Authentication (OAuth 2.0 / OIDC) and MFA | Luis     |
-| 4. Cloudflare R2                 | Object storage for recipe images          |          |
+| 4. Cloudflare R2 (has 10GB free) | Object storage for recipe images          |          |
 
 ## 4x Communication
 
