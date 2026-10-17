@@ -37,6 +37,7 @@ Here are all links to the project's documentation.
 
 - [Features](planning/features.md)
 - [Data model](planning/data-model.md)
+- [Uni project requirements](planning/uni-project-requirements.md)
 
 ### Conventions
 
