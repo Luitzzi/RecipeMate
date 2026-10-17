@@ -22,9 +22,13 @@ Overview of the required features for the uni project.
 
 ## 4x Communication
 
-| # | Communication | Description |
-|---|---------------|-------------|
-| 1 | TBD           |             |
-| 2 | TBD           |             |
-| 3 | TBD           |             |
-| 4 | TBD           |             |
+> [!note] suggestions
+
+Channel: E-Mail
+
+| #   | Communication                  | Description                                                                                                                   |
+| --- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| 1   | E-mail confirmation & MFA      | Confirmation mail after registration and one-time codes for multi-factor authentication. (split into two separate use cases?) |
+| 2   | Recipe conversion notification | Notifies the user when a recipe conversion (see AI feature #4) has finished                                                   |
+| 3   | Newsletter                     | Weekly "Check out these recipes" mail with new and best-rated recipes. Users subscribe/unsubscribe in the user settings       |
+| 4   | TBD                            |                                                                                                                               |
