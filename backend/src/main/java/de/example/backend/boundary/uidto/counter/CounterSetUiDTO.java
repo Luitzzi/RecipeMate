@@ -1,4 +1,4 @@
-package de.example.backend.boundary.uidto;
+package de.example.backend.boundary.uidto.counter;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

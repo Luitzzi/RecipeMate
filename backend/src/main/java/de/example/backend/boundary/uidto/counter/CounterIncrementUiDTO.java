@@ -1,4 +1,4 @@
-package de.example.backend.boundary.uidto;
+package de.example.backend.boundary.uidto.counter;
 
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;

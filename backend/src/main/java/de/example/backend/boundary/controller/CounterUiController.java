@@ -1,6 +1,6 @@
 package de.example.backend.boundary.controller;
 
-import de.example.backend.boundary.uidto.CounterUiDTO;
+import de.example.backend.boundary.uidto.counter.CounterUiDTO;
 import de.example.backend.service.CounterBA;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
