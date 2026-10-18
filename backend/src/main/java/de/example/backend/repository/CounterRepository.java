@@ -1,7 +1,6 @@
 package de.example.backend.repository;
 
 import de.example.backend.entity.CounterBE;
-import jakarta.persistence.PersistenceContext;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

@@ -1,15 +1,10 @@
 package de.example.backend.boundary.controller;
 
-import de.example.backend.boundary.uidto.CounterIncrementUiDTO;
-import de.example.backend.boundary.uidto.CounterSetUiDTO;
 import de.example.backend.boundary.uidto.CounterUiDTO;
 import de.example.backend.service.CounterBA;
-import de.example.backend.service.mapper.CounterMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -27,7 +22,6 @@ import java.util.UUID;
 public class CounterUiController {
 
     private final CounterBA counterBA;
-    private final CounterMapper counterMapper;
 
     @GetMapping("/{id}")
     @Operation(summary = "Get counter")
