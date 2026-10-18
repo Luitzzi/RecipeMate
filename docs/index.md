@@ -35,14 +35,23 @@ Here are all links to the project's documentation.
 
 ### Planning
 
-- [Features](planning/features.md)
-- [Data model](planning/data-model.md)
-- [Uni project requirements](planning/uni-project-requirements.md)
+The project is for the module "Software Entwicklung" at university.
+
+- [Project specific requirements](planning/uni-project-requirements) given from the professor
+
+- [Project specifications](planning/project-specifications) containing the overview over the epics and releases
+
+- [Data model](planning/data-model)
+
+- [UI plans](planning/ui-planning)
 
 ### Conventions
 
 - [Git usage](conventions/git-usage.md)
-- [AI agent usage](conventions/ai-agent-usage.md)
--
-Backend: [Techstack](conventions/backend/techstack.md) · [BCE pattern and data flow](<conventions/backend/BCE-Pattern und Data Flow.md>)
-- Frontend: [API usage](conventions/frontend/api-usage.md) · [Design system](conventions/frontend/design-system.md)
+
+- [AI agent usage](conventions/ai-agent-usage)
+
+- Backend:
+  [Techstack](conventions/backend/techstack) · [BCE pattern and data flow](conventions/backend/bce-pattern-and-data-flow)
+
+- Frontend: [API usage](conventions/frontend/api-usage) · [Design system](conventions/frontend/design-system)
