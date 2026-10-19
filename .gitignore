@@ -16,3 +16,4 @@ compose.override.yaml
 
 # Tooling
 .playwright-mcp/
+.idea
