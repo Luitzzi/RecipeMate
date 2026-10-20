@@ -1,6 +1,7 @@
 package de.example.backend.entity.recipe;
 
-import de.example.backend.entity.IngredientBE;
+import de.example.backend.entity.ingredient.IngredientBE;
+import de.example.backend.entity.Language;
 import de.example.backend.entity.Unit;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
@@ -10,7 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.Locale;
 
 @Entity
 @Table(name = RecipeIngredientBE.tableName)
@@ -25,6 +25,7 @@ public class RecipeIngredientBE {
     private Long id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "recipe_id")
     private RecipeBE recipe;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -52,7 +53,7 @@ public class RecipeIngredientBE {
         return isStandingDataIngredient || isCreatedIngredient;
     }
 
-    public String getIngredientName(Locale locale) {
-        return ingredient != null ? ingredient.getName(locale) : customName;
+    public String getIngredientName(Language language) {
+        return ingredient != null ? ingredient.getName(language) : customName;
     }
 }
