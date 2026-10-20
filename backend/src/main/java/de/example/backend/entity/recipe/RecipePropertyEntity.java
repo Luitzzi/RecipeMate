@@ -1,10 +1,16 @@
 package de.example.backend.entity.recipe;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = RecipePropertyBE.tableName)
-public class RecipePropertyBE {
+@Table(name = RecipePropertyEntity.tableName)
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class RecipePropertyEntity {
     public static final String tableName = "recipe_properties";
 
     @Id

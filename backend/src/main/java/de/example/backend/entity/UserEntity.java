@@ -1,6 +1,6 @@
 package de.example.backend.entity;
 
-import de.example.backend.entity.ingredient.IngredientBE;
+import de.example.backend.entity.ingredient.IngredientEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,11 +11,11 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = UserBE.tableName)
+@Table(name = UserEntity.tableName)
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserBE {
+public class UserEntity {
     public static final String tableName = "users";
 
     @Id
@@ -23,6 +23,6 @@ public class UserBE {
     private UUID id;
 
     @OneToMany(mappedBy = "createdBy")
-    Set<IngredientBE> ingredients = new HashSet<>();
+    Set<IngredientEntity> ingredients = new HashSet<>();
 
 }

@@ -1,6 +1,6 @@
 package de.example.backend.entity.recipe.recipe_step_methods;
 
-import de.example.backend.entity.recipe.RecipeStepBE;
+import de.example.backend.entity.recipe.RecipeStepEntity;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @DiscriminatorValue("PREPARE")
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // Required by Hibernate
-public class PrepareStepBE extends RecipeStepBE {
+public class PrepareStepEntity extends RecipeStepEntity {
 
-    public PrepareStepBE(String description, Integer position) {
+    public PrepareStepEntity(String description, Integer position) {
         super(description, position);
     }
 

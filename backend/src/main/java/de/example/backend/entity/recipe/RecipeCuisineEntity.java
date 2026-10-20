@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = RecipeCuisineBE.tableName)
+@Table(name = RecipeCuisineEntity.tableName)
 @Getter
 @Setter
-public class RecipeCuisineBE {
+public class RecipeCuisineEntity {
     public static final String tableName = "recipe_cuisines";
 
     @Id

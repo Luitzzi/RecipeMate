@@ -1,6 +1,6 @@
 package de.example.backend.entity.recipe.recipe_step_methods;
 
-import de.example.backend.entity.recipe.RecipeStepBE;
+import de.example.backend.entity.recipe.RecipeStepEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Max;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // Required by Hibernate
-public class OvenStepBE extends RecipeStepBE {
+public class OvenStepEntity extends RecipeStepEntity {
 
     @Min(30)
     @Max(300)
@@ -36,7 +36,7 @@ public class OvenStepBE extends RecipeStepBE {
 
     private Boolean preheat;
 
-    public OvenStepBE(
+    public OvenStepEntity(
             String description, Integer position,
             int temperatureC, OvenMode ovenMode,
             int durationSeconds, boolean preheat

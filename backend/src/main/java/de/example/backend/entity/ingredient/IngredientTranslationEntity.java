@@ -7,11 +7,11 @@ import lombok.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = IngredientTranslationBE.tableName)
+@Table(name = IngredientTranslationEntity.tableName)
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class IngredientTranslationBE {
+public class IngredientTranslationEntity {
     public static final String tableName = "ingredient_translations";
 
     @Getter
@@ -30,7 +30,7 @@ public class IngredientTranslationBE {
     @ManyToOne(optional = false)
     @JoinColumn(name = "ingredient_id", nullable = false)
     @MapsId("ingredientId")
-    private IngredientBE ingredient;
+    private IngredientEntity ingredient;
 
     @Setter
     @Column(nullable = false)

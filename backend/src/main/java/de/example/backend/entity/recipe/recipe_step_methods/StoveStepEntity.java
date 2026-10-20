@@ -1,6 +1,6 @@
 package de.example.backend.entity.recipe.recipe_step_methods;
 
-import de.example.backend.entity.recipe.RecipeStepBE;
+import de.example.backend.entity.recipe.RecipeStepEntity;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // Required by Hibernate
-public class StoveStepBE extends RecipeStepBE {
+public class StoveStepEntity extends RecipeStepEntity {
 
     public enum HeatLevel {
         LOW,
@@ -27,12 +27,12 @@ public class StoveStepBE extends RecipeStepBE {
     @Enumerated(value = EnumType.STRING)
     private HeatLevel heatLevel;
 
-    public StoveStepBE(String description, HeatLevel heatLevel) {
+    public StoveStepEntity(String description, HeatLevel heatLevel) {
         super();
         this.heatLevel = heatLevel;
     }
 
-    public StoveStepBE(
+    public StoveStepEntity(
             String description, Integer position,
             HeatLevel heatLevel
     ) {

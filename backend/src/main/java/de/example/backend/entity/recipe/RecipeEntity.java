@@ -1,7 +1,7 @@
 package de.example.backend.entity.recipe;
 
 import de.example.backend.entity.*;
-import de.example.backend.entity.ingredient.IngredientBE;
+import de.example.backend.entity.ingredient.IngredientEntity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -16,11 +16,11 @@ import java.util.*;
 import java.util.function.BiConsumer;
 
 @Entity
-@Table(name = RecipeBE.tableName)
+@Table(name = RecipeEntity.tableName)
 @Getter
 @Setter
 @NoArgsConstructor
-public class RecipeBE {
+public class RecipeEntity {
     public static final String tableName = "recipies";
 
     @Id
@@ -32,30 +32,30 @@ public class RecipeBE {
             mappedBy = "recipe",
             cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("position")
-    private List<RecipeIngredientBE> ingredients = new ArrayList<>();
+    private List<RecipeIngredientEntity> ingredients = new ArrayList<>();
 
     @Setter(AccessLevel.NONE)
     @OneToMany(
             mappedBy = "recipe",
             cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("position")
-    private List<RecipeStepBE> steps = new ArrayList<>();
+    private List<RecipeStepEntity> steps = new ArrayList<>();
 
     @Setter(AccessLevel.NONE)
     @ManyToMany
     @JoinTable(
-            name = RecipeCuisineBE.tableName,
+            name = RecipeCuisineEntity.tableName,
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "cuisine_id"))
-    private Set<RecipeCuisineBE> cuisines = new HashSet<>();
+    private Set<RecipeCuisineEntity> cuisines = new HashSet<>();
 
     @Setter(AccessLevel.NONE)
     @ManyToMany
     @JoinTable(
-            name = RecipePropertyBE.tableName,
+            name = RecipePropertyEntity.tableName,
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "property_id"))
-    private Set<RecipePropertyBE> properties = new HashSet<>();
+    private Set<RecipePropertyEntity> properties = new HashSet<>();
 
     @Column(nullable = false)
     private String title;
@@ -87,45 +87,45 @@ public class RecipeBE {
     @OrderColumn(name = "position")
     private List<String> imageKeys = new ArrayList<>();
 
-    public List<RecipeIngredientBE> getIngredients() {
+    public List<RecipeIngredientEntity> getIngredients() {
         return Collections.unmodifiableList(ingredients);
     }
 
-    public void addIngredient(IngredientBE ingredient, BigDecimal amount, Unit unit, int position) {
+    public void addIngredient(IngredientEntity ingredient, BigDecimal amount, Unit unit, int position) {
         if (containsIngredient(ingredient))
             throw new IllegalArgumentException("Ingredient " + ingredient.getId() + " is already part of the recipe");
 
-        ingredients.add(position, new RecipeIngredientBE(this, ingredient, amount, unit));
-        reindex(ingredients, RecipeIngredientBE::setPosition);
+        ingredients.add(position, new RecipeIngredientEntity(this, ingredient, amount, unit));
+        reindex(ingredients, RecipeIngredientEntity::setPosition);
     }
 
-    public void removeIngredient(IngredientBE ingredient) {
+    public void removeIngredient(IngredientEntity ingredient) {
         boolean removed = ingredients.removeIf(recipeIngredient ->
                 recipeIngredient.getIngredient().equals(ingredient));
         if (removed)
-            reindex(ingredients, RecipeIngredientBE::setPosition);
+            reindex(ingredients, RecipeIngredientEntity::setPosition);
     }
 
-    private boolean containsIngredient(IngredientBE ingredient) {
+    private boolean containsIngredient(IngredientEntity ingredient) {
         return ingredients.stream()
                 .anyMatch(recipeIngredient ->
                         recipeIngredient.getIngredient().equals(ingredient));
     }
 
-    public List<RecipeStepBE> getSteps() {
+    public List<RecipeStepEntity> getSteps() {
         return Collections.unmodifiableList(steps);
     }
 
-    public void addStep(RecipeStepBE step, int position) {
+    public void addStep(RecipeStepEntity step, int position) {
         step.setRecipe(this);
         steps.add(position, step);
-        reindex(steps, RecipeStepBE::setPosition);
+        reindex(steps, RecipeStepEntity::setPosition);
     }
 
-    public void removeStep(RecipeStepBE step) {
+    public void removeStep(RecipeStepEntity step) {
         boolean removed = steps.remove(step);
         if (removed)
-            reindex(steps, RecipeStepBE::setPosition);
+            reindex(steps, RecipeStepEntity::setPosition);
     }
 
     private <T> void reindex(List<T> list, BiConsumer<T, Integer> setPosition) {
@@ -135,7 +135,7 @@ public class RecipeBE {
         }
     }
 
-    public Set<RecipeCuisineBE> getCuisines() {
+    public Set<RecipeCuisineEntity> getCuisines() {
         return Collections.unmodifiableSet(cuisines);
     }
 

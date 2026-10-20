@@ -10,13 +10,13 @@ import lombok.Setter;
 import java.util.Objects;
 
 @Entity
-@Table(name = RecipeStepBE.tableName)
+@Table(name = RecipeStepEntity.tableName)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "method", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // Required by Hibernate
-public abstract class RecipeStepBE {
+public abstract class RecipeStepEntity {
     public static final String tableName = "recipe_steps";
 
     @Id
@@ -25,7 +25,7 @@ public abstract class RecipeStepBE {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "recipe_id")
-    private RecipeBE recipe;
+    private RecipeEntity recipe;
 
     @NotBlank
     @Column(nullable = false)
@@ -35,7 +35,7 @@ public abstract class RecipeStepBE {
     @Column(nullable = false)
     private Integer position;
 
-    protected RecipeStepBE(String description, Integer position) {
+    protected RecipeStepEntity(String description, Integer position) {
         this.description = description;
         this.position = position;
     }
@@ -51,13 +51,13 @@ public abstract class RecipeStepBE {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true; // Ensures x.equals(x) == true
-        if (!(o instanceof RecipeStepBE that)) return false;
+        if (!(o instanceof RecipeStepEntity that)) return false;
         return getId() != null && Objects.equals(getId(), that.getId()); // Id is null if the entity was not persisted yet. If so comparing it by id is not possible.
     }
 
     @Override
     public int hashCode() {
         // Id is only assigned on persist -> Constant hashcode
-        return RecipeStepBE.class.hashCode();
+        return RecipeStepEntity.class.hashCode();
     }
 }
