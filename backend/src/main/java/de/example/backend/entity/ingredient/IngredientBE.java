@@ -43,8 +43,8 @@ public class IngredientBE {
     }
 
     public void setCustomName(String customName) {
-        putTranslation(Language.EN, customName);
-        putTranslation(Language.DE, customName);
+        Arrays.stream(Language.values())
+                .forEach(language -> putTranslation(language, customName));
     }
 
     public Map<Language, IngredientTranslationBE> getTranslationsByLanguage() {
