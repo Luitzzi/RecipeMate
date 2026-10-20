@@ -16,6 +16,7 @@ public class IngredientTranslationBE {
 
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     @EqualsAndHashCode
     public static class IngredientTranslationId implements Serializable {
         private Long ingredientId;
@@ -24,7 +25,7 @@ public class IngredientTranslationBE {
     }
 
     @EmbeddedId
-    private IngredientTranslationId id;
+    private IngredientTranslationId id = new IngredientTranslationId();
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "ingredient_id", nullable = false)
