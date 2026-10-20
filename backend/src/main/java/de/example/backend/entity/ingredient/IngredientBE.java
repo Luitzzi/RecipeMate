@@ -5,6 +5,8 @@ import de.example.backend.entity.recipe.RecipeIngredientBE;
 import jakarta.persistence.*;
 import lombok.*;
 
+import static de.example.backend.entity.ingredient.IngredientTranslationBE.IngredientTranslationId;
+
 import java.util.*;
 
 @Entity

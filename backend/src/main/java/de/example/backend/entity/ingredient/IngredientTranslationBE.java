@@ -1,10 +1,10 @@
 package de.example.backend.entity.ingredient;
 
+import de.example.backend.entity.Language;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = IngredientTranslationBE.tableName)
@@ -13,6 +13,16 @@ import lombok.Setter;
 @AllArgsConstructor
 public class IngredientTranslationBE {
     public static final String tableName = "ingredient_translations";
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @EqualsAndHashCode
+    public static class IngredientTranslationId implements Serializable {
+        private Long ingredientId;
+        @Enumerated(EnumType.STRING)
+        private Language language;
+    }
 
     @EmbeddedId
     private IngredientTranslationId id;
