@@ -1,6 +1,7 @@
 package de.example.backend.entity.ingredient;
 
 import de.example.backend.entity.Language;
+import de.example.backend.entity.UserBE;
 import de.example.backend.entity.recipe.RecipeIngredientBE;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,7 +35,8 @@ public class IngredientBE {
 
     // Ingredients are either standing data seeded into the database,
     // or the user creates a custom ingredient only he should see
-    private UUID createdBy;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserBE createdBy;
 
     public String getName(Language language) {
         return translationsByLanguage
