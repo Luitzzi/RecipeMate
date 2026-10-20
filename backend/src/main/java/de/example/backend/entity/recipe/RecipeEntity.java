@@ -41,6 +41,10 @@ public class RecipeEntity {
     @OrderBy("position")
     private List<RecipeStepEntity> steps = new ArrayList<>();
 
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private UserEntity owner;
+
     @Setter(AccessLevel.NONE)
     @ManyToMany
     @JoinTable(

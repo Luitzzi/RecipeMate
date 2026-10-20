@@ -1,6 +1,7 @@
 package de.example.backend.entity;
 
 import de.example.backend.entity.ingredient.IngredientEntity;
+import de.example.backend.entity.recipe.RecipeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,4 +26,6 @@ public class UserEntity {
     @OneToMany(mappedBy = "createdBy")
     Set<IngredientEntity> ingredients = new HashSet<>();
 
+    @OneToMany(mappedBy = "owner")
+    Set<RecipeEntity> recipes = new HashSet<>();
 }
