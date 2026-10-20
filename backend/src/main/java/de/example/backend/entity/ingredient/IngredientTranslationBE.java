@@ -15,7 +15,6 @@ public class IngredientTranslationBE {
     public static final String tableName = "ingredient_translations";
 
     @Getter
-    @NoArgsConstructor
     @AllArgsConstructor
     @EqualsAndHashCode
     public static class IngredientTranslationId implements Serializable {

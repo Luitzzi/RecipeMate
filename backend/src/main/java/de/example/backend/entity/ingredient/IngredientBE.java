@@ -32,10 +32,19 @@ public class IngredientBE {
 
     private String type;
 
+    // Ingredients are either standing data seeded into the database,
+    // or the user creates a custom ingredient only he should see
+    private UUID createdBy;
+
     public String getName(Language language) {
         return translationsByLanguage
                 .get(language)
                 .getTranslation();
+    }
+
+    public void setCustomName(String customName) {
+        putTranslation(Language.EN, customName);
+        putTranslation(Language.DE, customName);
     }
 
     public Map<Language, IngredientTranslationBE> getTranslationsByLanguage() {
