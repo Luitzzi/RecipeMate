@@ -63,11 +63,20 @@ public class IngredientBE {
         }
     }
 
-    public void removeTranslation(Language language) {
-        translationsByLanguage.remove(language);
-    }
-
     public Set<RecipeIngredientBE> getRecipeIngredients() {
         return Collections.unmodifiableSet(recipeIngredients);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true; // Ensures x.equals(x) == true
+        if (!(o instanceof IngredientBE that)) return false;
+        return getId() != null && Objects.equals(getId(), that.getId()); // Id is null if the entity was not persisted yet. If so comparing it by id is not possible.
+    }
+
+    @Override
+    public int hashCode() {
+        // Id is only assigned on persist -> Constant hashcode
+        return IngredientBE.class.hashCode();
     }
 }

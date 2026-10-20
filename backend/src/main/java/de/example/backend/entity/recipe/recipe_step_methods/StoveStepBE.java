@@ -1,16 +1,24 @@
-package de.example.backend.entity.recipe.recipestep;
+package de.example.backend.entity.recipe.recipe_step_methods;
 
+import de.example.backend.entity.recipe.RecipeStepBE;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.AssertTrue;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @DiscriminatorValue(value = "STOVE")
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // Required by Hibernate
 public class StoveStepBE extends RecipeStepBE {
 
-    enum HeatLevel {
+    public enum HeatLevel {
         LOW,
         MEDIUM,
         HIGH
@@ -18,6 +26,19 @@ public class StoveStepBE extends RecipeStepBE {
 
     @Enumerated(value = EnumType.STRING)
     private HeatLevel heatLevel;
+
+    public StoveStepBE(String description, HeatLevel heatLevel) {
+        super();
+        this.heatLevel = heatLevel;
+    }
+
+    public StoveStepBE(
+            String description, Integer position,
+            HeatLevel heatLevel
+    ) {
+        super(description, position);
+        this.heatLevel = heatLevel;
+    }
 
     @Override
     public StepMethod getStepMethod() {

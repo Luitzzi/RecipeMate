@@ -1,7 +1,8 @@
 package de.example.backend.entity.recipe;
 
 import de.example.backend.entity.*;
-import de.example.backend.entity.recipe.recipestep.RecipeStepBE;
+import de.example.backend.entity.ingredient.IngredientBE;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AccessLevel;
@@ -10,7 +11,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
 
+import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.BiConsumer;
 
 @Entity
 @Table(name = RecipeBE.tableName)
@@ -28,13 +31,15 @@ public class RecipeBE {
     @OneToMany(
             mappedBy = "recipe",
             cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RecipeIngredientBE> ingredients = new HashSet<>();
+    @OrderBy("position")
+    private List<RecipeIngredientBE> ingredients = new ArrayList<>();
 
     @Setter(AccessLevel.NONE)
     @OneToMany(
             mappedBy = "recipe",
             cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RecipeStepBE> steps = new HashSet<>();
+    @OrderBy("position")
+    private List<RecipeStepBE> steps = new ArrayList<>();
 
     @Setter(AccessLevel.NONE)
     @ManyToMany
@@ -69,7 +74,7 @@ public class RecipeBE {
     @Column(nullable = false)
     private Diet diet;
 
-    private String text;
+    private String note;
 
     @URL(regexp = "^https?://.*")
     private String sourceUrl;
@@ -80,34 +85,74 @@ public class RecipeBE {
             name = "recipe_images",
             joinColumns = @JoinColumn(name = "recipe_id"))
     @OrderColumn(name = "position")
-    private List<RecipeImage> images = new ArrayList<>();
+    private List<String> imageKeys = new ArrayList<>();
 
-    public List<RecipeImage> getImages() {
-        return Collections.unmodifiableList(images);
+    public List<RecipeIngredientBE> getIngredients() {
+        return Collections.unmodifiableList(ingredients);
     }
 
-    public void addImage(RecipeImage image) {
-        images.add(image);
+    public void addIngredient(IngredientBE ingredient, BigDecimal amount, Unit unit, int position) {
+        if (containsIngredient(ingredient))
+            throw new IllegalArgumentException("Ingredient " + ingredient.getId() + " is already part of the recipe");
+
+        ingredients.add(position, new RecipeIngredientBE(this, ingredient, amount, unit));
+        reindex(ingredients, RecipeIngredientBE::setPosition);
     }
 
-    public void removeImage(String storageKey) {
-        images.removeIf(image ->
-                image.getStorageKey().equals(storageKey));
+    public void removeIngredient(IngredientBE ingredient) {
+        boolean removed = ingredients.removeIf(recipeIngredient ->
+                recipeIngredient.getIngredient().equals(ingredient));
+        if (removed)
+            reindex(ingredients, RecipeIngredientBE::setPosition);
     }
 
-    public Optional<RecipeImage> getCoverImage() {
-        return images.stream().findFirst();
+    private boolean containsIngredient(IngredientBE ingredient) {
+        return ingredients.stream()
+                .anyMatch(recipeIngredient ->
+                        recipeIngredient.getIngredient().equals(ingredient));
     }
 
-    public Set<RecipeIngredientBE> getIngredients() {
-        return Collections.unmodifiableSet(ingredients);
+    public List<RecipeStepBE> getSteps() {
+        return Collections.unmodifiableList(steps);
     }
 
-    public Set<RecipeStepBE> getSteps() {
-        return Collections.unmodifiableSet(steps);
+    public void addStep(RecipeStepBE step, int position) {
+        step.setRecipe(this);
+        steps.add(position, step);
+        reindex(steps, RecipeStepBE::setPosition);
+    }
+
+    public void removeStep(RecipeStepBE step) {
+        boolean removed = steps.remove(step);
+        if (removed)
+            reindex(steps, RecipeStepBE::setPosition);
+    }
+
+    private <T> void reindex(List<T> list, BiConsumer<T, Integer> setPosition) {
+        for (int i = 0; i < list.size(); i++) {
+            T element = list.get(i);
+            setPosition.accept(element, i);
+        }
     }
 
     public Set<RecipeCuisineBE> getCuisines() {
         return Collections.unmodifiableSet(cuisines);
+    }
+
+    public List<String> getImageKeys() {
+        return Collections.unmodifiableList(imageKeys);
+    }
+
+    public void addImage(String imageKey) {
+        imageKeys.add(imageKey);
+    }
+
+    public void removeImage(String storageKey) {
+        imageKeys.remove(storageKey);
+    }
+
+    public Optional<String> getCoverImage() {
+        return imageKeys.stream()
+                .findFirst();
     }
 }

@@ -1,59 +1,64 @@
 package de.example.backend.entity.recipe;
 
 import de.example.backend.entity.ingredient.IngredientBE;
-import de.example.backend.entity.Language;
 import de.example.backend.entity.Unit;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.PositiveOrZero;
+import lombok.*;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = RecipeIngredientBE.tableName)
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // Required by Hibernate
 public class RecipeIngredientBE {
     public static final String tableName = "recipe_ingredient";
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @EqualsAndHashCode
+    public static class RecipeIngredientId implements Serializable {
+        private Long recipeId;
+        private Long ingredientId;
+    }
 
+    @Setter(AccessLevel.NONE)
+    @EmbeddedId
+    private RecipeIngredientId id = new RecipeIngredientId();
+
+    @Setter(AccessLevel.NONE)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
+    @MapsId("recipeId")
     private RecipeBE recipe;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Setter(AccessLevel.NONE)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "ingredient_id")
+    @MapsId("ingredientId")
     private IngredientBE ingredient;
 
-    // Used when the user adds a new ingredient
-    // that does not exist in the ingredient standing data
-    @NotBlank
-    private String customName;
-
+    @PositiveOrZero
     private BigDecimal amount;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Unit unit;
 
+    @Setter(AccessLevel.PACKAGE) // Only RecipeBE sets the position
     @Column(nullable = false)
-    private int position;
+    private Integer position;
 
-    @AssertTrue(message = "Exactly one of ingredient or customName must be set")
-    private boolean isExactlyOneSource() {
-        boolean isStandingDataIngredient = ingredient != null && customName == null;
-        boolean isCreatedIngredient = ingredient == null && customName != null;
-        return isStandingDataIngredient || isCreatedIngredient;
-    }
-
-    public String getIngredientName(Language language) {
-        return ingredient != null ? ingredient.getName(language) : customName;
+    // Only RecipeBE creates its ingredients, so recipe and position stay consistent
+    RecipeIngredientBE(RecipeBE recipe, IngredientBE ingredient, BigDecimal amount, Unit unit) {
+        this.recipe = recipe;
+        this.ingredient = ingredient;
+        this.amount = amount;
+        this.unit = unit;
     }
 }
