@@ -22,9 +22,7 @@ public class UserBE {
     @GeneratedValue
     private UUID id;
 
-    @OneToMany(
-            mappedBy = "createdBy",
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "createdBy")
     Set<IngredientBE> ingredients = new HashSet<>();
 
 }
