@@ -17,3 +17,5 @@ compose.override.yaml
 # Tooling
 .playwright-mcp/
 .idea
+
+.DS_Store

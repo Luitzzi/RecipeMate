@@ -13,7 +13,7 @@ It should not be an extra workload. Everything according work-planning should be
 |--------------------------------|---------|----------|-----------------------------------------------------|-----------------------------------------------------------|
 | Page: Rezepte Erstellung       | MVP     | Must     | [Rezepte Erstellung](../epic-specs/recipe-creation) | [GitHub](https://github.com/Luitzzi/RecipeMate/issues/11) |
 | Page: Meine Rezepte            | MVP     | Must     | -                                                   | -                                                         |
-| Page: Rezepte Übersicht        | MVP     | Must     | [Rezepte Übersicht](../epic-specs/recipe-overview)  | -                                                         |
+| Page: Rezepte Übersicht        | MVP     | Must     | [Rezepte Übersicht](../epic-specs/recipe-overview)  | [GitHub](https://github.com/Luitzzi/RecipeMate/issues/19)                                                |
 | Page: Rezepte Zubereitung      | MVP     | Must     | -                                                   | -                                                         |
 | Page: Rezepte Feed             | -       | Must     | -                                                   | -                                                         |
 | Page: Meal prepping            | -       | Could    | -                                                   | -                                                         |
