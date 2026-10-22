@@ -9,20 +9,21 @@ It should not be an extra workload. Everything according work-planning should be
 
 ## Epics Overview
 
-| Epics                          | Release | Priority | Spec                                                | Epic                                                      |
-|--------------------------------|---------|----------|-----------------------------------------------------|-----------------------------------------------------------|
-| Page: Rezepte Erstellung       | MVP     | Must     | [Rezepte Erstellung](../epic-specs/recipe-creation) | [GitHub](https://github.com/Luitzzi/RecipeMate/issues/11) |
-| Page: Meine Rezepte            | MVP     | Must     | -                                                   | -                                                         |
-| Page: Rezepte Übersicht        | MVP     | Must     | [Rezepte Übersicht](../epic-specs/recipe-overview)  | [GitHub](https://github.com/Luitzzi/RecipeMate/issues/19)                                                |
-| Page: Rezepte Zubereitung      | MVP     | Must     | -                                                   | -                                                         |
-| Page: Rezepte Feed             | -       | Must     | -                                                   | -                                                         |
-| Page: Meal prepping            | -       | Could    | -                                                   | -                                                         |
-| Page: Shopping Liste           | -       | Could    | -                                                   | -                                                         |
-| Page: Profile Page             | -       | Must     | -                                                   | -                                                         |
-| Login: OAuth 2.0               | -       | Must     | -                                                   | -                                                         |
-| AI recipe assistance - Chatbot | -       | Must     | [AI recipe assistance](../epic-specs/ai-assistance) | -                                                         |
-| AI recipe assistance - Plugins | -       | Should   | [AI recipe assistance](../epic-specs/ai-assistance) | -                                                         |
-| Sharing, groups & feed         | -       | Could    | -                                                   | -                                                         |
+| Epics                            | Release | Priority | Spec                                                | Epic                                                      | Assignee               |
+|----------------------------------|---------|----------|-----------------------------------------------------|-----------------------------------------------------------|------------------------|
+| Page: Recipe Creation            | MVP     | Must     | [Recipe Creation](../epic-specs/recipe-creation)    | [GitHub](https://github.com/Luitzzi/RecipeMate/issues/11) | Luis                   |
+| Page: Recipe Search              | MVP     | Must     | -                                                   | -                                                         | Luis                   |
+| Page: My-Recipes Folder overview | MVP     | Must     | -                                                   | -                                                         | Johannes               |
+| Page: Rezepte Übersicht          | MVP     | Must     | [Rezepte Übersicht](../epic-specs/recipe-overview)  | [GitHub](https://github.com/Luitzzi/RecipeMate/issues/19) | Oskar                  |
+| Page: Rezepte Zubereitung        | MVP     | Must     | -                                                   | -                                                         | Oskar                  |
+| Page: Rezepte Feed               | -       | Must     | -                                                   | -                                                         |                        |
+| Page: Meal prepping              | -       | Could    | -                                                   | -                                                         |                        |
+| Page: Shopping Liste             | -       | Could    | -                                                   | -                                                         |                        |
+| Page: Profile Page               | -       | Must     | -                                                   | -                                                         | Florian                |
+| Login: OAuth 2.0                 | -       | Must     | -                                                   | -                                                         | Florian                |
+| AI recipe assistance - Chatbot   | -       | Must     | [AI recipe assistance](../epic-specs/ai-assistance) | -                                                         | Johannes               |
+| AI recipe assistance - Plugins   | -       | Should   | [AI recipe assistance](../epic-specs/ai-assistance) | -                                                         | Oskar & Florian & Luis |
+| Sharing, groups & feed           | -       | Could    | -                                                   | -                                                         |                        |
 
 ## Release plan
 
