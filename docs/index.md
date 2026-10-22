@@ -2,30 +2,28 @@
 
 ![recipe-mate-logo.png](assets/images/recipe-mate-logo.png)
 
-RecipeMate is a recipe management app that brings all your recipes into one consistent format, from your own creations
-to dishes found anywhere on the web.
-Import a recipe from any source, refine it with AI assistance, plan your week, and cook step by step with guided
-instructions.
-Share your favourites with family, friends or the whole community, and discover new dishes along the way.
+**Recipe management, taken to the next level.**
 
-## Why RecipeMate?
+RecipeMate puts an AI assistant at your side for every step in the kitchen.
+Ask it anything, from "What does steaming actually mean?" to "What can I make with leftover rice?"
+Or let it build your recipes for you: share a photo, paste a URL, or simply describe your dish in a quick
+back-and-forth.
+Whatever the source, the AI turns it into a clean recipe in one consistent structure, ready to refine and cook.
 
-### One format for every recipe
-
-No more inconsistent, cluttered recipes scattered across countless websites.
-RecipeMate defines a unified recipe schema, and its AI-powered universal import converts any recipe (a URL, pasted text
-or a photo) into that format automatically.
+And once your recipe is in, the fun really begins.
 
 ### From recipe to dinner table
 
-Recipes are meant to be cooked, not just collected.
-Assign recipes to the days of your week, and RecipeMate generates your shopping list automatically, taking much of the
-planning off your plate.
+Recipes are meant to be cooked, not just collected. <br>
+Plan your week in a few clicks and fill your shopping list straight from your meal plan, or add the ingredients of any
+single recipe with one tap.
+When it's time to cook, the guided cooking mode walks you through every ingredient and step, so you never lose your
+place.
 
 ### Cooking is a shared experience
 
-Connect with friends, family or the entire community.
-Share, rate and comment on recipes, and find your next favourite dish in a personalised feed.
+Connect with friends, family or the whole community. <br>
+Share, rate and comment on recipes, and discover your next favourite dish.
 
 ---
 
@@ -36,6 +34,9 @@ Here are all links to the project's documentation.
 ### Planning
 
 The project is for the module "Software Entwicklung" at university.
+
+- [Project management strategy](planning/project-management). Definition of the used project management strategy and the
+  roles
 
 - [Project specific requirements](planning/uni-project-requirements) given from the professor
 
