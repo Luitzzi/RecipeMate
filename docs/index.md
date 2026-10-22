@@ -50,8 +50,6 @@ The project is for the module "Software Entwicklung" at university.
 
 - [Git usage](conventions/git-usage.md)
 
-- [AI agent usage](conventions/ai-agent-usage)
-
 - Backend:
   [Techstack](conventions/backend/techstack) · [BCE pattern and data flow](conventions/backend/bce-pattern-and-data-flow)
 
