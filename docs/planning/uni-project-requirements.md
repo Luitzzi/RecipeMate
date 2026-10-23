@@ -7,7 +7,15 @@ Following are all requirements by their number in the requirements-pdf.
 
 ## 1. Four features for every person with all necessary CRUDs
 
-The features are defined in the [project specifications](../project-specifications).
+| ID | Feature                                                 | Specification                                                                            | Priority | Complexity | Assignee |
+|----|---------------------------------------------------------|------------------------------------------------------------------------------------------|----------|------------|----------|
+| 1  | Create the data structure for recipes                   | CRUDs for RecipeEntity, IngredientEntity, StepEntity                                     | Must     | High       | Luis     |
+| 2  | Implement the Recipe-Creation Page                      | Implement the UI for the Recipe-Creation Page and post the created recipe to the backend | Must     | Medium     | Luis     |
+| 3  | Save images for recipes                                 | Save images on a dedicated object storage and make them accessible to the Backend        | Must     | Medium     | Luis     |
+| 4  | Implement a search page for recipes with filter options | Uses the get-Endpoint of the RecipeController and provides the filter options            | Must     | Medium     | Luis     |
+| 5  | Implement AI recipe creation via image                  | Create a recipe from an image                                                            | Could    | High       | Luis     |
+| -  | -                                                       | -                                                                                        | -        |            | -        |
+|    |                                                         |                                                                                          |          |            |          |
 
 ### Entities and their CRUD-Operations
 
@@ -86,9 +94,10 @@ to the team members.
 
 ## 8. AI-Feature for every person
 
-| Feature                           | Description                                                                   | Issue                                                  | Assignee |
-|-----------------------------------|-------------------------------------------------------------------------------|--------------------------------------------------------|----------|
-| 1. AI "Mate" Chat                 | Chat assistant with tool-call support                                         | [#14](https://github.com/Luitzzi/RecipeMate/issues/14) | Johannes |
-| 2. Context & query tools          | Mate knows the current page and can look up and search recipes                | [#15](https://github.com/Luitzzi/RecipeMate/issues/15) | Oskar    |
-| 3. Recipe creation & modification | Mate creates or changes recipes; a writer/evaluator agent loop checks quality | [#16](https://github.com/Luitzzi/RecipeMate/issues/16) | Luis     |
-| 4. Recipe scraping & conversion   | Website content pasted into the chat is converted into a recipe               | [#17](https://github.com/Luitzzi/RecipeMate/issues/17) | Florian  |
+| Feature                           | Description                                                                             | Assignee |
+|-----------------------------------|-----------------------------------------------------------------------------------------|----------|
+| 1. AI "Mate" Chat                 | Chat assistant with tool-call support                                                   | Johannes |
+| 2. Recipe creation & modification | Mate creates or changes recipes; a writer/evaluator agent loop checks quality           | Johannes |
+| 3. Context & query tools          | Mate knows the current page and can look up and search recipes by recipeId              | Oskar    |
+| 4. Recipe scraping & conversion   | Website content pasted into the chat is converted into a recipe                         | Florian  |
+| 5. Recipe creation from images    | Convert an image via OCR to markdown and pass it to the agent. Used for recipe creation | Luis     |
