@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import de.example.backend.boundary.uidto.ChatRequestUiDTO;
 import de.example.backend.boundary.uidto.ChatResponseUiDTO;
-import de.example.backend.service.ChatBA;
+import de.example.backend.service.ChatService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ChatUiController {
 
-    private final ChatBA chatBA;
+    private final ChatService chatBA;
 
     @PostMapping("/")
     @Operation(summary = "Create a new chat")

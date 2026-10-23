@@ -27,14 +27,14 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class ChatBA {
+public class ChatService {
 
     private final ChatClient chatClient;
     private final ChatMemory chatMemory;
     private final Cache<UUID, Boolean> activeChats;
 
     // TODO JPI: Docstrings
-    public ChatBA(ChatClient.Builder builder, 
+    public ChatService(ChatClient.Builder builder, 
             @Value("classpath:prompts/mate.md") Resource systemPrompt) {
         this.chatMemory = MessageWindowChatMemory.builder()
                 .maxMessages(10)
