@@ -33,7 +33,8 @@ public class ChatBA {
     private final ChatMemory chatMemory;
     private final Cache<UUID, Boolean> activeChats;
 
-    public ChatBA(ChatClient.Builder builder,
+    // TODO JPI: Docstrings
+    public ChatBA(ChatClient.Builder builder, 
             @Value("classpath:prompts/mate.md") Resource systemPrompt) {
         this.chatMemory = MessageWindowChatMemory.builder()
                 .maxMessages(10)
@@ -64,11 +65,12 @@ public class ChatBA {
 
     public Optional<ChatResponseUiDTO> sendMessage(ChatRequestUiDTO request, UUID chatId) {
         if (this.activeChats.getIfPresent(chatId) == null) {
+            // TODO JPI: convert to exception and add interceptor in controller
             return Optional.empty();
         }
 
         ChatResponse response = this.chatClient.prompt()
-                .advisors(a -> a
+                .advisors(advisor -> advisor
                         .param(CurrentViewAdvisor.CURRENT_VIEW, request.getCurrentView())
                         .param(ChatMemory.CONVERSATION_ID, chatId.toString()))
                 .user(request.getMessage())
@@ -81,16 +83,16 @@ public class ChatBA {
                         extractStatus(response)));
     }
 
-    // Taken from
-    // https://docs.spring.io/spring-ai/reference/api/chat/anthropic-chat.html#_non_streaming_example
     private static String extractAnswer(ChatResponse response) {
+        // Taken from
+        // https://docs.spring.io/spring-ai/reference/api/chat/anthropic-chat.html#_non_streaming_example
         if (response == null) {
             return "";
         }
         return response.getResults().stream()
-                .map(g -> g.getOutput())
+                .map(result -> result.getOutput())
                 .filter(message -> !isThinking(message))
-                .map(m -> m.getText())
+                .map(message -> message.getText())
                 .filter(text -> text != null && !text.isBlank())
                 .collect(Collectors.joining("\n\n"));
     }
@@ -100,7 +102,7 @@ public class ChatBA {
         return switch (reason == null ? "" : reason.toLowerCase()) {
             case "end_turn", "stop_sequence" -> ChatResponseStatus.SUCCESS;
             case "refusal" -> ChatResponseStatus.REFUSAL;
-            default -> ChatResponseStatus.ERROR;
+            default -> ChatResponseStatus.ERROR; // TODO JPI: throw in controller
         };
     }
 
