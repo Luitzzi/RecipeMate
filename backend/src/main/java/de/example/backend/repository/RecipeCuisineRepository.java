@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface RecipeCuisineRepository
-        extends JpaRepository<RecipeCuisineEntity, Long> {
+        extends JpaRepository<RecipeCuisineEntity, Long>, PersistFragment<RecipeCuisineEntity> {
 }
