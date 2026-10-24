@@ -7,15 +7,17 @@ Following are all requirements by their number in the requirements-pdf.
 
 ## 1. Four features for every person with all necessary CRUDs
 
-| ID | Feature                                                 | Specification                                                                            | Priority | Complexity | Assignee |
-|----|---------------------------------------------------------|------------------------------------------------------------------------------------------|----------|------------|----------|
-| 1  | Create the data structure for recipes                   | CRUDs for RecipeEntity, IngredientEntity, StepEntity                                     | Must     | High       | Luis     |
-| 2  | Implement the Recipe-Creation Page                      | Implement the UI for the Recipe-Creation Page and post the created recipe to the backend | Must     | Medium     | Luis     |
-| 3  | Save images for recipes                                 | Save images on a dedicated object storage and make them accessible to the Backend        | Must     | Medium     | Luis     |
-| 4  | Implement a search page for recipes with filter options | Uses the get-Endpoint of the RecipeController and provides the filter options            | Must     | Medium     | Luis     |
-| 5  | Implement AI recipe creation via image                  | Create a recipe from an image                                                            | Could    | High       | Luis     |
-| -  | -                                                       | -                                                                                        | -        |            | -        |
-|    |                                                         |                                                                                          |          |            |          |
+| Feature                                                    | Specification                                                                            | Priority | Complexity | Assignee |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------- | -------- | ---------- | -------- |
+| 1. Create the data structure for recipes                   | CRUDs for RecipeEntity, IngredientEntity, StepEntity                                     | Must     | High       | Luis     |
+| 2. Implement the Recipe-Creation Page                      | Implement the UI for the Recipe-Creation Page and post the created recipe to the backend | Must     | Medium     | Luis     |
+| 3. Save images for recipes                                 | Save images on a dedicated object storage and make them accessible to the Backend        | Must     | Medium     | Luis     |
+| 4. Implement a search page for recipes with filter options | Uses the get-Endpoint of the RecipeController and provides the filter options            | Must     | Medium     | Luis     |
+| 5. Implement AI recipe creation via image                  | Create a recipe from an image                                                            | Could    | High       | Luis     |
+|                                                            |                                                                                          |          |            |          |
+| 1. AI "Mate" Chat with Toolcall-Support & Context          | See AI-Features 1 & 2                                                                    | Must     | High       | Johannes |
+| 2. AI Recipe creation/modification                         | See AI-Feature 3                                                                         | Must     | High       | Johannes |
+| 3. Recipe Folder Entity & Folder Overview                  | Per-user folders to allow grouping recipes                                               | Should   | Low        | Johannes |
 
 ### Entities and their CRUD-Operations
 
@@ -95,9 +97,10 @@ to the team members.
 ## 8. AI-Feature for every person
 
 | Feature                           | Description                                                                             | Assignee |
-|-----------------------------------|-----------------------------------------------------------------------------------------|----------|
+| --------------------------------- | --------------------------------------------------------------------------------------- | -------- |
 | 1. AI "Mate" Chat                 | Chat assistant with tool-call support                                                   | Johannes |
-| 2. Recipe creation & modification | Mate creates or changes recipes; a writer/evaluator agent loop checks quality           | Johannes |
-| 3. Context & query tools          | Mate knows the current page and can look up and search recipes by recipeId              | Oskar    |
-| 4. Recipe scraping & conversion   | Website content pasted into the chat is converted into a recipe                         | Florian  |
-| 5. Recipe creation from images    | Convert an image via OCR to markdown and pass it to the agent. Used for recipe creation | Luis     |
+| 2. Context                        | Mate knows context about which page the user is currently viewing                       | Johannes |
+| 3. Recipe creation & modification | Mate creates or changes recipes; a writer/evaluator agent loop checks quality           | Johannes |
+| 4. Query tools                    | Mate can look up recipes by recipeId and search recipes (like with the search page)     | Oskar    |
+| 5. Recipe scraping & conversion   | Website content pasted into the chat is converted into a recipe                         | Florian  |
+| 6. Recipe creation from images    | Convert an image via OCR to markdown and pass it to the agent. Used for recipe creation | Luis     |
