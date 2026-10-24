@@ -12,11 +12,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@DiscriminatorValue(value = "OVEN")
+@DiscriminatorValue(value = OvenStepEntity.stepMethodName)
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // Required by Hibernate
 public class OvenStepEntity extends RecipeStepEntity {
+    public static final String stepMethodName = "OVEN";
 
     @Min(30)
     @Max(300)
