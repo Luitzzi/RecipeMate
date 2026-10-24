@@ -187,6 +187,8 @@
                     <outputFileType>implementationFile</outputFileType>
                     <outputFile>${project.basedir}/../frontend/src/generated/interface-api.ts</outputFile>
                     <noFileComment>true</noFileComment>
+                    <tsNoCheck>true</tsNoCheck>
+                    <noTslintDisable>true</noTslintDisable>
 
                     <!-- Input: DTOs + REST controllers -->
                     <jsonLibrary>jackson2</jsonLibrary>

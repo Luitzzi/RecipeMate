@@ -1,5 +1,5 @@
-/* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 export interface ChatRequestUiDTO {
     message: string;
@@ -82,28 +82,6 @@ export interface HttpClient {
     request<R>(requestConfig: { method: string; url: string; queryParams?: any; data?: any; copyFn?: (data: R) => R; options?: RequestInit; }): RestResponse<R>;
 }
 
-export class ChatUiControllerClient {
-
-    constructor(protected httpClient: HttpClient) {
-    }
-
-    /**
-     * HTTP POST /api/chat/
-     * Java method: de.example.backend.boundary.controller.ChatUiController.createChat
-     */
-    createChat(options?: RequestInit): RestResponse<string> {
-        return this.httpClient.request({ method: "POST", url: uriEncoding`api/chat/`, options: options });
-    }
-
-    /**
-     * HTTP POST /api/chat/{chatId}
-     * Java method: de.example.backend.boundary.controller.ChatUiController.sendMessage
-     */
-    sendMessage(chatId: string, request: ChatRequestUiDTO, options?: RequestInit): RestResponse<ChatResponseUiDTO> {
-        return this.httpClient.request({ method: "POST", url: uriEncoding`api/chat/${chatId}`, data: request, options: options });
-    }
-}
-
 export class RecipeUiControllerClient {
 
     constructor(protected httpClient: HttpClient) {
@@ -131,6 +109,28 @@ export class RecipeUiControllerClient {
      */
     get(id: number, queryParams: { language: Language; }, options?: RequestInit): RestResponse<RecipeUiDTO> {
         return this.httpClient.request({ method: "GET", url: uriEncoding`api/recipies/${id}`, queryParams: queryParams, options: options });
+    }
+}
+
+export class ChatUiControllerClient {
+
+    constructor(protected httpClient: HttpClient) {
+    }
+
+    /**
+     * HTTP POST /api/chat/
+     * Java method: de.example.backend.boundary.controller.ChatUiController.createChat
+     */
+    createChat(options?: RequestInit): RestResponse<string> {
+        return this.httpClient.request({ method: "POST", url: uriEncoding`api/chat/`, options: options });
+    }
+
+    /**
+     * HTTP POST /api/chat/{chatId}
+     * Java method: de.example.backend.boundary.controller.ChatUiController.sendMessage
+     */
+    sendMessage(chatId: string, request: ChatRequestUiDTO, options?: RequestInit): RestResponse<ChatResponseUiDTO> {
+        return this.httpClient.request({ method: "POST", url: uriEncoding`api/chat/${chatId}`, data: request, options: options });
     }
 }
 
