@@ -5,6 +5,9 @@ import de.example.backend.repository.IngredientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class IngredientService {
@@ -14,6 +17,10 @@ public class IngredientService {
     public IngredientEntity getById(Long id) {
         return ingredientRepository.findById(id)
                 .orElseThrow();
+    }
+
+    public Collection<IngredientEntity> createAll(List<IngredientEntity> ingredients) {
+        return ingredientRepository.persistAll(ingredients);
     }
 
 }
