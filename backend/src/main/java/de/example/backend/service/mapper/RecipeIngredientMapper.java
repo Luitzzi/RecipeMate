@@ -14,8 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.math.BigDecimal;
 
 @Mapper(uses = {IngredientMapper.class})
-public abstract class RecipeIngredientMapper
-        implements AbstractMapper<RecipeIngredientEntity, RecipeIngredientUiDTO> {
+public abstract class RecipeIngredientMapper {
 
     public abstract RecipeIngredientUiDTO toDTO(RecipeIngredientEntity recipeIngredient, @Context Language language);
 

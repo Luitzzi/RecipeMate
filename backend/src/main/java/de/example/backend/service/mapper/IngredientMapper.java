@@ -14,8 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @Mapper
-public abstract class IngredientMapper
-        implements AbstractMapper<IngredientEntity, IngredientUiDTO> {
+public abstract class IngredientMapper {
 
     @Autowired
     private IngredientService ingredientService;
