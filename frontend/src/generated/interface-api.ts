@@ -82,6 +82,28 @@ export interface HttpClient {
     request<R>(requestConfig: { method: string; url: string; queryParams?: any; data?: any; copyFn?: (data: R) => R; options?: RequestInit; }): RestResponse<R>;
 }
 
+export class ChatUiControllerClient {
+
+    constructor(protected httpClient: HttpClient) {
+    }
+
+    /**
+     * HTTP POST /api/chat/
+     * Java method: de.example.backend.boundary.controller.ChatUiController.createChat
+     */
+    createChat(options?: RequestInit): RestResponse<string> {
+        return this.httpClient.request({ method: "POST", url: uriEncoding`api/chat/`, options: options });
+    }
+
+    /**
+     * HTTP POST /api/chat/{chatId}
+     * Java method: de.example.backend.boundary.controller.ChatUiController.sendMessage
+     */
+    sendMessage(chatId: string, request: ChatRequestUiDTO, options?: RequestInit): RestResponse<ChatResponseUiDTO> {
+        return this.httpClient.request({ method: "POST", url: uriEncoding`api/chat/${chatId}`, data: request, options: options });
+    }
+}
+
 export class RecipeUiControllerClient {
 
     constructor(protected httpClient: HttpClient) {
@@ -112,45 +134,67 @@ export class RecipeUiControllerClient {
     }
 }
 
-export class ChatUiControllerClient {
-
-    constructor(protected httpClient: HttpClient) {
-    }
-
-    /**
-     * HTTP POST /api/chat/
-     * Java method: de.example.backend.boundary.controller.ChatUiController.createChat
-     */
-    createChat(options?: RequestInit): RestResponse<string> {
-        return this.httpClient.request({ method: "POST", url: uriEncoding`api/chat/`, options: options });
-    }
-
-    /**
-     * HTTP POST /api/chat/{chatId}
-     * Java method: de.example.backend.boundary.controller.ChatUiController.sendMessage
-     */
-    sendMessage(chatId: string, request: ChatRequestUiDTO, options?: RequestInit): RestResponse<ChatResponseUiDTO> {
-        return this.httpClient.request({ method: "POST", url: uriEncoding`api/chat/${chatId}`, data: request, options: options });
-    }
-}
-
 export type RestResponse<R> = Promise<R>;
 
-export type Language = "DE" | "EN";
-
-export type ChatResponseStatus = "SUCCESS" | "REFUSAL" | "ERROR";
-
-export type ViewType = "NONE" | "RECIPE";
-
-export type OvenMode = "TOP_BOTTOM_HEAT" | "CIRCULATING_AIR";
-
-export type Unit = "GRAM" | "KILOGRAM" | "MILLILITER" | "LITER" | "TEASPOON" | "TABLESPOON" | "CUP" | "PIECE" | "CLOVE" | "SLICE" | "BUNCH" | "SPRING" | "LEAF" | "CAN" | "PACKAGE" | "CUP_CONTAINER" | "CUBE" | "PINCH" | "KNIFE_TIP" | "DASH" | "TO_TASTE";
-
-export type Diet = "VEGAN" | "VEGETARIAN" | "PESCATARIAN" | "OMNIVORE";
-
-export type HeatLevel = "LOW" | "MEDIUM" | "HIGH";
-
 export type RecipeStepUiDTOUnion = PrepareStepUiDTO | OvenStepUiDTO | StoveStepUiDTO;
+
+export const enum Language {
+    DE = "DE",
+    EN = "EN",
+}
+
+export const enum ChatResponseStatus {
+    SUCCESS = "SUCCESS",
+    REFUSAL = "REFUSAL",
+    ERROR = "ERROR",
+}
+
+export const enum ViewType {
+    NONE = "NONE",
+    RECIPE = "RECIPE",
+}
+
+export const enum OvenMode {
+    TOP_BOTTOM_HEAT = "TOP_BOTTOM_HEAT",
+    CIRCULATING_AIR = "CIRCULATING_AIR",
+}
+
+export const enum Unit {
+    GRAM = "GRAM",
+    KILOGRAM = "KILOGRAM",
+    MILLILITER = "MILLILITER",
+    LITER = "LITER",
+    TEASPOON = "TEASPOON",
+    TABLESPOON = "TABLESPOON",
+    CUP = "CUP",
+    PIECE = "PIECE",
+    CLOVE = "CLOVE",
+    SLICE = "SLICE",
+    BUNCH = "BUNCH",
+    SPRING = "SPRING",
+    LEAF = "LEAF",
+    CAN = "CAN",
+    PACKAGE = "PACKAGE",
+    CUP_CONTAINER = "CUP_CONTAINER",
+    CUBE = "CUBE",
+    PINCH = "PINCH",
+    KNIFE_TIP = "KNIFE_TIP",
+    DASH = "DASH",
+    TO_TASTE = "TO_TASTE",
+}
+
+export const enum Diet {
+    VEGAN = "VEGAN",
+    VEGETARIAN = "VEGETARIAN",
+    PESCATARIAN = "PESCATARIAN",
+    OMNIVORE = "OMNIVORE",
+}
+
+export const enum HeatLevel {
+    LOW = "LOW",
+    MEDIUM = "MEDIUM",
+    HIGH = "HIGH",
+}
 
 function uriEncoding(template: TemplateStringsArray, ...substitutions: any[]): string {
     let result = "";
