@@ -48,7 +48,7 @@ public class RecipeEntity {
     @Setter(AccessLevel.NONE)
     @ManyToMany
     @JoinTable(
-            name = "recipe_properties",
+            name = "recipe_cuisines",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "cuisine_id"))
     private Set<RecipeCuisineEntity> cuisines = new HashSet<>();
@@ -56,7 +56,7 @@ public class RecipeEntity {
     @Setter(AccessLevel.NONE)
     @ManyToMany
     @JoinTable(
-            name = "recipe_cuisines",
+            name = "recipe_properties",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "property_id"))
     private Set<RecipePropertyEntity> properties = new HashSet<>();

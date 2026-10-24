@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecipePropertyEntity {
-    public static final String tableName = "recipe_properties";
+    public static final String tableName = "properties";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
