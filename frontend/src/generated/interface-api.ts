@@ -1,17 +1,24 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export interface CounterIncrementUiDTO {
-    increment: number;
+export interface ChatRequestUiDTO {
+    message: string;
+    currentView: CurrentViewUiDTO;
 }
 
-export interface CounterSetUiDTO {
-    count: number;
+export interface ChatResponseUiDTO {
+    message: string;
+    status: ChatResponseStatus;
 }
 
 export interface CounterUiDTO {
     id: string;
     count: number;
+}
+
+export interface CurrentViewUiDTO {
+    type: ViewType;
+    id?: string;
 }
 
 export interface HttpClient {
@@ -49,7 +56,33 @@ export class CounterUiControllerClient {
     }
 }
 
+export class ChatUiControllerClient {
+
+    constructor(protected httpClient: HttpClient) {
+    }
+
+    /**
+     * HTTP POST /api/chat/
+     * Java method: de.example.backend.boundary.controller.ChatUiController.createChat
+     */
+    createChat(options?: RequestInit): RestResponse<string> {
+        return this.httpClient.request({ method: "POST", url: uriEncoding`api/chat/`, options: options });
+    }
+
+    /**
+     * HTTP POST /api/chat/{chatId}
+     * Java method: de.example.backend.boundary.controller.ChatUiController.sendMessage
+     */
+    sendMessage(chatId: string, request: ChatRequestUiDTO, options?: RequestInit): RestResponse<ChatResponseUiDTO> {
+        return this.httpClient.request({ method: "POST", url: uriEncoding`api/chat/${chatId}`, data: request, options: options });
+    }
+}
+
 export type RestResponse<R> = Promise<R>;
+
+export type ChatResponseStatus = "SUCCESS" | "REFUSAL" | "ERROR";
+
+export type ViewType = "NONE" | "RECIPE";
 
 function uriEncoding(template: TemplateStringsArray, ...substitutions: any[]): string {
     let result = "";
