@@ -3,7 +3,6 @@ package de.example.backend.boundary.uidto;
 import de.example.backend.entity.recipe.recipe_step_methods.OvenStepEntity.OvenMode;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

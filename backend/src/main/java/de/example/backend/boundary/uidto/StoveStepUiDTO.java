@@ -1,7 +1,6 @@
 package de.example.backend.boundary.uidto;
 
 import de.example.backend.entity.recipe.recipe_step_methods.StoveStepEntity.HeatLevel;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
