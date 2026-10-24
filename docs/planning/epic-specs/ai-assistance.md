@@ -1,23 +1,11 @@
-**Release:** TODO · **Priority:** TODO · [**Epic**]()
+[**Epic**](https://github.com/Luitzzi/RecipeMate/issues/12)
 
 ## Goal
 
-## Pages
+Build an AI Chatbot, which feels like it's powerful and not just a bolt-on.
 
-- **Example Page**
+## Ui Drafts
 
-### Reusable components
-
-### Ui Drafts
-
-- <img src="" width="200"> 
-
-## User stories
-
-- As a user I want to [], so that I []
-
-## Business logic
-
-## Out of scope
+## Features
 
 ## Open questions

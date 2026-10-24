@@ -1,10 +1,8 @@
-# Epic template
-
 **Release:** TODO · **Priority:** TODO · [**Epic**]()
 
 ## Goal
 
-### Ui Drafts
+## Ui Drafts
 
 ## Features
 

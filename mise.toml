@@ -29,7 +29,7 @@ depends = ["dev:backend", "dev:frontend"]
 [tasks.ts-gen]
 description = "Generate TS interfaces from *UiDTO backend classes"
 dir = "{{config_root}}/backend"
-run = "./mvnw compile typescript-generator:generate"
+run = "./mvnw clean compile typescript-generator:generate"
 
 [tasks.docs]
 description = "Serve the mkdocs docs pages"
