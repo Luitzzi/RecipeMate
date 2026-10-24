@@ -48,7 +48,7 @@ public class RecipeService {
         if (recipeUiDTO.getId() != null)
             throw new IllegalArgumentException("Recipes must have id = null when created");
 
-        RecipeEntity recipeEntity = recipeMapper.toEntity(recipeUiDTO, owner);
+        RecipeEntity recipeEntity = recipeMapper.toEntity(recipeUiDTO, owner, null);
         persistCustomIngredients(recipeEntity.getIngredients());
         RecipeEntity created = recipeRepository.persist(recipeEntity);
         return recipeMapper.toDTO(created, Language.EN);

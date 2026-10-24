@@ -8,6 +8,7 @@ import de.example.backend.entity.recipe.*;
 import de.example.backend.service.RecipeCuisineService;
 import de.example.backend.service.RecipePropertyService;
 import de.example.backend.service.RecipeService;
+import jakarta.annotation.Nullable;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,7 @@ import java.util.Optional;
         RecipeCuisineMapper.class,
         RecipePropertyMapper.class,
 })
-public abstract class RecipeMapper
-        implements AbstractMapper<RecipeEntity, RecipeUiDTO> {
-
-    @Autowired
-    private RecipeService recipeService;
+public abstract class RecipeMapper {
 
     @Autowired
     private IngredientMapper ingredientMapper;
@@ -47,7 +44,7 @@ public abstract class RecipeMapper
      * - Owner must be loaded from the token
      * - SourceUrl should only be managed by the backend.
      */
-    public RecipeEntity toEntity(RecipeUiDTO dto, UserEntity owner) {
+    public RecipeEntity toEntity(RecipeUiDTO dto, UserEntity owner, @Nullable String existingSourceUrl) {
         RecipeEntity recipeEntity = new RecipeEntity();
         recipeEntity.setId(dto.getId());
         addIngredients(recipeEntity, dto.getIngredients(), owner);
@@ -62,10 +59,7 @@ public abstract class RecipeMapper
         recipeEntity.setDifficulty(dto.getDifficulty());
         recipeEntity.setDiet(dto.getDiet());
         recipeEntity.setNote(dto.getNote());
-        if (dto.getId() != null) {
-            Optional<String> existingSourceUrl = recipeService.getSourceUrl(dto.getId());
-            recipeEntity.setSourceUrl(existingSourceUrl.orElse(null));
-        }
+        recipeEntity.setSourceUrl(existingSourceUrl);
         recipeEntity.addImageKeys(dto.getImageKeys());
         return recipeEntity;
     }
