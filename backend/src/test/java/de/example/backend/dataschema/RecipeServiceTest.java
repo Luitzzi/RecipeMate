@@ -63,6 +63,7 @@ public class RecipeServiceTest {
     private EntityManager entityManager;
 
     private UserEntity owner;
+    // Ingredients representing the standing data
     private IngredientEntity spaghetti;
     private IngredientEntity ketchup;
 
@@ -111,8 +112,10 @@ public class RecipeServiceTest {
                 .containsExactly(spaghetti.getId(), ketchup.getId());
         assertThat(loaded.getIngredients().get(0).getAmount()).isEqualByComparingTo("500");
         assertThat(loaded.getIngredients().get(0).getUnit()).isEqualTo(Unit.GRAM);
+        assertThat(loaded.getIngredients().get(0).getIngredient().getCreatedBy()).isNull();
         assertThat(loaded.getIngredients().get(1).getAmount()).isEqualByComparingTo("2");
         assertThat(loaded.getIngredients().get(1).getUnit()).isEqualTo(Unit.TABLESPOON);
+        assertThat(loaded.getIngredients().get(1).getIngredient().getCreatedBy()).isNull();
     }
 
     @Test
@@ -130,6 +133,7 @@ public class RecipeServiceTest {
         assertThat(ingredientRepository.count()).isEqualTo(ingredientCountBefore + 1);
         assertThat(loaded.getIngredients()).hasSize(2);
         assertThat(loaded.getIngredients().get(0).getIngredient().getId()).isEqualTo(spaghetti.getId());
+        assertThat(loaded.getIngredients().get(0).getIngredient().getCreatedBy()).isNull();
         assertCustomIngredient(loaded.getIngredients().get(1), "Basil", new BigDecimal("1"), Unit.BUNCH);
     }
 
@@ -142,7 +146,7 @@ public class RecipeServiceTest {
         recipe.getSteps().add(stoveStep("Boil water", HeatLevel.HIGH));
         recipe.getSteps().add(prepareStep("Chop basil"));
         recipe.getSteps().add(ovenStep("Bake", 180, OvenMode.CIRCULATING_AIR, 600, true));
-        recipe.setImageKeys(List.of("image-c", "image-a", "image-b"));
+        recipe.setImageKeys(List.of("image-a", "image-b", "image-c"));
 
         RecipeUiDTO created = recipeService.create(recipe, owner);
         dataSchemaTestUtils.flushAndClear();
@@ -160,8 +164,8 @@ public class RecipeServiceTest {
         assertThat(loaded.getSteps())
                 .extracting(RecipeStepEntity::getPosition)
                 .containsExactly(0, 1, 2);
-        assertThat(loaded.getImageKeys()).containsExactly("image-c", "image-a", "image-b");
-        assertThat(loaded.getCoverImage()).contains("image-c");
+        assertThat(loaded.getImageKeys()).containsExactly("image-a", "image-b", "image-c");
+        assertThat(loaded.getCoverImage()).contains("image-a");
     }
 
     @Test
