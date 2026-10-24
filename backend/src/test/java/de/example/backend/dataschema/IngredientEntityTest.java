@@ -1,7 +1,7 @@
 package de.example.backend.dataschema;
 
 import de.example.backend.entity.Language;
-import de.example.backend.entity.ingredient.IngredientBE;
+import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.repository.IngredientRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,11 +25,11 @@ public class IngredientEntityTest {
     private String spaghettiType = "noodle";
     private String spaghettiGermanName = "Spaghetti Deutsch";
     private String spaghettiEnglishName = "Spaghetti Englisch";
-    private IngredientBE spaghetti;
+    private IngredientEntity spaghetti;
 
     @BeforeEach
     void setUp() {
-        spaghetti = new IngredientBE();
+        spaghetti = new IngredientEntity();
         spaghetti.putTranslation(Language.DE, spaghettiGermanName);
         spaghetti.putTranslation(Language.EN, spaghettiEnglishName);
         spaghetti.setType(spaghettiType);
@@ -38,8 +38,8 @@ public class IngredientEntityTest {
     }
 
     @Test
-    void isIngredientBECorrectlyPersisted() {
-        IngredientBE loadedIngredient = ingredientRepository
+    void isIngredientEntityCorrectlyPersisted() {
+        IngredientEntity loadedIngredient = ingredientRepository
                 .findById(spaghetti.getId())
                 .orElseThrow();
 
