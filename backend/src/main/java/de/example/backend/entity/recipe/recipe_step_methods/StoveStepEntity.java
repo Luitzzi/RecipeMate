@@ -15,7 +15,7 @@ import lombok.Setter;
 @DiscriminatorValue(value = StoveStepEntity.stepMethodName)
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // Required by Hibernate
+@NoArgsConstructor
 public class StoveStepEntity extends RecipeStepEntity {
     public static final String stepMethodName = "STOVE";
 

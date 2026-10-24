@@ -5,10 +5,7 @@ import de.example.backend.entity.recipe.RecipeStepEntity;
 import de.example.backend.entity.recipe.recipe_step_methods.OvenStepEntity;
 import de.example.backend.entity.recipe.recipe_step_methods.PrepareStepEntity;
 import de.example.backend.entity.recipe.recipe_step_methods.StoveStepEntity;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.SubclassExhaustiveStrategy;
-import org.mapstruct.SubclassMapping;
+import org.mapstruct.*;
 
 @Mapper
 public abstract class RecipeStepMapper
@@ -20,9 +17,24 @@ public abstract class RecipeStepMapper
     @BeanMapping(subclassExhaustiveStrategy = SubclassExhaustiveStrategy.RUNTIME_EXCEPTION)
     public abstract RecipeStepUiDTO toDTO(RecipeStepEntity entity);
 
-    @SubclassMapping(source = PrepareStepUiDTO.class, target = PrepareStepEntity.class)
-    @SubclassMapping(source = OvenStepUiDTO.class, target = OvenStepEntity.class)
-    @SubclassMapping(source = StoveStepUiDTO.class, target = StoveStepEntity.class)
-    @BeanMapping(subclassExhaustiveStrategy = SubclassExhaustiveStrategy.RUNTIME_EXCEPTION)
-    public abstract RecipeStepEntity toEntity(RecipeStepUiDTO dto);
+    public RecipeStepEntity toEntity(RecipeStepUiDTO dto) {
+        return switch (dto) {
+            case PrepareStepUiDTO prepareStep -> mapPrepareStep(prepareStep);
+            case StoveStepUiDTO stoveStep -> mapStoveStep(stoveStep);
+            case OvenStepUiDTO ovenStep -> mapOvenStep(ovenStep);
+            default -> throw new IllegalArgumentException("Unknown step class");
+        };
+    }
+
+    @Mapping(target = "position", ignore = true)
+    @Mapping(target = "recipe", ignore = true)
+    abstract PrepareStepEntity mapPrepareStep(PrepareStepUiDTO prepareStepUiDTO);
+
+    @Mapping(target = "position", ignore = true)
+    @Mapping(target = "recipe", ignore = true)
+    abstract StoveStepEntity mapStoveStep(StoveStepUiDTO stoveStepUiDTO);
+
+    @Mapping(target = "position", ignore = true)
+    @Mapping(target = "recipe", ignore = true)
+    abstract OvenStepEntity mapOvenStep(OvenStepUiDTO ovenStepUiDTO);
 }

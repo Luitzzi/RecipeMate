@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @DiscriminatorValue(PrepareStepEntity.stepMethodName)
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // Required by Hibernate
+@NoArgsConstructor
 public class PrepareStepEntity extends RecipeStepEntity {
     public static final String stepMethodName = "PREPARE";
 
