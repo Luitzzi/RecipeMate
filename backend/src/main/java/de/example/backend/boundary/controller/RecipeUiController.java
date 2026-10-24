@@ -5,14 +5,12 @@ import de.example.backend.entity.Language;
 import de.example.backend.entity.UserEntity;
 import de.example.backend.service.RecipeService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.OptimisticLock;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
@@ -46,7 +44,7 @@ public class RecipeUiController {
 
     @PostMapping
     @Operation(summary = "Create a recipe")
-    public ResponseEntity<RecipeUiDTO> create(@RequestBody RecipeUiDTO recipeUiDTO) {
+    public ResponseEntity<RecipeUiDTO> create(@RequestBody @Valid RecipeUiDTO recipeUiDTO) {
         UserEntity owner = getMockUser();
         RecipeUiDTO created = recipeService.create(recipeUiDTO, owner);
         URI location = ServletUriComponentsBuilder
