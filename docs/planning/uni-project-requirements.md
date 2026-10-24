@@ -17,7 +17,10 @@ Following are all requirements by their number in the requirements-pdf.
 |                                                            |                                                                                          |          |            |          |
 | 1. AI "Mate" Chat with Toolcall-Support & Context          | See AI-Features 1 & 2                                                                    | Must     | High       | Johannes |
 | 2. AI Recipe creation/modification                         | See AI-Feature 3                                                                         | Must     | High       | Johannes |
-| 3. Recipe Folder Entity & Folder Overview                  | Per-user folders to allow grouping recipes                                               | Should   | Low        | Johannes |
+| 3. Recipe creation/modification E-Mail notification        |                                                                                          | Could    | Low        | Johannes |
+| 4. Recipe Folder Entity & Folder Overview                  | Per-user folders to allow grouping recipes                                               | Should   | Low        | Johannes |
+| 5. Project Documentation & Application Build via CI/CD     | See Nonfunctional 5                                                                      | Should   | Medium     | Johannes |
+|                                                            |                                                                                          |          |            |          |
 
 ### Entities and their CRUD-Operations
 
@@ -86,13 +89,13 @@ to the team members.
 
 ## 7. Non-functional requirements for every person
 
-| Non-functional requirement                  | Usage                                                                                                                                                                       | Assignee |
-|---------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| 1. Internationalisation                     | Translate the UI in the frontend                                                                                                                                            | Oskar    |
-| 2. Central authentication service           | The authentication service should be easy to scale and to use for other applications. For example HolidayMate.                                                              | Florian  |
-| 3. Consistent design system in the frontend | All styling related values should be consistent. The colors predefined and easy to use in the code                                                                          | Luis     |
-| 4. Consistent coding style in the backend   | Consistent coding style specified in the [conventions](../conventions/backend/bce-pattern-and-data-flow)                                                                    | Luis     |
-| 5. Visible project state and documentation  | The docs are rendered as mkdocs and automatically hosted on GitHub pages via a CI/CD pipeline. The application is hosted on a server for presentation and testing purposes. | Johannes |
+| Non-functional requirement                             | Usage                                                                                                                                                                       | Assignee |
+| ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| 1. Internationalisation                                | Translate the UI in the frontend                                                                                                                                            | Oskar    |
+| 2. Central authentication service                      | The authentication service should be easy to scale and to use for other applications. For example HolidayMate.                                                              | Florian  |
+| 3. Consistent design system in the frontend            | All styling related values should be consistent. The colors predefined and easy to use in the code                                                                          | Luis     |
+| 4. Consistent coding style in the backend              | Consistent coding style specified in the [conventions](../conventions/backend/bce-pattern-and-data-flow)                                                                    | Luis     |
+| 5. Project Documentation & Application Build via CI/CD | The docs are rendered as mkdocs and automatically hosted on GitHub pages via a CI/CD pipeline. The application is hosted on a server for presentation and testing purposes. | Johannes |
 
 ## 8. AI-Feature for every person
 
