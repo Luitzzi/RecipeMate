@@ -20,6 +20,11 @@ Following are all requirements by their number in the requirements-pdf.
 | 3. Recipe Folder Entity & Folder Overview                  | Per-user folders to allow grouping recipes                                               | Should   | Low        | Johannes |
 | 4. Project Documentation & Application Build via CI/CD     | See Nonfunctional 5                                                                      | Should   | Medium     | Johannes |
 |                                                            |                                                                                          |          |            |          |
+| 1. Create the shopping list for the user                   | Add/Delete ingredients and items to the user spescific shopping list                     | Must     | Medium     | Oskar    |
+| 2. Implement the meal prepping screen                      | Enable users to plan their recipes for the week                                          | Must     | High       | Oskar    |
+| 3. Implement email communication                           | Using the Resend service API to enable us sending notifications to the users email address| Must    | High       | Oskar    |
+| 4. Implement internationalisation                          | Using i18next libraray to translate the frontend                                         | Should   | Medium     | Oskar    |
+| 5. "Mate" AI query tools                                   | Mate has tools for: Search (with parameters, like in recipe search page); Folders; ...   | Should   | Medium     | Oskar    |
 
 ### Entities and their CRUD-Operations
 
