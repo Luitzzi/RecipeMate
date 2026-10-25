@@ -107,6 +107,28 @@ export interface HttpClient {
     request<R>(requestConfig: { method: string; url: string; queryParams?: any; data?: any; copyFn?: (data: R) => R; options?: RequestInit; }): RestResponse<R>;
 }
 
+export class ImageUiControllerClient {
+
+    constructor(protected httpClient: HttpClient) {
+    }
+
+    /**
+     * HTTP GET /images/downloadUrl
+     * Java method: de.example.backend.boundary.controller.ImageUiController.getDownloadUrl
+     */
+    getDownloadUrl(queryParams: { key: string; }, options?: RequestInit): RestResponse<ImageUrlUiDTO> {
+        return this.httpClient.request({ method: "GET", url: uriEncoding`images/downloadUrl`, queryParams: queryParams, options: options });
+    }
+
+    /**
+     * HTTP GET /images/uploadUrl
+     * Java method: de.example.backend.boundary.controller.ImageUiController.getUploadUrl
+     */
+    getUploadUrl(queryParams: { contentType: string; }, options?: RequestInit): RestResponse<ImageUrlUiDTO> {
+        return this.httpClient.request({ method: "GET", url: uriEncoding`images/uploadUrl`, queryParams: queryParams, options: options });
+    }
+}
+
 export class ChatUiControllerClient {
 
     constructor(protected httpClient: HttpClient) {
@@ -164,28 +186,6 @@ export class ShoppingListUiControllerClient {
      */
     setItemChecked(itemId: number, queryParams: { checked: boolean; language: Language; }, options?: RequestInit): RestResponse<ShoppingListUiDTO> {
         return this.httpClient.request({ method: "PATCH", url: uriEncoding`api/shopping-list/items/${itemId}`, queryParams: queryParams, options: options });
-    }
-}
-
-export class ImageUiControllerClient {
-
-    constructor(protected httpClient: HttpClient) {
-    }
-
-    /**
-     * HTTP GET /images/downloadUrl
-     * Java method: de.example.backend.boundary.controller.ImageUiController.getDownloadUrl
-     */
-    getDownloadUrl(queryParams: { key: string; }, options?: RequestInit): RestResponse<ImageUrlUiDTO> {
-        return this.httpClient.request({ method: "GET", url: uriEncoding`images/downloadUrl`, queryParams: queryParams, options: options });
-    }
-
-    /**
-     * HTTP GET /images/uploadUrl
-     * Java method: de.example.backend.boundary.controller.ImageUiController.getUploadUrl
-     */
-    getUploadUrl(queryParams: { contentType: string; }, options?: RequestInit): RestResponse<ImageUrlUiDTO> {
-        return this.httpClient.request({ method: "GET", url: uriEncoding`images/uploadUrl`, queryParams: queryParams, options: options });
     }
 }
 

@@ -48,6 +48,7 @@ public class ShoppingListService {
         if (ingredient.getId() == null)
             ingredientService.createAll(List.of(ingredient));
         shoppingList.addIngredientItem(ingredient, amount, unit);
+        shoppingListRepository.flush();
         return shoppingListMapper.toDTO(shoppingList, language);
     }
 
@@ -61,6 +62,7 @@ public class ShoppingListService {
     ) {
         ShoppingListEntity shoppingList = getOrCreateEntity(owner);
         shoppingList.addFreeTextItem(name, amount, unit);
+        shoppingListRepository.flush();
         return shoppingListMapper.toDTO(shoppingList, language);
     }
 
