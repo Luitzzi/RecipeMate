@@ -8,8 +8,11 @@ import { useFetchOnce } from "#/common/hooks/useFetchOnce.ts";
 import { useMutation } from "#/common/hooks/useMutation.ts";
 import { useNotification } from "../../common/hooks/useNotification.tsx";
 import { useEffectOnce } from "#/common/hooks/useEffectOnce.ts";
+import { useTranslation } from "react-i18next";
 
 export const CounteringTheCounter = () => {
+  const { t } = useTranslation();
+
   const api = useApi();
   const notify = useNotification();
 
@@ -92,7 +95,7 @@ export const CounteringTheCounter = () => {
               )
             }
           >
-            Increment
+            {t("buttons.save")}
           </Button>
         </Flex>
       )}

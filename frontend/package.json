@@ -19,11 +19,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.3.4",
     "@tanstack/react-query": "^5.104.2",
     "antd": "^6.6.2",
-    "@ant-design/icons": "^6.3.4",
+    // Können wir entfernen wenn wir keine Datums Komponenten von AntDesign verwenden
+    // Brauchen wir um in AntDesign Monats- und Wochentagsnamen zu übersetzen.
+    "dayjs": "^1.11.23",
+    "i18next": "^26.5.6",
+    // Können wir entfernen sollten wir keine Browser Spracherkennung brauchen.
+    "i18next-browser-languagedetector": "^8.2.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "react-i18next": "^17.1.4",
     "react-router": "^8.3.1",
     "ty": "^0.0.1"
   },
@@ -34,13 +41,13 @@
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.1.0",
     "eslint": "^10.9.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.4",
     "globals": "^17.11.0",
     "prettier": "3.9.8",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.67.0",
-    "vite": "^8.2.2",
-    "eslint-config-prettier": "^10.1.8"
+    "vite": "^8.2.2"
   }
 }
