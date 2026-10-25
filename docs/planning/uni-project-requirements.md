@@ -29,7 +29,7 @@ Following are all requirements by their number in the requirements-pdf.
 |                                                            |                                                                                            |          |            |          |
 | 1. Implement OAuth authentication in the Backend           | Validate ZITADEL JWTs, secure endpoints, provide current user to controllers               | Must     | High       | Florian  |
 | 2. Create the data structure for users                     | CRUDs for UserEntity (preferences, allergens, don't-likes), linked to OAuth subject ID     | Must     | Medium     | Florian  |
-| 3. Automatic user provisioning on first login              | Create UserEntity on first authenticated request + Preferences                             | Must     | Medium     | Florian  |
+| 3. Automatic user provisioning on first login              | Create UserEntity on first authenticated request + Get Preferences                         | Must     | Medium     | Florian  |
 | 4. Implement the user profile page                         | UI to view and edit preferences, allergens and don't-likes                                 | Should   | Medium     | Florian  |
 | 5. User context for Mate AI & user deletion                | Provide user data to Mate; delete user data on account deletion                            | Could    | Medium     | Florian  |
 
