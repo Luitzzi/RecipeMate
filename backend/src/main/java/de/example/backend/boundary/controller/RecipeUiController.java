@@ -4,6 +4,7 @@ import de.example.backend.boundary.uidto.RecipeUiDTO;
 import de.example.backend.entity.Language;
 import de.example.backend.entity.UserEntity;
 import de.example.backend.service.RecipeService;
+import de.example.backend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -14,7 +15,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/recipies")
@@ -24,10 +24,12 @@ public class RecipeUiController {
 
     private final RecipeService recipeService;
 
+    private final UserService userService;
+
     @GetMapping
     @Operation(summary = "Get all recipes created by an user in a given language")
     public List<RecipeUiDTO> getAll(@RequestParam Language language) {
-        UserEntity user = getMockUser();
+        UserEntity user = userService.getMockUser();
         return recipeService.getAll(user, language);
     }
 
@@ -45,7 +47,7 @@ public class RecipeUiController {
     @PostMapping
     @Operation(summary = "Create a recipe")
     public ResponseEntity<RecipeUiDTO> create(@RequestBody @Valid RecipeUiDTO recipeUiDTO) {
-        UserEntity owner = getMockUser();
+        UserEntity owner = userService.getMockUser();
         RecipeUiDTO created = recipeService.create(recipeUiDTO, owner);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -53,12 +55,5 @@ public class RecipeUiController {
                 .buildAndExpand(created.getId())
                 .toUri();
         return ResponseEntity.created(location).body(created);
-    }
-
-    private UserEntity getMockUser() {
-        UUID userId = UUID.fromString("00000000-0000-0000-0000-000000000000");
-        UserEntity userEntity = new UserEntity();
-        userEntity.setId(userId);
-        return userEntity;
     }
 }
