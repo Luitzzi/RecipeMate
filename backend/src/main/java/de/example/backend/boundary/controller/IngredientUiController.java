@@ -4,6 +4,7 @@ import de.example.backend.boundary.uidto.IngredientUiDTO;
 import de.example.backend.entity.Language;
 import de.example.backend.entity.UserEntity;
 import de.example.backend.service.IngredientService;
+import de.example.backend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,8 @@ public class IngredientUiController {
     public List<IngredientUiDTO> getAll(
             @RequestParam Language language
     ) {
-        UserEntity user = MockUserUtils.getMockUser();
-        return ingredientService.getAll(user.getId(), language);
+        return ingredientService.getAllWithCustomCreated(
+                UserService.TEST_USER.getId(),
+                language);
     }
 }

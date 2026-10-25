@@ -15,6 +15,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity {
     public static final String tableName = "users";
 

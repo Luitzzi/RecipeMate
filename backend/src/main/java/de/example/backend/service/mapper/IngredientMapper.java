@@ -17,7 +17,7 @@ import java.util.List;
 public abstract class IngredientMapper {
 
     @Autowired
-    private IngredientService ingredientService;
+    private IngredientRepository ingredientRepository;
 
     @Mapping(target = "name", expression = "java(entity.getName(language))")
     public abstract IngredientUiDTO toDTO(IngredientEntity entity, @Context Language language);
@@ -29,7 +29,8 @@ public abstract class IngredientMapper {
         if (dto.getId() == null) {
             return getCreatedIngredient(dto, createdBy);
         }
-        return ingredientService.getById(dto.getId());
+        return ingredientRepository.findById(dto.getId())
+                .orElseThrow();
     }
 
     /**
