@@ -7,25 +7,31 @@ Following are all requirements by their number in the requirements-pdf.
 
 ## 1. Four features for every person with all necessary CRUDs
 
-| Feature                                                    | Specification                                                                            | Priority | Complexity | Assignee |
-| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------- | -------- | ---------- | -------- |
-| 1. Create the data structure for recipes                   | CRUDs for RecipeEntity, IngredientEntity, StepEntity                                     | Must     | High       | Luis     |
-| 2. Implement the Recipe-Creation Page                      | Implement the UI for the Recipe-Creation Page and post the created recipe to the backend | Must     | Medium     | Luis     |
-| 3. Save images for recipes                                 | Save images on a dedicated object storage and make them accessible to the Backend        | Must     | Medium     | Luis     |
-| 4. Implement a search page for recipes with filter options | Uses the get-Endpoint of the RecipeController and provides the filter options            | Must     | Medium     | Luis     |
-| 5. Implement AI recipe creation via image                  | Create a recipe from an image                                                            | Could    | High       | Luis     |
-|                                                            |                                                                                          |          |            |          |
-| 1. AI "Mate" Chat with Toolcall-Support & Context          | See AI-Features 1 & 2                                                                    | Must     | High       | Johannes |
-| 2. AI Recipe creation/modification                         | See AI-Feature 3                                                                         | Must     | High       | Johannes |
-| 3. Recipe creation/modification E-Mail notification        |                                                                                          | Could    | Low        | Johannes |
-| 4. Recipe Folder Entity & Folder Overview                  | Per-user folders to allow grouping recipes                                               | Should   | Low        | Johannes |
-| 5. Project Documentation & Application Build via CI/CD     | See Nonfunctional 5                                                                      | Should   | Medium     | Johannes |
-|                                                            |                                                                                          |          |            |          |
-| 1. Create the shopping list for the user                   | Add/Delete ingredients and items to the user spescific shopping list                     | Must     | Medium     | Oskar    |
-| 2. Implement the meal prepping screen                      | Enable users to plan their recipes for the week                                          | Must     | High       | Oskar    |
-| 3. Implement email communication                           | Using the Resend service API to enable us sending notifications to the users email address| Must    | High       | Oskar    |
-| 4. Implement internationalisation                          | Using i18next libraray to translate the frontend                                         | Should   | Medium     | Oskar    |
-| 5. "Mate" AI query tools                                   | Mate has tools for: Search (with parameters, like in recipe search page); Folders; ...   | Should   | Medium     | Oskar    |
+| Feature                                                    | Specification                                                                              | Priority | Complexity | Assignee |
+|------------------------------------------------------------|--------------------------------------------------------------------------------------------|----------|------------|----------|
+| 1. Create the data structure for recipes                   | CRUDs for RecipeEntity, IngredientEntity, StepEntity                                       | Must     | High       | Luis     |
+| 2. Implement the Recipe-Creation Page                      | Implement the UI for the Recipe-Creation Page and post the created recipe to the backend   | Must     | Medium     | Luis     |
+| 3. Save images for recipes                                 | Save images on a dedicated object storage and make them accessible to the Backend          | Must     | Medium     | Luis     |
+| 4. Implement a search page for recipes with filter options | Uses the get-Endpoint of the RecipeController and provides the filter options              | Must     | Medium     | Luis     |
+| 5. Implement AI recipe creation via image                  | Create a recipe from an image                                                              | Could    | High       | Luis     |
+|                                                            |                                                                                            |          |            |          |
+| 1. AI "Mate" Chat with Toolcall-Support & Context          | See AI-Features 1 & 2                                                                      | Must     | High       | Johannes |
+| 2. AI Recipe creation/modification                         | See AI-Feature 3                                                                           | Must     | High       | Johannes |
+| 3. Recipe creation/modification E-Mail notification        |                                                                                            | Could    | Low        | Johannes |
+| 4. Recipe Folder Entity & Folder Overview                  | Per-user folders to allow grouping recipes                                                 | Should   | Low        | Johannes |
+| 5. Project Documentation & Application Build via CI/CD     | See Nonfunctional 5                                                                        | Should   | Medium     | Johannes |
+|                                                            |                                                                                            |          |            |          |
+| 1. Create the shopping list for the user                   | Add/Delete ingredients and items to the user spescific shopping list                       | Must     | Medium     | Oskar    |
+| 2. Implement the meal prepping screen                      | Enable users to plan their recipes for the week                                            | Must     | High       | Oskar    |
+| 3. Implement email communication                           | Using the Resend service API to enable us sending notifications to the users email address | Must     | High       | Oskar    |
+| 4. Implement internationalisation                          | Using i18next libraray to translate the frontend                                           | Should   | Medium     | Oskar    |
+| 5. "Mate" AI query tools                                   | Mate has tools for: Search (with parameters, like in recipe search page); Folders; ...     | Should   | Medium     | Oskar    |
+|                                                            |                                                                                            |          |            |          |
+| 1. Implement OAuth authentication in the Backend           | Validate ZITADEL JWTs, secure endpoints, provide current user to controllers               | Must     | High       | Florian  |
+| 2. Create the data structure for users                     | CRUDs for UserEntity (preferences, allergens, don't-likes), linked to OAuth subject ID     | Must     | Medium     | Florian  |
+| 3. Automatic user provisioning on first login              | Create UserEntity on first authenticated request + Preferences                             | Must     | Medium     | Florian  |
+| 4. Implement the user profile page                         | UI to view and edit preferences, allergens and don't-likes                                 | Should   | Medium     | Florian  |
+| 5. User context for Mate AI & user deletion                | Provide user data to Mate; delete user data on account deletion                            | Could    | Medium     | Florian  |
 
 ### Entities and their CRUD-Operations
 
