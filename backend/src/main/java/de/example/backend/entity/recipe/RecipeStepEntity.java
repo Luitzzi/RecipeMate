@@ -12,12 +12,13 @@ import java.util.Objects;
 @Entity
 @Table(name = RecipeStepEntity.tableName)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "method", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = RecipeStepEntity.descriminatorColumnName, discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // Required by Hibernate
 public abstract class RecipeStepEntity {
     public static final String tableName = "recipe_steps";
+    public static final String descriminatorColumnName = "stepMethod";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +41,7 @@ public abstract class RecipeStepEntity {
         this.position = position;
     }
 
+    @Getter
     public enum StepMethod {
         PREPARE,
         OVEN,

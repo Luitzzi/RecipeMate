@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RecipeCuisineEntity {
-    public static final String tableName = "recipe_cuisines";
+    public static final String tableName = "cuisines";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

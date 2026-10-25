@@ -48,7 +48,7 @@ public class RecipeEntity {
     @Setter(AccessLevel.NONE)
     @ManyToMany
     @JoinTable(
-            name = RecipeCuisineEntity.tableName,
+            name = "recipe_cuisines",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "cuisine_id"))
     private Set<RecipeCuisineEntity> cuisines = new HashSet<>();
@@ -56,7 +56,7 @@ public class RecipeEntity {
     @Setter(AccessLevel.NONE)
     @ManyToMany
     @JoinTable(
-            name = RecipePropertyEntity.tableName,
+            name = "recipe_properties",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "property_id"))
     private Set<RecipePropertyEntity> properties = new HashSet<>();
@@ -143,12 +143,24 @@ public class RecipeEntity {
         return Collections.unmodifiableSet(cuisines);
     }
 
+    public void addCuisineTags(List<RecipeCuisineEntity> cuisineTags) {
+        cuisines.addAll(cuisineTags);
+    }
+
+    public Set<RecipePropertyEntity> getProperties() {
+        return Collections.unmodifiableSet(properties);
+    }
+
+    public void addPropertyTags(List<RecipePropertyEntity> propertyTags) {
+        properties.addAll(propertyTags);
+    }
+
     public List<String> getImageKeys() {
         return Collections.unmodifiableList(imageKeys);
     }
 
-    public void addImage(String imageKey) {
-        imageKeys.add(imageKey);
+    public void addImageKeys(List<String> imageKeys) {
+        this.imageKeys.addAll(imageKeys);
     }
 
     public void removeImage(String storageKey) {

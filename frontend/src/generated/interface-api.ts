@@ -1,5 +1,5 @@
-/* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 export interface ChatRequestUiDTO {
     message: string;
@@ -11,14 +11,70 @@ export interface ChatResponseUiDTO {
     status: ChatResponseStatus;
 }
 
-export interface CounterUiDTO {
-    id: string;
-    count: number;
-}
-
 export interface CurrentViewUiDTO {
     type: ViewType;
     id?: string;
+}
+
+export interface IngredientUiDTO {
+    id?: number;
+    name: string;
+    type?: string;
+}
+
+export interface OvenStepUiDTO extends RecipeStepUiDTO {
+    stepMethod: "OVEN";
+    temperatureC: number;
+    ovenMode: OvenMode;
+    durationSeconds: number;
+    preheat: boolean;
+}
+
+export interface PrepareStepUiDTO extends RecipeStepUiDTO {
+    stepMethod: "PREPARE";
+}
+
+export interface RecipeCuisineUiDTO {
+    id: number;
+    name: string;
+}
+
+export interface RecipeIngredientUiDTO {
+    ingredient: IngredientUiDTO;
+    amount?: number;
+    unit: Unit;
+}
+
+export interface RecipePropertyUiDTO {
+    id: number;
+    name: string;
+}
+
+export interface RecipeStepUiDTO {
+    stepMethod: "OVEN" | "PREPARE" | "STOVE";
+    id?: number;
+    description: string;
+}
+
+export interface RecipeUiDTO {
+    id?: number;
+    title: string;
+    description: string;
+    cookTimeInMinutes: number;
+    difficulty: number;
+    diet: Diet;
+    note?: string;
+    sourceUrl?: string;
+    ingredients: RecipeIngredientUiDTO[];
+    steps: RecipeStepUiDTOUnion[];
+    cuisines: RecipeCuisineUiDTO[];
+    properties: RecipePropertyUiDTO[];
+    imageKeys: string[];
+}
+
+export interface StoveStepUiDTO extends RecipeStepUiDTO {
+    stepMethod: "STOVE";
+    heatLevel: HeatLevel;
 }
 
 export interface HttpClient {
@@ -26,33 +82,33 @@ export interface HttpClient {
     request<R>(requestConfig: { method: string; url: string; queryParams?: any; data?: any; copyFn?: (data: R) => R; options?: RequestInit; }): RestResponse<R>;
 }
 
-export class CounterUiControllerClient {
+export class RecipeUiControllerClient {
 
     constructor(protected httpClient: HttpClient) {
     }
 
     /**
-     * HTTP POST /api/counter
-     * Java method: de.example.backend.boundary.controller.CounterUiController.create
+     * HTTP POST /api/recipies
+     * Java method: de.example.backend.boundary.controller.RecipeUiController.create
      */
-    create(options?: RequestInit): RestResponse<CounterUiDTO> {
-        return this.httpClient.request({ method: "POST", url: uriEncoding`api/counter`, options: options });
+    create(recipeUiDTO: RecipeUiDTO, options?: RequestInit): RestResponse<RecipeUiDTO> {
+        return this.httpClient.request({ method: "POST", url: uriEncoding`api/recipies`, data: recipeUiDTO, options: options });
     }
 
     /**
-     * HTTP PUT /api/counter
-     * Java method: de.example.backend.boundary.controller.CounterUiController.update
+     * HTTP GET /api/recipies
+     * Java method: de.example.backend.boundary.controller.RecipeUiController.getAll
      */
-    update(counterUiDTO: CounterUiDTO, options?: RequestInit): RestResponse<CounterUiDTO> {
-        return this.httpClient.request({ method: "PUT", url: uriEncoding`api/counter`, data: counterUiDTO, options: options });
+    getAll(queryParams: { language: Language; }, options?: RequestInit): RestResponse<RecipeUiDTO[]> {
+        return this.httpClient.request({ method: "GET", url: uriEncoding`api/recipies`, queryParams: queryParams, options: options });
     }
 
     /**
-     * HTTP GET /api/counter/{id}
-     * Java method: de.example.backend.boundary.controller.CounterUiController.getById
+     * HTTP GET /api/recipies/{id}
+     * Java method: de.example.backend.boundary.controller.RecipeUiController.get
      */
-    getById(id: string, options?: RequestInit): RestResponse<CounterUiDTO> {
-        return this.httpClient.request({ method: "GET", url: uriEncoding`api/counter/${id}`, options: options });
+    get(id: number, queryParams: { language: Language; }, options?: RequestInit): RestResponse<RecipeUiDTO> {
+        return this.httpClient.request({ method: "GET", url: uriEncoding`api/recipies/${id}`, queryParams: queryParams, options: options });
     }
 }
 
@@ -80,9 +136,65 @@ export class ChatUiControllerClient {
 
 export type RestResponse<R> = Promise<R>;
 
-export type ChatResponseStatus = "SUCCESS" | "REFUSAL" | "ERROR";
+export type RecipeStepUiDTOUnion = PrepareStepUiDTO | OvenStepUiDTO | StoveStepUiDTO;
 
-export type ViewType = "NONE" | "RECIPE";
+export const enum Language {
+    DE = "DE",
+    EN = "EN",
+}
+
+export const enum ChatResponseStatus {
+    SUCCESS = "SUCCESS",
+    REFUSAL = "REFUSAL",
+    ERROR = "ERROR",
+}
+
+export const enum ViewType {
+    NONE = "NONE",
+    RECIPE = "RECIPE",
+}
+
+export const enum OvenMode {
+    TOP_BOTTOM_HEAT = "TOP_BOTTOM_HEAT",
+    CIRCULATING_AIR = "CIRCULATING_AIR",
+}
+
+export const enum Unit {
+    GRAM = "GRAM",
+    KILOGRAM = "KILOGRAM",
+    MILLILITER = "MILLILITER",
+    LITER = "LITER",
+    TEASPOON = "TEASPOON",
+    TABLESPOON = "TABLESPOON",
+    CUP = "CUP",
+    PIECE = "PIECE",
+    CLOVE = "CLOVE",
+    SLICE = "SLICE",
+    BUNCH = "BUNCH",
+    SPRING = "SPRING",
+    LEAF = "LEAF",
+    CAN = "CAN",
+    PACKAGE = "PACKAGE",
+    CUP_CONTAINER = "CUP_CONTAINER",
+    CUBE = "CUBE",
+    PINCH = "PINCH",
+    KNIFE_TIP = "KNIFE_TIP",
+    DASH = "DASH",
+    TO_TASTE = "TO_TASTE",
+}
+
+export const enum Diet {
+    VEGAN = "VEGAN",
+    VEGETARIAN = "VEGETARIAN",
+    PESCATARIAN = "PESCATARIAN",
+    OMNIVORE = "OMNIVORE",
+}
+
+export const enum HeatLevel {
+    LOW = "LOW",
+    MEDIUM = "MEDIUM",
+    HIGH = "HIGH",
+}
 
 function uriEncoding(template: TemplateStringsArray, ...substitutions: any[]): string {
     let result = "";

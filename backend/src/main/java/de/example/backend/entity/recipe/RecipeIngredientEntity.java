@@ -2,6 +2,7 @@ package de.example.backend.entity.recipe;
 
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.Unit;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
@@ -53,8 +54,8 @@ public class RecipeIngredientEntity {
     @Column(nullable = false)
     private Integer position;
 
-    // Only RecipeBE creates its ingredients, so recipe and position stay consistent
-    RecipeIngredientEntity(RecipeEntity recipe, IngredientEntity ingredient, BigDecimal amount, Unit unit) {
+    // Only RecipeEntity creates its ingredients, so recipe and position stay consistent
+    RecipeIngredientEntity(RecipeEntity recipe, IngredientEntity ingredient, @Nullable BigDecimal amount, Unit unit) {
         this.recipe = recipe;
         this.ingredient = ingredient;
         this.amount = amount;
