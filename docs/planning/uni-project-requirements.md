@@ -7,24 +7,25 @@ Following are all requirements by their number in the requirements-pdf.
 
 ## 1. Four features for every person with all necessary CRUDs
 
-| Feature                                                    | Specification                                                                            | Priority | Complexity | Assignee |
-| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------- | -------- | ---------- | -------- |
-| 1. Create the data structure for recipes                   | CRUDs for RecipeEntity, IngredientEntity, StepEntity                                     | Must     | High       | Luis     |
-| 2. Implement the Recipe-Creation Page                      | Implement the UI for the Recipe-Creation Page and post the created recipe to the backend | Must     | Medium     | Luis     |
-| 3. Save images for recipes                                 | Save images on a dedicated object storage and make them accessible to the Backend        | Must     | Medium     | Luis     |
-| 4. Implement a search page for recipes with filter options | Uses the get-Endpoint of the RecipeController and provides the filter options            | Must     | Medium     | Luis     |
-| 5. Implement AI recipe creation via image                  | Create a recipe from an image                                                            | Could    | High       | Luis     |
-|                                                            |                                                                                          |          |            |          |
-| 1. AI "Mate" Chat                                          | See AI-Features 1-3                                                                      | Must     | High       | Johannes |
-| 2. Share a recipe via E-Mail                               | See Communication 2                                                                      | Could    | Low        | Johannes |
-| 3. Recipe Folder Entity & Folder Overview                  | Per-user folders to allow grouping recipes                                               | Should   | Low        | Johannes |
-| 4. Project Documentation & Application Build via CI/CD     | See Nonfunctional 5                                                                      | Should   | Medium     | Johannes |
-|                                                            |                                                                                          |          |            |          |
-| 1. Create the shopping list for the user                   | Add/Delete ingredients and items to the user spescific shopping list                     | Must     | Medium     | Oskar    |
-| 2. Implement the meal prepping screen                      | Enable users to plan their recipes for the week                                          | Must     | High       | Oskar    |
-| 3. Implement email communication                           | Using the Resend service API to enable us sending notifications to the users email address| Must    | High       | Oskar    |
-| 4. Implement internationalisation                          | Using i18next libraray to translate the frontend                                         | Should   | Medium     | Oskar    |
-| 5. "Mate" AI query tools                                   | Mate has tools for: Search (with parameters, like in recipe search page); Folders; ...   | Should   | Medium     | Oskar    |
+| Feature                                                    | Specification                                                                              | Priority | Complexity | Assignee |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------ | -------- | ---------- | -------- |
+| 1. Create the data structure for recipes                   | CRUDs for RecipeEntity, IngredientEntity, StepEntity                                       | Must     | High       | Luis     |
+| 2. Implement the Recipe-Creation Page                      | Implement the UI for the Recipe-Creation Page and post the created recipe to the backend   | Must     | Medium     | Luis     |
+| 3. Save images for recipes                                 | Save images on a dedicated object storage and make them accessible to the Backend          | Must     | Medium     | Luis     |
+| 4. Implement a search page for recipes with filter options | Uses the get-Endpoint of the RecipeController and provides the filter options              | Must     | Medium     | Luis     |
+| 5. Implement AI recipe creation via image                  | Create a recipe from an image                                                              | Could    | High       | Luis     |
+|                                                            |                                                                                            |          |            |          |
+| 1. AI "Mate" Chat                                          | See AI-Features 1-3                                                                        | Must     | High       | Johannes |
+| 2. Share a recipe via E-Mail                               | See Communication 2                                                                        | Could    | Low        | Johannes |
+| 3. Recipe conversion finished notification                 | See Communication 3                                                                        | Could    | Low        | Johannes |
+| 4. Recipe Folder Entity & Folder Overview                  | Per-user folders to allow grouping recipes                                                 | Should   | Low        | Johannes |
+| 5. Project Documentation & Application Build via CI/CD     | See Nonfunctional 5                                                                        | Should   | Medium     | Johannes |
+|                                                            |                                                                                            |          |            |          |
+| 1. Create the shopping list for the user                   | Add/Delete ingredients and items to the user spescific shopping list                       | Must     | Medium     | Oskar    |
+| 2. Implement the meal prepping screen                      | Enable users to plan their recipes for the week                                            | Must     | High       | Oskar    |
+| 3. Implement email communication                           | Using the Resend service API to enable us sending notifications to the users email address | Must     | High       | Oskar    |
+| 4. Implement internationalisation                          | Using i18next libraray to translate the frontend                                           | Should   | Medium     | Oskar    |
+| 5. "Mate" AI query tools                                   | Mate has tools for: Search (with parameters, like in recipe search page); Folders; ...     | Should   | Medium     | Oskar    |
 
 ### Entities and their CRUD-Operations
 
@@ -70,12 +71,13 @@ See 1. Entities and their CRUD-Operations
 
 Channel: E-Mail
 
-| Communication                | Description                                                                                                             | Assignee |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------- |
-| 1. E-mail confirmation & MFA | Confirmation mail after registration and one-time codes for multi-factor authentication. (via Zitadel Cloud)            | Florian  |
-| 2. Share a recipe via E-Mail | Share a recipe to an E-Mail. They get a static version of the recipe.                                                   | Johannes |
-| 3. Newsletter                | Weekly "Check out these recipes" mail with new and best-rated recipes. Users subscribe/unsubscribe in the user settings | Luis     |
-| 4. Welcome back mail         | If the user did not login for x days he gets a welcome back email                                                       | Oskar    |
+| Communication                      | Description                                                                                                             | Assignee |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------- |
+| 1. E-mail confirmation & MFA       | Confirmation mail after registration and one-time codes for multi-factor authentication. (via Zitadel Cloud)            | Florian  |
+| 2. Share a recipe via E-Mail       | Share a recipe to an E-Mail. They get a static version of the recipe.                                                   | Johannes |
+| 3. Recipe creation finished E-Mail | Get an E-Mail about a recipe creation/modification/import having finished.                                              | Johannes |
+| 4. Newsletter                      | Weekly "Check out these recipes" mail with new and best-rated recipes. Users subscribe/unsubscribe in the user settings | Luis     |
+| 5. Welcome back mail               | If the user did not login for x days he gets a welcome back email                                                       | Oskar    |
 
 ## 5. Frontend
 
