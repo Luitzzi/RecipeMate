@@ -4,14 +4,11 @@ import de.example.backend.boundary.uidto.IngredientUiDTO;
 import de.example.backend.entity.Language;
 import de.example.backend.entity.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
-import de.example.backend.repository.IngredientRepository;
 import de.example.backend.service.IngredientService;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 @Mapper
 public abstract class IngredientMapper {

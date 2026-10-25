@@ -3,7 +3,6 @@ package de.example.backend.entity.recipe.recipe_step_methods;
 import de.example.backend.entity.recipe.RecipeStepEntity;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @Entity

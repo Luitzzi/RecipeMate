@@ -1,14 +1,15 @@
 package de.example.backend.service;
 
+import java.util.UUID;
+
+import org.springframework.stereotype.Service;
+
 import de.example.backend.entity.UserEntity;
 import de.example.backend.repository.UserRepository;
 import de.example.backend.repository.querydsl.UserQueries;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Slf4j
 @Service

@@ -5,16 +5,12 @@ import de.example.backend.entity.Language;
 import de.example.backend.entity.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.recipe.*;
-import de.example.backend.service.RecipeCuisineService;
-import de.example.backend.service.RecipePropertyService;
-import de.example.backend.service.RecipeService;
 import jakarta.annotation.Nullable;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Optional;
 
 @Mapper(uses = {
         RecipeIngredientMapper.class,

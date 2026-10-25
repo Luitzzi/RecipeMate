@@ -3,7 +3,6 @@ package de.example.backend.service.mapper;
 import de.example.backend.boundary.uidto.RecipePropertyUiDTO;
 import de.example.backend.entity.recipe.RecipePropertyEntity;
 import de.example.backend.service.RecipePropertyService;
-import org.apache.commons.lang3.NotImplementedException;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
