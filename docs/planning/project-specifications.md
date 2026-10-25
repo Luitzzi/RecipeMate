@@ -12,6 +12,7 @@ It should not be an extra workload. Everything according work-planning should be
 | Epics                            | Release | Priority | Spec                                                | Epic                                                      | Assignee               |
 |----------------------------------|---------|----------|-----------------------------------------------------|-----------------------------------------------------------|------------------------|
 | Page: Recipe Creation            | MVP     | Must     | [Recipe Creation](../epic-specs/recipe-creation)    | [GitHub](https://github.com/Luitzzi/RecipeMate/issues/11) | Luis                   |
+| Cloudflare R2 Object Container   | MVP     | Must     | [Image Database](../epic-specs/image-database)      | [GitHub](https://github.com/Luitzzi/RecipeMate/issues/29) | Luis                   |
 | Page: Recipe Search              | MVP     | Must     | -                                                   | -                                                         | Luis                   |
 | Page: My-Recipes Folder overview | MVP     | Must     | -                                                   | -                                                         | Johannes               |
 | Page: Rezepte Übersicht          | MVP     | Must     | [Rezepte Übersicht](../epic-specs/recipe-overview)  | [GitHub](https://github.com/Luitzzi/RecipeMate/issues/19) | Oskar                  |
