@@ -37,6 +37,7 @@ public class RecipeUiDTO {
     @Nullable
     private String note;
 
+    // Only for display purposes
     @Nullable
     private String sourceUrl;
 
