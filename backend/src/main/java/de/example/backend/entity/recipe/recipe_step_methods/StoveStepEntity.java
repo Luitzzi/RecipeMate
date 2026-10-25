@@ -1,0 +1,53 @@
+package de.example.backend.entity.recipe.recipe_step_methods;
+
+import de.example.backend.entity.recipe.RecipeStepEntity;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.AssertTrue;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@DiscriminatorValue(value = StoveStepEntity.stepMethodName)
+@Getter
+@Setter
+@NoArgsConstructor
+public class StoveStepEntity extends RecipeStepEntity {
+    public static final String stepMethodName = "STOVE";
+
+    public enum HeatLevel {
+        LOW,
+        MEDIUM,
+        HIGH
+    }
+
+    @Enumerated(value = EnumType.STRING)
+    private HeatLevel heatLevel;
+
+    public StoveStepEntity(String description, HeatLevel heatLevel) {
+        super();
+        this.heatLevel = heatLevel;
+    }
+
+    public StoveStepEntity(
+            String description, Integer position,
+            HeatLevel heatLevel
+    ) {
+        super(description, position);
+        this.heatLevel = heatLevel;
+    }
+
+    @Override
+    public StepMethod getStepMethod() {
+        return StepMethod.STOVE;
+    }
+
+    @AssertTrue(message = "Stove step requires a heat level")
+    public boolean isCompleted() {
+        return heatLevel != null;
+    }
+}

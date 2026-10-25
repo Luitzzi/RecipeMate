@@ -1,17 +1,17 @@
 package de.example.backend.boundary.uidto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class CounterUiDTO {
+public class RecipePropertyUiDTO {
 
-    private UUID id;
+    private Long id;
 
-    private int count;
+    @NotBlank
+    private String name;
 }

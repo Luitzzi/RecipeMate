@@ -1,8 +1,9 @@
 package de.example.backend.service.mapper;
 
-public interface AbstractMapper<BE, DTO> {
+public interface AbstractMapper<Entity, DTO> {
 
-    BE toBE(DTO dto);
+    Entity toEntity(DTO dto);
 
-    DTO toDTO(BE entity);
+    DTO toDTO(Entity entity);
+    
 }

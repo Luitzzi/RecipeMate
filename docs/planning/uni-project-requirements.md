@@ -7,7 +7,25 @@ Following are all requirements by their number in the requirements-pdf.
 
 ## 1. Four features for every person with all necessary CRUDs
 
-The features are defined in the [project specifications](../project-specifications).
+| Feature                                                    | Specification                                                                            | Priority | Complexity | Assignee |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------- | -------- | ---------- | -------- |
+| 1. Create the data structure for recipes                   | CRUDs for RecipeEntity, IngredientEntity, StepEntity                                     | Must     | High       | Luis     |
+| 2. Implement the Recipe-Creation Page                      | Implement the UI for the Recipe-Creation Page and post the created recipe to the backend | Must     | Medium     | Luis     |
+| 3. Save images for recipes                                 | Save images on a dedicated object storage and make them accessible to the Backend        | Must     | Medium     | Luis     |
+| 4. Implement a search page for recipes with filter options | Uses the get-Endpoint of the RecipeController and provides the filter options            | Must     | Medium     | Luis     |
+| 5. Implement AI recipe creation via image                  | Create a recipe from an image                                                            | Could    | High       | Luis     |
+|                                                            |                                                                                          |          |            |          |
+| 1. AI "Mate" Chat with Toolcall-Support & Context          | See AI-Features 1 & 2                                                                    | Must     | High       | Johannes |
+| 2. AI Recipe creation/modification                         | See AI-Feature 3                                                                         | Must     | High       | Johannes |
+| 3. Recipe creation/modification E-Mail notification        |                                                                                          | Could    | Low        | Johannes |
+| 4. Recipe Folder Entity & Folder Overview                  | Per-user folders to allow grouping recipes                                               | Should   | Low        | Johannes |
+| 5. Project Documentation & Application Build via CI/CD     | See Nonfunctional 5                                                                      | Should   | Medium     | Johannes |
+|                                                            |                                                                                          |          |            |          |
+| 1. Create the shopping list for the user                   | Add/Delete ingredients and items to the user spescific shopping list                     | Must     | Medium     | Oskar    |
+| 2. Implement the meal prepping screen                      | Enable users to plan their recipes for the week                                          | Must     | High       | Oskar    |
+| 3. Implement email communication                           | Using the Resend service API to enable us sending notifications to the users email address| Must    | High       | Oskar    |
+| 4. Implement internationalisation                          | Using i18next libraray to translate the frontend                                         | Should   | Medium     | Oskar    |
+| 5. "Mate" AI query tools                                   | Mate has tools for: Search (with parameters, like in recipe search page); Folders; ...   | Should   | Medium     | Oskar    |
 
 ### Entities and their CRUD-Operations
 
@@ -76,19 +94,21 @@ to the team members.
 
 ## 7. Non-functional requirements for every person
 
-| Non-functional requirement                  | Usage                                                                                                                                                                       | Assignee |
-|---------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| 1. Internationalisation                     | Translate the UI in the frontend                                                                                                                                            | Oskar    |
-| 2. Central authentication service           | The authentication service should be easy to scale and to use for other applications. For example HolidayMate.                                                              | Florian  |
-| 3. Consistent design system in the frontend | All styling related values should be consistent. The colors predefined and easy to use in the code                                                                          | Luis     |
-| 4. Consistent coding style in the backend   | Consistent coding style specified in the [conventions](../conventions/backend/bce-pattern-and-data-flow)                                                                    | Luis     |
-| 5. Visible project state and documentation  | The docs are rendered as mkdocs and automatically hosted on GitHub pages via a CI/CD pipeline. The application is hosted on a server for presentation and testing purposes. | Johannes |
+| Non-functional requirement                             | Usage                                                                                                                                                                       | Assignee |
+| ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| 1. Internationalisation                                | Translate the UI in the frontend                                                                                                                                            | Oskar    |
+| 2. Central authentication service                      | The authentication service should be easy to scale and to use for other applications. For example HolidayMate.                                                              | Florian  |
+| 3. Consistent design system in the frontend            | All styling related values should be consistent. The colors predefined and easy to use in the code                                                                          | Luis     |
+| 4. Consistent coding style in the backend              | Consistent coding style specified in the [conventions](../conventions/backend/bce-pattern-and-data-flow)                                                                    | Luis     |
+| 5. Project Documentation & Application Build via CI/CD | The docs are rendered as mkdocs and automatically hosted on GitHub pages via a CI/CD pipeline. The application is hosted on a server for presentation and testing purposes. | Johannes |
 
 ## 8. AI-Feature for every person
 
-| Feature                           | Description                                                                   | Issue                                                  | Assignee |
-|-----------------------------------|-------------------------------------------------------------------------------|--------------------------------------------------------|----------|
-| 1. AI "Mate" Chat                 | Chat assistant with tool-call support                                         | [#14](https://github.com/Luitzzi/RecipeMate/issues/14) | Johannes |
-| 2. Context & query tools          | Mate knows the current page and can look up and search recipes                | [#15](https://github.com/Luitzzi/RecipeMate/issues/15) | Oskar    |
-| 3. Recipe creation & modification | Mate creates or changes recipes; a writer/evaluator agent loop checks quality | [#16](https://github.com/Luitzzi/RecipeMate/issues/16) | Luis     |
-| 4. Recipe scraping & conversion   | Website content pasted into the chat is converted into a recipe               | [#17](https://github.com/Luitzzi/RecipeMate/issues/17) | Florian  |
+| Feature                           | Description                                                                             | Assignee |
+| --------------------------------- | --------------------------------------------------------------------------------------- | -------- |
+| 1. AI "Mate" Chat                 | Chat assistant with tool-call support                                                   | Johannes |
+| 2. Context                        | Mate knows context about which page the user is currently viewing                       | Johannes |
+| 3. Recipe creation & modification | Mate creates or changes recipes; a writer/evaluator agent loop checks quality           | Johannes |
+| 4. Query tools                    | Mate can look up recipes by recipeId and search recipes (like with the search page)     | Oskar    |
+| 5. Recipe scraping & conversion   | Website content pasted into the chat is converted into a recipe                         | Florian  |
+| 6. Recipe creation from images    | Convert an image via OCR to markdown and pass it to the agent. Used for recipe creation | Luis     |
