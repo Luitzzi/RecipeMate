@@ -27,7 +27,7 @@ public class RecipeUiController {
     @GetMapping
     @Operation(summary = "Get all recipes created by an user in a given language")
     public List<RecipeUiDTO> getAll(@RequestParam Language language) {
-        UserEntity user = getMockUser();
+        UserEntity user = MockUserUtils.getMockUser();
         return recipeService.getAll(user, language);
     }
 
@@ -45,7 +45,7 @@ public class RecipeUiController {
     @PostMapping
     @Operation(summary = "Create a recipe")
     public ResponseEntity<RecipeUiDTO> create(@RequestBody @Valid RecipeUiDTO recipeUiDTO) {
-        UserEntity owner = getMockUser();
+        UserEntity owner = MockUserUtils.getMockUser();
         RecipeUiDTO created = recipeService.create(recipeUiDTO, owner);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -53,12 +53,5 @@ public class RecipeUiController {
                 .buildAndExpand(created.getId())
                 .toUri();
         return ResponseEntity.created(location).body(created);
-    }
-
-    private UserEntity getMockUser() {
-        UUID userId = UUID.fromString("00000000-0000-0000-0000-000000000000");
-        UserEntity userEntity = new UserEntity();
-        userEntity.setId(userId);
-        return userEntity;
     }
 }
