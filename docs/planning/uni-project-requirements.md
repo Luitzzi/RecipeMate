@@ -21,7 +21,7 @@ Following are all requirements by their number in the requirements-pdf.
 | 4. Recipe Folder Entity & Folder Overview                  | Per-user folders to allow grouping recipes                                                 | Should   | Low        | Johannes |
 | 5. Project Documentation & Application Build via CI/CD     | See Nonfunctional 5                                                                        | Should   | Medium     | Johannes |
 |                                                            |                                                                                            |          |            |          |
-| 1. Create the shopping list for the user                   | Add/Delete ingredients and items to the user spescific shopping list                       | Must     | Medium     | Oskar    |
+| 1. Create the shopping list for the user                   | Add/Delete ingredients and items to the user specific shopping list                        | Must     | Medium     | Oskar    |
 | 2. Implement the meal prepping screen                      | Enable users to plan their recipes for the week                                            | Must     | High       | Oskar    |
 | 3. Implement email communication                           | Using the Resend service API to enable us sending notifications to the users email address | Must     | High       | Oskar    |
 | 4. Implement internationalisation                          | Using i18next libraray to translate the frontend                                           | Should   | Medium     | Oskar    |
@@ -29,8 +29,8 @@ Following are all requirements by their number in the requirements-pdf.
 |                                                            |                                                                                            |          |            |          |
 | 1. Implement OAuth authentication in the Backend           | Validate ZITADEL JWTs, secure endpoints, provide current user to controllers               | Must     | High       | Florian  |
 | 2. Create the data structure for users                     | CRUDs for UserEntity (preferences, allergens, don't-likes), linked to OAuth subject ID     | Must     | Medium     | Florian  |
-| 3. Automatic user provisioning on first login              | Create UserEntity on first authenticated request + Get Preferences                         | Must     | Medium     | Florian  |
-| 4. Implement the user profile page                         | UI to view and edit preferences, allergens and don't-likes                                 | Should   | Medium     | Florian  |
+| 4. Implement the user profile page                         | UI to view and edit preferences, allergens and don't-likes                                 | Must     | Medium     | Florian  |
+| 3. Preferences wizard on first login                       | Create UserEntity on first authenticated request + Get Preferences                         | Should   | Medium     | Florian  |
 | 5. User context for Mate AI & user deletion                | Provide user data to Mate; delete user data on account deletion                            | Could    | Medium     | Florian  |
 
 ### Entities and their CRUD-Operations
@@ -101,7 +101,7 @@ to the team members.
 ## 7. Non-functional requirements for every person
 
 | Non-functional requirement                             | Usage                                                                                                                                                                       | Assignee |
-| ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+|--------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
 | 1. Internationalisation                                | Translate the UI in the frontend                                                                                                                                            | Oskar    |
 | 2. Central authentication service                      | The authentication service should be easy to scale and to use for other applications. For example HolidayMate.                                                              | Florian  |
 | 3. Consistent design system in the frontend            | All styling related values should be consistent. The colors predefined and easy to use in the code                                                                          | Luis     |
@@ -111,7 +111,7 @@ to the team members.
 ## 8. AI-Feature for every person
 
 | Feature                           | Description                                                                             | Assignee |
-| --------------------------------- | --------------------------------------------------------------------------------------- | -------- |
+|-----------------------------------|-----------------------------------------------------------------------------------------|----------|
 | 1. AI "Mate" Chat                 | Chat assistant with tool-call support                                                   | Johannes |
 | 2. Context                        | Mate knows context about which page the user is currently viewing                       | Johannes |
 | 3. Recipe creation & modification | Mate creates or changes recipes; a writer/evaluator agent loop checks quality           | Johannes |
