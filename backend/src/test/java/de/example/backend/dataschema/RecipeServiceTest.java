@@ -316,19 +316,20 @@ public class RecipeServiceTest {
         ingredientService.createAll(List.of(spaghetti, ketchup));
     }
 
+    // Names are prefixed, because they are unique and the DatabaseSeeder already creates the real standing data
     private void createMockCuisineStandingData() {
         RecipeCuisineEntity french = new RecipeCuisineEntity();
-        french.setName("French");
+        french.setName("Test French");
         RecipeCuisineEntity italy = new RecipeCuisineEntity();
-        italy.setName("Italy");
+        italy.setName("Test Italy");
 
         recipeCuisineRepository.persistAll(List.of(french, italy));
     }
 
     private void createMockPropertyStandingData() {
-        RecipePropertyEntity breakfast = new RecipePropertyEntity(null, "Breakfast");
-        RecipePropertyEntity lunch = new RecipePropertyEntity(null, "Lunch");
-        RecipePropertyEntity dinner = new RecipePropertyEntity(null, "Dinner");
+        RecipePropertyEntity breakfast = new RecipePropertyEntity(null, "Test Breakfast");
+        RecipePropertyEntity lunch = new RecipePropertyEntity(null, "Test Lunch");
+        RecipePropertyEntity dinner = new RecipePropertyEntity(null, "Test Dinner");
 
         recipePropertyRepository.persistAll(List.of(breakfast, lunch, dinner));
     }

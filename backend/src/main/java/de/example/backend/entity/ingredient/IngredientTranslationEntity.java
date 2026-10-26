@@ -14,6 +14,7 @@ import java.io.Serializable;
 public class IngredientTranslationEntity {
     public static final String tableName = "ingredient_translations";
 
+    @Embeddable
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor

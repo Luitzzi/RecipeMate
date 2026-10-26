@@ -1,6 +1,6 @@
 package de.example.backend.service;
 
-import de.example.backend.boundary.uidto.RecipeUiDTO;
+import de.example.backend.boundary.uidto.*;
 import de.example.backend.entity.Language;
 import de.example.backend.entity.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
@@ -10,11 +10,13 @@ import de.example.backend.repository.RecipeRepository;
 import de.example.backend.service.mapper.RecipeMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RecipeService {
@@ -32,6 +34,10 @@ public class RecipeService {
                 .toList();
     }
 
+    public boolean hasRecipes(UserEntity user) {
+        return recipeRepository.existsByOwnerId(user.getId());
+    }
+
     public Optional<RecipeUiDTO> get(Long id, Language language) {
         return recipeRepository.findById(id)
                 .map(recipe ->
@@ -46,7 +52,7 @@ public class RecipeService {
     @Transactional
     public RecipeUiDTO create(RecipeUiDTO recipeUiDTO, UserEntity owner) {
         if (recipeUiDTO.getId() != null)
-            throw new IllegalArgumentException("Recipes must have id = null when created");
+            throw new IllegalArgumentException("Recipes must have id == null when created");
 
         RecipeEntity recipeEntity = recipeMapper.toEntity(recipeUiDTO, owner, null);
         persistCustomIngredients(recipeEntity.getIngredients());

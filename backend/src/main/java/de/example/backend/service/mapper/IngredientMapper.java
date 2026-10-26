@@ -4,6 +4,7 @@ import de.example.backend.boundary.uidto.IngredientUiDTO;
 import de.example.backend.entity.Language;
 import de.example.backend.entity.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
+import de.example.backend.repository.IngredientRepository;
 import de.example.backend.service.IngredientService;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
@@ -14,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class IngredientMapper {
 
     @Autowired
-    private IngredientService ingredientService;
+    private IngredientRepository ingredientRepository;
 
     @Mapping(target = "name", expression = "java(entity.getName(language))")
     public abstract IngredientUiDTO toDTO(IngredientEntity entity, @Context Language language);
@@ -26,7 +27,8 @@ public abstract class IngredientMapper {
         if (dto.getId() == null) {
             return getCreatedIngredient(dto, createdBy);
         }
-        return ingredientService.getById(dto.getId());
+        return ingredientRepository.findById(dto.getId())
+                .orElseThrow();
     }
 
     /**

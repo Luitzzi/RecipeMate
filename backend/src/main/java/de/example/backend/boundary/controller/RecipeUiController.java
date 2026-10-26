@@ -24,13 +24,12 @@ public class RecipeUiController {
 
     private final RecipeService recipeService;
 
-    private final UserService userService;
-
     @GetMapping
     @Operation(summary = "Get all recipes created by an user in a given language")
     public List<RecipeUiDTO> getAll(@RequestParam Language language) {
-        UserEntity user = userService.getMockUser();
-        return recipeService.getAll(user, language);
+        UserEntity owner = UserService.TEST_USER;
+        return recipeService.getAll(
+                owner, language);
     }
 
     @GetMapping("/{id}")
@@ -47,7 +46,7 @@ public class RecipeUiController {
     @PostMapping
     @Operation(summary = "Create a recipe")
     public ResponseEntity<RecipeUiDTO> create(@RequestBody @Valid RecipeUiDTO recipeUiDTO) {
-        UserEntity owner = userService.getMockUser();
+        UserEntity owner = UserService.TEST_USER;
         RecipeUiDTO created = recipeService.create(recipeUiDTO, owner);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
