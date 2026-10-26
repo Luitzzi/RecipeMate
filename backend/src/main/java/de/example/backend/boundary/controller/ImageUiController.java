@@ -2,6 +2,7 @@ package de.example.backend.boundary.controller;
 
 import de.example.backend.boundary.uidto.r2.ImageUrlUiDTO;
 import de.example.backend.entity.UserEntity;
+import de.example.backend.service.UserService;
 import de.example.backend.service.r2.ImageStorageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,8 +22,7 @@ public class ImageUiController {
     public ImageUrlUiDTO getUploadUrl(
             @RequestParam String contentType
     ) {
-        UserEntity userEntity = MockUserUtils.getMockUser();
-        return imageStorageService.createUploadUrl(contentType, userEntity.getId());
+        return imageStorageService.createUploadUrl(contentType, UserService.TEST_USER.getId());
     }
 
     @GetMapping("/downloadUrl")

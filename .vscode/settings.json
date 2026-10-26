@@ -15,5 +15,6 @@
     "explorer.fileNesting.patterns": {
         "compose.yaml": "compose.*.yaml",
     },
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "editor.formatOnSave": true,
 }

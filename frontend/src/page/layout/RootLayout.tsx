@@ -70,7 +70,10 @@ export const RootLayout = () => {
             <img
               src={logo}
               alt="HolidayMate"
-              style={{ height: tokens.controlHeight.large, display: "block" }}
+              style={{
+                height: tokens.controlHeight.large,
+                display: "block",
+              }}
             />
           </Link>
           <Menu

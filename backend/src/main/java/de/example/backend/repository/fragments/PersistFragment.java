@@ -1,4 +1,4 @@
-package de.example.backend.repository;
+package de.example.backend.repository.fragments;
 
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityManager;

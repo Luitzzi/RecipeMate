@@ -15,9 +15,9 @@ Following are all requirements by their number in the requirements-pdf.
 | 4. Implement a search page for recipes with filter options | Uses the get-Endpoint of the RecipeController and provides the filter options              | Must     | Medium     | Luis     |
 | 5. Implement AI recipe creation via image                  | Create a recipe from an image                                                              | Could    | High       | Luis     |
 |                                                            |                                                                                            |          |            |          |
-| 1. AI "Mate" Chat with Toolcall-Support & Context          | See AI-Features 1 & 2                                                                      | Must     | High       | Johannes |
-| 2. AI Recipe creation/modification                         | See AI-Feature 3                                                                           | Must     | High       | Johannes |
-| 3. Recipe creation/modification E-Mail notification        |                                                                                            | Could    | Low        | Johannes |
+| 1. AI "Mate" Chat                                          | See AI-Features 1-3                                                                        | Must     | High       | Johannes |
+| 2. Share a recipe via E-Mail                               | See Communication 2                                                                        | Could    | Low        | Johannes |
+| 3. Recipe conversion finished notification                 | See Communication 3                                                                        | Could    | Low        | Johannes |
 | 4. Recipe Folder Entity & Folder Overview                  | Per-user folders to allow grouping recipes                                                 | Should   | Low        | Johannes |
 | 5. Project Documentation & Application Build via CI/CD     | See Nonfunctional 5                                                                        | Should   | Medium     | Johannes |
 |                                                            |                                                                                            |          |            |          |
@@ -77,12 +77,13 @@ See 1. Entities and their CRUD-Operations
 
 Channel: E-Mail
 
-| Communication                     | Description                                                                                                             | Assignee |
-|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------|----------|
-| 1. E-mail confirmation & MFA      | Confirmation mail after registration and one-time codes for multi-factor authentication. (via Zitadel Cloud)            | Florian  |
-| 2. Recipe conversion notification | Notifies the user when a recipe conversion (see AI feature #4) has finished                                             | Johannes |
-| 3. Newsletter                     | Weekly "Check out these recipes" mail with new and best-rated recipes. Users subscribe/unsubscribe in the user settings | Luis     |
-| 4. Welcome back mail              | If the user did not login for x days he gets a welcome back email                                                       | Oskar    |
+| Communication                      | Description                                                                                                             | Assignee |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------- |
+| 1. E-mail confirmation & MFA       | Confirmation mail after registration and one-time codes for multi-factor authentication. (via Zitadel Cloud)            | Florian  |
+| 2. Share a recipe via E-Mail       | Share a recipe to an E-Mail. They get a static version of the recipe.                                                   | Johannes |
+| 3. Recipe creation finished E-Mail | Get an E-Mail about a recipe creation/modification/import having finished.                                              | Johannes |
+| 4. Newsletter                      | Weekly "Check out these recipes" mail with new and best-rated recipes. Users subscribe/unsubscribe in the user settings | Luis     |
+| 5. Welcome back mail               | If the user did not login for x days he gets a welcome back email                                                       | Oskar    |
 
 ## 5. Frontend
 
@@ -115,6 +116,6 @@ to the team members.
 | 1. AI "Mate" Chat                 | Chat assistant with tool-call support                                                   | Johannes |
 | 2. Context                        | Mate knows context about which page the user is currently viewing                       | Johannes |
 | 3. Recipe creation & modification | Mate creates or changes recipes; a writer/evaluator agent loop checks quality           | Johannes |
-| 4. Query tools                    | Mate can look up recipes by recipeId and search recipes (like with the search page)     | Oskar    |
+| 4. Query tools                    | Mate has tools for: Search (with parameters, like in recipe search page); Folders; ...  | Oskar    |
 | 5. Recipe scraping & conversion   | Website content pasted into the chat is converted into a recipe                         | Florian  |
 | 6. Recipe creation from images    | Convert an image via OCR to markdown and pass it to the agent. Used for recipe creation | Luis     |
