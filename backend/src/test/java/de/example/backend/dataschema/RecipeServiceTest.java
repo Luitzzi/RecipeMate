@@ -1,12 +1,7 @@
 package de.example.backend.dataschema;
 
 import de.example.backend.boundary.uidto.*;
-import de.example.backend.entity.Cuisine;
-import de.example.backend.entity.Diet;
-import de.example.backend.entity.Language;
-import de.example.backend.entity.RecipeProperty;
-import de.example.backend.entity.Unit;
-import de.example.backend.entity.UserEntity;
+import de.example.backend.entity.*;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.recipe.RecipeEntity;
 import de.example.backend.entity.recipe.RecipeIngredientEntity;
@@ -310,11 +305,11 @@ public class RecipeServiceTest {
 
     private void createMockIngredientStandingData() {
         spaghetti = new IngredientEntity();
-        spaghetti.setType("Noodle");
+        spaghetti.setType(IngredientType.PASTA);
         spaghetti.setCustomName("Spaghetti");
 
         ketchup = new IngredientEntity();
-        ketchup.setType("Sauce");
+        ketchup.setType(IngredientType.OTHER);
         ketchup.setCustomName("Ketchup");
 
         ingredientService.createAll(List.of(spaghetti, ketchup));

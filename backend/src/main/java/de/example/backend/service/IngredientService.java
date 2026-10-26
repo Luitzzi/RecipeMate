@@ -1,12 +1,14 @@
 package de.example.backend.service;
 
 import de.example.backend.boundary.uidto.IngredientUiDTO;
+import de.example.backend.entity.IngredientType;
 import de.example.backend.entity.Language;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.repository.IngredientRepository;
 import de.example.backend.repository.querydsl.IngredientQueries;
 import de.example.backend.service.mapper.IngredientMapper;
 import de.example.backend.service.util.StandingDataCsvReader;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -61,7 +63,7 @@ public class IngredientService {
     }
 
     public int createStandingDataIfMissing(Resource ingredientsCsv) {
-        //TODO LGE: Maybe remove all standing data and reinsert them?
+        // TODO LGE: Remove and reinsert standing data
         Set<String> existingIngredientStandingDataEnglishNames = getAllStandingData(Language.EN).stream()
                 .map(IngredientUiDTO::getName)
                 .collect(Collectors.toSet());
@@ -79,7 +81,7 @@ public class IngredientService {
         IngredientEntity ingredient = new IngredientEntity();
         ingredient.putTranslation(Language.EN, columns[0]);
         ingredient.putTranslation(Language.DE, columns[1]);
-        ingredient.setType(columns[2]);
+        ingredient.setType(IngredientType.valueOf(columns[2]));
         return ingredient;
     }
 }
