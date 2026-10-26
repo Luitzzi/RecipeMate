@@ -1,6 +1,6 @@
-package de.example.backend.service.r2;
+package de.example.backend.service.image_storage;
 
-import de.example.backend.boundary.uidto.r2.ImageUrlUiDTO;
+import de.example.backend.boundary.uidto.image_storage.ImageUrlUiDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

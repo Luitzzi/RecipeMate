@@ -1,4 +1,4 @@
-package de.example.backend.boundary.uidto.r2;
+package de.example.backend.boundary.uidto.image_storage;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

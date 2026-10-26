@@ -1,9 +1,8 @@
 package de.example.backend.boundary.controller;
 
-import de.example.backend.boundary.uidto.r2.ImageUrlUiDTO;
-import de.example.backend.entity.UserEntity;
+import de.example.backend.boundary.uidto.image_storage.ImageUrlUiDTO;
 import de.example.backend.service.UserService;
-import de.example.backend.service.r2.ImageStorageService;
+import de.example.backend.service.image_storage.ImageStorageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
