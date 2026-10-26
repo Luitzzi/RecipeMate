@@ -19,3 +19,5 @@ compose.override.yaml
 .idea
 
 .DS_Store
+
+/frontend/src/generated/
