@@ -19,7 +19,7 @@ Following are all requirements by their number in the requirements-pdf.
 | 2. Share a recipe via E-Mail                               | See Communication 2                                                                        | Could    | Low        | Johannes |
 | 3. Recipe conversion finished notification                 | See Communication 3                                                                        | Could    | Low        | Johannes |
 | 4. Recipe Folder Entity & Folder Overview                  | Per-user folders to allow grouping recipes                                                 | Should   | Low        | Johannes |
-| 5. Project Documentation & Application Build via CI/CD     | See Nonfunctional 5                                                                        | Should   | Medium     | Johannes |
+| 5. TBD                                                     |                                                                                            | Should   | Medium     | Johannes |
 |                                                            |                                                                                            |          |            |          |
 | 1. Create the shopping list for the user                   | Add/Delete ingredients and items to the user specific shopping list                        | Must     | Medium     | Oskar    |
 | 2. Implement the meal prepping screen                      | Enable users to plan their recipes for the week                                            | Must     | High       | Oskar    |
@@ -36,7 +36,7 @@ Following are all requirements by their number in the requirements-pdf.
 ### Entities and their CRUD-Operations
 
 | Entity             | Usage                                                                                      | Assignee |
-|--------------------|--------------------------------------------------------------------------------------------|----------|
+| ------------------ | ------------------------------------------------------------------------------------------ | -------- |
 | UserEntity         | Create/Read/Update/Delete app-user specific information. Personal data is saved in OAuth.  | Florian  |
 | RecipeEntity       | Create/Read/Update/Delete recipes with their steps and ingredients                         | Luis     |
 | FolderEntity       | Create/Read/Update/Delete folders containing recipes. A folder belongs to exactly one user | Johannes |
@@ -57,7 +57,7 @@ See 1. Entities and their CRUD-Operations
 **External Rest-APIs:**
 
 | API                              | Usage                                     | Assignee |
-|----------------------------------|-------------------------------------------|----------|
+| -------------------------------- | ----------------------------------------- | -------- |
 | 1. Anthropic API (via Spring AI) | LLM for all AI features                   | Johannes |
 | 2. Resend                        | E-mail sending API                        | Oskar    |
 | 3. Zitadel Cloud                 | Authentication (OAuth 2.0 / OIDC) and MFA | Florian  |
@@ -66,7 +66,7 @@ See 1. Entities and their CRUD-Operations
 ## 3. Pagination for every person
 
 | Component                        | Usage                                                      | Assignee |
-|----------------------------------|------------------------------------------------------------|----------|
+| -------------------------------- | ---------------------------------------------------------- | -------- |
 | 1. Folder Pagination             | Display the folders a user created in pages                | Johannes |
 | 2. Recipe Pagination             | Display the result of the recipe search in pages           | Luis     |
 | 3. Endless-scroll of recipes     | Display the suggested recipes in a vertical endless-scroll | Oskar    |
