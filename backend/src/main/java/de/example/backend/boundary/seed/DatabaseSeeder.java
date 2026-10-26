@@ -11,11 +11,15 @@ import de.example.backend.entity.Cuisine;
 import de.example.backend.entity.Diet;
 import de.example.backend.entity.RecipeProperty;
 import de.example.backend.entity.Unit;
+import de.example.backend.entity.ingredient.IngredientEntity;
+import de.example.backend.entity.recipe.RecipeEntity;
+import de.example.backend.entity.recipe.RecipeIngredientEntity;
 import de.example.backend.entity.recipe.recipe_step_methods.OvenStepEntity;
 import de.example.backend.entity.recipe.recipe_step_methods.StoveStepEntity;
 import de.example.backend.service.IngredientService;
 import de.example.backend.service.RecipeService;
 import de.example.backend.service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -24,6 +28,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Create a test user and a recipe for him if he does not exist yet.
@@ -40,6 +45,7 @@ public class DatabaseSeeder implements ApplicationRunner {
     private final IngredientService ingredientService;
     private final RecipeService recipeService;
 
+    @Transactional
     @Override
     public void run(ApplicationArguments args) {
         log.info("Seeding the database...");
@@ -47,8 +53,9 @@ public class DatabaseSeeder implements ApplicationRunner {
         log.info("Try creating the test user...");
         userService.createTestUserIfMissing();
 
-        log.info("Try creating the ingredients standing data...");
-        int createdIngredients = ingredientService.createStandingDataIfMissing(new ClassPathResource(INGREDIENT_CSV));
+        log.info("Creating the ingredients standing data...");
+        deleteExistingStandingDataIngredients();
+        int createdIngredients = ingredientService.importStandingDataIngredients(new ClassPathResource(INGREDIENT_CSV));
         if (createdIngredients > 0)
             log.info("Seeded {} standing data ingredients", createdIngredients);
 
@@ -58,6 +65,22 @@ public class DatabaseSeeder implements ApplicationRunner {
             log.info("Seeded mock recipe {} for user {}", createdRecipe.getId(), UserService.TEST_USER.getId());
         } else {
             log.info("The test user already has a recipe. Skip creating the test recipe.");
+        }
+    }
+
+    void deleteExistingStandingDataIngredients() {
+        List<IngredientEntity> standingDataIngredients = ingredientService.getStandingData();
+        List<RecipeEntity> recipesWithStandingDataIngredients = standingDataIngredients.stream()
+                .flatMap(ingredient -> ingredient.getRecipeIngredients().stream())
+                .map(RecipeIngredientEntity::getRecipe)
+                .toList();
+        if (!recipesWithStandingDataIngredients.isEmpty()) {
+            log.warn("Deleting {} recipes that contain standing data ingredients", recipesWithStandingDataIngredients.size());
+            recipeService.deleteAll(recipesWithStandingDataIngredients);
+        }
+        if (!standingDataIngredients.isEmpty()) {
+            log.warn("Deleting {} standing data ingredients", standingDataIngredients.size());
+            ingredientService.deleteAll(standingDataIngredients);
         }
     }
 

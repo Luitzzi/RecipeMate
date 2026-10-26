@@ -16,9 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -41,20 +39,8 @@ public class IngredientService {
                 .toList();
     }
 
-    public List<IngredientUiDTO> getAllStandingData(Language language) {
-        List<IngredientEntity> ingredients = ingredientRepository.findAllByCreatedByNull();
-        return ingredients.stream()
-                .map(ingredient -> ingredientMapper.toDTO(ingredient, language))
-                .toList();
-    }
-
     public IngredientEntity getStandingDataByEnglishName(String englishName) {
         return ingredientQueries.getStandingDataByEnglishName(englishName)
-                .orElseThrow();
-    }
-
-    public IngredientEntity getById(Long id) {
-        return ingredientRepository.findById(id)
                 .orElseThrow();
     }
 
@@ -62,20 +48,20 @@ public class IngredientService {
         return ingredientRepository.persistAll(ingredients);
     }
 
-    @Transactional
-    public int createStandingDataIfMissing(Resource ingredientsCsv) {
-        // TODO LGE: Remove and reinsert standing data
-        Set<String> existingIngredientStandingDataEnglishNames = getAllStandingData(Language.EN).stream()
-                .map(IngredientUiDTO::getName)
-                .collect(Collectors.toSet());
-
+    public int importStandingDataIngredients(Resource ingredientsCsv) {
         List<IngredientEntity> ingredients = StandingDataCsvReader.readRows(ingredientsCsv, 3).stream()
                 .map(this::toStandingDataIngredient)
-                .filter(toCreateIngredient ->
-                        !existingIngredientStandingDataEnglishNames.contains(toCreateIngredient.getName(Language.EN)))
                 .toList();
         createAll(ingredients);
         return ingredients.size();
+    }
+
+    public List<IngredientEntity> getStandingData() {
+        return ingredientRepository.findAllByCreatedByNull();
+    }
+
+    public void deleteAll(List<IngredientEntity> ingredients) {
+        ingredientRepository.deleteAll(ingredients);
     }
 
     private IngredientEntity toStandingDataIngredient(String[] columns) {

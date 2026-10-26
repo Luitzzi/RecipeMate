@@ -44,11 +44,6 @@ public class RecipeService {
                         recipeMapper.toDTO(recipe, language));
     }
 
-    public Optional<String> getSourceUrl(Long id) {
-        return recipeRepository.findById(id)
-                .map(RecipeEntity::getSourceUrl);
-    }
-
     @Transactional
     public RecipeUiDTO create(RecipeUiDTO recipeUiDTO, UserEntity owner) {
         if (recipeUiDTO.getId() != null)
@@ -66,5 +61,9 @@ public class RecipeService {
                 .filter(ingredient -> ingredient.getId() == null)
                 .toList();
         ingredientService.createAll(customIngredients);
+    }
+
+    public void deleteAll(List<RecipeEntity> recipes) {
+        recipeRepository.deleteAll(recipes);
     }
 }
