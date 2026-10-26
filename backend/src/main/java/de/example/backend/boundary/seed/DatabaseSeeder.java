@@ -3,19 +3,17 @@ package de.example.backend.boundary.seed;
 import de.example.backend.boundary.uidto.IngredientUiDTO;
 import de.example.backend.boundary.uidto.OvenStepUiDTO;
 import de.example.backend.boundary.uidto.PrepareStepUiDTO;
-import de.example.backend.boundary.uidto.RecipeCuisineUiDTO;
 import de.example.backend.boundary.uidto.RecipeIngredientUiDTO;
-import de.example.backend.boundary.uidto.RecipePropertyUiDTO;
 import de.example.backend.boundary.uidto.RecipeStepUiDTO;
 import de.example.backend.boundary.uidto.RecipeUiDTO;
 import de.example.backend.boundary.uidto.StoveStepUiDTO;
+import de.example.backend.entity.Cuisine;
 import de.example.backend.entity.Diet;
+import de.example.backend.entity.RecipeProperty;
 import de.example.backend.entity.Unit;
 import de.example.backend.entity.recipe.recipe_step_methods.OvenStepEntity;
 import de.example.backend.entity.recipe.recipe_step_methods.StoveStepEntity;
 import de.example.backend.service.IngredientService;
-import de.example.backend.service.RecipeCuisineService;
-import de.example.backend.service.RecipePropertyService;
 import de.example.backend.service.RecipeService;
 import de.example.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +28,6 @@ import java.math.BigDecimal;
 /**
  * Create a test user and a recipe for him if he does not exist yet.
  * Create the ingredient standing data if no data is in the ingredients table yet.
- * Create the cuisine and property standing data that does not exist yet.
  */
 @Slf4j
 @Component
@@ -38,13 +35,9 @@ import java.math.BigDecimal;
 public class DatabaseSeeder implements ApplicationRunner {
 
     private static final String INGREDIENT_CSV = "db/ingredients.csv";
-    private static final String CUISINE_CSV = "db/cuisines.csv";
-    private static final String PROPERTY_CSV = "db/properties.csv";
 
     private final UserService userService;
     private final IngredientService ingredientService;
-    private final RecipeCuisineService recipeCuisineService;
-    private final RecipePropertyService recipePropertyService;
     private final RecipeService recipeService;
 
     @Override
@@ -58,14 +51,6 @@ public class DatabaseSeeder implements ApplicationRunner {
         int createdIngredients = ingredientService.createStandingDataIfMissing(new ClassPathResource(INGREDIENT_CSV));
         if (createdIngredients > 0)
             log.info("Seeded {} standing data ingredients", createdIngredients);
-
-        log.info("Try creating the cuisine standing data...");
-        int createdCuisines = recipeCuisineService.createStandingDataIfMissing(new ClassPathResource(CUISINE_CSV));
-        log.info("Seeded {} standing data cuisines", createdCuisines);
-
-        log.info("Try creating the property standing data...");
-        int createdProperties = recipePropertyService.createStandingDataIfMissing(new ClassPathResource(PROPERTY_CSV));
-        log.info("Seeded {} standing data properties", createdProperties);
 
         log.info("Try creating the test recipe...");
         if (!recipeService.hasRecipes(UserService.TEST_USER)) {
@@ -104,25 +89,11 @@ public class DatabaseSeeder implements ApplicationRunner {
         recipe.getSteps().add(prepareStep(
                 "Slice the chicken and serve it on top of the potatoes."));
 
-        recipe.getCuisines().add(cuisine("Mediterranean"));
-        recipe.getProperties().add(property("Dinner"));
-        recipe.getProperties().add(property("Main Course"));
-        recipe.getProperties().add(property("High Protein"));
+        recipe.getCuisines().add(Cuisine.MEDITERRANEAN);
+        recipe.getProperties().add(RecipeProperty.DINNER);
+        recipe.getProperties().add(RecipeProperty.MAIN_COURSE);
+        recipe.getProperties().add(RecipeProperty.HIGH_PROTEIN);
         return recipe;
-    }
-
-    private RecipeCuisineUiDTO cuisine(String name) {
-        RecipeCuisineUiDTO cuisine = new RecipeCuisineUiDTO();
-        cuisine.setId(recipeCuisineService.getByName(name).getId());
-        cuisine.setName(name);
-        return cuisine;
-    }
-
-    private RecipePropertyUiDTO property(String name) {
-        RecipePropertyUiDTO property = new RecipePropertyUiDTO();
-        property.setId(recipePropertyService.getByName(name).getId());
-        property.setName(name);
-        return property;
     }
 
     private RecipeIngredientUiDTO ingredient(String englishName, BigDecimal amount, Unit unit) {

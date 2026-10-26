@@ -15,8 +15,6 @@ import java.util.List;
 @Mapper(uses = {
         RecipeIngredientMapper.class,
         RecipeStepMapper.class,
-        RecipeCuisineMapper.class,
-        RecipePropertyMapper.class,
 })
 public abstract class RecipeMapper {
 
@@ -25,12 +23,6 @@ public abstract class RecipeMapper {
 
     @Autowired
     private RecipeStepMapper recipeStepMapper;
-
-    @Autowired
-    private RecipeCuisineMapper recipeCuisineMapper;
-
-    @Autowired
-    private RecipePropertyMapper recipePropertyMapper;
 
     public abstract RecipeUiDTO toDTO(RecipeEntity entity, @Context Language language);
 
@@ -45,8 +37,8 @@ public abstract class RecipeMapper {
         recipeEntity.setId(dto.getId());
         addIngredients(recipeEntity, dto.getIngredients(), owner);
         addSteps(recipeEntity, dto.getSteps());
-        addCuisineTag(recipeEntity, dto.getCuisines());
-        addPropertyTag(recipeEntity, dto.getProperties());
+        recipeEntity.addCuisines(dto.getCuisines());
+        recipeEntity.addProperties(dto.getProperties());
 
         recipeEntity.setOwner(owner);
         recipeEntity.setTitle(dto.getTitle());
@@ -89,23 +81,5 @@ public abstract class RecipeMapper {
             recipeEntity.addStep(stepEntity, position);
             position++;
         }
-    }
-
-    private void addCuisineTag(
-            RecipeEntity recipeEntity,
-            List<RecipeCuisineUiDTO> cuisineUiDTOS
-    ) {
-        List<RecipeCuisineEntity> cuisineEntities = recipeCuisineMapper
-                .toEntities(cuisineUiDTOS);
-        recipeEntity.addCuisineTags(cuisineEntities);
-    }
-
-    private void addPropertyTag(
-            RecipeEntity recipeEntity,
-            List<RecipePropertyUiDTO> propertyUiDTOS
-    ) {
-        List<RecipePropertyEntity> propertyEntities = recipePropertyMapper
-                .toEntities(propertyUiDTOS);
-        recipeEntity.addPropertyTags(propertyEntities);
     }
 }

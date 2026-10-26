@@ -1,15 +1,15 @@
 package de.example.backend.dataschema;
 
 import de.example.backend.boundary.uidto.*;
+import de.example.backend.entity.Cuisine;
 import de.example.backend.entity.Diet;
 import de.example.backend.entity.Language;
+import de.example.backend.entity.RecipeProperty;
 import de.example.backend.entity.Unit;
 import de.example.backend.entity.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
-import de.example.backend.entity.recipe.RecipeCuisineEntity;
 import de.example.backend.entity.recipe.RecipeEntity;
 import de.example.backend.entity.recipe.RecipeIngredientEntity;
-import de.example.backend.entity.recipe.RecipePropertyEntity;
 import de.example.backend.entity.recipe.RecipeStepEntity;
 import de.example.backend.entity.recipe.recipe_step_methods.OvenStepEntity;
 import de.example.backend.entity.recipe.recipe_step_methods.OvenStepEntity.OvenMode;
@@ -17,8 +17,6 @@ import de.example.backend.entity.recipe.recipe_step_methods.PrepareStepEntity;
 import de.example.backend.entity.recipe.recipe_step_methods.StoveStepEntity;
 import de.example.backend.entity.recipe.recipe_step_methods.StoveStepEntity.HeatLevel;
 import de.example.backend.repository.IngredientRepository;
-import de.example.backend.repository.RecipeCuisineRepository;
-import de.example.backend.repository.RecipePropertyRepository;
 import de.example.backend.repository.RecipeRepository;
 import de.example.backend.service.IngredientService;
 import de.example.backend.service.RecipeService;
@@ -51,12 +49,6 @@ public class RecipeServiceTest {
     private IngredientRepository ingredientRepository;
 
     @Autowired
-    private RecipeCuisineRepository recipeCuisineRepository;
-
-    @Autowired
-    private RecipePropertyRepository recipePropertyRepository;
-
-    @Autowired
     private DataSchemaTestUtils dataSchemaTestUtils;
 
     @Autowired
@@ -71,8 +63,6 @@ public class RecipeServiceTest {
     void setUp() {
         createOwner();
         createMockIngredientStandingData();
-        createMockCuisineStandingData();
-        createMockPropertyStandingData();
         dataSchemaTestUtils.flushAndClear();
     }
 
@@ -199,6 +189,20 @@ public class RecipeServiceTest {
     }
 
     @Test
+    void create_persistsCuisinesAndProperties() {
+        RecipeUiDTO recipe = createRecipeUiDTO();
+        recipe.setCuisines(List.of(Cuisine.ITALIAN, Cuisine.MEDITERRANEAN));
+        recipe.setProperties(List.of(RecipeProperty.DINNER, RecipeProperty.QUICK));
+
+        RecipeUiDTO created = recipeService.create(recipe, owner);
+        dataSchemaTestUtils.flushAndClear();
+
+        RecipeEntity loaded = loadRecipe(created);
+        assertThat(loaded.getCuisines()).containsExactlyInAnyOrder(Cuisine.ITALIAN, Cuisine.MEDITERRANEAN);
+        assertThat(loaded.getProperties()).containsExactlyInAnyOrder(RecipeProperty.DINNER, RecipeProperty.QUICK);
+    }
+
+    @Test
     void create_ignoresSourceUrl() {
         RecipeUiDTO recipe = createRecipeUiDTO();
         recipe.setSourceUrl("https://example.com/recipe");
@@ -314,23 +318,5 @@ public class RecipeServiceTest {
         ketchup.setCustomName("Ketchup");
 
         ingredientService.createAll(List.of(spaghetti, ketchup));
-    }
-
-    // Names are prefixed, because they are unique and the DatabaseSeeder already creates the real standing data
-    private void createMockCuisineStandingData() {
-        RecipeCuisineEntity french = new RecipeCuisineEntity();
-        french.setName("Test French");
-        RecipeCuisineEntity italy = new RecipeCuisineEntity();
-        italy.setName("Test Italy");
-
-        recipeCuisineRepository.persistAll(List.of(french, italy));
-    }
-
-    private void createMockPropertyStandingData() {
-        RecipePropertyEntity breakfast = new RecipePropertyEntity(null, "Test Breakfast");
-        RecipePropertyEntity lunch = new RecipePropertyEntity(null, "Test Lunch");
-        RecipePropertyEntity dinner = new RecipePropertyEntity(null, "Test Dinner");
-
-        recipePropertyRepository.persistAll(List.of(breakfast, lunch, dinner));
     }
 }

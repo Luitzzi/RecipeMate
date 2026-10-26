@@ -46,20 +46,22 @@ public class RecipeEntity {
     private UserEntity owner;
 
     @Setter(AccessLevel.NONE)
-    @ManyToMany
-    @JoinTable(
+    @ElementCollection
+    @CollectionTable(
             name = "recipe_cuisines",
-            joinColumns = @JoinColumn(name = "recipe_id"),
-            inverseJoinColumns = @JoinColumn(name = "cuisine_id"))
-    private Set<RecipeCuisineEntity> cuisines = new HashSet<>();
+            joinColumns = @JoinColumn(name = "recipe_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "cuisine", nullable = false)
+    private Set<Cuisine> cuisines = new HashSet<>();
 
     @Setter(AccessLevel.NONE)
-    @ManyToMany
-    @JoinTable(
+    @ElementCollection
+    @CollectionTable(
             name = "recipe_properties",
-            joinColumns = @JoinColumn(name = "recipe_id"),
-            inverseJoinColumns = @JoinColumn(name = "property_id"))
-    private Set<RecipePropertyEntity> properties = new HashSet<>();
+            joinColumns = @JoinColumn(name = "recipe_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "property", nullable = false)
+    private Set<RecipeProperty> properties = new HashSet<>();
 
     @Column(nullable = false)
     private String title;
@@ -139,20 +141,20 @@ public class RecipeEntity {
         }
     }
 
-    public Set<RecipeCuisineEntity> getCuisines() {
+    public Set<Cuisine> getCuisines() {
         return Collections.unmodifiableSet(cuisines);
     }
 
-    public void addCuisineTags(List<RecipeCuisineEntity> cuisineTags) {
-        cuisines.addAll(cuisineTags);
+    public void addCuisines(Collection<Cuisine> cuisines) {
+        this.cuisines.addAll(cuisines);
     }
 
-    public Set<RecipePropertyEntity> getProperties() {
+    public Set<RecipeProperty> getProperties() {
         return Collections.unmodifiableSet(properties);
     }
 
-    public void addPropertyTags(List<RecipePropertyEntity> propertyTags) {
-        properties.addAll(propertyTags);
+    public void addProperties(Collection<RecipeProperty> properties) {
+        this.properties.addAll(properties);
     }
 
     public List<String> getImageKeys() {
