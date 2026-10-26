@@ -62,6 +62,7 @@ public class IngredientService {
         return ingredientRepository.persistAll(ingredients);
     }
 
+    @Transactional
     public int createStandingDataIfMissing(Resource ingredientsCsv) {
         // TODO LGE: Remove and reinsert standing data
         Set<String> existingIngredientStandingDataEnglishNames = getAllStandingData(Language.EN).stream()
