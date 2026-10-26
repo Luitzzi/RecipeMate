@@ -1,8 +1,13 @@
-import { CounterUiControllerClient, type HttpClient } from "#/generated/interface-api.ts";
+import {
+  ImageUiControllerClient,
+  RecipeUiControllerClient,
+  type HttpClient,
+} from "#/generated/interface-api.ts";
 
 export function createApi(httpClient: HttpClient) {
   return {
-    counter: new CounterUiControllerClient(httpClient),
+    recipe: new RecipeUiControllerClient(httpClient),
+    image: new ImageUiControllerClient(httpClient),
     // user: new UserUiControllerClient(httpClient),
   };
 }

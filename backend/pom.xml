@@ -218,6 +218,7 @@
                     <customTypeMappings>
                         <mapping>java.time.LocalDate:string</mapping>
                         <mapping>java.time.LocalDateTime:string</mapping>
+                        <mapping>java.net.URL:string</mapping>
                     </customTypeMappings>
                     <optionalAnnotations>
                         <annotation>jakarta.annotation.Nullable</annotation>
