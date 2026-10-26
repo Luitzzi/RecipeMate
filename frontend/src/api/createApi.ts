@@ -1,4 +1,7 @@
-import { CounterUiControllerClient, type HttpClient } from "#/generated/interface-api.ts";
+import {
+  CounterUiControllerClient,
+  type HttpClient,
+} from "#/generated/interface-api.ts";
 
 export function createApi(httpClient: HttpClient) {
   return {
