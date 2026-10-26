@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { tokens } from "#/theme/tokens.ts";
 import { SectionHeader } from "#/common/components/SectionHeader.tsx";
-import { useApi } from "#/api/ApiContext.tsx";
+import { useApi } from "##/src/api/apiContext.ts";
 
 export const CounterPage = () => {
   const api = useApi();

@@ -3,7 +3,7 @@ import { Button, Flex, Spin, Typography } from "antd";
 import { tokens } from "#/theme/tokens.ts";
 import { SectionHeader } from "#/common/components/SectionHeader.tsx";
 import type { CounterUiDTO } from "#/generated/interface-api.ts";
-import { useApi } from "../../api/ApiContext.tsx";
+import { useApi } from "../../api/apiContext.ts";
 import { useFetchOnce } from "#/common/hooks/useFetchOnce.ts";
 import { useMutation } from "#/common/hooks/useMutation.ts";
 import { useNotification } from "../../common/hooks/useNotification.tsx";

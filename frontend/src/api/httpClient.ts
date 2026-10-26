@@ -2,23 +2,23 @@ import type { HttpClient } from "../generated/interface-api";
 
 type QueryParams = Record<string, unknown> | undefined;
 
-function buildQueryString(queryParams: QueryParams): string {
+const buildQueryString = (queryParams: QueryParams): string => {
   const definedParams = Object.entries(queryParams ?? {})
     .filter(([, value]) => value != null)
     .map(([key, value]) => [key, String(value)]);
 
   const encoded = new URLSearchParams(definedParams).toString();
   return encoded ? `?${encoded}` : "";
-}
+};
 
-function jsonBody(data: unknown): RequestInit {
+const jsonBody = (data: unknown): RequestInit => {
   if (data === undefined) return {};
 
   return {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   };
-}
+};
 
 export const fetchHttpClient: HttpClient = {
   async request({ method, url, queryParams, data }) {
