@@ -85,6 +85,7 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - run: npm ci
       - run: npm run lint
-      - run: npm run format:check
+      # On failure: format the files and print the diff to show what is wrong
+      - run: npm run format:check || (npm run format -- --log-level warn && git diff && exit 1)
       # Type check (tsc -b) and production build
       - run: npm run build
