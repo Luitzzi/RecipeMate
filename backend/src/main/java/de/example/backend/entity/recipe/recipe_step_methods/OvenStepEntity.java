@@ -19,7 +19,6 @@ import lombok.Setter;
 public class OvenStepEntity extends RecipeStepEntity {
     public static final String stepMethodName = "OVEN";
 
-    // Bean Validation only: SINGLE_TABLE columns must stay nullable for the other step types
     @NotNull
     @Min(30)
     @Max(300)
@@ -46,8 +45,7 @@ public class OvenStepEntity extends RecipeStepEntity {
     public OvenStepEntity(
             String description, Integer position,
             int temperatureC, OvenMode ovenMode,
-            @Nullable Integer durationSeconds, boolean preheat
-    ) {
+            @Nullable Integer durationSeconds, boolean preheat) {
         super(description, position);
         this.temperatureC = temperatureC;
         this.ovenMode = ovenMode;
