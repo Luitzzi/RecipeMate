@@ -39,14 +39,17 @@ public class DatabaseSeeder implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         log.info("Seeding the database...");
 
-        log.info("Try creating the test user...");
+        log.info("Try to create the test user...");
         userService.createTestUserIfMissing();
 
-        log.info("Creating the ingredients standing data...");
-        deleteExistingStandingDataIngredients();
-        int createdIngredients = ingredientService.importStandingDataIngredients(new ClassPathResource(INGREDIENT_CSV));
-        if (createdIngredients > 0)
-            log.info("Seeded {} standing data ingredients", createdIngredients);
+        log.info("Try to create the ingredients standing data...");
+        if (ingredientService.doesIngredientsExist()) {
+            log.info("Ingredients already exist, skip seeding");
+        } else {
+            int createdIngredients = ingredientService.importStandingDataIngredients(new ClassPathResource(INGREDIENT_CSV));
+            if (createdIngredients > 0)
+                log.info("Seeded {} standing data ingredients", createdIngredients);
+        }
 
         log.info("Try creating the test recipe...");
         if (!recipeService.hasRecipes(UserService.TEST_USER)) {
@@ -54,23 +57,6 @@ public class DatabaseSeeder implements ApplicationRunner {
             log.info("Seeded mock recipe {} for user {}", createdRecipe.getId(), UserService.TEST_USER.getId());
         } else {
             log.info("The test user already has a recipe. Skip creating the test recipe.");
-        }
-    }
-
-    void deleteExistingStandingDataIngredients() {
-        List<IngredientEntity> standingDataIngredients = ingredientService.getStandingData();
-        List<RecipeEntity> recipesWithStandingDataIngredients = standingDataIngredients.stream()
-                .flatMap(ingredient -> ingredient.getRecipeIngredients().stream())
-                .map(RecipeIngredientEntity::getRecipe)
-                .toList();
-        if (!recipesWithStandingDataIngredients.isEmpty()) {
-            log.warn("Deleting {} recipes that contain standing data ingredients",
-                    recipesWithStandingDataIngredients.size());
-            recipeService.deleteAll(recipesWithStandingDataIngredients);
-        }
-        if (!standingDataIngredients.isEmpty()) {
-            log.warn("Deleting {} standing data ingredients", standingDataIngredients.size());
-            ingredientService.deleteAll(standingDataIngredients);
         }
     }
 

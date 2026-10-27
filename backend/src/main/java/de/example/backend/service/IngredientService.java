@@ -27,6 +27,10 @@ public class IngredientService {
 
     private final IngredientMapper ingredientMapper;
 
+    public boolean doesIngredientsExist() {
+        return ingredientRepository.count() != 0;
+    }
+
     /**
      * Get all standing data ingredients and the user's custom ingredients
      */
@@ -52,14 +56,6 @@ public class IngredientService {
                 .toList();
         createAll(ingredients);
         return ingredients.size();
-    }
-
-    public List<IngredientEntity> getStandingData() {
-        return ingredientRepository.findAllByCreatedByNull();
-    }
-
-    public void deleteAll(List<IngredientEntity> ingredients) {
-        ingredientRepository.deleteAll(ingredients);
     }
 
     private IngredientEntity toStandingDataIngredient(String[] columns) {
