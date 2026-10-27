@@ -1,5 +1,6 @@
 package de.example.backend.service;
 
+import de.example.backend.boundary.dto.recipe.ai.RecipeAiDTO;
 import de.example.backend.boundary.dto.recipe.ui.RecipeUiDTO;
 import de.example.backend.entity.Language;
 import de.example.backend.entity.user.UserEntity;
@@ -29,7 +30,7 @@ public class RecipeService {
 
     public List<RecipeUiDTO> getAll(UserEntity user, Language language) {
         return recipeRepository.findAllByOwner(user).stream()
-                .map(recipe -> recipeMapper.toDTO(recipe, language))
+                .map(recipe -> recipeMapper.toUiDTO(recipe, language))
                 .toList();
     }
 
@@ -39,7 +40,12 @@ public class RecipeService {
 
     public Optional<RecipeUiDTO> get(Long id, Language language) {
         return recipeRepository.findById(id)
-                .map(recipe -> recipeMapper.toDTO(recipe, language));
+                .map(recipe -> recipeMapper.toUiDTO(recipe, language));
+    }
+
+    public Optional<RecipeAiDTO> getForAi(Long id, Language language) {
+        return recipeRepository.findById(id)
+                .map(recipe -> recipeMapper.toAiDTO(recipe, language));
     }
 
     @Transactional
@@ -50,7 +56,15 @@ public class RecipeService {
         RecipeEntity recipeEntity = recipeMapper.toEntity(recipeUiDTO, owner, null);
         persistCustomIngredients(recipeEntity.getIngredients());
         RecipeEntity created = recipeRepository.persist(recipeEntity);
-        return recipeMapper.toDTO(created, Language.EN);
+        return recipeMapper.toUiDTO(created, Language.EN);
+    }
+
+    @Transactional
+    public Long createFromAi(RecipeAiDTO recipeAiDTO, UserEntity owner) {
+        RecipeEntity recipeEntity = recipeMapper.toEntity(recipeAiDTO, owner);
+        persistCustomIngredients(recipeEntity.getIngredients());
+        RecipeEntity created = recipeRepository.persist(recipeEntity);
+        return created.getId();
     }
 
     private void persistCustomIngredients(List<RecipeIngredientEntity> recipeIngredients) {

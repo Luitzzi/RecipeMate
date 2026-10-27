@@ -30,12 +30,26 @@ public class IngredientQueries {
     }
 
     public Optional<IngredientEntity> getStandingDataByEnglishName(String englishName) {
+        return getStandingDataByTranslation(englishName, Language.EN);
+    }
+
+    public Optional<IngredientEntity> getStandingDataByTranslation(String translation, Language language) {
         IngredientEntity ingredient = queryFactory.select(ENTITY)
                 .from(ENTITY)
                 .join(ENTITY.translationsByLanguage, INGREDIENT_TRANSLATION_ENTITY)
                 .where(ENTITY.createdBy.isNull()
-                        .and(INGREDIENT_TRANSLATION_ENTITY.id.language.eq(Language.EN))
-                        .and(INGREDIENT_TRANSLATION_ENTITY.translation.eq(englishName)))
+                        .and(INGREDIENT_TRANSLATION_ENTITY.id.language.eq(language))
+                        .and(INGREDIENT_TRANSLATION_ENTITY.translation.eq(translation)))
+                .fetchOne();
+        return Optional.ofNullable(ingredient);
+    }
+
+    public Optional<IngredientEntity> getStandingDataByAnyTranslation(String translation) {
+        IngredientEntity ingredient = queryFactory.select(ENTITY)
+                .from(ENTITY)
+                .join(ENTITY.translationsByLanguage, INGREDIENT_TRANSLATION_ENTITY)
+                .where(ENTITY.createdBy.isNull()
+                        .and(INGREDIENT_TRANSLATION_ENTITY.translation.eq(translation)))
                 .fetchOne();
         return Optional.ofNullable(ingredient);
     }
