@@ -1,8 +1,8 @@
 package de.example.backend.service;
 
-import de.example.backend.boundary.uidto.*;
+import de.example.backend.boundary.dto.recipe.RecipeUiDTO;
 import de.example.backend.entity.Language;
-import de.example.backend.entity.UserEntity;
+import de.example.backend.entity.user.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.recipe.RecipeEntity;
 import de.example.backend.entity.recipe.RecipeIngredientEntity;
@@ -29,8 +29,7 @@ public class RecipeService {
 
     public List<RecipeUiDTO> getAll(UserEntity user, Language language) {
         return recipeRepository.findAllByOwner(user).stream()
-                .map(recipe ->
-                        recipeMapper.toDTO(recipe, language))
+                .map(recipe -> recipeMapper.toDTO(recipe, language))
                 .toList();
     }
 
@@ -40,8 +39,7 @@ public class RecipeService {
 
     public Optional<RecipeUiDTO> get(Long id, Language language) {
         return recipeRepository.findById(id)
-                .map(recipe ->
-                        recipeMapper.toDTO(recipe, language));
+                .map(recipe -> recipeMapper.toDTO(recipe, language));
     }
 
     @Transactional

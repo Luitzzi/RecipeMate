@@ -1,9 +1,8 @@
 package de.example.backend.entity.ingredient;
 
-import de.example.backend.entity.IngredientType;
 import de.example.backend.entity.Language;
-import de.example.backend.entity.UserEntity;
 import de.example.backend.entity.recipe.RecipeIngredientEntity;
+import de.example.backend.entity.user.UserEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;

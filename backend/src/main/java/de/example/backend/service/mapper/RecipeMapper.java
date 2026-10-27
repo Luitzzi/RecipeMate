@@ -1,8 +1,10 @@
 package de.example.backend.service.mapper;
 
-import de.example.backend.boundary.uidto.*;
+import de.example.backend.boundary.dto.recipe.RecipeStepDTO;
+import de.example.backend.boundary.dto.recipe.RecipeIngredientUiDTO;
+import de.example.backend.boundary.dto.recipe.RecipeUiDTO;
 import de.example.backend.entity.Language;
-import de.example.backend.entity.UserEntity;
+import de.example.backend.entity.user.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.recipe.*;
 import jakarta.annotation.Nullable;
@@ -55,8 +57,7 @@ public abstract class RecipeMapper {
     private void addIngredients(
             RecipeEntity recipeEntity,
             List<RecipeIngredientUiDTO> recipeIngredientUiDTOS,
-            UserEntity owner
-    ) {
+            UserEntity owner) {
         int position = 0;
         for (RecipeIngredientUiDTO recipeIngredientUiDTO : recipeIngredientUiDTOS) {
             IngredientEntity ingredientEntity = ingredientMapper.toEntity(
@@ -65,19 +66,17 @@ public abstract class RecipeMapper {
                     ingredientEntity,
                     recipeIngredientUiDTO.getAmount(),
                     recipeIngredientUiDTO.getUnit(),
-                    position
-            );
+                    position);
             position++;
         }
     }
 
     private void addSteps(
             RecipeEntity recipeEntity,
-            List<RecipeStepUiDTO> stepsUiDTOs
-    ) {
+            List<RecipeStepDTO> stepDTOs) {
         int position = 0;
-        for (RecipeStepUiDTO stepUiDTO : stepsUiDTOs) {
-            RecipeStepEntity stepEntity = recipeStepMapper.toEntity(stepUiDTO);
+        for (RecipeStepDTO stepDTO : stepDTOs) {
+            RecipeStepEntity stepEntity = recipeStepMapper.toEntity(stepDTO);
             recipeEntity.addStep(stepEntity, position);
             position++;
         }

@@ -1,36 +1,36 @@
-package de.example.backend.boundary.uidto;
+package de.example.backend.boundary.dto.recipe;
 
-import de.example.backend.entity.Cuisine;
-import de.example.backend.entity.Diet;
-import de.example.backend.entity.RecipeProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+
+import de.example.backend.entity.recipe.Cuisine;
+import de.example.backend.entity.recipe.Diet;
+import de.example.backend.entity.recipe.RecipeProperty;
 import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.URL;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.hibernate.validator.constraints.URL;
-
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
-
+/**
+ * Fields of a recipe shared by all recipients (UI, AI).
+ * Subclasses add recipient specific fields, e.g. ids or the ingredient
+ * representation.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
-public class RecipeUiDTO {
-
-    @Nullable
-    private Long id;
+public abstract class RecipeDTO {
 
     @NotBlank
     private String title;
@@ -52,6 +52,7 @@ public class RecipeUiDTO {
     private Diet diet;
 
     @NotNull
+    @JsonPropertyDescription("A note about the recipe, e.g. special instructions or tips. Might be empty.")
     private String note;
 
     @Nullable
@@ -61,19 +62,11 @@ public class RecipeUiDTO {
 
     // Note: The order of the list defines the position
     @NotNull
-    private List<@Valid @NotNull RecipeIngredientUiDTO> ingredients = new ArrayList<>();
-
-    // Note: The order of the list defines the position
-    @NotNull
-    private List<@Valid @NotNull RecipeStepUiDTO> steps = new ArrayList<>();
+    private List<@Valid @NotNull RecipeStepDTO> steps = new ArrayList<>();
 
     @NotNull
     private Set<@NotNull Cuisine> cuisines = new HashSet<>();
 
     @NotNull
     private Set<@NotNull RecipeProperty> properties = new HashSet<>();
-
-    // Note: The order of the list defines the position
-    @NotNull
-    private List<@NotBlank String> imageKeys = new ArrayList<>();
 }

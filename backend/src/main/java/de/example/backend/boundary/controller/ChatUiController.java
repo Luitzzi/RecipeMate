@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import de.example.backend.boundary.uidto.chat.ChatRequestUiDTO;
-import de.example.backend.boundary.uidto.chat.ChatResponseUiDTO;
+import de.example.backend.boundary.dto.chat.ChatRequestUiDTO;
+import de.example.backend.boundary.dto.chat.ChatResponseUiDTO;
 import de.example.backend.service.ChatService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

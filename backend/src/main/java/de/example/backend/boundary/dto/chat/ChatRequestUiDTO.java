@@ -1,4 +1,4 @@
-package de.example.backend.boundary.uidto.chat;
+package de.example.backend.boundary.dto.chat;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

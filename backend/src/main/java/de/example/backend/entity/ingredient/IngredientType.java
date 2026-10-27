@@ -1,4 +1,4 @@
-package de.example.backend.entity;
+package de.example.backend.entity.ingredient;
 
 public enum IngredientType {
     MUSHROOM,

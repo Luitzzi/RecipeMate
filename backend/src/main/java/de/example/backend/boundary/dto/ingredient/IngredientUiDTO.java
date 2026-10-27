@@ -1,6 +1,6 @@
-package de.example.backend.boundary.uidto;
+package de.example.backend.boundary.dto.ingredient;
 
-import de.example.backend.entity.IngredientType;
+import de.example.backend.entity.ingredient.IngredientType;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

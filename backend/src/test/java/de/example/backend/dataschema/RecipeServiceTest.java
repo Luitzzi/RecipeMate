@@ -1,16 +1,13 @@
 package de.example.backend.dataschema;
 
-import de.example.backend.boundary.uidto.*;
+import de.example.backend.boundary.dto.ingredient.IngredientUiDTO;
+import de.example.backend.boundary.dto.recipe.*;
 import de.example.backend.entity.*;
-import de.example.backend.entity.ingredient.IngredientEntity;
-import de.example.backend.entity.recipe.RecipeEntity;
-import de.example.backend.entity.recipe.RecipeIngredientEntity;
-import de.example.backend.entity.recipe.RecipeStepEntity;
-import de.example.backend.entity.recipe.recipe_step_methods.OvenStepEntity;
-import de.example.backend.entity.recipe.recipe_step_methods.OvenStepEntity.OvenMode;
-import de.example.backend.entity.recipe.recipe_step_methods.PrepareStepEntity;
-import de.example.backend.entity.recipe.recipe_step_methods.StoveStepEntity;
-import de.example.backend.entity.recipe.recipe_step_methods.StoveStepEntity.HeatLevel;
+import de.example.backend.entity.ingredient.*;
+import de.example.backend.entity.recipe.*;
+import de.example.backend.entity.recipe.OvenStepEntity.OvenMode;
+import de.example.backend.entity.recipe.StoveStepEntity.HeatLevel;
+import de.example.backend.entity.user.UserEntity;
 import de.example.backend.repository.IngredientRepository;
 import de.example.backend.repository.RecipeRepository;
 import de.example.backend.service.IngredientService;
@@ -165,12 +162,12 @@ public class RecipeServiceTest {
         dataSchemaTestUtils.flushAndClear();
 
         assertThat(created.getSteps())
-                .hasExactlyElementsOfTypes(PrepareStepUiDTO.class, OvenStepUiDTO.class, StoveStepUiDTO.class);
+                .hasExactlyElementsOfTypes(PrepareStepDTO.class, OvenStepDTO.class, StoveStepDTO.class);
 
         List<RecipeStepEntity> steps = loadRecipe(created).getSteps();
         assertThat(steps).hasSize(3);
-        assertThat(steps.get(0)).isInstanceOfSatisfying(PrepareStepEntity.class, step ->
-                assertThat(step.getDescription()).isEqualTo("Chop onions"));
+        assertThat(steps.get(0)).isInstanceOfSatisfying(PrepareStepEntity.class,
+                step -> assertThat(step.getDescription()).isEqualTo("Chop onions"));
         assertThat(steps.get(1)).isInstanceOfSatisfying(OvenStepEntity.class, step -> {
             assertThat(step.getDescription()).isEqualTo("Bake");
             assertThat(step.getTemperatureC()).isEqualTo(180);
@@ -232,8 +229,7 @@ public class RecipeServiceTest {
             RecipeIngredientEntity recipeIngredient,
             String name,
             BigDecimal amount,
-            Unit unit
-    ) {
+            Unit unit) {
         IngredientEntity ingredient = recipeIngredient.getIngredient();
         assertThat(ingredient.getId()).isNotNull();
         assertThat(ingredient.getCreatedBy().getId()).isEqualTo(owner.getId());
@@ -276,17 +272,16 @@ public class RecipeServiceTest {
         return recipeIngredient;
     }
 
-    private PrepareStepUiDTO prepareStep(String description) {
-        PrepareStepUiDTO step = new PrepareStepUiDTO();
+    private PrepareStepDTO prepareStep(String description) {
+        PrepareStepDTO step = new PrepareStepDTO();
         step.setDescription(description);
         return step;
     }
 
-    private OvenStepUiDTO ovenStep(
+    private OvenStepDTO ovenStep(
             String description, int temperatureC, OvenMode ovenMode,
-            int durationSeconds, boolean preheat
-    ) {
-        OvenStepUiDTO step = new OvenStepUiDTO();
+            int durationSeconds, boolean preheat) {
+        OvenStepDTO step = new OvenStepDTO();
         step.setDescription(description);
         step.setTemperatureC(temperatureC);
         step.setOvenMode(ovenMode);
@@ -295,8 +290,8 @@ public class RecipeServiceTest {
         return step;
     }
 
-    private StoveStepUiDTO stoveStep(String description, HeatLevel heatLevel) {
-        StoveStepUiDTO step = new StoveStepUiDTO();
+    private StoveStepDTO stoveStep(String description, HeatLevel heatLevel) {
+        StoveStepDTO step = new StoveStepDTO();
         step.setDescription(description);
         step.setHeatLevel(heatLevel);
         return step;
