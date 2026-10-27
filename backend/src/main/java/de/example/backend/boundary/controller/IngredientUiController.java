@@ -22,14 +22,14 @@ public class IngredientUiController {
 
     private final IngredientService ingredientService;
 
-    @GetMapping
+    @GetMapping("/standing-data")
     @Operation(summary = "Get the standing data ingredients")
     public List<IngredientUiDTO> getAllStandingDataIngredients(
             @RequestParam Language language) {
         return ingredientService.getStandingDataIngredients(language);
     }
 
-    @GetMapping
+    @GetMapping("/standing-data-and-custom")
     @Operation(summary = "Get the standing data ingredients and custom created ones of the user")
     public List<IngredientUiDTO> getAllStandingDataAndCustomIngredients(
             @RequestParam Language language) {
