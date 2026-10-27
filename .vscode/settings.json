@@ -11,7 +11,7 @@
         "**/.pytest_cache": true,
         "**/.playwright-mcp": true,
     },
-    "java.compile.nullAnalysis.mode": "automatic",
+    "java.compile.nullAnalysis.mode": "disabled",
     "explorer.fileNesting.patterns": {
         "compose.yaml": "compose.*.yaml",
     },
