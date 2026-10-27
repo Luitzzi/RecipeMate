@@ -1,4 +1,4 @@
-package de.example.backend.boundary.uidto.chat;
+package de.example.backend.boundary.dto.chat;
 
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
@@ -21,7 +21,6 @@ public class CurrentViewUiDTO {
 
     @Nullable
     private Long id;
-
 
     public String describe() {
         if (type == null || type == ViewType.NONE) {

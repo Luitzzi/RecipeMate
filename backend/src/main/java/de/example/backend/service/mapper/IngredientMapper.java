@@ -1,11 +1,10 @@
 package de.example.backend.service.mapper;
 
-import de.example.backend.boundary.uidto.IngredientUiDTO;
+import de.example.backend.boundary.dto.ingredient.IngredientUiDTO;
 import de.example.backend.entity.Language;
-import de.example.backend.entity.UserEntity;
+import de.example.backend.entity.user.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.repository.IngredientRepository;
-import de.example.backend.service.IngredientService;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,8 +21,7 @@ public abstract class IngredientMapper {
 
     public IngredientEntity toEntity(
             IngredientUiDTO dto,
-            @Context UserEntity createdBy
-    ) {
+            @Context UserEntity createdBy) {
         if (dto.getId() == null) {
             return getCreatedIngredient(dto, createdBy);
         }
@@ -37,8 +35,7 @@ public abstract class IngredientMapper {
      */
     private IngredientEntity getCreatedIngredient(
             IngredientUiDTO dto,
-            @Context UserEntity createdBy
-    ) {
+            @Context UserEntity createdBy) {
         IngredientEntity ingredientEntity = new IngredientEntity();
         ingredientEntity.setCustomName(dto.getName());
         ingredientEntity.setCreatedBy(createdBy);

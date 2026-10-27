@@ -1,4 +1,4 @@
-package de.example.backend.entity;
+package de.example.backend.entity.recipe;
 
 public enum Unit {
     // by mass

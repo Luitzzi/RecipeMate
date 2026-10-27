@@ -1,8 +1,8 @@
-package de.example.backend.boundary.uidto;
+package de.example.backend.boundary.dto.recipe;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import de.example.backend.entity.recipe.recipe_step_methods.OvenStepEntity.OvenMode;
+import de.example.backend.entity.recipe.OvenStepEntity.OvenMode;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public final class OvenStepUiDTO extends RecipeStepUiDTO {
+public final class OvenStepDTO extends RecipeStepDTO {
 
     @NotNull
     @Min(30)

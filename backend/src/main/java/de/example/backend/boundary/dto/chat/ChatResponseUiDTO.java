@@ -1,4 +1,4 @@
-package de.example.backend.boundary.uidto.chat;
+package de.example.backend.boundary.dto.chat;
 
 import lombok.NonNull;
 import lombok.Getter;
@@ -16,11 +16,10 @@ public class ChatResponseUiDTO {
         ERROR
     }
 
-
     @NonNull
     private String message;
 
     @NonNull
     private ChatResponseStatus status;
-    
+
 }

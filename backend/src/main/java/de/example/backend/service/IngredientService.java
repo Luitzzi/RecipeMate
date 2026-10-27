@@ -1,14 +1,13 @@
 package de.example.backend.service;
 
-import de.example.backend.boundary.uidto.IngredientUiDTO;
-import de.example.backend.entity.IngredientType;
+import de.example.backend.boundary.dto.ingredient.IngredientUiDTO;
+import de.example.backend.entity.ingredient.IngredientType;
 import de.example.backend.entity.Language;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.repository.IngredientRepository;
 import de.example.backend.repository.querydsl.IngredientQueries;
 import de.example.backend.service.mapper.IngredientMapper;
 import de.example.backend.service.util.StandingDataCsvReader;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -34,8 +33,7 @@ public class IngredientService {
     public List<IngredientUiDTO> getAllWithCustomCreated(UUID userId, Language language) {
         List<IngredientEntity> ingredients = ingredientQueries.get(userId);
         return ingredients.stream()
-                .map(ingredient ->
-                        ingredientMapper.toDTO(ingredient, language))
+                .map(ingredient -> ingredientMapper.toDTO(ingredient, language))
                 .toList();
     }
 

@@ -5,7 +5,7 @@ import org.springframework.ai.chat.client.ChatClientResponse;
 import org.springframework.ai.chat.client.advisor.api.AdvisorChain;
 import org.springframework.ai.chat.client.advisor.api.BaseAdvisor;
 
-import de.example.backend.boundary.uidto.chat.CurrentViewUiDTO;
+import de.example.backend.boundary.dto.chat.CurrentViewUiDTO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

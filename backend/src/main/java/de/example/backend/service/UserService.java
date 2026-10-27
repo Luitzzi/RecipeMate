@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import de.example.backend.entity.UserEntity;
+import de.example.backend.entity.user.UserEntity;
 import de.example.backend.repository.UserRepository;
 import de.example.backend.repository.querydsl.UserQueries;
 import jakarta.transaction.Transactional;

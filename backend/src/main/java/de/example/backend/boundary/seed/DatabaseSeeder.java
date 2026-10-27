@@ -1,27 +1,13 @@
 package de.example.backend.boundary.seed;
 
-import de.example.backend.boundary.uidto.IngredientUiDTO;
-import de.example.backend.boundary.uidto.OvenStepUiDTO;
-import de.example.backend.boundary.uidto.PrepareStepUiDTO;
-import de.example.backend.boundary.uidto.RecipeIngredientUiDTO;
-import de.example.backend.boundary.uidto.RecipeStepUiDTO;
-import de.example.backend.boundary.uidto.RecipeUiDTO;
-import de.example.backend.boundary.uidto.StoveStepUiDTO;
-import de.example.backend.entity.Cuisine;
-import de.example.backend.entity.Diet;
-import de.example.backend.entity.RecipeProperty;
-import de.example.backend.entity.Unit;
+import de.example.backend.boundary.dto.ingredient.IngredientUiDTO;
+import de.example.backend.boundary.dto.recipe.*;
 import de.example.backend.entity.ingredient.IngredientEntity;
-import de.example.backend.entity.recipe.RecipeEntity;
-import de.example.backend.entity.recipe.RecipeIngredientEntity;
-import de.example.backend.entity.recipe.recipe_step_methods.OvenStepEntity;
-import de.example.backend.entity.recipe.recipe_step_methods.StoveStepEntity;
-import de.example.backend.service.IngredientService;
-import de.example.backend.service.RecipeService;
-import de.example.backend.service.UserService;
+import de.example.backend.entity.recipe.*;
+import de.example.backend.service.*;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.io.ClassPathResource;
@@ -32,7 +18,8 @@ import java.util.List;
 
 /**
  * Create a test user and a recipe for him if he does not exist yet.
- * Create the ingredient standing data if no data is in the ingredients table yet.
+ * Create the ingredient standing data if no data is in the ingredients table
+ * yet.
  */
 @Slf4j
 @Component
@@ -75,7 +62,8 @@ public class DatabaseSeeder implements ApplicationRunner {
                 .map(RecipeIngredientEntity::getRecipe)
                 .toList();
         if (!recipesWithStandingDataIngredients.isEmpty()) {
-            log.warn("Deleting {} recipes that contain standing data ingredients", recipesWithStandingDataIngredients.size());
+            log.warn("Deleting {} recipes that contain standing data ingredients",
+                    recipesWithStandingDataIngredients.size());
             recipeService.deleteAll(recipesWithStandingDataIngredients);
         }
         if (!standingDataIngredients.isEmpty()) {
@@ -130,17 +118,16 @@ public class DatabaseSeeder implements ApplicationRunner {
         return recipeIngredient;
     }
 
-    private RecipeStepUiDTO prepareStep(String description) {
-        PrepareStepUiDTO step = new PrepareStepUiDTO();
+    private RecipeStepDTO prepareStep(String description) {
+        PrepareStepDTO step = new PrepareStepDTO();
         step.setDescription(description);
         return step;
     }
 
-    private RecipeStepUiDTO ovenStep(
+    private RecipeStepDTO ovenStep(
             String description, int temperatureC, OvenStepEntity.OvenMode ovenMode,
-            int durationSeconds, boolean preheat
-    ) {
-        OvenStepUiDTO step = new OvenStepUiDTO();
+            int durationSeconds, boolean preheat) {
+        OvenStepDTO step = new OvenStepDTO();
         step.setDescription(description);
         step.setTemperatureC(temperatureC);
         step.setOvenMode(ovenMode);
@@ -149,8 +136,8 @@ public class DatabaseSeeder implements ApplicationRunner {
         return step;
     }
 
-    private RecipeStepUiDTO stoveStep(String description, StoveStepEntity.HeatLevel heatLevel) {
-        StoveStepUiDTO step = new StoveStepUiDTO();
+    private RecipeStepDTO stoveStep(String description, StoveStepEntity.HeatLevel heatLevel) {
+        StoveStepDTO step = new StoveStepDTO();
         step.setDescription(description);
         step.setHeatLevel(heatLevel);
         return step;

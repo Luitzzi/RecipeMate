@@ -1,4 +1,4 @@
-package de.example.backend.entity;
+package de.example.backend.entity.user;
 
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.recipe.RecipeEntity;

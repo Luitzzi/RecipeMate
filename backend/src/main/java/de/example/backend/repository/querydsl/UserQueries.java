@@ -1,8 +1,8 @@
 package de.example.backend.repository.querydsl;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import de.example.backend.entity.QUserEntity;
-import de.example.backend.entity.UserEntity;
+import de.example.backend.entity.user.QUserEntity;
+import de.example.backend.entity.user.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

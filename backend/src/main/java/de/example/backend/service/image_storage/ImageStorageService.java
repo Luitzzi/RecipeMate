@@ -1,6 +1,6 @@
 package de.example.backend.service.image_storage;
 
-import de.example.backend.boundary.uidto.image_storage.ImageUrlUiDTO;
+import de.example.backend.boundary.dto.image_storage.ImageUrlUiDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -21,8 +21,7 @@ public class ImageStorageService {
     @Value("${r2.bucket}")
     private String bucketName;
 
-    private static final Set<String> ALLOWED_TYPES =
-            Set.of("image/jpeg", "image/png", "image/webp");
+    private static final Set<String> ALLOWED_TYPES = Set.of("image/jpeg", "image/png", "image/webp");
     private static final Duration UPLOAD_TTL = Duration.ofMinutes(5);
     private static final Duration DOWNLOAD_TTL = Duration.ofMinutes(15);
 
@@ -53,8 +52,8 @@ public class ImageStorageService {
                 .signatureDuration(DOWNLOAD_TTL)
                 .getObjectRequest(request -> request
                         .bucket(bucketName)
-                        .key(key)
-                ).build();
+                        .key(key))
+                .build();
         URL presignedDownloadURL = presigner.presignGetObject(getRequest).url();
         return new ImageUrlUiDTO(key, presignedDownloadURL);
     }

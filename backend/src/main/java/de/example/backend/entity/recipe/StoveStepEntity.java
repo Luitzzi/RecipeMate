@@ -1,6 +1,5 @@
-package de.example.backend.entity.recipe.recipe_step_methods;
+package de.example.backend.entity.recipe;
 
-import de.example.backend.entity.recipe.RecipeStepEntity;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

@@ -1,8 +1,7 @@
 package de.example.backend.boundary.controller;
 
-import de.example.backend.boundary.uidto.IngredientUiDTO;
+import de.example.backend.boundary.dto.ingredient.IngredientUiDTO;
 import de.example.backend.entity.Language;
-import de.example.backend.entity.UserEntity;
 import de.example.backend.service.IngredientService;
 import de.example.backend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,8 +25,7 @@ public class IngredientUiController {
     @GetMapping
     @Operation(summary = "Get the standing data ingredients and custom created ones of the user")
     public List<IngredientUiDTO> getAll(
-            @RequestParam Language language
-    ) {
+            @RequestParam Language language) {
         return ingredientService.getAllWithCustomCreated(
                 UserService.TEST_USER.getId(),
                 language);

@@ -1,7 +1,6 @@
 package de.example.backend.entity.recipe;
 
 import de.example.backend.entity.ingredient.IngredientEntity;
-import de.example.backend.entity.Unit;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

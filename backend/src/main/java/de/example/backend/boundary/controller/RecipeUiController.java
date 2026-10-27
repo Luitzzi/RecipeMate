@@ -1,8 +1,8 @@
 package de.example.backend.boundary.controller;
 
-import de.example.backend.boundary.uidto.RecipeUiDTO;
+import de.example.backend.boundary.dto.recipe.RecipeUiDTO;
 import de.example.backend.entity.Language;
-import de.example.backend.entity.UserEntity;
+import de.example.backend.entity.user.UserEntity;
 import de.example.backend.service.RecipeService;
 import de.example.backend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,8 +36,7 @@ public class RecipeUiController {
     @Operation(summary = "Get a recipe")
     public ResponseEntity<RecipeUiDTO> get(
             @PathVariable Long id,
-            @RequestParam Language language
-    ) {
+            @RequestParam Language language) {
         return recipeService.get(id, language)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
