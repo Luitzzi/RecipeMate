@@ -21,4 +21,9 @@
     "[typescript][typescriptreact][javascript][javascriptreact][json][jsonc][css][html][markdown]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
     },
+    "[java]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    }
 }

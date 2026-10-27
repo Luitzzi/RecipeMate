@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -186,11 +187,14 @@ public class RecipeServiceTest {
     @Test
     void create_persistsCuisinesAndProperties() {
         RecipeUiDTO recipe = createRecipeUiDTO();
-        recipe.setCuisines(List.of(Cuisine.ITALIAN, Cuisine.MEDITERRANEAN));
-        recipe.setProperties(List.of(RecipeProperty.DINNER, RecipeProperty.QUICK));
+        recipe.setCuisines(Set.of(Cuisine.ITALIAN, Cuisine.MEDITERRANEAN));
+        recipe.setProperties(Set.of(RecipeProperty.DINNER, RecipeProperty.QUICK));
 
         RecipeUiDTO created = recipeService.create(recipe, owner);
         dataSchemaTestUtils.flushAndClear();
+
+        assertThat(created.getCuisines()).containsExactlyInAnyOrder(Cuisine.ITALIAN, Cuisine.MEDITERRANEAN);
+        assertThat(created.getProperties()).containsExactlyInAnyOrder(RecipeProperty.DINNER, RecipeProperty.QUICK);
 
         RecipeEntity loaded = loadRecipe(created);
         assertThat(loaded.getCuisines()).containsExactlyInAnyOrder(Cuisine.ITALIAN, Cuisine.MEDITERRANEAN);

@@ -5,15 +5,24 @@ import de.example.backend.entity.Diet;
 import de.example.backend.entity.RecipeProperty;
 import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import org.hibernate.validator.constraints.URL;
+
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 @Getter
 @Setter
@@ -29,37 +38,42 @@ public class RecipeUiDTO {
     @NotBlank
     private String description;
 
-    @PositiveOrZero
+    @NotNull
+    @Positive
     private Integer cookTimeInMinutes;
 
+    @NotNull
+    @Min(1)
+    @Max(5)
+    @JsonPropertyDescription("1 = very easy, 5 = very hard")
     private Integer difficulty;
 
+    @NotNull
     private Diet diet;
 
-    @Nullable
+    @NotNull
     private String note;
 
-    // Only for display purposes
     @Nullable
+    @URL(regexp = "^https?://.*")
+    @JsonPropertyDescription("Only set if the recipe is based on a website. Must start with http:// or https://")
     private String sourceUrl;
 
-    // The order of the list defines the position
-    @Valid
+    // Note: The order of the list defines the position
     @NotNull
-    private List<RecipeIngredientUiDTO> ingredients = new ArrayList<>();
+    private List<@Valid @NotNull RecipeIngredientUiDTO> ingredients = new ArrayList<>();
 
-    // The order of the list defines the position
-    @Valid
+    // Note: The order of the list defines the position
     @NotNull
-    private List<RecipeStepUiDTO> steps = new ArrayList<>();
+    private List<@Valid @NotNull RecipeStepUiDTO> steps = new ArrayList<>();
 
     @NotNull
-    private List<Cuisine> cuisines = new ArrayList<>();
+    private Set<@NotNull Cuisine> cuisines = new HashSet<>();
 
     @NotNull
-    private List<RecipeProperty> properties = new ArrayList<>();
+    private Set<@NotNull RecipeProperty> properties = new HashSet<>();
 
-    // The order of the list defines the position
+    // Note: The order of the list defines the position
     @NotNull
-    private List<String> imageKeys = new ArrayList<>();
+    private List<@NotBlank String> imageKeys = new ArrayList<>();
 }
