@@ -5,7 +5,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +24,7 @@ public class StoveStepEntity extends RecipeStepEntity {
         HIGH
     }
 
+    @NotNull
     @Enumerated(value = EnumType.STRING)
     private HeatLevel heatLevel;
 
@@ -43,10 +44,5 @@ public class StoveStepEntity extends RecipeStepEntity {
     @Override
     public StepMethod getStepMethod() {
         return StepMethod.STOVE;
-    }
-
-    @AssertTrue(message = "Stove step requires a heat level")
-    public boolean isCompleted() {
-        return heatLevel != null;
     }
 }

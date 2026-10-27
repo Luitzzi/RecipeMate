@@ -3,8 +3,9 @@ package de.example.backend.entity.recipe;
 import de.example.backend.entity.*;
 import de.example.backend.entity.ingredient.IngredientEntity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,7 @@ public class RecipeEntity {
             mappedBy = "recipe",
             cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("position")
+    @NotNull
     private List<RecipeIngredientEntity> ingredients = new ArrayList<>();
 
     @Setter(AccessLevel.NONE)
@@ -39,6 +41,7 @@ public class RecipeEntity {
             mappedBy = "recipe",
             cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("position")
+    @NotNull
     private List<RecipeStepEntity> steps = new ArrayList<>();
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -52,7 +55,7 @@ public class RecipeEntity {
             joinColumns = @JoinColumn(name = "recipe_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "cuisine", nullable = false)
-    private Set<Cuisine> cuisines = new HashSet<>();
+    private Set<@NotNull Cuisine> cuisines = new HashSet<>();
 
     @Setter(AccessLevel.NONE)
     @ElementCollection
@@ -61,27 +64,37 @@ public class RecipeEntity {
             joinColumns = @JoinColumn(name = "recipe_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "property", nullable = false)
-    private Set<RecipeProperty> properties = new HashSet<>();
+    private Set<@NotNull RecipeProperty> properties = new HashSet<>();
 
+    @NotBlank
     @Column(nullable = false)
     private String title;
 
+    @NotBlank
     @Column(nullable = false)
     private String description;
 
-    @PositiveOrZero
+    @NotNull
+    @Positive
     @Column(nullable = false)
     private Integer cookTimeInMinutes;
 
+    @NotNull
+    @Min(1)
+    @Max(5)
     @Column(nullable = false)
     private Integer difficulty;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Diet diet;
 
+    @NotNull
+    @Column(nullable = false)
     private String note;
 
+    @Nullable
     @URL(regexp = "^https?://.*")
     private String sourceUrl;
 
@@ -91,7 +104,7 @@ public class RecipeEntity {
             name = "recipe_images",
             joinColumns = @JoinColumn(name = "recipe_id"))
     @OrderColumn(name = "position")
-    private List<String> imageKeys = new ArrayList<>();
+    private List<@NotBlank String> imageKeys = new ArrayList<>();
 
     public List<RecipeIngredientEntity> getIngredients() {
         return Collections.unmodifiableList(ingredients);
