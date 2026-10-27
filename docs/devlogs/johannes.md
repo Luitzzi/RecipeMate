@@ -2,6 +2,10 @@
 
 ## Backend
 - `GlobalExceptionHandler` error handling
+- **DTOs & Entities:**
+  - Validation rules (Jakarta) on recipe DTOs, aligned with entity constraints
+  - DTO hierarchy (Recipe, Ingredients, ...): abstract base `RecipeDTO` with `RecipeUiDTO` and `RecipeAiDTO` subclasses
+  - Nice package structure by domain: `boundary/dto/{recipe,ingredient,chat,image_storage}`, `entity/{recipe,ingredient,user}`
 
 ### "Mate" AI Companion
 - **Chat:** API and service for talking to the assistant
