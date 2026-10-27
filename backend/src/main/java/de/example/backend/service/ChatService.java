@@ -3,7 +3,9 @@ package de.example.backend.service;
 import de.example.backend.boundary.dto.chat.ChatRequestUiDTO;
 import de.example.backend.boundary.dto.chat.ChatResponseUiDTO;
 import de.example.backend.boundary.dto.chat.ChatResponseUiDTO.ChatResponseStatus;
+import de.example.backend.service.ai.ChatResponseUtils;
 import de.example.backend.service.ai.advisor.CurrentViewAdvisor;
+import de.example.backend.service.ai.tool.RecipeTools;
 import de.example.backend.service.ai.tool.UnitTools;
 import de.example.backend.service.exception.chat.ChatNotFoundException;
 import de.example.backend.service.exception.chat.ChatResponseFailedException;
@@ -19,9 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.RemovalCause;
+import com.github.benmanes.caffeine.cache.*;
 
 import java.time.Duration;
 import java.util.UUID;
@@ -36,7 +36,10 @@ public class ChatService {
 
     // TODO JPI: Docstrings
     public ChatService(ChatClient.Builder builder,
-                       @Value("classpath:prompts/mate.md") Resource systemPrompt) {
+            @Value("classpath:prompts/mate.md") Resource systemPrompt,
+            UnitTools unitTools,
+            RecipeTools recipeTools) {
+
         this.chatMemory = MessageWindowChatMemory.builder()
                 .maxMessages(10)
                 .build();
@@ -56,7 +59,8 @@ public class ChatService {
                         new CurrentViewAdvisor()
                                 .setOrder(ToolCallingAdvisor.DEFAULT_ORDER - 100))
                 .defaultTools(
-                        new UnitTools())
+                        unitTools,
+                        recipeTools)
                 .build();
     }
 
@@ -88,16 +92,7 @@ public class ChatService {
     }
 
     private static String extractAnswer(ChatResponse response) {
-        // Taken from
-        // https://docs.spring.io/spring-ai/reference/api/chat/anthropic-chat.html#_non_streaming_example
-        if (response == null) {
-            return "";
-        }
-        return response.getResults().stream()
-                .map(result -> result.getOutput())
-                .filter(message -> !isThinking(message))
-                .map(message -> message.getText())
-                .filter(text -> text != null && !text.isBlank())
+        return ChatResponseUtils.texts(response)
                 .collect(Collectors.joining("\n\n"));
     }
 
@@ -108,10 +103,5 @@ public class ChatService {
             case "refusal" -> ChatResponseStatus.REFUSAL;
             default -> ChatResponseStatus.ERROR;
         };
-    }
-
-    private static boolean isThinking(AssistantMessage message) {
-        return message.getMetadata().containsKey("signature")
-                || message.getMetadata().containsKey("data");
     }
 }
