@@ -12,6 +12,7 @@ import { blockStyle, panelStyle } from "./docsStyles.ts";
 import { SectionHeader } from "../../common/components/SectionHeader.tsx";
 import { useEffectOnce } from "#/common/hooks/useEffectOnce.ts";
 import { useNotification } from "#/common/hooks/useNotification.tsx";
+import {useTranslation} from "react-i18next";
 
 /**
  * Living reference for docs/design-tokens.md: every example is rendered
@@ -307,6 +308,7 @@ const LayoutSection = () => {
 };
 
 const ColorSection = () => {
+    const { t } = useTranslation();
   const { primary, success, warning, error, info } = tokens.color;
 
   return (
@@ -325,7 +327,7 @@ const ColorSection = () => {
           />
           <Flex gap={tokens.gap.small}>
             <Button type="primary">Save activity</Button>
-            <Button>Cancel</Button>
+            <Button>{t("buttons.cancel")}</Button>
           </Flex>
         </Flex>
       </Example>
