@@ -41,6 +41,12 @@ public class IngredientService {
                 .toList();
     }
 
+    public List<IngredientUiDTO> getStandingDataIngredients(Language language) {
+        return ingredientRepository.findAllByCreatedByNull().stream()
+                .map(ingredient -> ingredientMapper.toDTO(ingredient, language))
+                .toList();
+    }
+
     public IngredientEntity getStandingDataByEnglishName(String englishName) {
         return ingredientQueries.getStandingDataByEnglishName(englishName)
                 .orElseThrow();

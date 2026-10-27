@@ -23,8 +23,15 @@ public class IngredientUiController {
     private final IngredientService ingredientService;
 
     @GetMapping
+    @Operation(summary = "Get the standing data ingredients")
+    public List<IngredientUiDTO> getAllStandingDataIngredients(
+            @RequestParam Language language) {
+        return ingredientService.getStandingDataIngredients(language);
+    }
+
+    @GetMapping
     @Operation(summary = "Get the standing data ingredients and custom created ones of the user")
-    public List<IngredientUiDTO> getAll(
+    public List<IngredientUiDTO> getAllStandingDataAndCustomIngredients(
             @RequestParam Language language) {
         return ingredientService.getAllWithCustomCreated(
                 UserService.TEST_USER.getId(),
