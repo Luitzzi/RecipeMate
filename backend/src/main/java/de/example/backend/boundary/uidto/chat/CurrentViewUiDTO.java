@@ -1,7 +1,5 @@
 package de.example.backend.boundary.uidto.chat;
 
-import java.util.UUID;
-
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -22,7 +20,7 @@ public class CurrentViewUiDTO {
     private ViewType type;
 
     @Nullable
-    private UUID id;
+    private Long id;
 
 
     public String describe() {
