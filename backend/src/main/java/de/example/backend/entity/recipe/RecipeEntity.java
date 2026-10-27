@@ -29,20 +29,16 @@ public class RecipeEntity {
     private Long id;
 
     @Setter(AccessLevel.NONE)
-    @OneToMany(
-            mappedBy = "recipe",
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("position")
     @NotNull
-    private List<RecipeIngredientEntity> ingredients = new ArrayList<>();
+    private List<@NotNull RecipeIngredientEntity> ingredients = new ArrayList<>();
 
     @Setter(AccessLevel.NONE)
-    @OneToMany(
-            mappedBy = "recipe",
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("position")
     @NotNull
-    private List<RecipeStepEntity> steps = new ArrayList<>();
+    private List<@NotNull RecipeStepEntity> steps = new ArrayList<>();
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
@@ -50,20 +46,18 @@ public class RecipeEntity {
 
     @Setter(AccessLevel.NONE)
     @ElementCollection
-    @CollectionTable(
-            name = "recipe_cuisines",
-            joinColumns = @JoinColumn(name = "recipe_id"))
+    @CollectionTable(name = "recipe_cuisines", joinColumns = @JoinColumn(name = "recipe_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "cuisine", nullable = false)
+    @NotNull
     private Set<@NotNull Cuisine> cuisines = new HashSet<>();
 
     @Setter(AccessLevel.NONE)
     @ElementCollection
-    @CollectionTable(
-            name = "recipe_properties",
-            joinColumns = @JoinColumn(name = "recipe_id"))
+    @CollectionTable(name = "recipe_properties", joinColumns = @JoinColumn(name = "recipe_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "property", nullable = false)
+    @NotNull
     private Set<@NotNull RecipeProperty> properties = new HashSet<>();
 
     @NotBlank
@@ -100,10 +94,9 @@ public class RecipeEntity {
 
     @Setter(AccessLevel.NONE)
     @ElementCollection
-    @CollectionTable(
-            name = "recipe_images",
-            joinColumns = @JoinColumn(name = "recipe_id"))
+    @CollectionTable(name = "recipe_images", joinColumns = @JoinColumn(name = "recipe_id"))
     @OrderColumn(name = "position")
+    @NotNull
     private List<@NotBlank String> imageKeys = new ArrayList<>();
 
     public List<RecipeIngredientEntity> getIngredients() {
@@ -119,16 +112,14 @@ public class RecipeEntity {
     }
 
     public void removeIngredient(IngredientEntity ingredient) {
-        boolean removed = ingredients.removeIf(recipeIngredient ->
-                recipeIngredient.getIngredient().equals(ingredient));
+        boolean removed = ingredients.removeIf(recipeIngredient -> recipeIngredient.getIngredient().equals(ingredient));
         if (removed)
             reindex(ingredients, RecipeIngredientEntity::setPosition);
     }
 
     private boolean containsIngredient(IngredientEntity ingredient) {
         return ingredients.stream()
-                .anyMatch(recipeIngredient ->
-                        recipeIngredient.getIngredient().equals(ingredient));
+                .anyMatch(recipeIngredient -> recipeIngredient.getIngredient().equals(ingredient));
     }
 
     public List<RecipeStepEntity> getSteps() {
