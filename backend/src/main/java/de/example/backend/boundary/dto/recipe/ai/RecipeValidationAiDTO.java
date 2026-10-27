@@ -1,4 +1,4 @@
-package de.example.backend.boundary.dto.recipe.validation;
+package de.example.backend.boundary.dto.recipe.ai;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import jakarta.validation.constraints.NotNull;

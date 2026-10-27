@@ -1,6 +1,7 @@
-package de.example.backend.boundary.dto.recipe;
+package de.example.backend.boundary.dto.recipe.ui;
 
 import de.example.backend.boundary.dto.ingredient.IngredientUiDTO;
+import de.example.backend.boundary.dto.recipe.RecipeIngredientDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package de.example.backend.boundary.controller;
 
-import de.example.backend.boundary.dto.recipe.RecipeUiDTO;
+import de.example.backend.boundary.dto.recipe.ui.RecipeUiDTO;
 import de.example.backend.entity.Language;
 import de.example.backend.entity.user.UserEntity;
 import de.example.backend.service.RecipeService;

@@ -1,5 +1,6 @@
-package de.example.backend.boundary.dto.recipe;
+package de.example.backend.boundary.dto.recipe.ui;
 
+import de.example.backend.boundary.dto.recipe.RecipeDTO;
 import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

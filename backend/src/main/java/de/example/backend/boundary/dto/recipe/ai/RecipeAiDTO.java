@@ -1,8 +1,9 @@
-package de.example.backend.boundary.dto.recipe;
+package de.example.backend.boundary.dto.recipe.ai;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import de.example.backend.boundary.dto.recipe.RecipeDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;

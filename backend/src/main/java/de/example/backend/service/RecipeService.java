@@ -1,6 +1,6 @@
 package de.example.backend.service;
 
-import de.example.backend.boundary.dto.recipe.RecipeUiDTO;
+import de.example.backend.boundary.dto.recipe.ui.RecipeUiDTO;
 import de.example.backend.entity.Language;
 import de.example.backend.entity.user.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
