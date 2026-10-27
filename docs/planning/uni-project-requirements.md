@@ -15,13 +15,13 @@ Following are all requirements by their number in the requirements-pdf.
 | 4. Implement a search page for recipes with filter options | Uses the get-Endpoint of the RecipeController and provides the filter options              | Must     | Medium     | Luis     |
 | 5. Implement AI recipe creation via image                  | Create a recipe from an image                                                              | Could    | High       | Luis     |
 |                                                            |                                                                                            |          |            |          |
-| 1. AI "Mate" Chat with Toolcall-Support & Context          | See AI-Features 1 & 2                                                                      | Must     | High       | Johannes |
-| 2. AI Recipe creation/modification                         | See AI-Feature 3                                                                           | Must     | High       | Johannes |
-| 3. Recipe creation/modification E-Mail notification        |                                                                                            | Could    | Low        | Johannes |
+| 1. AI "Mate" Chat                                          | See AI-Features 1-3                                                                        | Must     | High       | Johannes |
+| 2. Share a recipe via E-Mail                               | See Communication 2                                                                        | Could    | Low        | Johannes |
+| 3. Recipe conversion finished notification                 | See Communication 3                                                                        | Could    | Low        | Johannes |
 | 4. Recipe Folder Entity & Folder Overview                  | Per-user folders to allow grouping recipes                                                 | Should   | Low        | Johannes |
-| 5. Project Documentation & Application Build via CI/CD     | See Nonfunctional 5                                                                        | Should   | Medium     | Johannes |
+| 5. TBD                                                     |                                                                                            | Should   | Medium     | Johannes |
 |                                                            |                                                                                            |          |            |          |
-| 1. Create the shopping list for the user                   | Add/Delete ingredients and items to the user spescific shopping list                       | Must     | Medium     | Oskar    |
+| 1. Create the shopping list for the user                   | Add/Delete ingredients and items to the user specific shopping list                        | Must     | Medium     | Oskar    |
 | 2. Implement the meal prepping screen                      | Enable users to plan their recipes for the week                                            | Must     | High       | Oskar    |
 | 3. Implement email communication                           | Using the Resend service API to enable us sending notifications to the users email address | Must     | High       | Oskar    |
 | 4. Implement internationalisation                          | Using i18next libraray to translate the frontend                                           | Should   | Medium     | Oskar    |
@@ -29,14 +29,14 @@ Following are all requirements by their number in the requirements-pdf.
 |                                                            |                                                                                            |          |            |          |
 | 1. Implement OAuth authentication in the Backend           | Validate ZITADEL JWTs, secure endpoints, provide current user to controllers               | Must     | High       | Florian  |
 | 2. Create the data structure for users                     | CRUDs for UserEntity (preferences, allergens, don't-likes), linked to OAuth subject ID     | Must     | Medium     | Florian  |
-| 3. Automatic user provisioning on first login              | Create UserEntity on first authenticated request + Get Preferences                         | Must     | Medium     | Florian  |
-| 4. Implement the user profile page                         | UI to view and edit preferences, allergens and don't-likes                                 | Should   | Medium     | Florian  |
+| 4. Implement the user profile page                         | UI to view and edit preferences, allergens and don't-likes                                 | Must     | Medium     | Florian  |
+| 3. Preferences wizard on first login                       | Create UserEntity on first authenticated request + Get Preferences                         | Should   | Medium     | Florian  |
 | 5. User context for Mate AI & user deletion                | Provide user data to Mate; delete user data on account deletion                            | Could    | Medium     | Florian  |
 
 ### Entities and their CRUD-Operations
 
 | Entity             | Usage                                                                                      | Assignee |
-|--------------------|--------------------------------------------------------------------------------------------|----------|
+| ------------------ | ------------------------------------------------------------------------------------------ | -------- |
 | UserEntity         | Create/Read/Update/Delete app-user specific information. Personal data is saved in OAuth.  | Florian  |
 | RecipeEntity       | Create/Read/Update/Delete recipes with their steps and ingredients                         | Luis     |
 | FolderEntity       | Create/Read/Update/Delete folders containing recipes. A folder belongs to exactly one user | Johannes |
@@ -57,7 +57,7 @@ See 1. Entities and their CRUD-Operations
 **External Rest-APIs:**
 
 | API                              | Usage                                     | Assignee |
-|----------------------------------|-------------------------------------------|----------|
+| -------------------------------- | ----------------------------------------- | -------- |
 | 1. Anthropic API (via Spring AI) | LLM for all AI features                   | Johannes |
 | 2. Resend                        | E-mail sending API                        | Oskar    |
 | 3. Zitadel Cloud                 | Authentication (OAuth 2.0 / OIDC) and MFA | Florian  |
@@ -66,7 +66,7 @@ See 1. Entities and their CRUD-Operations
 ## 3. Pagination for every person
 
 | Component                        | Usage                                                      | Assignee |
-|----------------------------------|------------------------------------------------------------|----------|
+| -------------------------------- | ---------------------------------------------------------- | -------- |
 | 1. Folder Pagination             | Display the folders a user created in pages                | Johannes |
 | 2. Recipe Pagination             | Display the result of the recipe search in pages           | Luis     |
 | 3. Endless-scroll of recipes     | Display the suggested recipes in a vertical endless-scroll | Oskar    |
@@ -77,12 +77,13 @@ See 1. Entities and their CRUD-Operations
 
 Channel: E-Mail
 
-| Communication                     | Description                                                                                                             | Assignee |
-|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------|----------|
-| 1. E-mail confirmation & MFA      | Confirmation mail after registration and one-time codes for multi-factor authentication. (via Zitadel Cloud)            | Florian  |
-| 2. Recipe conversion notification | Notifies the user when a recipe conversion (see AI feature #4) has finished                                             | Johannes |
-| 3. Newsletter                     | Weekly "Check out these recipes" mail with new and best-rated recipes. Users subscribe/unsubscribe in the user settings | Luis     |
-| 4. Welcome back mail              | If the user did not login for x days he gets a welcome back email                                                       | Oskar    |
+| Communication                      | Description                                                                                                             | Assignee |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------- |
+| 1. E-mail confirmation & MFA       | Confirmation mail after registration and one-time codes for multi-factor authentication. (via Zitadel Cloud)            | Florian  |
+| 2. Share a recipe via E-Mail       | Share a recipe to an E-Mail. They get a static version of the recipe.                                                   | Johannes |
+| 3. Recipe creation finished E-Mail | Get an E-Mail about a recipe creation/modification/import having finished.                                              | Johannes |
+| 4. Newsletter                      | Weekly "Check out these recipes" mail with new and best-rated recipes. Users subscribe/unsubscribe in the user settings | Luis     |
+| 5. Welcome back mail               | If the user did not login for x days he gets a welcome back email                                                       | Oskar    |
 
 ## 5. Frontend
 
@@ -101,7 +102,7 @@ to the team members.
 ## 7. Non-functional requirements for every person
 
 | Non-functional requirement                             | Usage                                                                                                                                                                       | Assignee |
-| ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+|--------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
 | 1. Internationalisation                                | Translate the UI in the frontend                                                                                                                                            | Oskar    |
 | 2. Central authentication service                      | The authentication service should be easy to scale and to use for other applications. For example HolidayMate.                                                              | Florian  |
 | 3. Consistent design system in the frontend            | All styling related values should be consistent. The colors predefined and easy to use in the code                                                                          | Luis     |
@@ -111,10 +112,10 @@ to the team members.
 ## 8. AI-Feature for every person
 
 | Feature                           | Description                                                                             | Assignee |
-| --------------------------------- | --------------------------------------------------------------------------------------- | -------- |
+|-----------------------------------|-----------------------------------------------------------------------------------------|----------|
 | 1. AI "Mate" Chat                 | Chat assistant with tool-call support                                                   | Johannes |
 | 2. Context                        | Mate knows context about which page the user is currently viewing                       | Johannes |
 | 3. Recipe creation & modification | Mate creates or changes recipes; a writer/evaluator agent loop checks quality           | Johannes |
-| 4. Query tools                    | Mate can look up recipes by recipeId and search recipes (like with the search page)     | Oskar    |
+| 4. Query tools                    | Mate has tools for: Search (with parameters, like in recipe search page); Folders; ...  | Oskar    |
 | 5. Recipe scraping & conversion   | Website content pasted into the chat is converted into a recipe                         | Florian  |
 | 6. Recipe creation from images    | Convert an image via OCR to markdown and pass it to the agent. Used for recipe creation | Luis     |

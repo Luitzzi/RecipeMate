@@ -1,9 +1,9 @@
 package de.example.backend.entity.recipe;
 
 import de.example.backend.entity.ingredient.IngredientEntity;
-import de.example.backend.entity.Unit;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
@@ -43,9 +43,11 @@ public class RecipeIngredientEntity {
     @MapsId("ingredientId")
     private IngredientEntity ingredient;
 
+    @Nullable
     @PositiveOrZero
     private BigDecimal amount;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Unit unit;

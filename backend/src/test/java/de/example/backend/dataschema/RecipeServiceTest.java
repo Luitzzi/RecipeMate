@@ -1,24 +1,16 @@
 package de.example.backend.dataschema;
 
-import de.example.backend.boundary.uidto.*;
-import de.example.backend.entity.Diet;
-import de.example.backend.entity.Language;
-import de.example.backend.entity.Unit;
-import de.example.backend.entity.UserEntity;
-import de.example.backend.entity.ingredient.IngredientEntity;
-import de.example.backend.entity.recipe.RecipeCuisineEntity;
-import de.example.backend.entity.recipe.RecipeEntity;
-import de.example.backend.entity.recipe.RecipeIngredientEntity;
-import de.example.backend.entity.recipe.RecipePropertyEntity;
-import de.example.backend.entity.recipe.RecipeStepEntity;
-import de.example.backend.entity.recipe.recipe_step_methods.OvenStepEntity;
-import de.example.backend.entity.recipe.recipe_step_methods.OvenStepEntity.OvenMode;
-import de.example.backend.entity.recipe.recipe_step_methods.PrepareStepEntity;
-import de.example.backend.entity.recipe.recipe_step_methods.StoveStepEntity;
-import de.example.backend.entity.recipe.recipe_step_methods.StoveStepEntity.HeatLevel;
+import de.example.backend.boundary.dto.ingredient.IngredientUiDTO;
+import de.example.backend.boundary.dto.recipe.*;
+import de.example.backend.boundary.dto.recipe.ui.RecipeIngredientUiDTO;
+import de.example.backend.boundary.dto.recipe.ui.RecipeUiDTO;
+import de.example.backend.entity.*;
+import de.example.backend.entity.ingredient.*;
+import de.example.backend.entity.recipe.*;
+import de.example.backend.entity.recipe.OvenStepEntity.OvenMode;
+import de.example.backend.entity.recipe.StoveStepEntity.HeatLevel;
+import de.example.backend.entity.user.UserEntity;
 import de.example.backend.repository.IngredientRepository;
-import de.example.backend.repository.RecipeCuisineRepository;
-import de.example.backend.repository.RecipePropertyRepository;
 import de.example.backend.repository.RecipeRepository;
 import de.example.backend.service.IngredientService;
 import de.example.backend.service.RecipeService;
@@ -31,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -51,12 +44,6 @@ public class RecipeServiceTest {
     private IngredientRepository ingredientRepository;
 
     @Autowired
-    private RecipeCuisineRepository recipeCuisineRepository;
-
-    @Autowired
-    private RecipePropertyRepository recipePropertyRepository;
-
-    @Autowired
     private DataSchemaTestUtils dataSchemaTestUtils;
 
     @Autowired
@@ -71,8 +58,6 @@ public class RecipeServiceTest {
     void setUp() {
         createOwner();
         createMockIngredientStandingData();
-        createMockCuisineStandingData();
-        createMockPropertyStandingData();
         dataSchemaTestUtils.flushAndClear();
     }
 
@@ -179,12 +164,12 @@ public class RecipeServiceTest {
         dataSchemaTestUtils.flushAndClear();
 
         assertThat(created.getSteps())
-                .hasExactlyElementsOfTypes(PrepareStepUiDTO.class, OvenStepUiDTO.class, StoveStepUiDTO.class);
+                .hasExactlyElementsOfTypes(PrepareStepDTO.class, OvenStepDTO.class, StoveStepDTO.class);
 
         List<RecipeStepEntity> steps = loadRecipe(created).getSteps();
         assertThat(steps).hasSize(3);
-        assertThat(steps.get(0)).isInstanceOfSatisfying(PrepareStepEntity.class, step ->
-                assertThat(step.getDescription()).isEqualTo("Chop onions"));
+        assertThat(steps.get(0)).isInstanceOfSatisfying(PrepareStepEntity.class,
+                step -> assertThat(step.getDescription()).isEqualTo("Chop onions"));
         assertThat(steps.get(1)).isInstanceOfSatisfying(OvenStepEntity.class, step -> {
             assertThat(step.getDescription()).isEqualTo("Bake");
             assertThat(step.getTemperatureC()).isEqualTo(180);
@@ -196,6 +181,23 @@ public class RecipeServiceTest {
             assertThat(step.getDescription()).isEqualTo("Fry");
             assertThat(step.getHeatLevel()).isEqualTo(HeatLevel.MEDIUM);
         });
+    }
+
+    @Test
+    void create_persistsCuisinesAndProperties() {
+        RecipeUiDTO recipe = createRecipeUiDTO();
+        recipe.setCuisines(Set.of(Cuisine.ITALIAN, Cuisine.MEDITERRANEAN));
+        recipe.setProperties(Set.of(RecipeProperty.DINNER, RecipeProperty.QUICK));
+
+        RecipeUiDTO created = recipeService.create(recipe, owner);
+        dataSchemaTestUtils.flushAndClear();
+
+        assertThat(created.getCuisines()).containsExactlyInAnyOrder(Cuisine.ITALIAN, Cuisine.MEDITERRANEAN);
+        assertThat(created.getProperties()).containsExactlyInAnyOrder(RecipeProperty.DINNER, RecipeProperty.QUICK);
+
+        RecipeEntity loaded = loadRecipe(created);
+        assertThat(loaded.getCuisines()).containsExactlyInAnyOrder(Cuisine.ITALIAN, Cuisine.MEDITERRANEAN);
+        assertThat(loaded.getProperties()).containsExactlyInAnyOrder(RecipeProperty.DINNER, RecipeProperty.QUICK);
     }
 
     @Test
@@ -229,8 +231,7 @@ public class RecipeServiceTest {
             RecipeIngredientEntity recipeIngredient,
             String name,
             BigDecimal amount,
-            Unit unit
-    ) {
+            Unit unit) {
         IngredientEntity ingredient = recipeIngredient.getIngredient();
         assertThat(ingredient.getId()).isNotNull();
         assertThat(ingredient.getCreatedBy().getId()).isEqualTo(owner.getId());
@@ -273,17 +274,16 @@ public class RecipeServiceTest {
         return recipeIngredient;
     }
 
-    private PrepareStepUiDTO prepareStep(String description) {
-        PrepareStepUiDTO step = new PrepareStepUiDTO();
+    private PrepareStepDTO prepareStep(String description) {
+        PrepareStepDTO step = new PrepareStepDTO();
         step.setDescription(description);
         return step;
     }
 
-    private OvenStepUiDTO ovenStep(
+    private OvenStepDTO ovenStep(
             String description, int temperatureC, OvenMode ovenMode,
-            int durationSeconds, boolean preheat
-    ) {
-        OvenStepUiDTO step = new OvenStepUiDTO();
+            int durationSeconds, boolean preheat) {
+        OvenStepDTO step = new OvenStepDTO();
         step.setDescription(description);
         step.setTemperatureC(temperatureC);
         step.setOvenMode(ovenMode);
@@ -292,8 +292,8 @@ public class RecipeServiceTest {
         return step;
     }
 
-    private StoveStepUiDTO stoveStep(String description, HeatLevel heatLevel) {
-        StoveStepUiDTO step = new StoveStepUiDTO();
+    private StoveStepDTO stoveStep(String description, HeatLevel heatLevel) {
+        StoveStepDTO step = new StoveStepDTO();
         step.setDescription(description);
         step.setHeatLevel(heatLevel);
         return step;
@@ -306,30 +306,13 @@ public class RecipeServiceTest {
 
     private void createMockIngredientStandingData() {
         spaghetti = new IngredientEntity();
-        spaghetti.setType("Noodle");
+        spaghetti.setType(IngredientType.PASTA);
         spaghetti.setCustomName("Spaghetti");
 
         ketchup = new IngredientEntity();
-        ketchup.setType("Sauce");
+        ketchup.setType(IngredientType.OTHER);
         ketchup.setCustomName("Ketchup");
 
         ingredientService.createAll(List.of(spaghetti, ketchup));
-    }
-
-    private void createMockCuisineStandingData() {
-        RecipeCuisineEntity french = new RecipeCuisineEntity();
-        french.setName("French");
-        RecipeCuisineEntity italy = new RecipeCuisineEntity();
-        italy.setName("Italy");
-
-        recipeCuisineRepository.persistAll(List.of(french, italy));
-    }
-
-    private void createMockPropertyStandingData() {
-        RecipePropertyEntity breakfast = new RecipePropertyEntity(null, "Breakfast");
-        RecipePropertyEntity lunch = new RecipePropertyEntity(null, "Lunch");
-        RecipePropertyEntity dinner = new RecipePropertyEntity(null, "Dinner");
-
-        recipePropertyRepository.persistAll(List.of(breakfast, lunch, dinner));
     }
 }

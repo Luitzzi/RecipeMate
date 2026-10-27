@@ -1,26 +1,22 @@
 package de.example.backend.service.mapper;
 
-import de.example.backend.boundary.uidto.*;
+import de.example.backend.boundary.dto.recipe.*;
+import de.example.backend.boundary.dto.recipe.ai.RecipeAiDTO;
+import de.example.backend.boundary.dto.recipe.ui.RecipeUiDTO;
 import de.example.backend.entity.Language;
-import de.example.backend.entity.UserEntity;
+import de.example.backend.entity.user.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.recipe.*;
-import de.example.backend.service.RecipeCuisineService;
-import de.example.backend.service.RecipePropertyService;
-import de.example.backend.service.RecipeService;
 import jakarta.annotation.Nullable;
-import org.mapstruct.Context;
-import org.mapstruct.Mapper;
+import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.function.Function;
 
 @Mapper(uses = {
         RecipeIngredientMapper.class,
         RecipeStepMapper.class,
-        RecipeCuisineMapper.class,
-        RecipePropertyMapper.class,
 })
 public abstract class RecipeMapper {
 
@@ -30,13 +26,10 @@ public abstract class RecipeMapper {
     @Autowired
     private RecipeStepMapper recipeStepMapper;
 
-    @Autowired
-    private RecipeCuisineMapper recipeCuisineMapper;
+    public abstract RecipeUiDTO toUiDTO(RecipeEntity entity, @Context Language language);
 
-    @Autowired
-    private RecipePropertyMapper recipePropertyMapper;
-
-    public abstract RecipeUiDTO toDTO(RecipeEntity entity, @Context Language language);
+    // TODO JPI: how to handle languages? eg. attach language to RecipeDTO?
+    public abstract RecipeAiDTO toAiDTO(RecipeEntity entity, @Context Language language);
 
     /**
      * Maps a RecipeUiDTO to a RecipeEntity
@@ -45,12 +38,34 @@ public abstract class RecipeMapper {
      * - SourceUrl should only be managed by the backend.
      */
     public RecipeEntity toEntity(RecipeUiDTO dto, UserEntity owner, @Nullable String existingSourceUrl) {
-        RecipeEntity recipeEntity = new RecipeEntity();
+        RecipeEntity recipeEntity = toCommonEntity(dto, owner);
         recipeEntity.setId(dto.getId());
-        addIngredients(recipeEntity, dto.getIngredients(), owner);
+        addIngredients(recipeEntity, dto.getIngredients(),
+                ingredient -> ingredientMapper.toEntity(ingredient.getIngredient(), owner));
+        recipeEntity.setSourceUrl(existingSourceUrl);
+        recipeEntity.addImageKeys(dto.getImageKeys());
+        return recipeEntity;
+    }
+
+    /**
+     * Maps a RecipeAiDTO to a new RecipeEntity
+     */
+    public RecipeEntity toEntity(RecipeAiDTO dto, UserEntity owner) {
+        RecipeEntity recipeEntity = toCommonEntity(dto, owner);
+        addIngredients(recipeEntity, dto.getIngredients(),
+                ingredient -> ingredientMapper.toEntity(ingredient.getName(), owner));
+        recipeEntity.setSourceUrl(dto.getSourceUrl());
+        return recipeEntity;
+    }
+
+    /**
+     * Maps the shared fields from a RecipeDTO.
+     */
+    private RecipeEntity toCommonEntity(RecipeDTO dto, UserEntity owner) {
+        RecipeEntity recipeEntity = new RecipeEntity();
         addSteps(recipeEntity, dto.getSteps());
-        addCuisineTag(recipeEntity, dto.getCuisines());
-        addPropertyTag(recipeEntity, dto.getProperties());
+        recipeEntity.addCuisines(dto.getCuisines());
+        recipeEntity.addProperties(dto.getProperties());
 
         recipeEntity.setOwner(owner);
         recipeEntity.setTitle(dto.getTitle());
@@ -59,57 +74,32 @@ public abstract class RecipeMapper {
         recipeEntity.setDifficulty(dto.getDifficulty());
         recipeEntity.setDiet(dto.getDiet());
         recipeEntity.setNote(dto.getNote());
-        recipeEntity.setSourceUrl(existingSourceUrl);
-        recipeEntity.addImageKeys(dto.getImageKeys());
         return recipeEntity;
     }
 
-    private void addIngredients(
+    private <T extends RecipeIngredientDTO> void addIngredients(
             RecipeEntity recipeEntity,
-            List<RecipeIngredientUiDTO> recipeIngredientUiDTOS,
-            UserEntity owner
-    ) {
+            List<T> recipeIngredientDTOs,
+            Function<T, IngredientEntity> resolveIngredient) {
         int position = 0;
-        for (RecipeIngredientUiDTO recipeIngredientUiDTO : recipeIngredientUiDTOS) {
-            IngredientEntity ingredientEntity = ingredientMapper.toEntity(
-                    recipeIngredientUiDTO.getIngredient(), owner);
+        for (T recipeIngredientDTO : recipeIngredientDTOs) {
             recipeEntity.addIngredient(
-                    ingredientEntity,
-                    recipeIngredientUiDTO.getAmount(),
-                    recipeIngredientUiDTO.getUnit(),
-                    position
-            );
+                    resolveIngredient.apply(recipeIngredientDTO),
+                    recipeIngredientDTO.getAmount(),
+                    recipeIngredientDTO.getUnit(),
+                    position);
             position++;
         }
     }
 
     private void addSteps(
             RecipeEntity recipeEntity,
-            List<RecipeStepUiDTO> stepsUiDTOs
-    ) {
+            List<RecipeStepDTO> stepDTOs) {
         int position = 0;
-        for (RecipeStepUiDTO stepUiDTO : stepsUiDTOs) {
-            RecipeStepEntity stepEntity = recipeStepMapper.toEntity(stepUiDTO);
+        for (RecipeStepDTO stepDTO : stepDTOs) {
+            RecipeStepEntity stepEntity = recipeStepMapper.toEntity(stepDTO);
             recipeEntity.addStep(stepEntity, position);
             position++;
         }
-    }
-
-    private void addCuisineTag(
-            RecipeEntity recipeEntity,
-            List<RecipeCuisineUiDTO> cuisineUiDTOS
-    ) {
-        List<RecipeCuisineEntity> cuisineEntities = recipeCuisineMapper
-                .toEntities(cuisineUiDTOS);
-        recipeEntity.addCuisineTags(cuisineEntities);
-    }
-
-    private void addPropertyTag(
-            RecipeEntity recipeEntity,
-            List<RecipePropertyUiDTO> propertyUiDTOS
-    ) {
-        List<RecipePropertyEntity> propertyEntities = recipePropertyMapper
-                .toEntities(propertyUiDTOS);
-        recipeEntity.addPropertyTags(propertyEntities);
     }
 }

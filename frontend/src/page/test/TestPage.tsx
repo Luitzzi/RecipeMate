@@ -32,7 +32,9 @@ export const TestPage = () => {
 
   const addElement = (element: Element) => {
     setNewElementsByName((prev) =>
-      new Map(prev).set(normalizeString(element.name), { name: element.name }),
+      new Map(prev).set(normalizeString(element.name), {
+        name: element.name,
+      }),
     );
   };
 

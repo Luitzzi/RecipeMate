@@ -388,7 +388,11 @@ const ColorSection = () => {
               count={0}
               showZero
               color={tokens.color.fill}
-              styles={{ indicator: { color: tokens.color.text.disabled } }}
+              styles={{
+                indicator: {
+                  color: tokens.color.text.disabled,
+                },
+              }}
             />
             <TokenLabel name="color.fill" value={tokens.color.fill} />
           </Flex>
@@ -516,8 +520,14 @@ const ShapeSection = () => (
       <Row gutter={[tokens.gap.medium, tokens.gap.medium]}>
         {[
           { name: "borderWidth", style: {} },
-          { name: "shadow.raised", style: { boxShadow: tokens.shadow.raised } },
-          { name: "shadow.popup", style: { boxShadow: tokens.shadow.popup } },
+          {
+            name: "shadow.raised",
+            style: { boxShadow: tokens.shadow.raised },
+          },
+          {
+            name: "shadow.popup",
+            style: { boxShadow: tokens.shadow.popup },
+          },
         ].map(({ name, style }) => (
           <Col key={name} xs={24} sm={8}>
             <div
@@ -586,7 +596,12 @@ export const DocsPage = () => {
 
       <Flex vertical gap={tokens.gap.small}>
         <Typography.Text strong>Principles</Typography.Text>
-        <ol style={{ margin: 0, paddingInlineStart: tokens.padding.large }}>
+        <ol
+          style={{
+            margin: 0,
+            paddingInlineStart: tokens.padding.large,
+          }}
+        >
           <li>
             One source: every visual value comes from tokens; hex values only
             for one-off problems.

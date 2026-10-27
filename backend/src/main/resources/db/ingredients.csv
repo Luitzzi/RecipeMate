@@ -1,0 +1,654 @@
+Name English,Name German,TYPE
+Beef,Rindfleisch,MEAT
+Beef Fillet,Rinderfilet,MEAT
+Beef Sirloin,Rinderlende,MEAT
+Ribeye Steak,Ribeye-Steak,MEAT
+Rump Steak,Rumpsteak,MEAT
+Ground Beef,Rinderhackfleisch,MEAT
+Mixed Ground Meat,Gemischtes Hackfleisch,MEAT
+Beef Brisket,Rinderbrust,MEAT
+Beef Shank,Rinderbeinscheibe,MEAT
+Beef Cheeks,Rinderbacken,MEAT
+Beef Goulash Meat,Rindergulasch,MEAT
+Oxtail,Ochsenschwanz,MEAT
+Beef Tongue,Rinderzunge,MEAT
+Beef Liver,Rinderleber,MEAT
+Veal,Kalbfleisch,MEAT
+Veal Cutlet,Kalbsschnitzel,MEAT
+Veal Shank,Kalbshaxe,MEAT
+Veal Liver,Kalbsleber,MEAT
+Pork,Schweinefleisch,MEAT
+Pork Tenderloin,Schweinefilet,MEAT
+Pork Loin,Schweinerücken,MEAT
+Pork Chop,Schweinekotelett,MEAT
+Pork Cutlet,Schweineschnitzel,MEAT
+Pork Belly,Schweinebauch,MEAT
+Pork Shoulder,Schweineschulter,MEAT
+Pork Neck,Schweinenacken,MEAT
+Pork Knuckle,Schweinshaxe,MEAT
+Pork Ribs,Schweinerippchen,MEAT
+Ground Pork,Schweinehackfleisch,MEAT
+Pork Liver,Schweineleber,MEAT
+Lamb,Lammfleisch,MEAT
+Lamb Leg,Lammkeule,MEAT
+Lamb Chops,Lammkoteletts,MEAT
+Lamb Shoulder,Lammschulter,MEAT
+Lamb Rack,Lammkarree,MEAT
+Lamb Shank,Lammhaxe,MEAT
+Ground Lamb,Lammhackfleisch,MEAT
+Goat Meat,Ziegenfleisch,MEAT
+Venison,Hirschfleisch,MEAT
+Roe Deer,Rehfleisch,MEAT
+Wild Boar,Wildschweinfleisch,MEAT
+Rabbit,Kaninchen,MEAT
+Hare,Hase,MEAT
+Bacon,Frühstücksspeck,MEAT
+Smoked Bacon,Räucherspeck,MEAT
+Diced Bacon,Speckwürfel,MEAT
+Pancetta,Pancetta,MEAT
+Prosciutto,Prosciutto,MEAT
+Parma Ham,Parmaschinken,MEAT
+Serrano Ham,Serranoschinken,MEAT
+Black Forest Ham,Schwarzwälder Schinken,MEAT
+Cooked Ham,Kochschinken,MEAT
+Cured Ham,Rohschinken,MEAT
+Salami,Salami,MEAT
+Chorizo,Chorizo,MEAT
+Pepperoni,Peperoni-Salami,MEAT
+Mortadella,Mortadella,MEAT
+Bratwurst,Bratwurst,MEAT
+Wiener Sausage,Wiener Würstchen,MEAT
+Frankfurter Sausage,Frankfurter Würstchen,MEAT
+Sausage Meat,Brät,MEAT
+Black Pudding,Blutwurst,MEAT
+Liver Sausage,Leberwurst,MEAT
+Chicken,Hähnchen,POULTRY
+Chicken Breast,Hähnchenbrust,POULTRY
+Chicken Thigh,Hähnchenoberschenkel,POULTRY
+Chicken Drumstick,Hähnchenunterschenkel,POULTRY
+Chicken Leg,Hähnchenschenkel,POULTRY
+Chicken Wings,Hähnchenflügel,POULTRY
+Ground Chicken,Hähnchenhackfleisch,POULTRY
+Chicken Liver,Hühnerleber,POULTRY
+Chicken Hearts,Hühnerherzen,POULTRY
+Turkey,Pute,POULTRY
+Turkey Breast,Putenbrust,POULTRY
+Turkey Leg,Putenkeule,POULTRY
+Ground Turkey,Putenhackfleisch,POULTRY
+Duck,Ente,POULTRY
+Duck Breast,Entenbrust,POULTRY
+Duck Leg,Entenkeule,POULTRY
+Goose,Gans,POULTRY
+Goose Leg,Gänsekeule,POULTRY
+Goose Breast,Gänsebrust,POULTRY
+Quail,Wachtel,POULTRY
+Guinea Fowl,Perlhuhn,POULTRY
+Pheasant,Fasan,POULTRY
+Salmon,Lachs,FISH
+Smoked Salmon,Räucherlachs,FISH
+Trout,Forelle,FISH
+Smoked Trout,Räucherforelle,FISH
+Arctic Char,Saibling,FISH
+Cod,Kabeljau,FISH
+Haddock,Schellfisch,FISH
+Saithe,Seelachs,FISH
+Alaska Pollock,Alaska-Seelachs,FISH
+Hake,Seehecht,FISH
+Tuna,Thunfisch,FISH
+Canned Tuna,Thunfisch aus der Dose,FISH
+Mackerel,Makrele,FISH
+Smoked Mackerel,Räuchermakrele,FISH
+Herring,Hering,FISH
+Pickled Herring,Matjes,FISH
+Sardines,Sardinen,FISH
+Anchovies,Sardellen,FISH
+Sea Bass,Wolfsbarsch,FISH
+Sea Bream,Dorade,FISH
+Halibut,Heilbutt,FISH
+Plaice,Scholle,FISH
+Sole,Seezunge,FISH
+Turbot,Steinbutt,FISH
+Monkfish,Seeteufel,FISH
+Redfish,Rotbarsch,FISH
+Red Snapper,Roter Schnapper,FISH
+Swordfish,Schwertfisch,FISH
+Pikeperch,Zander,FISH
+Pike,Hecht,FISH
+Perch,Flussbarsch,FISH
+Carp,Karpfen,FISH
+Catfish,Wels,FISH
+Tilapia,Tilapia,FISH
+Pangasius,Pangasius,FISH
+Eel,Aal,FISH
+Salt Cod,Klippfisch,FISH
+Salmon Roe,Lachskaviar,FISH
+Caviar,Kaviar,FISH
+Shrimp,Garnelen,SEAFOOD
+King Prawns,Riesengarnelen,SEAFOOD
+North Sea Shrimp,Nordseekrabben,SEAFOOD
+Lobster,Hummer,SEAFOOD
+Spiny Lobster,Languste,SEAFOOD
+Langoustine,Kaisergranat,SEAFOOD
+Crayfish,Flusskrebse,SEAFOOD
+Crab,Taschenkrebs,SEAFOOD
+Crab Meat,Krebsfleisch,SEAFOOD
+Mussels,Miesmuscheln,SEAFOOD
+Clams,Venusmuscheln,SEAFOOD
+Scallops,Jakobsmuscheln,SEAFOOD
+Oysters,Austern,SEAFOOD
+Squid,Kalmar,SEAFOOD
+Octopus,Oktopus,SEAFOOD
+Cuttlefish,Sepia,SEAFOOD
+Potato,Kartoffel,VEGETABLE
+Waxy Potatoes,Festkochende Kartoffeln,VEGETABLE
+Floury Potatoes,Mehligkochende Kartoffeln,VEGETABLE
+New Potatoes,Frühkartoffeln,VEGETABLE
+Sweet Potato,Süßkartoffel,VEGETABLE
+Carrot,Karotte,VEGETABLE
+Onion,Zwiebel,VEGETABLE
+Red Onion,Rote Zwiebel,VEGETABLE
+White Onion,Weiße Zwiebel,VEGETABLE
+Spring Onion,Frühlingszwiebel,VEGETABLE
+Shallot,Schalotte,VEGETABLE
+Leek,Lauch,VEGETABLE
+Garlic,Knoblauch,VEGETABLE
+Celery,Staudensellerie,VEGETABLE
+Celeriac,Knollensellerie,VEGETABLE
+Parsnip,Pastinake,VEGETABLE
+Parsley Root,Petersilienwurzel,VEGETABLE
+Turnip,Mairübe,VEGETABLE
+Rutabaga,Steckrübe,VEGETABLE
+Kohlrabi,Kohlrabi,VEGETABLE
+Beetroot,Rote Bete,VEGETABLE
+Radish,Radieschen,VEGETABLE
+Daikon Radish,Rettich,VEGETABLE
+Horseradish,Meerrettich,VEGETABLE
+Jerusalem Artichoke,Topinambur,VEGETABLE
+Black Salsify,Schwarzwurzel,VEGETABLE
+Cassava,Maniok,VEGETABLE
+Tomato,Tomate,VEGETABLE
+Cherry Tomatoes,Kirschtomaten,VEGETABLE
+Plum Tomatoes,Romatomaten,VEGETABLE
+Beefsteak Tomato,Fleischtomate,VEGETABLE
+Vine Tomatoes,Strauchtomaten,VEGETABLE
+Canned Tomatoes,Dosentomaten,VEGETABLE
+Passata,Passierte Tomaten,VEGETABLE
+Tomato Paste,Tomatenmark,VEGETABLE
+Sun-dried Tomatoes,Getrocknete Tomaten,VEGETABLE
+Bell Pepper,Paprika,VEGETABLE
+Red Bell Pepper,Rote Paprika,VEGETABLE
+Yellow Bell Pepper,Gelbe Paprika,VEGETABLE
+Green Bell Pepper,Grüne Paprika,VEGETABLE
+Pointed Pepper,Spitzpaprika,VEGETABLE
+Chili Pepper,Chilischote,VEGETABLE
+Jalapeño,Jalapeño,VEGETABLE
+Pepperoncini,Peperoni,VEGETABLE
+Cucumber,Salatgurke,VEGETABLE
+Zucchini,Zucchini,VEGETABLE
+Eggplant,Aubergine,VEGETABLE
+Pumpkin,Kürbis,VEGETABLE
+Butternut Squash,Butternusskürbis,VEGETABLE
+Hokkaido Pumpkin,Hokkaido-Kürbis,VEGETABLE
+Okra,Okra,VEGETABLE
+Sweet Corn,Zuckermais,VEGETABLE
+Corn on the Cob,Maiskolben,VEGETABLE
+White Cabbage,Weißkohl,VEGETABLE
+Red Cabbage,Rotkohl,VEGETABLE
+Savoy Cabbage,Wirsing,VEGETABLE
+Pointed Cabbage,Spitzkohl,VEGETABLE
+Chinese Cabbage,Chinakohl,VEGETABLE
+Pak Choi,Pak Choi,VEGETABLE
+Kale,Grünkohl,VEGETABLE
+Cavolo Nero,Schwarzkohl,VEGETABLE
+Broccoli,Brokkoli,VEGETABLE
+Cauliflower,Blumenkohl,VEGETABLE
+Romanesco,Romanesco,VEGETABLE
+Brussels Sprouts,Rosenkohl,VEGETABLE
+Sauerkraut,Sauerkraut,VEGETABLE
+Spinach,Spinat,VEGETABLE
+Baby Spinach,Babyspinat,VEGETABLE
+Swiss Chard,Mangold,VEGETABLE
+Lettuce,Kopfsalat,VEGETABLE
+Iceberg Lettuce,Eisbergsalat,VEGETABLE
+Romaine Lettuce,Römersalat,VEGETABLE
+Lamb's Lettuce,Feldsalat,VEGETABLE
+Arugula,Rucola,VEGETABLE
+Endive,Endiviensalat,VEGETABLE
+Chicory,Chicorée,VEGETABLE
+Radicchio,Radicchio,VEGETABLE
+Frisée,Friséesalat,VEGETABLE
+Oak Leaf Lettuce,Eichblattsalat,VEGETABLE
+Lollo Rosso,Lollo Rosso,VEGETABLE
+Watercress,Brunnenkresse,VEGETABLE
+Green Asparagus,Grüner Spargel,VEGETABLE
+White Asparagus,Weißer Spargel,VEGETABLE
+Artichoke,Artischocke,VEGETABLE
+Fennel,Fenchel,VEGETABLE
+Green Beans,Grüne Bohnen,VEGETABLE
+Runner Beans,Stangenbohnen,VEGETABLE
+Snow Peas,Zuckerschoten,VEGETABLE
+Peas,Erbsen,VEGETABLE
+Edamame,Edamame,VEGETABLE
+Bean Sprouts,Sojasprossen,VEGETABLE
+Bamboo Shoots,Bambussprossen,VEGETABLE
+Water Chestnuts,Wasserkastanien,VEGETABLE
+Black Olives,Schwarze Oliven,VEGETABLE
+Green Olives,Grüne Oliven,VEGETABLE
+Pickles,Gewürzgurken,VEGETABLE
+Button Mushrooms,Champignons,MUSHROOM
+Brown Mushrooms,Braune Champignons,MUSHROOM
+Chanterelles,Pfifferlinge,MUSHROOM
+Porcini,Steinpilze,MUSHROOM
+Dried Porcini,Getrocknete Steinpilze,MUSHROOM
+Oyster Mushrooms,Austernpilze,MUSHROOM
+King Oyster Mushrooms,Kräuterseitlinge,MUSHROOM
+Shiitake,Shiitake,MUSHROOM
+Enoki,Enoki,MUSHROOM
+Morels,Morcheln,MUSHROOM
+Truffle,Trüffel,MUSHROOM
+Mixed Wild Mushrooms,Waldpilze,MUSHROOM
+Apple,Apfel,FRUIT
+Pear,Birne,FRUIT
+Quince,Quitte,FRUIT
+Banana,Banane,FRUIT
+Plantain,Kochbanane,FRUIT
+Orange,Orange,FRUIT
+Blood Orange,Blutorange,FRUIT
+Lemon,Zitrone,FRUIT
+Lime,Limette,FRUIT
+Grapefruit,Grapefruit,FRUIT
+Mandarin,Mandarine,FRUIT
+Clementine,Clementine,FRUIT
+Kumquat,Kumquat,FRUIT
+Pomelo,Pomelo,FRUIT
+Strawberries,Erdbeeren,FRUIT
+Raspberries,Himbeeren,FRUIT
+Blueberries,Heidelbeeren,FRUIT
+Blackberries,Brombeeren,FRUIT
+Red Currants,Rote Johannisbeeren,FRUIT
+Blackcurrants,Schwarze Johannisbeeren,FRUIT
+Gooseberries,Stachelbeeren,FRUIT
+Cranberries,Cranberrys,FRUIT
+Lingonberries,Preiselbeeren,FRUIT
+Elderberries,Holunderbeeren,FRUIT
+Sea Buckthorn,Sanddorn,FRUIT
+Cherries,Kirschen,FRUIT
+Sour Cherries,Sauerkirschen,FRUIT
+Plums,Pflaumen,FRUIT
+Damson Plums,Zwetschgen,FRUIT
+Mirabelle Plums,Mirabellen,FRUIT
+Apricot,Aprikose,FRUIT
+Peach,Pfirsich,FRUIT
+Nectarine,Nektarine,FRUIT
+Grapes,Weintrauben,FRUIT
+Watermelon,Wassermelone,FRUIT
+Honeydew Melon,Honigmelone,FRUIT
+Cantaloupe,Cantaloupe-Melone,FRUIT
+Pineapple,Ananas,FRUIT
+Mango,Mango,FRUIT
+Papaya,Papaya,FRUIT
+Kiwi,Kiwi,FRUIT
+Passion Fruit,Maracuja,FRUIT
+Pomegranate,Granatapfel,FRUIT
+Fig,Feige,FRUIT
+Dates,Datteln,FRUIT
+Lychee,Litschi,FRUIT
+Coconut,Kokosnuss,FRUIT
+Avocado,Avocado,FRUIT
+Rhubarb,Rhabarber,FRUIT
+Persimmon,Kaki,FRUIT
+Physalis,Physalis,FRUIT
+Star Fruit,Sternfrucht,FRUIT
+Guava,Guave,FRUIT
+Dragon Fruit,Drachenfrucht,FRUIT
+Raisins,Rosinen,FRUIT
+Dried Apricots,Getrocknete Aprikosen,FRUIT
+Prunes,Backpflaumen,FRUIT
+Dried Cranberries,Getrocknete Cranberrys,FRUIT
+Dried Figs,Getrocknete Feigen,FRUIT
+Candied Lemon Peel,Zitronat,FRUIT
+Candied Orange Peel,Orangeat,FRUIT
+Parsley,Petersilie,HERB
+Flat-leaf Parsley,Glatte Petersilie,HERB
+Basil,Basilikum,HERB
+Thai Basil,Thai-Basilikum,HERB
+Chives,Schnittlauch,HERB
+Dill,Dill,HERB
+Cilantro,Koriandergrün,HERB
+Mint,Minze,HERB
+Rosemary,Rosmarin,HERB
+Thyme,Thymian,HERB
+Oregano,Oregano,HERB
+Marjoram,Majoran,HERB
+Sage,Salbei,HERB
+Tarragon,Estragon,HERB
+Bay Leaf,Lorbeerblatt,HERB
+Lemongrass,Zitronengras,HERB
+Lovage,Liebstöckel,HERB
+Chervil,Kerbel,HERB
+Savory,Bohnenkraut,HERB
+Lemon Balm,Zitronenmelisse,HERB
+Kaffir Lime Leaves,Kaffirlimettenblätter,HERB
+Curry Leaves,Curryblätter,HERB
+Borage,Borretsch,HERB
+Sorrel,Sauerampfer,HERB
+Wild Garlic,Bärlauch,HERB
+Garden Cress,Gartenkresse,HERB
+Herbes de Provence,Kräuter der Provence,HERB
+Italian Herbs,Italienische Kräuter,HERB
+Salt,Salz,SPICE
+Sea Salt,Meersalz,SPICE
+Black Pepper,Schwarzer Pfeffer,SPICE
+White Pepper,Weißer Pfeffer,SPICE
+Pink Peppercorns,Rosa Beeren,SPICE
+Sichuan Pepper,Szechuanpfeffer,SPICE
+Sweet Paprika,Paprikapulver edelsüß,SPICE
+Hot Paprika,Paprikapulver rosenscharf,SPICE
+Smoked Paprika,Geräuchertes Paprikapulver,SPICE
+Cayenne Pepper,Cayennepfeffer,SPICE
+Chili Flakes,Chiliflocken,SPICE
+Chili Powder,Chilipulver,SPICE
+Cumin,Kreuzkümmel,SPICE
+Caraway,Kümmel,SPICE
+Coriander Seeds,Koriandersamen,SPICE
+Turmeric,Kurkuma,SPICE
+Ginger,Ingwer,SPICE
+Ground Ginger,Ingwerpulver,SPICE
+Cinnamon,Zimt,SPICE
+Cinnamon Stick,Zimtstange,SPICE
+Nutmeg,Muskatnuss,SPICE
+Mace,Muskatblüte,SPICE
+Cloves,Gewürznelken,SPICE
+Allspice,Piment,SPICE
+Star Anise,Sternanis,SPICE
+Anise,Anis,SPICE
+Fennel Seeds,Fenchelsamen,SPICE
+Cardamom,Kardamom,SPICE
+Saffron,Safran,SPICE
+Vanilla Bean,Vanilleschote,SPICE
+Tonka Bean,Tonkabohne,SPICE
+Juniper Berries,Wacholderbeeren,SPICE
+Mustard Seeds,Senfkörner,SPICE
+Fenugreek,Bockshornklee,SPICE
+Asafoetida,Asant,SPICE
+Sumac,Sumach,SPICE
+Garam Masala,Garam Masala,SPICE
+Curry Powder,Currypulver,SPICE
+Five Spice Powder,Fünf-Gewürze-Pulver,SPICE
+Ras el Hanout,Ras el Hanout,SPICE
+Za'atar,Za'atar,SPICE
+Garlic Powder,Knoblauchpulver,SPICE
+Onion Powder,Zwiebelpulver,SPICE
+Gingerbread Spice,Lebkuchengewürz,SPICE
+Rice,Reis,GRAIN
+Long Grain Rice,Langkornreis,GRAIN
+Basmati Rice,Basmatireis,GRAIN
+Jasmine Rice,Jasminreis,GRAIN
+Risotto Rice,Risottoreis,GRAIN
+Brown Rice,Vollkornreis,GRAIN
+Wild Rice,Wildreis,GRAIN
+Sushi Rice,Sushireis,GRAIN
+Pudding Rice,Milchreis,GRAIN
+Wheat Flour,Weizenmehl,GRAIN
+Whole Wheat Flour,Weizenvollkornmehl,GRAIN
+Spelt Flour,Dinkelmehl,GRAIN
+Rye Flour,Roggenmehl,GRAIN
+Buckwheat Flour,Buchweizenmehl,GRAIN
+Rice Flour,Reismehl,GRAIN
+Corn Starch,Speisestärke,GRAIN
+Potato Starch,Kartoffelstärke,GRAIN
+Semolina,Weichweizengrieß,GRAIN
+Durum Wheat Semolina,Hartweizengrieß,GRAIN
+Polenta,Polenta,GRAIN
+Couscous,Couscous,GRAIN
+Bulgur,Bulgur,GRAIN
+Quinoa,Quinoa,GRAIN
+Millet,Hirse,GRAIN
+Buckwheat,Buchweizen,GRAIN
+Pearl Barley,Graupen,GRAIN
+Rolled Oats,Haferflocken,GRAIN
+Spelt,Dinkel,GRAIN
+Green Spelt,Grünkern,GRAIN
+Amaranth,Amaranth,GRAIN
+Spaghetti,Spaghetti,PASTA
+Penne,Penne,PASTA
+Fusilli,Fusilli,PASTA
+Farfalle,Farfalle,PASTA
+Rigatoni,Rigatoni,PASTA
+Macaroni,Makkaroni,PASTA
+Tagliatelle,Tagliatelle,PASTA
+Pappardelle,Pappardelle,PASTA
+Linguine,Linguine,PASTA
+Orecchiette,Orecchiette,PASTA
+Orzo,Kritharaki,PASTA
+Lasagna Sheets,Lasagneplatten,PASTA
+Cannelloni,Cannelloni,PASTA
+Tortellini,Tortellini,PASTA
+Ravioli,Ravioli,PASTA
+Gnocchi,Gnocchi,PASTA
+Egg Noodles,Eiernudeln,PASTA
+Spätzle,Spätzle,PASTA
+Rice Noodles,Reisnudeln,PASTA
+Glass Noodles,Glasnudeln,PASTA
+Udon Noodles,Udon-Nudeln,PASTA
+Soba Noodles,Soba-Nudeln,PASTA
+Ramen Noodles,Ramen-Nudeln,PASTA
+Bread,Brot,BREAD
+Toast Bread,Toastbrot,BREAD
+Baguette,Baguette,BREAD
+Ciabatta,Ciabatta,BREAD
+Bread Rolls,Brötchen,BREAD
+Pita Bread,Pitabrot,BREAD
+Flatbread,Fladenbrot,BREAD
+Naan,Naan,BREAD
+Wheat Tortillas,Weizentortillas,BREAD
+Corn Tortillas,Maistortillas,BREAD
+Breadcrumbs,Paniermehl,BREAD
+Panko,Panko,BREAD
+Puff Pastry,Blätterteig,BREAD
+Shortcrust Pastry,Mürbeteig,BREAD
+Filo Pastry,Filoteig,BREAD
+Pizza Dough,Pizzateig,BREAD
+Rice Paper,Reispapier,BREAD
+Lentils,Linsen,LEGUME
+Red Lentils,Rote Linsen,LEGUME
+Beluga Lentils,Belugalinsen,LEGUME
+Brown Lentils,Tellerlinsen,LEGUME
+Chickpeas,Kichererbsen,LEGUME
+Kidney Beans,Kidneybohnen,LEGUME
+White Beans,Weiße Bohnen,LEGUME
+Black Beans,Schwarze Bohnen,LEGUME
+Borlotti Beans,Borlottibohnen,LEGUME
+Lima Beans,Limabohnen,LEGUME
+Broad Beans,Dicke Bohnen,LEGUME
+Mung Beans,Mungbohnen,LEGUME
+Split Peas,Schälerbsen,LEGUME
+Soybeans,Sojabohnen,LEGUME
+Chickpea Flour,Kichererbsenmehl,LEGUME
+Tofu,Tofu,PLANT_PROTEIN
+Smoked Tofu,Räuchertofu,PLANT_PROTEIN
+Silken Tofu,Seidentofu,PLANT_PROTEIN
+Tempeh,Tempeh,PLANT_PROTEIN
+Seitan,Seitan,PLANT_PROTEIN
+Textured Soy Protein,Sojagranulat,PLANT_PROTEIN
+Almonds,Mandeln,NUT_SEED
+Ground Almonds,Gemahlene Mandeln,NUT_SEED
+Flaked Almonds,Mandelblättchen,NUT_SEED
+Hazelnuts,Haselnüsse,NUT_SEED
+Ground Hazelnuts,Gemahlene Haselnüsse,NUT_SEED
+Walnuts,Walnüsse,NUT_SEED
+Pecans,Pekannüsse,NUT_SEED
+Cashews,Cashewkerne,NUT_SEED
+Pistachios,Pistazien,NUT_SEED
+Peanuts,Erdnüsse,NUT_SEED
+Macadamia Nuts,Macadamianüsse,NUT_SEED
+Brazil Nuts,Paranüsse,NUT_SEED
+Pine Nuts,Pinienkerne,NUT_SEED
+Chestnuts,Maronen,NUT_SEED
+Desiccated Coconut,Kokosraspeln,NUT_SEED
+Sesame Seeds,Sesam,NUT_SEED
+Sunflower Seeds,Sonnenblumenkerne,NUT_SEED
+Pumpkin Seeds,Kürbiskerne,NUT_SEED
+Flaxseed,Leinsamen,NUT_SEED
+Chia Seeds,Chiasamen,NUT_SEED
+Poppy Seeds,Mohn,NUT_SEED
+Hemp Seeds,Hanfsamen,NUT_SEED
+Peanut Butter,Erdnussbutter,NUT_SEED
+Tahini,Tahin,NUT_SEED
+Almond Butter,Mandelmus,NUT_SEED
+Milk,Milch,DAIRY
+Whole Milk,Vollmilch,DAIRY
+Low-fat Milk,Fettarme Milch,DAIRY
+Buttermilk,Buttermilch,DAIRY
+Kefir,Kefir,DAIRY
+Cream,Sahne,DAIRY
+Whipping Cream,Schlagsahne,DAIRY
+Cooking Cream,Kochsahne,DAIRY
+Sour Cream,Saure Sahne,DAIRY
+Schmand,Schmand,DAIRY
+Crème Fraîche,Crème fraîche,DAIRY
+Butter,Butter,DAIRY
+Clarified Butter,Butterschmalz,DAIRY
+Ghee,Ghee,DAIRY
+Yogurt,Joghurt,DAIRY
+Greek Yogurt,Griechischer Joghurt,DAIRY
+Quark,Quark,DAIRY
+Cottage Cheese,Hüttenkäse,DAIRY
+Cream Cheese,Frischkäse,DAIRY
+Mascarpone,Mascarpone,DAIRY
+Ricotta,Ricotta,DAIRY
+Mozzarella,Mozzarella,DAIRY
+Buffalo Mozzarella,Büffelmozzarella,DAIRY
+Burrata,Burrata,DAIRY
+Parmesan,Parmesan,DAIRY
+Grana Padano,Grana Padano,DAIRY
+Pecorino,Pecorino,DAIRY
+Gouda,Gouda,DAIRY
+Edam,Edamer,DAIRY
+Emmental,Emmentaler,DAIRY
+Gruyère,Greyerzer,DAIRY
+Appenzeller,Appenzeller,DAIRY
+Mountain Cheese,Bergkäse,DAIRY
+Tilsit,Tilsiter,DAIRY
+Cheddar,Cheddar,DAIRY
+Manchego,Manchego,DAIRY
+Raclette Cheese,Raclettekäse,DAIRY
+Feta,Feta,DAIRY
+Halloumi,Halloumi,DAIRY
+Goat Cheese,Ziegenkäse,DAIRY
+Camembert,Camembert,DAIRY
+Brie,Brie,DAIRY
+Gorgonzola,Gorgonzola,DAIRY
+Roquefort,Roquefort,DAIRY
+Condensed Milk,Kondensmilch,DAIRY
+Sweetened Condensed Milk,Gezuckerte Kondensmilch,DAIRY
+Milk Powder,Milchpulver,DAIRY
+Oat Milk,Haferdrink,DAIRY_ALTERNATIVE
+Soy Milk,Sojadrink,DAIRY_ALTERNATIVE
+Almond Milk,Mandeldrink,DAIRY_ALTERNATIVE
+Rice Milk,Reisdrink,DAIRY_ALTERNATIVE
+Coconut Milk,Kokosmilch,DAIRY_ALTERNATIVE
+Coconut Cream,Kokoscreme,DAIRY_ALTERNATIVE
+Soy Yogurt,Sojajoghurt,DAIRY_ALTERNATIVE
+Plant-based Cooking Cream,Pflanzliche Kochcreme,DAIRY_ALTERNATIVE
+Egg,Ei,EGG
+Egg Yolk,Eigelb,EGG
+Egg White,Eiweiß,EGG
+Quail Eggs,Wachteleier,EGG
+Olive Oil,Olivenöl,OIL_FAT
+Extra Virgin Olive Oil,Natives Olivenöl extra,OIL_FAT
+Sunflower Oil,Sonnenblumenöl,OIL_FAT
+Rapeseed Oil,Rapsöl,OIL_FAT
+Vegetable Oil,Pflanzenöl,OIL_FAT
+Sesame Oil,Sesamöl,OIL_FAT
+Coconut Oil,Kokosöl,OIL_FAT
+Peanut Oil,Erdnussöl,OIL_FAT
+Walnut Oil,Walnussöl,OIL_FAT
+Pumpkin Seed Oil,Kürbiskernöl,OIL_FAT
+Linseed Oil,Leinöl,OIL_FAT
+Truffle Oil,Trüffelöl,OIL_FAT
+Lard,Schweineschmalz,OIL_FAT
+Goose Fat,Gänseschmalz,OIL_FAT
+Margarine,Margarine,OIL_FAT
+Sugar,Zucker,SWEETENER
+Brown Sugar,Brauner Zucker,SWEETENER
+Cane Sugar,Rohrzucker,SWEETENER
+Powdered Sugar,Puderzucker,SWEETENER
+Vanilla Sugar,Vanillezucker,SWEETENER
+Gelling Sugar,Gelierzucker,SWEETENER
+Coconut Sugar,Kokosblütenzucker,SWEETENER
+Honey,Honig,SWEETENER
+Maple Syrup,Ahornsirup,SWEETENER
+Agave Syrup,Agavendicksaft,SWEETENER
+Sugar Beet Syrup,Zuckerrübensirup,SWEETENER
+Molasses,Melasse,SWEETENER
+Erythritol,Erythrit,SWEETENER
+Baking Powder,Backpulver,BAKING
+Baking Soda,Natron,BAKING
+Baker's Ammonia,Hirschhornsalz,BAKING
+Dry Yeast,Trockenhefe,BAKING
+Fresh Yeast,Frischhefe,BAKING
+Gelatin,Gelatine,BAKING
+Agar Agar,Agar-Agar,BAKING
+Pectin,Pektin,BAKING
+Cream Stabilizer,Sahnesteif,BAKING
+Custard Powder,Puddingpulver,BAKING
+Cocoa Powder,Kakaopulver,BAKING
+Dark Chocolate,Zartbitterschokolade,BAKING
+Milk Chocolate,Vollmilchschokolade,BAKING
+White Chocolate,Weiße Schokolade,BAKING
+Couverture,Kuvertüre,BAKING
+Chocolate Chips,Schokotropfen,BAKING
+Vanilla Extract,Vanilleextrakt,BAKING
+Bitter Almond Flavoring,Bittermandelaroma,BAKING
+Marzipan,Marzipan,BAKING
+Ladyfingers,Löffelbiskuits,BAKING
+Mustard,Senf,CONDIMENT
+Dijon Mustard,Dijonsenf,CONDIMENT
+Wholegrain Mustard,Körniger Senf,CONDIMENT
+Ketchup,Ketchup,CONDIMENT
+Mayonnaise,Mayonnaise,CONDIMENT
+Soy Sauce,Sojasauce,CONDIMENT
+Fish Sauce,Fischsauce,CONDIMENT
+Oyster Sauce,Austernsauce,CONDIMENT
+Hoisin Sauce,Hoisinsauce,CONDIMENT
+Worcestershire Sauce,Worcestersauce,CONDIMENT
+Sriracha,Sriracha,CONDIMENT
+Sambal Oelek,Sambal Oelek,CONDIMENT
+Harissa,Harissa,CONDIMENT
+Gochujang,Gochujang,CONDIMENT
+Miso Paste,Misopaste,CONDIMENT
+Red Curry Paste,Rote Currypaste,CONDIMENT
+Green Curry Paste,Grüne Currypaste,CONDIMENT
+Tamarind Paste,Tamarindenpaste,CONDIMENT
+Wasabi,Wasabi,CONDIMENT
+Capers,Kapern,CONDIMENT
+Mirin,Mirin,CONDIMENT
+Vinegar,Essig,CONDIMENT
+White Wine Vinegar,Weißweinessig,CONDIMENT
+Red Wine Vinegar,Rotweinessig,CONDIMENT
+Balsamic Vinegar,Balsamicoessig,CONDIMENT
+Apple Cider Vinegar,Apfelessig,CONDIMENT
+Rice Vinegar,Reisessig,CONDIMENT
+Vegetable Stock,Gemüsebrühe,CONDIMENT
+Chicken Stock,Hühnerbrühe,CONDIMENT
+Beef Stock,Rinderbrühe,CONDIMENT
+Fish Stock,Fischfond,CONDIMENT
+Water,Wasser,BEVERAGE
+Sparkling Water,Mineralwasser,BEVERAGE
+White Wine,Weißwein,BEVERAGE
+Red Wine,Rotwein,BEVERAGE
+Beer,Bier,BEVERAGE
+Port Wine,Portwein,BEVERAGE
+Sherry,Sherry,BEVERAGE
+Rum,Rum,BEVERAGE
+Brandy,Weinbrand,BEVERAGE
+Amaretto,Amaretto,BEVERAGE
+Coffee,Kaffee,BEVERAGE
+Espresso,Espresso,BEVERAGE
+Orange Juice,Orangensaft,BEVERAGE
+Apple Juice,Apfelsaft,BEVERAGE
+Lemon Juice,Zitronensaft,BEVERAGE
+Nori,Nori-Algen,OTHER
+Wakame,Wakame-Algen,OTHER
+Kombu,Kombu-Algen,OTHER

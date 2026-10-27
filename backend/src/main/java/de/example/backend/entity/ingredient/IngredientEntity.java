@@ -1,8 +1,9 @@
 package de.example.backend.entity.ingredient;
 
 import de.example.backend.entity.Language;
-import de.example.backend.entity.UserEntity;
 import de.example.backend.entity.recipe.RecipeIngredientEntity;
+import de.example.backend.entity.user.UserEntity;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,7 +32,9 @@ public class IngredientEntity {
     @OneToMany(mappedBy = "ingredient")
     private Set<RecipeIngredientEntity> recipeIngredients = new HashSet<>();
 
-    private String type;
+    @Nullable
+    @Enumerated(EnumType.STRING)
+    private IngredientType type;
 
     // Ingredients are either standing data seeded into the database,
     // or the user creates a custom ingredient only he should see
