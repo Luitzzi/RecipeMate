@@ -26,6 +26,9 @@ public class CurrentViewUiDTO {
         if (type == null || type == ViewType.NONE) {
             return "The user is not viewing anything specific.";
         }
+        if (id == null) {
+            throw new IllegalStateException("CurrentViewUiDTO has type " + type + " but no ID.");
+        }
         return String.format("The user is currently viewing a %s with ID %s.", type, id);
     }
 }
