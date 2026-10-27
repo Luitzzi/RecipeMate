@@ -2,6 +2,8 @@ package de.example.backend.boundary.seed;
 
 import de.example.backend.boundary.dto.ingredient.IngredientUiDTO;
 import de.example.backend.boundary.dto.recipe.*;
+import de.example.backend.boundary.dto.recipe.ui.RecipeIngredientUiDTO;
+import de.example.backend.boundary.dto.recipe.ui.RecipeUiDTO;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.recipe.*;
 import de.example.backend.service.*;

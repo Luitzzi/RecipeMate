@@ -1,7 +1,8 @@
-package de.example.backend.boundary.dto.recipe;
+package de.example.backend.boundary.dto.recipe.ai;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import de.example.backend.boundary.dto.recipe.RecipeIngredientDTO;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
