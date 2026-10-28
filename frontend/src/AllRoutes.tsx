@@ -3,11 +3,13 @@ import { RootLayout } from "./page/layout/RootLayout.tsx";
 import { DocsPage } from "./page/docs/DocsPage.tsx";
 import { ComponentsDocsPage } from "./page/docs/ComponentsDocsPage.tsx";
 import { TestPage } from "#/page/test/TestPage.tsx";
+
 export const AllRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<RootLayout />}>
+          <Route path={"/"} element={<></>} />
           <Route path={"/test"} element={<TestPage />} />
           <Route path={"/docs"} element={<DocsPage />} />
           <Route path={"/docs/components"} element={<ComponentsDocsPage />} />
