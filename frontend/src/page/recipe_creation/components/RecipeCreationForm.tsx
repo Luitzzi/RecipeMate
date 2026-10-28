@@ -1,7 +1,6 @@
 import {
   Button,
   Form,
-  type FormInstance,
   Input,
   Upload,
   type UploadFile,
@@ -19,15 +18,12 @@ import { useMutation } from "#/common/hooks/useMutation.ts";
 import { useNotification } from "#/common/hooks/useNotification.tsx";
 import { Language } from "#/generated/interface-api.ts";
 import { useApi } from "#/api/apiContext.ts";
-import { putFile } from "#/api/putFile.ts";
 import { SectionHeader } from "#/common/components/SectionHeader.tsx";
 import { UploadOutlined } from "@ant-design/icons";
+import { putFile } from "#/api/putFile.ts";
 
-export type RecipeCreationFormProps = {
-  form: FormInstance<RecipeCreationFormValues>;
-};
-
-export const RecipeCreationForm = ({ form }: RecipeCreationFormProps) => {
+export const RecipeCreationForm = () => {
+  const [form] = Form.useForm<RecipeCreationFormValues>();
   const api = useApi();
   const notify = useNotification();
 
