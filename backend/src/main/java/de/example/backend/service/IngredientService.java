@@ -27,12 +27,22 @@ public class IngredientService {
 
     private final IngredientMapper ingredientMapper;
 
+    public boolean doesIngredientsExist() {
+        return ingredientRepository.count() != 0;
+    }
+
     /**
      * Get all standing data ingredients and the user's custom ingredients
      */
     public List<IngredientUiDTO> getAllWithCustomCreated(UUID userId, Language language) {
         List<IngredientEntity> ingredients = ingredientQueries.get(userId);
         return ingredients.stream()
+                .map(ingredient -> ingredientMapper.toDTO(ingredient, language))
+                .toList();
+    }
+
+    public List<IngredientUiDTO> getStandingDataIngredients(Language language) {
+        return ingredientRepository.findAllByCreatedByNull().stream()
                 .map(ingredient -> ingredientMapper.toDTO(ingredient, language))
                 .toList();
     }
@@ -52,14 +62,6 @@ public class IngredientService {
                 .toList();
         createAll(ingredients);
         return ingredients.size();
-    }
-
-    public List<IngredientEntity> getStandingData() {
-        return ingredientRepository.findAllByCreatedByNull();
-    }
-
-    public void deleteAll(List<IngredientEntity> ingredients) {
-        ingredientRepository.deleteAll(ingredients);
     }
 
     private IngredientEntity toStandingDataIngredient(String[] columns) {

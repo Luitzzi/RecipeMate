@@ -74,8 +74,4 @@ public class RecipeService {
                 .toList();
         ingredientService.createAll(customIngredients);
     }
-
-    public void deleteAll(List<RecipeEntity> recipes) {
-        recipeRepository.deleteAll(recipes);
-    }
 }
