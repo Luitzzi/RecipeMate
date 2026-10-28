@@ -35,6 +35,7 @@
         <mapstruct.version>1.6.3</mapstruct.version>
         <lombok.version>1.18.48</lombok.version>
         <aws.version>2.57.2</aws.version>
+        <openfeign-querydsl.version>7.7</openfeign-querydsl.version>
     </properties>
 
     <dependencyManagement>
@@ -102,6 +103,13 @@
             <artifactId>s3</artifactId>
         </dependency>
 
+        <!-- QueryDSL (maintained OpenFeign fork, keeps com.querydsl package names) -->
+        <dependency>
+            <groupId>io.github.openfeign.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+            <version>${openfeign-querydsl.version}</version>
+        </dependency>
+
         <!-- Code generation -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -154,6 +162,13 @@
                                     <groupId>org.mapstruct</groupId>
                                     <artifactId>mapstruct-processor</artifactId>
                                     <version>${mapstruct.version}</version>
+                                </path>
+                                <!-- Generates the Q-classes for all entities -->
+                                <path>
+                                    <groupId>io.github.openfeign.querydsl</groupId>
+                                    <artifactId>querydsl-apt</artifactId>
+                                    <version>${openfeign-querydsl.version}</version>
+                                    <classifier>jpa</classifier>
                                 </path>
                             </annotationProcessorPaths>
                             <compilerArgs>

@@ -24,11 +24,11 @@ the exported `tokens` object. The values originate from
 
 All three share one scale, so changing a step changes it everywhere.
 
-| Token    | Value | Typical use                                     |
-| -------- | ----- | ----------------------------------------------- |
-| `small`  | 8 px  | Between related elements (input rows, tags)     |
-| `medium` | 16 px | Inside containers, between form fields          |
-| `large`  | 24 px | Between sections, separating page blocks        |
+| Token    | Value | Typical use                                 |
+| -------- | ----- | ------------------------------------------- |
+| `small`  | 8 px  | Between related elements (input rows, tags) |
+| `medium` | 16 px | Inside containers, between form fields      |
+| `large`  | 24 px | Between sections, separating page blocks    |
 
 Use the group that matches the CSS property:
 `style={{ marginTop: tokens.margin.large }}`, `gap={tokens.gap.small}`.
@@ -37,43 +37,44 @@ Use the group that matches the CSS property:
 
 The page frame is the only exception to the three-step scale.
 
-| Token                 | Value   | Use                                     |
-| --------------------- | ------- | --------------------------------------- |
-| `gutter.mobile`       | 16 px   | Page inner padding on phones            |
-| `gutter.desktop`      | 32 px   | Page inner padding from `md` breakpoint |
-| `frameMargin`         | 32 px   | Space around the framed page box        |
-| `maxWidth`            | 1200 px | Maximum width of the page box           |
+| Token            | Value   | Use                                     |
+| ---------------- | ------- | --------------------------------------- |
+| `gutter.mobile`  | 16 px   | Page inner padding on phones            |
+| `gutter.desktop` | 32 px   | Page inner padding from `md` breakpoint |
+| `frameMargin`    | 32 px   | Space around the framed page box        |
+| `maxWidth`       | 1200 px | Maximum width of the page box           |
 
 ### Colors — `color`
 
-| Group        | Tokens                                              | Use                                        |
-| ------------ | --------------------------------------------------- | ------------------------------------------ |
-| Brand/status | `primary`, `success`, `warning`, `error`, `info`    | Actions, links, feedback states            |
-| `text`       | `primary`, `secondary`, `tertiary`, `disabled`      | Body, descriptions, hints, disabled/placeholder |
-| `background` | `layout`, `container`, `subtle`                     | Page, cards/forms, table headers/hover     |
-| `border`     | `default`, `subtle`                                 | Control outlines, dividers/frames          |
-| `fill`       | —                                                   | Inactive indicators (e.g. empty badge)     |
+| Group        | Tokens                                           | Use                                             |
+| ------------ | ------------------------------------------------ | ----------------------------------------------- |
+| Brand/status | `primary`, `success`, `warning`, `error`, `info` | Actions, links, feedback states                 |
+| `text`       | `primary`, `secondary`, `tertiary`, `disabled`   | Body, descriptions, hints, disabled/placeholder |
+| `background` | `layout`, `container`, `subtle`                  | Page, cards/forms, table headers/hover          |
+| `border`     | `default`, `subtle`                              | Control outlines, dividers/frames               |
+| `fill`       | —                                                | Inactive indicators (e.g. empty badge)          |
 
 Rules:
+
 - `primary` marks the single most important action per screen.
 - Text colors are transparent black, so they blend on tinted surfaces.
 - Surfaces follow the layer model: `layout` (page) → `container` (content).
 
 ### Typography — `fontSize`, `fontWeight`, `fontFamily`
 
-| Token        | small | medium | large |
-| ------------ | ----- | ------ | ----- |
-| `fontSize`   | 12 px | 14 px  | 16 px |
+| Token      | small | medium | large |
+| ---------- | ----- | ------ | ----- |
+| `fontSize` | 12 px | 14 px  | 16 px |
 
 `fontWeight` has only `regular` (400) and `strong` (600). Headings use
 `Typography.Title` levels instead of custom sizes.
 
 ### Shape and elevation
 
-| Token           | small | medium | large | Use                                                        |
-| --------------- | ----- | ------ | ----- | ---------------------------------------------------------- |
-| `radius`        | 4 px  | 6 px   | 8 px  | Tags/tooltips · controls · surfaces (cards, page frame)    |
-| `controlHeight` | 24 px | 32 px  | 40 px | Matches antd `size="small"` / default / `"large"`          |
+| Token           | small | medium | large | Use                                                     |
+| --------------- | ----- | ------ | ----- | ------------------------------------------------------- |
+| `radius`        | 4 px  | 6 px   | 8 px  | Tags/tooltips · controls · surfaces (cards, page frame) |
+| `controlHeight` | 24 px | 32 px  | 40 px | Matches antd `size="small"` / default / `"large"`       |
 
 - `borderWidth`: 1 px, always `solid`.
 - `shadow.raised`: surfaces resting on the page (page frame).

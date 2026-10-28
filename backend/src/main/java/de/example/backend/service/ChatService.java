@@ -1,8 +1,8 @@
 package de.example.backend.service;
 
-import de.example.backend.boundary.uidto.ChatRequestUiDTO;
-import de.example.backend.boundary.uidto.ChatResponseUiDTO;
-import de.example.backend.boundary.uidto.ChatResponseUiDTO.ChatResponseStatus;
+import de.example.backend.boundary.dto.chat.ChatRequestUiDTO;
+import de.example.backend.boundary.dto.chat.ChatResponseUiDTO;
+import de.example.backend.boundary.dto.chat.ChatResponseUiDTO.ChatResponseStatus;
 import de.example.backend.service.ai.advisor.CurrentViewAdvisor;
 import de.example.backend.service.ai.tool.UnitTools;
 import de.example.backend.service.exception.ChatNotFoundException;

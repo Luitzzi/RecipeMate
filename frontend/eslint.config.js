@@ -24,6 +24,7 @@ export default defineConfig([
       "func-style": ["warn", "expression"], // prefer arrow functions over functions
       "prefer-arrow-callback": "warn",
       "@typescript-eslint/consistent-type-definitions": ["warn", "type"],
+      "@typescript-eslint/no-unused-vars": "warn",
     },
   },
   prettier, // disable ESLint rules that conflict with prettier

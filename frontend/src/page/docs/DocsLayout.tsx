@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { tokens } from "../../theme/tokens.ts";
 import { panelStyle } from "./docsStyles.ts";
-import {TitleDivider} from "../../common/components/SectionHeader.tsx";
+import { TitleDivider } from "../../common/components/SectionHeader.tsx";
 
 /** Building blocks shared by the documentation pages. */
 
