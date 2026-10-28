@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("images")
+@RequestMapping("/api/images")
 @Tag(name = "Image storage", description = "Request upload and download urls")
 @RequiredArgsConstructor
 public class ImageUiController {
