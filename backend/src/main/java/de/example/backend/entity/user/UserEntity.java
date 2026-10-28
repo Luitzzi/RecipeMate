@@ -2,6 +2,7 @@ package de.example.backend.entity.user;
 
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.recipe.RecipeEntity;
+import de.example.backend.entity.recipe.RecipeImageEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,4 +30,8 @@ public class UserEntity {
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "owner")
     Set<RecipeEntity> recipes = new HashSet<>();
+
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "createdBy")
+    Set<RecipeImageEntity> images = new HashSet<>();
 }

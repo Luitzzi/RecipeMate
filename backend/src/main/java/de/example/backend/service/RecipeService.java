@@ -8,6 +8,7 @@ import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.recipe.RecipeEntity;
 import de.example.backend.entity.recipe.RecipeIngredientEntity;
 import de.example.backend.repository.RecipeRepository;
+import de.example.backend.service.image_storage.ImageStorageService;
 import de.example.backend.service.mapper.RecipeMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,8 @@ public class RecipeService {
     private final RecipeMapper recipeMapper;
 
     private final IngredientService ingredientService;
+
+    private final ImageStorageService imageStorageService;
 
     private final RecipeRepository recipeRepository;
 

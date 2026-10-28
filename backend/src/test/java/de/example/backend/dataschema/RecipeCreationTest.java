@@ -1,65 +1,24 @@
 package de.example.backend.dataschema;
 
-import de.example.backend.boundary.dto.ingredient.IngredientUiDTO;
-import de.example.backend.boundary.dto.recipe.*;
-import de.example.backend.boundary.dto.recipe.ui.RecipeIngredientUiDTO;
+import de.example.backend.boundary.dto.recipe.OvenStepDTO;
+import de.example.backend.boundary.dto.recipe.PrepareStepDTO;
+import de.example.backend.boundary.dto.recipe.StoveStepDTO;
 import de.example.backend.boundary.dto.recipe.ui.RecipeUiDTO;
-import de.example.backend.entity.*;
-import de.example.backend.entity.ingredient.*;
+import de.example.backend.entity.Language;
+import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.recipe.*;
 import de.example.backend.entity.recipe.OvenStepEntity.OvenMode;
 import de.example.backend.entity.recipe.StoveStepEntity.HeatLevel;
-import de.example.backend.entity.user.UserEntity;
-import de.example.backend.repository.IngredientRepository;
-import de.example.backend.repository.RecipeRepository;
-import de.example.backend.service.IngredientService;
-import de.example.backend.service.RecipeService;
-import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
+import static de.example.backend.dataschema.RecipeTestData.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@Transactional
-public class RecipeServiceTest {
-
-    @Autowired
-    private RecipeService recipeService;
-
-    @Autowired
-    private IngredientService ingredientService;
-
-    @Autowired
-    private RecipeRepository recipeRepository;
-
-    @Autowired
-    private IngredientRepository ingredientRepository;
-
-    @Autowired
-    private DataSchemaTestUtils dataSchemaTestUtils;
-
-    @Autowired
-    private EntityManager entityManager;
-
-    private UserEntity owner;
-    // Ingredients representing the standing data
-    private IngredientEntity spaghetti;
-    private IngredientEntity ketchup;
-
-    @BeforeEach
-    void setUp() {
-        createOwner();
-        createMockIngredientStandingData();
-        dataSchemaTestUtils.flushAndClear();
-    }
+public class RecipeCreationTest extends AbstractRecipeServiceTest {
 
     @Test
     void create_persistsRecipeWithCustomIngredients() {
@@ -123,7 +82,7 @@ public class RecipeServiceTest {
     }
 
     @Test
-    void create_keepsIngredientAndStepAndImageOrder() {
+    void create_keepsIngredientAndStepOrder() {
         RecipeUiDTO recipe = createRecipeUiDTO();
         recipe.getIngredients().add(standingIngredient(ketchup, new BigDecimal("2"), Unit.TABLESPOON));
         recipe.getIngredients().add(customIngredient("Basil", new BigDecimal("1"), Unit.BUNCH));
@@ -131,7 +90,6 @@ public class RecipeServiceTest {
         recipe.getSteps().add(stoveStep("Boil water", HeatLevel.HIGH));
         recipe.getSteps().add(prepareStep("Chop basil"));
         recipe.getSteps().add(ovenStep("Bake", 180, OvenMode.CIRCULATING_AIR, 600, true));
-        recipe.setImageKeys(List.of("image-a", "image-b", "image-c"));
 
         RecipeUiDTO created = recipeService.create(recipe, owner);
         dataSchemaTestUtils.flushAndClear();
@@ -149,8 +107,6 @@ public class RecipeServiceTest {
         assertThat(loaded.getSteps())
                 .extracting(RecipeStepEntity::getPosition)
                 .containsExactly(0, 1, 2);
-        assertThat(loaded.getImageKeys()).containsExactly("image-a", "image-b", "image-c");
-        assertThat(loaded.getCoverImage()).contains("image-a");
     }
 
     @Test
@@ -212,11 +168,6 @@ public class RecipeServiceTest {
         assertThat(loadRecipe(created).getSourceUrl()).isNull();
     }
 
-    private RecipeEntity loadRecipe(RecipeUiDTO created) {
-        assertThat(created.getId()).isNotNull();
-        return recipeRepository.findById(created.getId()).orElseThrow();
-    }
-
     private void assertRecipeFields(RecipeEntity loaded) {
         assertThat(loaded.getOwner().getId()).isEqualTo(owner.getId());
         assertThat(loaded.getTitle()).isEqualTo("Spaghetti Bolognese");
@@ -240,79 +191,5 @@ public class RecipeServiceTest {
         }
         assertThat(recipeIngredient.getAmount()).isEqualByComparingTo(amount);
         assertThat(recipeIngredient.getUnit()).isEqualTo(unit);
-    }
-
-    private RecipeUiDTO createRecipeUiDTO() {
-        RecipeUiDTO recipe = new RecipeUiDTO();
-        recipe.setTitle("Spaghetti Bolognese");
-        recipe.setDescription("Classic italian pasta");
-        recipe.setCookTimeInMinutes(30);
-        recipe.setDifficulty(2);
-        recipe.setDiet(Diet.OMNIVORE);
-        recipe.setNote("Tastes better the next day");
-        return recipe;
-    }
-
-    private RecipeIngredientUiDTO standingIngredient(IngredientEntity ingredient, BigDecimal amount, Unit unit) {
-        IngredientUiDTO ingredientUiDTO = new IngredientUiDTO();
-        ingredientUiDTO.setId(ingredient.getId());
-        ingredientUiDTO.setName(ingredient.getName(Language.EN));
-        return recipeIngredient(ingredientUiDTO, amount, unit);
-    }
-
-    private RecipeIngredientUiDTO customIngredient(String name, BigDecimal amount, Unit unit) {
-        IngredientUiDTO ingredientUiDTO = new IngredientUiDTO();
-        ingredientUiDTO.setName(name);
-        return recipeIngredient(ingredientUiDTO, amount, unit);
-    }
-
-    private RecipeIngredientUiDTO recipeIngredient(IngredientUiDTO ingredient, BigDecimal amount, Unit unit) {
-        RecipeIngredientUiDTO recipeIngredient = new RecipeIngredientUiDTO();
-        recipeIngredient.setIngredient(ingredient);
-        recipeIngredient.setAmount(amount);
-        recipeIngredient.setUnit(unit);
-        return recipeIngredient;
-    }
-
-    private PrepareStepDTO prepareStep(String description) {
-        PrepareStepDTO step = new PrepareStepDTO();
-        step.setDescription(description);
-        return step;
-    }
-
-    private OvenStepDTO ovenStep(
-            String description, int temperatureC, OvenMode ovenMode,
-            int durationSeconds, boolean preheat) {
-        OvenStepDTO step = new OvenStepDTO();
-        step.setDescription(description);
-        step.setTemperatureC(temperatureC);
-        step.setOvenMode(ovenMode);
-        step.setDurationSeconds(durationSeconds);
-        step.setPreheat(preheat);
-        return step;
-    }
-
-    private StoveStepDTO stoveStep(String description, HeatLevel heatLevel) {
-        StoveStepDTO step = new StoveStepDTO();
-        step.setDescription(description);
-        step.setHeatLevel(heatLevel);
-        return step;
-    }
-
-    private void createOwner() {
-        owner = new UserEntity();
-        entityManager.persist(owner);
-    }
-
-    private void createMockIngredientStandingData() {
-        spaghetti = new IngredientEntity();
-        spaghetti.setType(IngredientType.PASTA);
-        spaghetti.setCustomName("Spaghetti");
-
-        ketchup = new IngredientEntity();
-        ketchup.setType(IngredientType.OTHER);
-        ketchup.setCustomName("Ketchup");
-
-        ingredientService.createAll(List.of(spaghetti, ketchup));
     }
 }
