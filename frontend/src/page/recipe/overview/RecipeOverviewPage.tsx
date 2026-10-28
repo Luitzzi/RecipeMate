@@ -1,7 +1,6 @@
 import { FireOutlined } from "@ant-design/icons";
 import { Button, Flex, Result, Skeleton, Tooltip, Typography } from "antd";
 import { useParams } from "react-router";
-import { useApi } from "#/api/ApiContext.tsx";
 import {
   SectionHeader,
   TitleDivider,
@@ -13,15 +12,17 @@ import { IngredientList } from "./IngredientList.tsx";
 import { RecipeFacts } from "./RecipeFacts.tsx";
 import { RecipeImageCarousel } from "./RecipeImageCarousel.tsx";
 import { StepList } from "./StepList.tsx";
+import {useApi} from "#/api/apiContext.ts";
 
-/** Presents all information of a single recipe. */
 export const RecipeOverviewPage = () => {
   const { recipeId } = useParams();
+
   const api = useApi();
-  const [recipe, loading, error] = useFetch(
-    () => api.recipe.get(Number(recipeId), { language: Language.DE }),
-    [recipeId],
-  );
+
+  const [recipe, loading, error] = useFetch(() =>
+      api.recipe.get(Number(recipeId), { language: Language.DE }), [recipeId]);
+
+  console.log(recipe);
 
   if (error) {
     return (
@@ -43,18 +44,18 @@ export const RecipeOverviewPage = () => {
       gap={tokens.gap.large}
       style={{ paddingBottom: tokens.padding.large }}
     >
-      <SectionHeader
-        title={recipe.title}
-        description={recipe.description}
-        extra={
-          // TODO: Navigate to the cooking page once the recipe-preparation epic is implemented
-          <Tooltip title="Der Kochmodus folgt bald">
-            <Button type="primary" icon={<FireOutlined />} disabled>
-              Kochen
-            </Button>
-          </Tooltip>
-        }
-      />
+      <SectionHeader title="Rezepte Übersicht" />
+
+      <div style={{ display: "flex", justifyContent: "space-between", gridGap: '12px' }}>
+        <h1 style={{ fontSize: '20px', fontWeight: '500' }}>{recipe.title}</h1>
+
+        <Tooltip title="Der Kochmodus folgt bald">
+          <Button type="primary" icon={<FireOutlined />} disabled>
+            Kochen
+          </Button>
+        </Tooltip>
+      </div>
+
       <RecipeImageCarousel imageKeys={recipe.imageKeys} title={recipe.title} />
       <RecipeFacts recipe={recipe} />
 

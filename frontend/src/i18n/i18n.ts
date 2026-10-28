@@ -5,15 +5,18 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
 import commonDE from "../../locales/de/common.json";
+import recipeOverviewDE from "../../locales/de/recipe-overview.json";
+
 import commonEN from "../../locales/en/common.json";
+import recipeOverviewEN from "../../locales/en/recipe-overview.json";
 
 export const defaultNS = "common";
 export const supportedLanguages = ["de", "en"] as const;
 export type SupportedLanguage = (typeof supportedLanguages)[number];
 
 export const resources = {
-  de: { common: commonDE },
-  en: { common: commonEN },
+  de: { common: commonDE, recipeOverview: recipeOverviewDE },
+  en: { common: commonEN, recipeOverview: recipeOverviewEN },
 } as const;
 
 i18n.on("languageChanged", (lng) => {
