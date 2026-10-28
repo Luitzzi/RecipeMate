@@ -1,4 +1,4 @@
-package de.example.backend.service.exception;
+package de.example.backend.service.exception.chat;
 
 
 public class ChatResponseFailedException extends RuntimeException {

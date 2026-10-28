@@ -1,12 +1,13 @@
-package de.example.backend.boundary;
+package de.example.backend.boundary.exceptions;
 
+import de.example.backend.service.exception.recipe.NoAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import de.example.backend.service.exception.ChatNotFoundException;
-import de.example.backend.service.exception.ChatResponseFailedException;
+import de.example.backend.service.exception.chat.ChatNotFoundException;
+import de.example.backend.service.exception.chat.ChatResponseFailedException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -25,6 +26,14 @@ public class GlobalExceptionHandler {
         log.error("Chat response failed", ex);
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_GATEWAY, ex.getMessage());
         problem.setTitle("Chat response failed unexpectedly");
+        return problem;
+    }
+
+    @ExceptionHandler(NoAccessException.class)
+    ProblemDetail handleNoAccess(NoAccessException ex) {
+        log.warn("NoAccess error", ex);
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
+        problem.setTitle("The user has no access to the requested element");
         return problem;
     }
 }
