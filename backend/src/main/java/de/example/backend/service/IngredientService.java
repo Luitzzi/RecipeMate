@@ -5,7 +5,7 @@ import de.example.backend.entity.ingredient.IngredientType;
 import de.example.backend.entity.Language;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.repository.IngredientRepository;
-import de.example.backend.repository.querydsl.IngredientQueries;
+import de.example.backend.repository.query.IngredientQueries;
 import de.example.backend.service.mapper.IngredientMapper;
 import de.example.backend.service.util.StandingDataCsvReader;
 import lombok.RequiredArgsConstructor;

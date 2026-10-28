@@ -1,4 +1,4 @@
-package de.example.backend.repository.querydsl;
+package de.example.backend.repository.query;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import de.example.backend.entity.Language;

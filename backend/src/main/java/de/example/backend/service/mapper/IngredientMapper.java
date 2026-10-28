@@ -5,7 +5,7 @@ import de.example.backend.entity.Language;
 import de.example.backend.entity.user.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.repository.IngredientRepository;
-import de.example.backend.repository.querydsl.IngredientQueries;
+import de.example.backend.repository.query.IngredientQueries;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
