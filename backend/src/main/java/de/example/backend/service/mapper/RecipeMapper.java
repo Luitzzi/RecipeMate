@@ -7,6 +7,7 @@ import de.example.backend.entity.Language;
 import de.example.backend.entity.user.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.recipe.*;
+import de.example.backend.service.image_storage.ImageStorageService;
 import jakarta.annotation.Nullable;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,15 @@ import java.util.function.Function;
 public abstract class RecipeMapper {
 
     @Autowired
+    private ImageStorageService imageStorageService;
+
+    @Autowired
     private IngredientMapper ingredientMapper;
 
     @Autowired
     private RecipeStepMapper recipeStepMapper;
 
+    @Mapping(target = "imageKeys", source = "images")
     public abstract RecipeUiDTO toUiDTO(RecipeEntity entity, @Context Language language);
 
     // TODO JPI: how to handle languages? eg. attach language to RecipeDTO?
@@ -43,7 +48,8 @@ public abstract class RecipeMapper {
         addIngredients(recipeEntity, dto.getIngredients(),
                 ingredient -> ingredientMapper.toEntity(ingredient.getIngredient(), owner));
         recipeEntity.setSourceUrl(existingSourceUrl);
-        recipeEntity.addImageKeys(dto.getImageKeys());
+        List<RecipeImageEntity> images = imageStorageService.loadImages(dto.getImageKeys(), owner);
+        recipeEntity.setImages(images);
         return recipeEntity;
     }
 
@@ -56,6 +62,12 @@ public abstract class RecipeMapper {
                 ingredient -> ingredientMapper.toEntity(ingredient.getName(), owner));
         recipeEntity.setSourceUrl(dto.getSourceUrl());
         return recipeEntity;
+    }
+
+    protected List<String> getImageKeys(List<RecipeImageEntity> images) {
+        return images.stream()
+                .map(RecipeImageEntity::getKey)
+                .toList();
     }
 
     /**

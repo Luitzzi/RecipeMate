@@ -10,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.NotImplementedException;
 import org.hibernate.validator.constraints.URL;
 
 import java.math.BigDecimal;
@@ -27,6 +28,12 @@ public class RecipeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "recipe", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OrderBy("position")
+    @NotNull
+    private List<RecipeImageEntity> images = new ArrayList<>();
 
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -92,12 +99,41 @@ public class RecipeEntity {
     @URL(regexp = "^https?://.*")
     private String sourceUrl;
 
-    @Setter(AccessLevel.NONE)
-    @ElementCollection
-    @CollectionTable(name = "recipe_images", joinColumns = @JoinColumn(name = "recipe_id"))
-    @OrderColumn(name = "position")
-    @NotNull
-    private List<@NotBlank String> imageKeys = new ArrayList<>();
+    public List<RecipeImageEntity> getImages() {
+        return Collections.unmodifiableList(images);
+    }
+
+    public void setImages(List<RecipeImageEntity> images) {
+        if (!this.images.isEmpty())
+            throw new IllegalStateException("The recipe already contains images.");
+
+        for (int position = 0; position < images.size(); position++) {
+            RecipeImageEntity image = images.get(position);
+            updateImage(image, position);
+            this.images.add(image);
+        }
+    }
+
+    public void addImage(RecipeImageEntity image, int position) {
+        updateImage(image, position);
+        images.add(position, image);
+        reindex(images, RecipeImageEntity::setPosition);
+    }
+
+    private void updateImage(RecipeImageEntity image, int position) {
+        image.setPosition(position);
+        image.setStatus(RecipeImageEntity.ImageUploadStatus.ACTIVE);
+        image.setRecipe(this);
+    }
+
+    public void removeImage(String key) {
+        throw new NotImplementedException();
+    }
+
+    public Optional<RecipeImageEntity> getCoverImage() {
+        return images.stream()
+                .findFirst();
+    }
 
     public List<RecipeIngredientEntity> getIngredients() {
         return Collections.unmodifiableList(ingredients);
@@ -159,22 +195,5 @@ public class RecipeEntity {
 
     public void addProperties(Collection<RecipeProperty> properties) {
         this.properties.addAll(properties);
-    }
-
-    public List<String> getImageKeys() {
-        return Collections.unmodifiableList(imageKeys);
-    }
-
-    public void addImageKeys(List<String> imageKeys) {
-        this.imageKeys.addAll(imageKeys);
-    }
-
-    public void removeImage(String storageKey) {
-        imageKeys.remove(storageKey);
-    }
-
-    public Optional<String> getCoverImage() {
-        return imageKeys.stream()
-                .findFirst();
     }
 }

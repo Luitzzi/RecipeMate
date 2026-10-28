@@ -1,6 +1,7 @@
 package de.example.backend.boundary.exceptions;
 
-import de.example.backend.service.exception.recipe.NoAccessException;
+import de.example.backend.service.exception.NoAccessException;
+import de.example.backend.service.exception.image.InvalidImageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,6 +35,14 @@ public class GlobalExceptionHandler {
         log.warn("NoAccess error", ex);
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
         problem.setTitle("The user has no access to the requested element");
+        return problem;
+    }
+
+    @ExceptionHandler(InvalidImageException.class)
+    ProblemDetail handleInvalidImage(InvalidImageException ex) {
+        log.warn("Invalid image request", ex);
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+        problem.setTitle("Invalid image");
         return problem;
     }
 }
