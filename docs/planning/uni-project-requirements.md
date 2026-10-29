@@ -8,18 +8,18 @@ Following are all requirements by their number in the requirements-pdf.
 ## 1. Four features for every person with all necessary CRUDs
 
 | Feature                                                    | Specification                                                                              | Priority | Complexity | Assignee |
-|------------------------------------------------------------|--------------------------------------------------------------------------------------------|----------|------------|----------|
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------ | -------- | ---------- | -------- |
 | 1. Create the data structure for recipes                   | CRUDs for RecipeEntity, IngredientEntity, StepEntity                                       | Must     | High       | Luis     |
 | 2. Implement the Recipe-Creation Page                      | Implement the UI for the Recipe-Creation Page and post the created recipe to the backend   | Must     | Medium     | Luis     |
 | 3. Save images for recipes                                 | Save images on a dedicated object storage and make them accessible to the Backend          | Must     | Medium     | Luis     |
 | 4. Implement a search page for recipes with filter options | Uses the get-Endpoint of the RecipeController and provides the filter options              | Must     | Medium     | Luis     |
 | 5. Implement AI recipe creation via image                  | Create a recipe from an image                                                              | Could    | High       | Luis     |
 |                                                            |                                                                                            |          |            |          |
-| 1. AI "Mate" Chat                                          | See AI-Features 1-3                                                                        | Must     | High       | Johannes |
-| 2. Share a recipe via E-Mail                               | See Communication 2                                                                        | Could    | Low        | Johannes |
-| 3. Recipe conversion finished notification                 | See Communication 3                                                                        | Could    | Low        | Johannes |
-| 4. Recipe Folder Entity & Folder Overview                  | Per-user folders to allow grouping recipes                                                 | Should   | Low        | Johannes |
-| 5. TBD                                                     |                                                                                            | Should   | Medium     | Johannes |
+| 1. AI "Mate" Chat                                          | Chat assistant with tool calls, page context and recipe creation (see AI-Features 1-3)     | Must     | High       | Johannes |
+| 2. Share a recipe via E-Mail                               | Send a static version of a recipe to an e-mail address (see Communication 2)               | Could    | Low        | Johannes |
+| 3. Recipe conversion finished notification                 | E-mail when a recipe creation/modification/import finished (see Communication 3)           | Could    | Low        | Johannes |
+| 4. Recipe Folder Entity & Folder Overview                  | Per-user folders to allow grouping recipes                                                 | Should   | Medium     | Johannes |
+| 5. Recipe rating                                           | Users rate recipes with 1-5 stars; average rating shown on recipes                         | Should   | Medium     | Johannes |
 |                                                            |                                                                                            |          |            |          |
 | 1. Create the shopping list for the user                   | Add/Delete ingredients and items to the user specific shopping list                        | Must     | Medium     | Oskar    |
 | 2. Implement the meal prepping screen                      | Enable users to plan their recipes for the week                                            | Must     | High       | Oskar    |
@@ -42,6 +42,7 @@ Following are all requirements by their number in the requirements-pdf.
 | FolderEntity       | Create/Read/Update/Delete folders containing recipes. A folder belongs to exactly one user | Johannes |
 | ShoppingListEntity | Add/Delete ingredients and items to the user specific shopping list                        | Oskar    |
 | MealPreppingEntity | Contains recipes for exactly one user                                                      | Oskar    |
+| RatingEntity       | Create/Read/Update/Delete a user's 1-5 star rating of a recipe. One rating per user/recipe | Johannes |
 
 ### For at least two user-profiles
 
@@ -102,7 +103,7 @@ to the team members.
 ## 7. Non-functional requirements for every person
 
 | Non-functional requirement                             | Usage                                                                                                                                                                       | Assignee |
-|--------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | 1. Internationalisation                                | Translate the UI in the frontend                                                                                                                                            | Oskar    |
 | 2. Central authentication service                      | The authentication service should be easy to scale and to use for other applications. For example HolidayMate.                                                              | Florian  |
 | 3. Consistent design system in the frontend            | All styling related values should be consistent. The colors predefined and easy to use in the code                                                                          | Luis     |
@@ -112,7 +113,7 @@ to the team members.
 ## 8. AI-Feature for every person
 
 | Feature                           | Description                                                                             | Assignee |
-|-----------------------------------|-----------------------------------------------------------------------------------------|----------|
+| --------------------------------- | --------------------------------------------------------------------------------------- | -------- |
 | 1. AI "Mate" Chat                 | Chat assistant with tool-call support                                                   | Johannes |
 | 2. Context                        | Mate knows context about which page the user is currently viewing                       | Johannes |
 | 3. Recipe creation & modification | Mate creates or changes recipes; a writer/evaluator agent loop checks quality           | Johannes |
