@@ -1,31 +1,15 @@
-import {
-  InfoCircleOutlined,
-  SnippetsOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import { Avatar, Flex, Grid, Layout, Menu } from "antd";
-import { Link, Outlet, useLocation, useNavigate } from "react-router";
-import logo from "../../assets/holidaymate-logo.png";
+import { Flex, Grid, Layout } from "antd";
+import { Outlet } from "react-router";
 import { tokens } from "#/theme/tokens.ts";
+import { Navigation } from "#/common/components/Navigation.tsx";
 
-const { Header, Content } = Layout;
-
-const NAV_ITEMS = [
-  { key: "/docs", icon: <SnippetsOutlined />, label: "Documentation" },
-  { key: "/test", icon: <InfoCircleOutlined />, label: "Test" },
-];
+const { Content } = Layout;
 
 export const RootLayout = () => {
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
   const screens = Grid.useBreakpoint();
-  // Icon-only navigation on phones, so it fits next to the logo.
-  const navItems = screens.sm
-    ? NAV_ITEMS
-    : NAV_ITEMS.map(({ label, ...item }) => ({ ...item, title: label }));
 
-  // Framed white box on larger screens (see docs/design-*.png), edge to edge on phones.
-  const framed = screens.md;
+  // Framed white box on larger screens, edge to edge on phones.
+  const framed = !!screens.md;
   const gutter = framed
     ? tokens.layout.gutter.desktop
     : tokens.layout.gutter.mobile;
@@ -56,38 +40,18 @@ export const RootLayout = () => {
           }),
         }}
       >
-        <Header
+        {framed && <Navigation framed={framed} />}
+
+        <Content
           style={{
-            display: "flex",
-            alignItems: "center",
-            gap: tokens.gap.large,
-            padding: `0 ${gutter}px`,
-            background: tokens.color.background.container,
-            borderBottom: `${tokens.borderWidth}px solid ${tokens.color.border.subtle}`,
+            flex: 1,
+            padding: `${gutter}px ${gutter}px ${framed ? 0 : gutter}px`,
           }}
         >
-          <Link to="/" style={{ display: "flex", flexShrink: 0 }}>
-            <img
-              src={logo}
-              alt="HolidayMate"
-              style={{
-                height: tokens.controlHeight.large,
-                display: "block",
-              }}
-            />
-          </Link>
-          <Menu
-            mode="horizontal"
-            items={navItems}
-            selectedKeys={[pathname]}
-            onClick={({ key }) => navigate(key)}
-            style={{ flex: 1, minWidth: 0, borderBottom: "none" }}
-          />
-          <Avatar size="large" icon={<UserOutlined />} />
-        </Header>
-        <Content style={{ padding: `${gutter}px ${gutter}px 0` }}>
           <Outlet />
         </Content>
+
+        {!framed && <Navigation framed={framed} />}
       </Flex>
     </Layout>
   );

@@ -1,8 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import { RootLayout } from "./page/layout/RootLayout.tsx";
-import { DocsPage } from "./page/docs/DocsPage.tsx";
-import { ComponentsDocsPage } from "./page/docs/ComponentsDocsPage.tsx";
-import { TestPage } from "#/page/test/TestPage.tsx";
+
+import FeedPage from "#/page/feed/FeedPage.tsx";
+import ProfilePage from "#/page/profile/ProfilePage.tsx";
+import RecipeOverviewPage from "#/page/recipe/RecipeOverviewPage.tsx";
+import ShoppingListPage from "#/page/shopping-list/ShoppingListPage.tsx";
+import MealPreppingPage from "#/page/meal-prepping/ShoppingListPage.tsx";
 import { RecipeCreationPage } from "#/page/recipe_creation/RecipeCreationPage.tsx";
 
 export const AllRoutes = () => {
@@ -10,11 +13,13 @@ export const AllRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<RootLayout />}>
-          <Route path={"/"} element={<></>} />
+          <Route path={"/shopping-list"} element={<ShoppingListPage />} />
           <Route path={"/recipe-creation"} element={<RecipeCreationPage />} />
-          <Route path={"/test"} element={<TestPage />} />
-          <Route path={"/docs"} element={<DocsPage />} />
-          <Route path={"/docs/components"} element={<ComponentsDocsPage />} />
+          <Route path={"/meal-prepping"} element={<MealPreppingPage />} />
+          <Route path={"/"} element={<FeedPage />} />
+          <Route path={"/recipe/:id"} element={<RecipeOverviewPage />} />
+          <Route path={"/my-recipes"} element={<RecipeOverviewPage />} />
+          <Route path={"/profile"} element={<ProfilePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
