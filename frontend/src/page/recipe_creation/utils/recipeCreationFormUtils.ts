@@ -8,12 +8,15 @@ import {
 } from "#/generated/interface-api.ts";
 import type { UploadFile } from "antd";
 
+export type RecipeStepDTODraft = Omit<RecipeStepDTO, "stepMethod"> &
+  Partial<Pick<RecipeStepDTO, "stepMethod">>;
+
 export type RecipeCreationFormValues = {
   recipeName: string;
   images: UploadFile[];
   ingredients: IngredientValues[];
   categories: CategoryValues;
-  steps: RecipeStepDTO[];
+  steps: RecipeStepDTODraft[];
 };
 
 export const RECIPE_CREATION_FORM_FIELDS = {
@@ -41,8 +44,10 @@ export const validateImage = (file: File): string | undefined => {
   return undefined;
 };
 
+export const normalizeName = (name: string) => name.trim().toLowerCase();
+
 export type IngredientValues = {
-  ingredient: IngredientUiDTO;
+  ingredient: Partial<IngredientUiDTO>;
   amount?: number;
   unit: Unit;
 };
@@ -64,3 +69,12 @@ export const CATEGORY_VALUES_FIELDS = {
   cuisine: "cuisine",
   properties: "properties",
 } as const satisfies Record<keyof CategoryValues, keyof CategoryValues>;
+
+export const getEmptyIngredient = (): IngredientValues => ({
+  ingredient: {},
+  unit: Unit.GRAM,
+});
+
+export const getEmptyStep = (): RecipeStepDTODraft => ({
+  description: "",
+});

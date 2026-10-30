@@ -13,25 +13,19 @@ import {
   type RecipeCreationFormValues,
   validateImage,
 } from "#/page/recipe_creation/utils/recipeCreationFormUtils.ts";
-import { useFetchOnce } from "#/common/hooks/useFetchOnce.ts";
 import { useMutation } from "#/common/hooks/useMutation.ts";
 import { useNotification } from "#/common/hooks/useNotification.tsx";
-import { Language } from "#/generated/interface-api.ts";
 import { useApi } from "#/api/apiContext.ts";
-import { SectionHeader } from "#/common/components/SectionHeader.tsx";
 import { UploadOutlined } from "@ant-design/icons";
 import { putFile } from "#/api/putFile.ts";
+import { IngredientSelect } from "#/page/recipe_creation/components/IngredientSelect.tsx";
+import { SectionHeader } from "#/common/components/SectionHeader.tsx";
+import { StepCreationCard } from "#/page/recipe_creation/components/StepCreationCard.tsx";
 
 export const RecipeCreationForm = () => {
   const [form] = Form.useForm<RecipeCreationFormValues>();
   const api = useApi();
   const notify = useNotification();
-
-  const [ingredients, ingredientsLoading] = useFetchOnce(() =>
-    api.ingredient.getAllStandingDataAndCustomIngredients({
-      language: Language.DE,
-    }),
-  );
 
   const images: UploadFile[] =
     Form.useWatch(RECIPE_CREATION_FORM_FIELDS.images, form) ?? [];
@@ -75,7 +69,6 @@ export const RecipeCreationForm = () => {
 
   return (
     <Form form={form}>
-      <SectionHeader title={"Zutaten"} />
       <Form.Item
         name={RECIPE_CREATION_FORM_FIELDS.recipeName}
         label={"Recipe Name"}
@@ -83,6 +76,7 @@ export const RecipeCreationForm = () => {
       >
         <Input size={"large"} placeholder={"Recipe Name"} />
       </Form.Item>
+
       <Form.Item
         name={RECIPE_CREATION_FORM_FIELDS.images}
         label={"Images"}
@@ -101,6 +95,12 @@ export const RecipeCreationForm = () => {
           </Button>
         </Upload>
       </Form.Item>
+
+      <SectionHeader title={"Ingredients"} />
+      <IngredientSelect form={form} ingredientClient={api.ingredient} />
+
+      <SectionHeader title={"Steps"} />
+      <StepCreationCard />
     </Form>
   );
 };
