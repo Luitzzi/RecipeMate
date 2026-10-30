@@ -12,6 +12,7 @@ import { blockStyle, panelStyle } from "./docsStyles.ts";
 import { SectionHeader } from "../../common/components/SectionHeader.tsx";
 import { useEffectOnce } from "#/common/hooks/useEffectOnce.ts";
 import { useNotification } from "#/common/hooks/useNotification.tsx";
+import { useTranslation } from "react-i18next";
 
 /**
  * Living reference for docs/design-tokens.md: every example is rendered
@@ -307,6 +308,7 @@ const LayoutSection = () => {
 };
 
 const ColorSection = () => {
+  const { t } = useTranslation();
   const { primary, success, warning, error, info } = tokens.color;
 
   return (
@@ -325,7 +327,7 @@ const ColorSection = () => {
           />
           <Flex gap={tokens.gap.small}>
             <Button type="primary">Save activity</Button>
-            <Button>Cancel</Button>
+            <Button>{t("buttons.cancel")}</Button>
           </Flex>
         </Flex>
       </Example>
@@ -386,7 +388,11 @@ const ColorSection = () => {
               count={0}
               showZero
               color={tokens.color.fill}
-              styles={{ indicator: { color: tokens.color.text.disabled } }}
+              styles={{
+                indicator: {
+                  color: tokens.color.text.disabled,
+                },
+              }}
             />
             <TokenLabel name="color.fill" value={tokens.color.fill} />
           </Flex>
@@ -514,8 +520,14 @@ const ShapeSection = () => (
       <Row gutter={[tokens.gap.medium, tokens.gap.medium]}>
         {[
           { name: "borderWidth", style: {} },
-          { name: "shadow.raised", style: { boxShadow: tokens.shadow.raised } },
-          { name: "shadow.popup", style: { boxShadow: tokens.shadow.popup } },
+          {
+            name: "shadow.raised",
+            style: { boxShadow: tokens.shadow.raised },
+          },
+          {
+            name: "shadow.popup",
+            style: { boxShadow: tokens.shadow.popup },
+          },
         ].map(({ name, style }) => (
           <Col key={name} xs={24} sm={8}>
             <div
@@ -584,7 +596,12 @@ export const DocsPage = () => {
 
       <Flex vertical gap={tokens.gap.small}>
         <Typography.Text strong>Principles</Typography.Text>
-        <ol style={{ margin: 0, paddingInlineStart: tokens.padding.large }}>
+        <ol
+          style={{
+            margin: 0,
+            paddingInlineStart: tokens.padding.large,
+          }}
+        >
           <li>
             One source: every visual value comes from tokens; hex values only
             for one-off problems.

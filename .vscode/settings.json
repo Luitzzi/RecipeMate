@@ -11,9 +11,19 @@
         "**/.pytest_cache": true,
         "**/.playwright-mcp": true,
     },
-    "java.compile.nullAnalysis.mode": "automatic",
+    "java.compile.nullAnalysis.mode": "disabled",
     "explorer.fileNesting.patterns": {
         "compose.yaml": "compose.*.yaml",
     },
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "editor.formatOnSave": true,
+    "files.insertFinalNewline": true,
+    "[typescript][typescriptreact][javascript][javascriptreact][json][jsonc][css][html][markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[java]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    }
 }

@@ -2,20 +2,24 @@ import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { tokens } from "../../theme/tokens.ts";
 import { Caption, DocsNav, Example, Section } from "./DocsLayout.tsx";
 import { blockStyle } from "./docsStyles.ts";
-import {SectionHeader, TitleDivider} from "../../common/components/SectionHeader.tsx";
 import {
-    App,
-    Badge,
-    Button,
-    Collapse,
-    DatePicker,
-    Empty,
-    Flex,
-    Form,
-    Input,
-    InputNumber,
-    Select, Tag,
-    Typography
+  SectionHeader,
+  TitleDivider,
+} from "../../common/components/SectionHeader.tsx";
+import {
+  App,
+  Badge,
+  Button,
+  Collapse,
+  DatePicker,
+  Empty,
+  Flex,
+  Form,
+  Input,
+  InputNumber,
+  Select,
+  Tag,
+  Typography,
 } from "antd";
 
 /**
@@ -90,7 +94,11 @@ const InputSection = () => (
           name="name"
           label="Activity name"
           rules={[
-            { required: true, whitespace: true, message: "Enter a name" },
+            {
+              required: true,
+              whitespace: true,
+              message: "Enter a name",
+            },
           ]}
         >
           <Input size="large" placeholder="Camping trip" />
