@@ -18,6 +18,7 @@ export const AllRoutes = () => {
           <Route path={"/meal-prepping"} element={<MealPreppingPage />} />
           <Route path={"/"} element={<FeedPage />} />
           <Route path={"/recipe/:id"} element={<RecipeOverviewPage />} />
+          <Route path={"/my-recipes"} element={<RecipeOverviewPage />} />
           <Route path={"/profile"} element={<ProfilePage />} />
         </Route>
       </Routes>

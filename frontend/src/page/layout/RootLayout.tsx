@@ -1,75 +1,15 @@
-import {
-	HomeFilled,
-	InfoCircleOutlined, ShoppingOutlined,
-	SnippetsOutlined, UserOutlined,
-} from "@ant-design/icons";
-import {Avatar, Flex, Grid, Layout, Menu} from "antd";
-import {Link, Outlet, useLocation, useNavigate} from "react-router";
+import {Flex, Grid, Layout} from "antd";
+import {Outlet} from "react-router";
 import {tokens} from "#/theme/tokens.ts";
+import {Navigation} from "#/common/components/Navigation.tsx";
 
 const {Content} = Layout;
 
-const NAV_ITEMS = [
-	{key: "/shopping-list", icon: <ShoppingOutlined />, label: "Shopping List"},
-	{key: "/meal-prepping", icon: <ShoppingOutlined />, label: "Meal Prepping"},
-	{key: "/", icon: <HomeFilled/>, label: "Home"},
-	{key: "/profile", icon: <UserOutlined />, label: "Profile"},
-	{key: "/meal-prepping", icon: <UserOutlined />, label: "Meal Prepping"},
-];
-
-const selectedKeyFor = (pathname: string) =>
-	NAV_ITEMS.find(({key}) =>
-		key === "/" ? pathname === "/" : pathname.startsWith(key),
-	)?.key ?? pathname;
-
-const MobileTabBar = ({selectedKey}: { selectedKey: string }) => (
-	<Flex
-		component="nav"
-		style={{
-			position: "sticky",
-			bottom: 0,
-			background: tokens.color.background.container,
-			borderTop: `${tokens.borderWidth}px solid ${tokens.color.border.subtle}`,
-		}}
-	>
-		{NAV_ITEMS.map(({key, icon, label}) => {
-			const active = key === selectedKey;
-			return (
-				<Link
-					key={key}
-					to={key}
-					aria-current={active ? "page" : undefined}
-					style={{
-						flex: 1,
-						height: '85px',
-						display: "flex",
-						flexDirection: "column",
-						fontSize: "16pt",
-						alignItems: "center",
-						justifyContent: 'center',
-						gap: tokens.gap.small,
-						color: active ? tokens.color.primary : tokens.color.text.secondary,
-						fontWeight: active
-							? tokens.fontWeight.strong
-							: tokens.fontWeight.regular,
-						textDecoration: "none",
-						overflow: 'hidden'
-					}}>
-					{icon}
-				</Link>
-			);
-		})}
-	</Flex>
-);
-
 export const RootLayout = () => {
-	const {pathname} = useLocation();
-	const navigate = useNavigate();
 	const screens = Grid.useBreakpoint();
-	const selectedKey = selectedKeyFor(pathname);
 
 	// Framed white box on larger screens, edge to edge on phones.
-	const framed = screens.md;
+	const framed = !!screens.md;
 	const gutter = framed
 		? tokens.layout.gutter.desktop
 		: tokens.layout.gutter.mobile;
@@ -100,14 +40,7 @@ export const RootLayout = () => {
 					}),
 				}}
 			>
-				{framed && (
-					<Menu
-						mode="horizontal"
-						items={NAV_ITEMS}
-						selectedKeys={[selectedKey]}
-						onClick={({key}) => navigate(key)}
-					/>
-				)}
+				{framed && <Navigation framed={framed}/>}
 
 				<Content
 					style={{
@@ -118,7 +51,7 @@ export const RootLayout = () => {
 					<Outlet/>
 				</Content>
 
-				{!framed && <MobileTabBar selectedKey={selectedKey}/>}
+				{!framed && <Navigation framed={framed}/>}
 			</Flex>
 		</Layout>
 	);
