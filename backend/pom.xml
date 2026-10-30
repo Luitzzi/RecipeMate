@@ -226,6 +226,10 @@
                         <classPattern>${groupId}.backend.**.*UiDTO</classPattern>
                         <classPattern>${groupId}.backend.**.*UiController</classPattern>
                     </classPatterns>
+                    <!-- Classes / Enums that are not references by an UiDTO, but need to be generated in api-interfaces.ts -->
+                    <classes>
+                        <class>${groupId}.backend.entity.recipe.RecipeStepEntity$StepMethod</class>
+                    </classes>
 
                     <!-- Type mapping -->
                     <mapEnum>asEnum</mapEnum>
