@@ -1,10 +1,8 @@
-import {useParams} from "react-router";
+import { useParams } from "react-router";
 
 /* /recipe/:id */
 export default function RecipeOverviewPage() {
-	const { id } = useParams();
+  const { id } = useParams();
 
-	return (
-		<>recipe: {id}</>
-	)
+  return <>recipe: {id}</>;
 }
