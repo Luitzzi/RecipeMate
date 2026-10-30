@@ -150,7 +150,7 @@ const InputSection = () => (
 
     <Example
       title="Repeating rows"
-      description="For lists of entries (Form.List): the main input takes the remaining space, short numeric inputs are controlHeight.large × 2 wide, the delete action is a text icon button with aria-label. Rows and the dashed add button are separated by gap.small; Form.Item margins are removed."
+      description="For lists of entries (Form.List): the main input takes the remaining space, short numeric inputs use width.numberField, the delete action is a text icon button with aria-label. Rows and the dashed add button are separated by gap.small; Form.Item margins are removed."
       usage='<Flex gap={tokens.gap.small} align="start">'
     >
       <Flex vertical gap={tokens.gap.small}>
@@ -166,7 +166,7 @@ const InputSection = () => (
               precision={0}
               defaultValue={item.amount}
               aria-label="Amount"
-              style={{ width: tokens.controlHeight.large * 2 }}
+              style={{ width: tokens.width.numberField }}
             />
             <Button
               type="text"
