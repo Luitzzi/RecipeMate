@@ -1,14 +1,15 @@
 package de.example.backend.dataschema;
 
-import de.example.backend.boundary.uidto.IngredientUiDTO;
-import de.example.backend.boundary.uidto.ShoppingListItemUiDTO;
-import de.example.backend.boundary.uidto.ShoppingListUiDTO;
+import de.example.backend.boundary.dto.chat.ShoppingListItemUiDTO;
+import de.example.backend.boundary.dto.chat.ShoppingListUiDTO;
+import de.example.backend.boundary.dto.ingredient.IngredientUiDTO;
 import de.example.backend.entity.Language;
-import de.example.backend.entity.Unit;
-import de.example.backend.entity.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
+import de.example.backend.entity.ingredient.IngredientType;
+import de.example.backend.entity.recipe.Unit;
 import de.example.backend.entity.shoppinglist.ShoppingListEntity;
 import de.example.backend.entity.shoppinglist.ShoppingListItemEntity;
+import de.example.backend.entity.user.UserEntity;
 import de.example.backend.repository.IngredientRepository;
 import de.example.backend.repository.ShoppingListRepository;
 import de.example.backend.service.IngredientService;
@@ -190,11 +191,11 @@ public class ShoppingListServiceTest {
 
     private void createMockIngredientStandingData() {
         spaghetti = new IngredientEntity();
-        spaghetti.setType("Noodle");
+        spaghetti.setType(IngredientType.SPICE);
         spaghetti.setCustomName("Spaghetti");
 
         ketchup = new IngredientEntity();
-        ketchup.setType("Sauce");
+        ketchup.setType(IngredientType.DAIRY);
         ketchup.setCustomName("Ketchup");
 
         ingredientService.createAll(List.of(spaghetti, ketchup));

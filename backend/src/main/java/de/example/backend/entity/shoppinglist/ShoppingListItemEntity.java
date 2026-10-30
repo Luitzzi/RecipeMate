@@ -1,8 +1,8 @@
 package de.example.backend.entity.shoppinglist;
 
-import de.example.backend.entity.Unit;
 import de.example.backend.entity.ingredient.IngredientEntity;
 
+import de.example.backend.entity.recipe.Unit;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;

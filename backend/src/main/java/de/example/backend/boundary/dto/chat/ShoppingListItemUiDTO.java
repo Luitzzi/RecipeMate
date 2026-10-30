@@ -1,6 +1,7 @@
-package de.example.backend.boundary.uidto;
+package de.example.backend.boundary.dto.chat;
 
-import de.example.backend.entity.Unit;
+import de.example.backend.boundary.dto.ingredient.IngredientUiDTO;
+import de.example.backend.entity.recipe.Unit;
 import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.PositiveOrZero;

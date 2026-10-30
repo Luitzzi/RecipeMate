@@ -1,9 +1,9 @@
 package de.example.backend.entity.shoppinglist;
 
-import de.example.backend.entity.Unit;
-import de.example.backend.entity.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
 
+import de.example.backend.entity.recipe.Unit;
+import de.example.backend.entity.user.UserEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

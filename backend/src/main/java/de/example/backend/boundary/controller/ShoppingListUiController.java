@@ -1,10 +1,11 @@
 package de.example.backend.boundary.controller;
 
-import de.example.backend.boundary.uidto.ShoppingListItemUiDTO;
-import de.example.backend.boundary.uidto.ShoppingListUiDTO;
+import de.example.backend.boundary.dto.chat.ShoppingListItemUiDTO;
+import de.example.backend.boundary.dto.chat.ShoppingListUiDTO;
 import de.example.backend.entity.Language;
-import de.example.backend.entity.UserEntity;
+import de.example.backend.entity.user.UserEntity;
 import de.example.backend.service.ShoppingListService;
+import de.example.backend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -22,7 +23,7 @@ public class ShoppingListUiController {
     @GetMapping
     @Operation(summary = "Get the current user's shopping list, creating it if it doesn't exist yet")
     public ShoppingListUiDTO get(@RequestParam Language language) {
-        UserEntity user = MockUserUtils.getMockUser();
+        UserEntity user = UserService.TEST_USER;
         return shoppingListService.getOrCreate(user, language);
     }
 
@@ -32,7 +33,7 @@ public class ShoppingListUiController {
             @RequestBody @Valid ShoppingListItemUiDTO item,
             @RequestParam Language language
     ) {
-        UserEntity user = MockUserUtils.getMockUser();
+        UserEntity user = UserService.TEST_USER;
         boolean hasIngredient = item.getIngredient() != null;
         boolean hasName = item.getName() != null && !item.getName().isBlank();
         if (hasIngredient == hasName)
@@ -50,7 +51,7 @@ public class ShoppingListUiController {
             @RequestParam boolean checked,
             @RequestParam Language language
     ) {
-        UserEntity user = MockUserUtils.getMockUser();
+        UserEntity user = UserService.TEST_USER;
         return shoppingListService.setItemChecked(user, itemId, checked, language);
     }
 
@@ -60,7 +61,7 @@ public class ShoppingListUiController {
             @PathVariable Long itemId,
             @RequestParam Language language
     ) {
-        UserEntity user = MockUserUtils.getMockUser();
+        UserEntity user = UserService.TEST_USER;
         return shoppingListService.removeItem(user, itemId, language);
     }
 }

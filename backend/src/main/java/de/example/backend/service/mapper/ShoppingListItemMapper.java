@@ -1,6 +1,6 @@
 package de.example.backend.service.mapper;
 
-import de.example.backend.boundary.uidto.ShoppingListItemUiDTO;
+import de.example.backend.boundary.dto.chat.ShoppingListItemUiDTO;
 import de.example.backend.entity.Language;
 import de.example.backend.entity.shoppinglist.ShoppingListItemEntity;
 import org.mapstruct.AfterMapping;
