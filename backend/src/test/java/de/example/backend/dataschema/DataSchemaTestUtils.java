@@ -17,11 +17,4 @@ public class DataSchemaTestUtils {
         entityManager.flush();
         entityManager.clear();
     }
-
-    public static UserEntity getMockUser() {
-        UUID userId = UUID.fromString("00000000-0000-0000-0000-000000000000");
-        UserEntity mockUser = new UserEntity();
-        mockUser.setId(userId);
-        return mockUser;
-    }
 }
