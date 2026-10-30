@@ -9,8 +9,7 @@ import {
 import {
   getEmptyIngredient,
   INGREDIENT_VALUES_FIELDS,
-  type IngredientValues,
-  normalizeName,
+  type IngredientFormValues,
   RECIPE_CREATION_FORM_FIELDS,
   type RecipeCreationFormValues,
 } from "../utils/recipeCreationFormUtils";
@@ -26,13 +25,14 @@ import { toSelectOptions } from "#/common/components/input/SelectOption.ts";
 import { AddableSelect } from "#/common/components/input/AddableSelect.tsx";
 import { tokens } from "#/theme/tokens.ts";
 import { UNIT_OPTIONS } from "#/common/enumOptions.ts";
+import { normalizeString } from "#/common/normalizeString.ts";
 
 export type IngredientSelectProps = {
   form: FormInstance<RecipeCreationFormValues>;
   ingredientClient: IngredientUiControllerClient;
 };
 
-export const IngredientSelect = ({
+export const IngredientSelectionList = ({
   form,
   ingredientClient,
 }: IngredientSelectProps) => {
@@ -41,7 +41,7 @@ export const IngredientSelect = ({
       language: Language.DE,
     }),
   );
-  const formIngredients: IngredientValues[] | undefined = Form.useWatch(
+  const formIngredients: IngredientFormValues[] | undefined = Form.useWatch(
     RECIPE_CREATION_FORM_FIELDS.ingredients,
     form,
   );
@@ -55,7 +55,7 @@ export const IngredientSelect = ({
       );
     return new Map(
       [...(ingredients ?? []), ...createdIngredients].map((ingredient) => [
-        normalizeName(ingredient.name),
+        normalizeString(ingredient.name),
         ingredient,
       ]),
     );
@@ -64,7 +64,7 @@ export const IngredientSelect = ({
     () =>
       toSelectOptions(
         ingredients ?? [],
-        (ingredient) => normalizeName(ingredient.name),
+        (ingredient) => normalizeString(ingredient.name),
         (ingredient) => ingredient.name,
       ),
     [ingredients],
@@ -84,7 +84,7 @@ export const IngredientSelect = ({
                   getValueProps={(ingredient?: IngredientUiDTO) => ({
                     value:
                       ingredient !== undefined && ingredient.name
-                        ? normalizeName(ingredient.name)
+                        ? normalizeString(ingredient.name)
                         : undefined,
                   })}
                   getValueFromEvent={(
@@ -92,7 +92,7 @@ export const IngredientSelect = ({
                   ): IngredientUiDTO | undefined =>
                     value !== undefined
                       ? (ingredientsByNormalizedName.get(
-                          normalizeName(value),
+                          normalizeString(value),
                         ) ?? { name: value.trim() })
                       : undefined
                   }
@@ -104,7 +104,10 @@ export const IngredientSelect = ({
                     loading={ingredientsLoading}
                   />
                 </Form.Item>
-                <Form.Item name={[name, INGREDIENT_VALUES_FIELDS.amount]}>
+                <Form.Item
+                  name={[name, INGREDIENT_VALUES_FIELDS.amount]}
+                  style={{ marginBottom: 0 }}
+                >
                   <InputNumber
                     size={"large"}
                     placeholder={"Amount"}
@@ -115,6 +118,7 @@ export const IngredientSelect = ({
                 <Form.Item
                   name={[name, INGREDIENT_VALUES_FIELDS.unit]}
                   rules={[{ required: true, message: "Select a unit" }]}
+                  style={{ marginBottom: 0 }}
                 >
                   <Select
                     size={"large"}

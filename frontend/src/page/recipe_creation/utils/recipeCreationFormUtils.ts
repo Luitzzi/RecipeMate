@@ -3,24 +3,47 @@ import {
   Diet,
   type IngredientUiDTO,
   RecipeProperty,
-  type RecipeStepDTO,
+  type RecipeStepDTOUnion,
   Unit,
 } from "#/generated/interface-api.ts";
 import type { UploadFile } from "antd";
 
-export type RecipeStepDTODraft = Omit<RecipeStepDTO, "stepMethod"> &
-  Partial<Pick<RecipeStepDTO, "stepMethod">>;
+export type UploadedImageResponse = {
+  key: string;
+};
 
 export type RecipeCreationFormValues = {
-  recipeName: string;
-  images: UploadFile[];
-  ingredients: IngredientValues[];
+  title?: string;
+  description?: string;
+  cookTimeInMinutes?: number;
+  difficulty?: number;
+  note?: string;
+  sourceUrl?: string;
+  images: UploadFile<UploadedImageResponse>[];
+  ingredients: IngredientFormValues[];
   categories: CategoryValues;
-  steps: RecipeStepDTODraft[];
+  steps: Partial<RecipeStepDTOUnion>[];
+};
+
+export type IngredientFormValues = {
+  ingredient: Partial<IngredientUiDTO>;
+  amount?: number;
+  unit: Unit;
+};
+
+export type CategoryValues = {
+  diet: Diet;
+  cuisine: Cuisine[];
+  properties: RecipeProperty[];
 };
 
 export const RECIPE_CREATION_FORM_FIELDS = {
-  recipeName: "recipeName",
+  title: "title",
+  description: "description",
+  cookTimeInMinutes: "cookTimeInMinutes",
+  difficulty: "difficulty",
+  note: "note",
+  sourceUrl: "sourceUrl",
   images: "images",
   ingredients: "ingredients",
   categories: "categories",
@@ -30,39 +53,14 @@ export const RECIPE_CREATION_FORM_FIELDS = {
   keyof RecipeCreationFormValues
 >;
 
-export const MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024;
-export const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
-
-/**
- * Validates an image before it is uploaded.
- * @returns The validation error message or undefined if the image is valid
- */
-export const validateImage = (file: File): string | undefined => {
-  if (!ALLOWED_IMAGE_TYPES.includes(file.type))
-    return "Nur JPG, PNG oder WebP erlaubt";
-  if (file.size > MAX_IMAGE_SIZE_BYTES) return "Datei ist größer als 5 MB";
-  return undefined;
-};
-
-export const normalizeName = (name: string) => name.trim().toLowerCase();
-
-export type IngredientValues = {
-  ingredient: Partial<IngredientUiDTO>;
-  amount?: number;
-  unit: Unit;
-};
-
 export const INGREDIENT_VALUES_FIELDS = {
   ingredient: "ingredient",
   amount: "amount",
   unit: "unit",
-} as const satisfies Record<keyof IngredientValues, keyof IngredientValues>;
-
-export type CategoryValues = {
-  diet: Diet;
-  cuisine: Cuisine[];
-  properties: RecipeProperty[];
-};
+} as const satisfies Record<
+  keyof IngredientFormValues,
+  keyof IngredientFormValues
+>;
 
 export const CATEGORY_VALUES_FIELDS = {
   diet: "diet",
@@ -70,11 +68,7 @@ export const CATEGORY_VALUES_FIELDS = {
   properties: "properties",
 } as const satisfies Record<keyof CategoryValues, keyof CategoryValues>;
 
-export const getEmptyIngredient = (): IngredientValues => ({
+export const getEmptyIngredient = (): IngredientFormValues => ({
   ingredient: {},
   unit: Unit.GRAM,
-});
-
-export const getEmptyStep = (): RecipeStepDTODraft => ({
-  description: "",
 });

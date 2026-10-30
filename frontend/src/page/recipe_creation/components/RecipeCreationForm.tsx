@@ -8,23 +8,27 @@ import {
 } from "antd";
 import { useEffect } from "react";
 import {
-  ALLOWED_IMAGE_TYPES,
   RECIPE_CREATION_FORM_FIELDS,
   type RecipeCreationFormValues,
-  validateImage,
 } from "#/page/recipe_creation/utils/recipeCreationFormUtils.ts";
 import { useMutation } from "#/common/hooks/useMutation.ts";
 import { useNotification } from "#/common/hooks/useNotification.tsx";
 import { useApi } from "#/api/apiContext.ts";
 import { UploadOutlined } from "@ant-design/icons";
 import { putFile } from "#/api/putFile.ts";
-import { IngredientSelect } from "#/page/recipe_creation/components/IngredientSelect.tsx";
+import { IngredientSelectionList } from "#/page/recipe_creation/components/IngredientSelectionList.tsx";
 import { SectionHeader } from "#/common/components/SectionHeader.tsx";
-import { StepCreationCard } from "#/page/recipe_creation/components/StepCreationCard.tsx";
+import { StepsList } from "#/page/recipe_creation/components/StepsList.tsx";
+import {
+  ALLOWED_IMAGE_TYPES,
+  validateImage,
+} from "#/page/recipe_creation/utils/imageUploadUtils.ts";
+import { toRecipeUiDTO } from "#/page/recipe_creation/utils/recipeMapper.ts";
+import { tokens } from "#/theme/tokens.ts";
 
 export const RecipeCreationForm = () => {
   const [form] = Form.useForm<RecipeCreationFormValues>();
-  const api = useApi();
+  const { ingredient, recipe, image } = useApi();
   const notify = useNotification();
 
   const images: UploadFile[] =
@@ -33,7 +37,7 @@ export const RecipeCreationForm = () => {
   const isUploading = images.some((image) => image.status === "uploading");
 
   const [uploadImage, , , uploadError] = useMutation(async (file: File) => {
-    const { key, url } = await api.image.getUploadUrl({
+    const { key, url } = await image.getUploadUrl({
       contentType: file.type,
     });
     await putFile(url, file);
@@ -46,8 +50,7 @@ export const RecipeCreationForm = () => {
         title: "Upload fehlgeschlagen",
         description: uploadError.message,
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [uploadError]);
+  }, [notify, uploadError]);
 
   const beforeImageUpload: UploadProps["beforeUpload"] = (file) => {
     const validationError = validateImage(file);
@@ -67,10 +70,28 @@ export const RecipeCreationForm = () => {
     else onError?.(new Error("Upload failed"));
   };
 
+  const saveRecipe = () => {
+    const formValues = form.getFieldsValue(true);
+    const recipeToCreate = toRecipeUiDTO(formValues);
+    const createdRecipe = recipe.create(recipeToCreate);
+    // TODO LGE/OSA: Add recipe overview navigation
+  };
+
   return (
-    <Form form={form}>
+    <Form
+      form={form}
+      layout={"vertical"}
+      onFinish={saveRecipe}
+      onFinishFailed={() =>
+        notify.error({
+          title: "Recipe creation failed",
+          description: "Please fill out all input fields",
+        })
+      }
+      style={{ flex: 1 }}
+    >
       <Form.Item
-        name={RECIPE_CREATION_FORM_FIELDS.recipeName}
+        name={RECIPE_CREATION_FORM_FIELDS.title}
         label={"Recipe Name"}
         rules={[{ required: true, whitespace: true, message: "Enter a name" }]}
       >
@@ -97,10 +118,21 @@ export const RecipeCreationForm = () => {
       </Form.Item>
 
       <SectionHeader title={"Ingredients"} />
-      <IngredientSelect form={form} ingredientClient={api.ingredient} />
+      <IngredientSelectionList form={form} ingredientClient={ingredient} />
 
       <SectionHeader title={"Steps"} />
-      <StepCreationCard />
+      <StepsList />
+
+      <Button
+        type="primary"
+        htmlType="submit"
+        size="large"
+        block
+        disabled={isUploading}
+        style={{ marginTop: tokens.margin.large }}
+      >
+        Save recipe
+      </Button>
     </Form>
   );
 };
