@@ -14,8 +14,8 @@ the exported `tokens` object. The values originate from
    (seed tokens), so its components stay consistent with ours.
 3. **Three sizes.** Scales use `small` / `medium` / `large`. If a
    design seems to need a fourth step, revisit the design first.
-4. **Role over value.** Pick a token by its purpose
-   (`color.text.secondary`), hex values again only for very specific problems.
+4. **Role over value.** Pick a token by its purpose (`color.text.secondary`), hex values again only for very specific
+   problems.
 5. **4 px grid.** All spacing values are multiples of 4.
 
 ## Token overview
@@ -43,6 +43,17 @@ The page frame is the only exception to the three-step scale.
 | `gutter.desktop` | 32 px   | Page inner padding from `md` breakpoint |
 | `frameMargin`    | 32 px   | Space around the framed page box        |
 | `maxWidth`       | 1200 px | Maximum width of the page box           |
+
+### Widths — `width`
+
+Widths of form fields. Named by role, because they do not form a scale.
+
+| Token         | Value  | Use                               |
+| ------------- | ------ | --------------------------------- |
+| `numberField` | 80 px  | Short numeric inputs in rows      |
+| `selectField` | 160 px | Selects with short values in rows |
+
+Use `flex: 1` instead of a width for the main input of a row.
 
 ### Colors — `color`
 
@@ -77,6 +88,8 @@ Rules:
 | `controlHeight` | 24 px | 32 px  | 40 px | Matches antd `size="small"` / default / `"large"`       |
 
 - `borderWidth`: 1 px, always `solid`.
+- `border`: complete border for frames (`borderWidth`, `solid`,
+  `color.border.subtle`), used as `style={{ border: tokens.border }}`.
 - `shadow.raised`: surfaces resting on the page (page frame).
 - `shadow.popup`: floating layers (dropdowns, popovers).
   The design is flat-first; use borders before shadows.

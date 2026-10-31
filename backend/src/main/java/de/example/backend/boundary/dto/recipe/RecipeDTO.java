@@ -4,14 +4,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import de.example.backend.entity.recipe.Cuisine;
 import de.example.backend.entity.recipe.Diet;
+import de.example.backend.entity.recipe.RecipeEntity;
 import de.example.backend.entity.recipe.RecipeProperty;
 import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,16 +40,17 @@ public abstract class RecipeDTO {
     private Integer cookTimeInMinutes;
 
     @NotNull
-    @Min(1)
-    @Max(5)
-    @JsonPropertyDescription("1 = very easy, 5 = very hard")
+    @Min(RecipeEntity.DIFFICULTY_MIN)
+    @Max(RecipeEntity.DIFFICULTY_MAX)
+    @JsonPropertyDescription("1 = very easy, 4 = very hard")
     private Integer difficulty;
 
     @NotNull
     private Diet diet;
 
-    @NotNull
-    @JsonPropertyDescription("A note about the recipe, e.g. special instructions or tips. Might be empty.")
+    @Size(min = 1)
+    @Nullable
+    @JsonPropertyDescription("A note about the recipe, e.g. special instructions or tips. If no note exist it is null, else at least on character.")
     private String note;
 
     @Nullable
