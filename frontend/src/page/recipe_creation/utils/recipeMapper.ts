@@ -75,10 +75,10 @@ const toRecipeStep = (
 
 type Difficulty = 1 | 2 | 3 | 4;
 const DIFFICULTY_LABELS: Record<Difficulty, string> = {
-  1: "Beginner",
-  2: "Intermediate",
-  3: "Advanced",
-  4: "Chef cook",
+  1: "Commi",
+  2: "Line cook",
+  3: "Sous-chef",
+  4: "Chef",
 };
 
 export const DIFFICULTY_OPTIONS = toSelectOptions<Difficulty, Difficulty>(
