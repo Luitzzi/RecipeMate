@@ -31,7 +31,6 @@ export const StepCard = ({ index }: StepCreationCardProps) => {
           style={{ marginBottom: 0 }}
         >
           <Select
-            size={"large"}
             placeholder={"Step method"}
             onChange={(newValue) => setStepMethod(newValue)}
             options={STEP_OPTIONS}

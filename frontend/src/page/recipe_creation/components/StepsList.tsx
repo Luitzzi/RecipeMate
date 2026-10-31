@@ -14,7 +14,6 @@ export const StepsList = () => {
           ))}
           <Button
             type="dashed"
-            size="large"
             block
             icon={<PlusOutlined />}
             onClick={() => add({})}

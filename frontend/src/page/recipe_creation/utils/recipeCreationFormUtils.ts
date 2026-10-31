@@ -32,7 +32,7 @@ export type IngredientFormValues = {
 };
 
 export type CategoryValues = {
-  diet: Diet;
+  diet?: Diet;
   cuisine: Cuisine[];
   properties: RecipeProperty[];
 };

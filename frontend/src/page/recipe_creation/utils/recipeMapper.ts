@@ -3,6 +3,7 @@ import type {
   RecipeCreationFormValues,
 } from "#/page/recipe_creation/utils/recipeCreationFormUtils.ts";
 import {
+  Diet,
   HeatLevel,
   type IngredientUiDTO,
   OvenMode,
@@ -13,6 +14,7 @@ import {
   type RecipeUiDTO,
   StepMethod,
 } from "#/generated/interface-api.ts";
+import { toSelectOptions } from "#/common/components/input/SelectOption.ts";
 
 export const toRecipeUiDTO = (
   formValues: RecipeCreationFormValues,
@@ -29,7 +31,7 @@ export const toRecipeUiDTO = (
   sourceUrl: formValues.sourceUrl,
   steps: formValues.steps.map(toRecipeStep),
 
-  diet: formValues.categories.diet,
+  diet: formValues.categories.diet as Diet,
   cuisines: formValues.categories.cuisine,
   properties: formValues.categories.properties,
 });
@@ -70,3 +72,17 @@ const toRecipeStep = (
       throw new Error("Unhandled step discriminator: " + step.stepMethod);
   }
 };
+
+type Difficulty = 1 | 2 | 3 | 4;
+const DIFFICULTY_LABELS: Record<Difficulty, string> = {
+  1: "Beginner",
+  2: "Intermediate",
+  3: "Advanced",
+  4: "Chef cook",
+};
+
+export const DIFFICULTY_OPTIONS = toSelectOptions<Difficulty, Difficulty>(
+  [1, 2, 3, 4],
+  (num) => num,
+  (num) => DIFFICULTY_LABELS[num],
+);

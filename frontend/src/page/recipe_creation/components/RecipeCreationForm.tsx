@@ -3,12 +3,17 @@ import {
   Flex,
   Form,
   Input,
+  InputNumber,
+  Radio,
+  Select,
+  Slider,
   Upload,
   type UploadFile,
   type UploadProps,
 } from "antd";
 import { useEffect } from "react";
 import {
+  CATEGORY_VALUES_FIELDS,
   RECIPE_CREATION_FORM_FIELDS,
   type RecipeCreationFormValues,
 } from "#/page/recipe_creation/utils/recipeCreationFormUtils.ts";
@@ -25,8 +30,16 @@ import {
   MAX_IMAGE_AMOUNT,
   validateImage,
 } from "#/page/recipe_creation/utils/imageUploadUtils.ts";
-import { toRecipeUiDTO } from "#/page/recipe_creation/utils/recipeMapper.ts";
+import {
+  DIFFICULTY_OPTIONS,
+  toRecipeUiDTO,
+} from "#/page/recipe_creation/utils/recipeMapper.ts";
 import { tokens } from "#/theme/tokens.ts";
+import {
+  CUISINE_OPTIONS,
+  DIET_OPTIONS,
+  RECIPE_PROPERTY_OPTIONS,
+} from "#/common/enumOptions.ts";
 
 export const RecipeCreationForm = () => {
   const [form] = Form.useForm<RecipeCreationFormValues>();
@@ -83,6 +96,14 @@ export const RecipeCreationForm = () => {
     <Form
       form={form}
       layout={"vertical"}
+      initialValues={
+        {
+          images: [],
+          ingredients: [],
+          steps: [],
+          categories: { cuisine: [], properties: [] },
+        } satisfies RecipeCreationFormValues
+      }
       onFinish={saveRecipe}
       onFinishFailed={() =>
         notify.error({
@@ -95,13 +116,25 @@ export const RecipeCreationForm = () => {
       <Flex vertical gap={tokens.gap.small}>
         <Form.Item
           name={RECIPE_CREATION_FORM_FIELDS.title}
-          label={"Recipe Name"}
           rules={[
             { required: true, whitespace: true, message: "Enter a name" },
           ]}
           style={{ marginBottom: 0 }}
         >
-          <Input size={"large"} placeholder={"Recipe Name"} />
+          <Input placeholder={"Recipe Name"} />
+        </Form.Item>
+        <Form.Item
+          name={RECIPE_CREATION_FORM_FIELDS.description}
+          rules={[
+            {
+              required: true,
+              whitespace: true,
+              message: "Enter a description",
+            },
+          ]}
+          style={{ marginBottom: 0 }}
+        >
+          <Input.TextArea placeholder={"Description"} />
         </Form.Item>
 
         <Form.Item
@@ -129,7 +162,6 @@ export const RecipeCreationForm = () => {
               <Button
                 block
                 type={"dashed"}
-                size={"large"}
                 icon={<UploadOutlined />}
                 loading={isUploading}
               >
@@ -143,13 +175,93 @@ export const RecipeCreationForm = () => {
       <SectionHeader title={"Ingredients"} />
       <IngredientSelectionList form={form} ingredientClient={ingredient} />
 
+      <SectionHeader title={"Preferences"} />
+      <Flex vertical gap={tokens.gap.small}>
+        <Form.Item
+          name={[
+            RECIPE_CREATION_FORM_FIELDS.categories,
+            CATEGORY_VALUES_FIELDS.diet,
+          ]}
+          rules={[{ required: true, message: "Select a diet" }]}
+          style={{ marginBottom: 0 }}
+        >
+          <Radio.Group options={DIET_OPTIONS} />
+        </Form.Item>
+
+        <Flex gap={tokens.gap.small}>
+          <Form.Item
+            name={RECIPE_CREATION_FORM_FIELDS.cookTimeInMinutes}
+            rules={[{ required: true, message: "Insert a cook time" }]}
+            style={{ marginBottom: 0 }}
+          >
+            <InputNumber
+              placeholder={"Cook time"}
+              min={0}
+              style={{ width: tokens.width.numberField }}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name={RECIPE_CREATION_FORM_FIELDS.difficulty}
+            rules={[{ required: true, message: "Select a difficulty" }]}
+            style={{ marginBottom: 0 }}
+          >
+            <Select placeholder={"Difficulty"} options={DIFFICULTY_OPTIONS} />
+          </Form.Item>
+        </Flex>
+
+        <Form.Item
+          name={[
+            RECIPE_CREATION_FORM_FIELDS.categories,
+            CATEGORY_VALUES_FIELDS.cuisine,
+          ]}
+          style={{ marginBottom: 0 }}
+        >
+          <Select
+            mode={"multiple"}
+            allowClear
+            placeholder={"Cuisines"}
+            options={CUISINE_OPTIONS}
+          />
+        </Form.Item>
+        <Form.Item
+          name={[
+            RECIPE_CREATION_FORM_FIELDS.categories,
+            CATEGORY_VALUES_FIELDS.properties,
+          ]}
+          style={{ marginBottom: 0 }}
+        >
+          <Select
+            mode={"multiple"}
+            allowClear
+            placeholder={"Properties"}
+            options={RECIPE_PROPERTY_OPTIONS}
+          />
+        </Form.Item>
+      </Flex>
+
       <SectionHeader title={"Steps"} />
       <StepsList />
+
+      <SectionHeader title={"Else"} />
+      <Flex vertical gap={tokens.gap.small}>
+        <Form.Item
+          name={RECIPE_CREATION_FORM_FIELDS.note}
+          style={{ marginBottom: 0 }}
+        >
+          <Input.TextArea placeholder={"Notes"} />
+        </Form.Item>
+        <Form.Item
+          name={RECIPE_CREATION_FORM_FIELDS.sourceUrl}
+          style={{ marginBottom: 0 }}
+        >
+          <Input placeholder={"Source URL"} />
+        </Form.Item>
+      </Flex>
 
       <Button
         type="primary"
         htmlType="submit"
-        size="large"
         block
         disabled={isUploading}
         style={{ marginTop: tokens.margin.large }}

@@ -22,7 +22,6 @@ export const OvenStepInputs = ({ index, isRequired }: OvenStepInputsProps) => {
         style={{ marginBottom: 0 }}
       >
         <Select
-          size={"large"}
           placeholder={"Oven mode"}
           options={OVEN_MODE_OPTIONS}
           style={{ width: tokens.width.selectField }}
@@ -40,7 +39,6 @@ export const OvenStepInputs = ({ index, isRequired }: OvenStepInputsProps) => {
         style={{ marginBottom: 0 }}
       >
         <InputNumber
-          size={"large"}
           placeholder={"Temperature"}
           min={0}
           max={300}
@@ -53,7 +51,6 @@ export const OvenStepInputs = ({ index, isRequired }: OvenStepInputsProps) => {
         style={{ marginBottom: 0 }}
       >
         <InputNumber
-          size={"large"}
           placeholder={"Duration"}
           min={0}
           style={{ width: tokens.width.numberField * 2 }}
@@ -64,6 +61,7 @@ export const OvenStepInputs = ({ index, isRequired }: OvenStepInputsProps) => {
         name={[index, "preheat" satisfies keyof OvenStepDTO]}
         style={{ marginBottom: 0 }}
         label={"Preheat"}
+        layout={"horizontal"}
       >
         <Switch style={{ width: tokens.width.numberField / 2 }} />
       </Form.Item>

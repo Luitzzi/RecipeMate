@@ -25,7 +25,6 @@ export const StoveStepInputs = ({
         style={{ marginBottom: 0 }}
       >
         <Select
-          size={"large"}
           placeholder={"Heat level"}
           options={HEAT_LEVEL_OPTIONS}
           style={{ width: tokens.width.selectField }}

@@ -98,7 +98,6 @@ export const IngredientSelectionList = ({
                   }
                 >
                   <AddableSelect
-                    size={"large"}
                     placeholder={"Ingredient"}
                     selectOptions={ingredientOptions}
                     loading={ingredientsLoading}
@@ -109,7 +108,6 @@ export const IngredientSelectionList = ({
                   style={{ marginBottom: 0 }}
                 >
                   <InputNumber
-                    size={"large"}
                     placeholder={"Amount"}
                     min={0}
                     style={{ width: tokens.width.numberField }}
@@ -121,7 +119,6 @@ export const IngredientSelectionList = ({
                   style={{ marginBottom: 0 }}
                 >
                   <Select
-                    size={"large"}
                     placeholder={"Unit"}
                     options={UNIT_OPTIONS}
                     style={{ width: tokens.width.selectField }}
@@ -130,7 +127,6 @@ export const IngredientSelectionList = ({
 
                 <Button
                   type="text"
-                  size="large"
                   icon={<DeleteOutlined />}
                   onClick={() => remove(name)}
                 />
@@ -138,7 +134,6 @@ export const IngredientSelectionList = ({
             ))}
             <Button
               type="dashed"
-              size="large"
               block
               icon={<PlusOutlined />}
               onClick={() => add(getEmptyIngredient())}
