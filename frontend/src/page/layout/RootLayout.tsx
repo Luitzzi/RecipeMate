@@ -7,6 +7,8 @@ import { Avatar, Flex, Grid, Layout, Menu } from "antd";
 import { Link, Outlet, useLocation, useNavigate } from "react-router";
 import logo from "../../assets/holidaymate-logo.png";
 import { tokens } from "#/theme/tokens.ts";
+import { AiChat } from "#/common/components/ai_chat/AiChat.tsx";
+import useRouteHandle from "#/common/hooks/useRouteHandle.ts";
 
 const { Header, Content } = Layout;
 
@@ -19,6 +21,7 @@ export const RootLayout = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const screens = Grid.useBreakpoint();
+  const aiChatEnabled = useRouteHandle("aiChat");
   // Icon-only navigation on phones, so it fits next to the logo.
   const navItems = screens.sm
     ? NAV_ITEMS
@@ -89,6 +92,7 @@ export const RootLayout = () => {
           <Outlet />
         </Content>
       </Flex>
+      {aiChatEnabled && <AiChat />}
     </Layout>
   );
 };
