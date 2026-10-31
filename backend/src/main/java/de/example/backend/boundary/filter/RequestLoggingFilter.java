@@ -19,9 +19,17 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
 
     private static final String API_PATH_PREFIX = "/api/";
 
+    /**
+     * Filter out not api requests.
+     * Only api requests should be loggt.
+     */
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return !request.getRequestURI().startsWith(API_PATH_PREFIX);
+        return !isApiRequest(request.getRequestURI());
+    }
+
+    private boolean isApiRequest(String requestURI) {
+        return requestURI.startsWith(API_PATH_PREFIX);
     }
 
     @Override
