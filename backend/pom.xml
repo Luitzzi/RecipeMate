@@ -103,6 +103,12 @@
             <artifactId>s3</artifactId>
         </dependency>
 
+        <!-- Spring Starter Mail -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
         <!-- QueryDSL (maintained OpenFeign fork, keeps com.querydsl package names) -->
         <dependency>
             <groupId>io.github.openfeign.querydsl</groupId>
