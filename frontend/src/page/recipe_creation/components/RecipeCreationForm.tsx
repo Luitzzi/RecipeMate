@@ -1,5 +1,6 @@
 import {
   Button,
+  Flex,
   Form,
   Input,
   Upload,
@@ -21,6 +22,7 @@ import { SectionHeader } from "#/common/components/SectionHeader.tsx";
 import { StepsList } from "#/page/recipe_creation/components/StepsList.tsx";
 import {
   ALLOWED_IMAGE_TYPES,
+  MAX_IMAGE_AMOUNT,
   validateImage,
 } from "#/page/recipe_creation/utils/imageUploadUtils.ts";
 import { toRecipeUiDTO } from "#/page/recipe_creation/utils/recipeMapper.ts";
@@ -90,32 +92,53 @@ export const RecipeCreationForm = () => {
       }
       style={{ flex: 1 }}
     >
-      <Form.Item
-        name={RECIPE_CREATION_FORM_FIELDS.title}
-        label={"Recipe Name"}
-        rules={[{ required: true, whitespace: true, message: "Enter a name" }]}
-      >
-        <Input size={"large"} placeholder={"Recipe Name"} />
-      </Form.Item>
-
-      <Form.Item
-        name={RECIPE_CREATION_FORM_FIELDS.images}
-        label={"Images"}
-        valuePropName={"fileList"}
-        getValueFromEvent={(e) => (Array.isArray(e) ? e : e?.fileList)}
-      >
-        <Upload
-          listType={"picture"}
-          accept={ALLOWED_IMAGE_TYPES.join(",")}
-          maxCount={5}
-          beforeUpload={beforeImageUpload}
-          customRequest={customImageUploadRequest}
+      <Flex vertical gap={tokens.gap.small}>
+        <Form.Item
+          name={RECIPE_CREATION_FORM_FIELDS.title}
+          label={"Recipe Name"}
+          rules={[
+            { required: true, whitespace: true, message: "Enter a name" },
+          ]}
+          style={{ marginBottom: 0 }}
         >
-          <Button icon={<UploadOutlined />} loading={isUploading}>
-            Bild auswählen
-          </Button>
-        </Upload>
-      </Form.Item>
+          <Input size={"large"} placeholder={"Recipe Name"} />
+        </Form.Item>
+
+        <Form.Item
+          name={RECIPE_CREATION_FORM_FIELDS.images}
+          valuePropName={"fileList"}
+          getValueFromEvent={(e) => (Array.isArray(e) ? e : e?.fileList)}
+          style={{ marginBottom: 0 }}
+        >
+          <Upload
+            listType={"picture"}
+            accept={ALLOWED_IMAGE_TYPES.join(",")}
+            maxCount={MAX_IMAGE_AMOUNT}
+            beforeUpload={beforeImageUpload}
+            customRequest={customImageUploadRequest}
+            styles={{
+              root: {
+                display: "flex",
+                flexDirection: "column-reverse",
+                gap: images.length > 0 ? tokens.gap.small : 0,
+              },
+              trigger: { width: "100%" },
+            }}
+          >
+            {images.length < MAX_IMAGE_AMOUNT && (
+              <Button
+                block
+                type={"dashed"}
+                size={"large"}
+                icon={<UploadOutlined />}
+                loading={isUploading}
+              >
+                Add image
+              </Button>
+            )}
+          </Upload>
+        </Form.Item>
+      </Flex>
 
       <SectionHeader title={"Ingredients"} />
       <IngredientSelectionList form={form} ingredientClient={ingredient} />

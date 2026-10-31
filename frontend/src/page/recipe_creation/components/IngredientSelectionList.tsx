@@ -132,7 +132,6 @@ export const IngredientSelectionList = ({
                   type="text"
                   size="large"
                   icon={<DeleteOutlined />}
-                  aria-label="Remove item"
                   onClick={() => remove(name)}
                 />
               </Flex>
