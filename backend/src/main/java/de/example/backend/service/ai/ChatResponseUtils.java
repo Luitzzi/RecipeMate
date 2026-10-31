@@ -25,7 +25,9 @@ public final class ChatResponseUtils {
     }
 
     public static String firstText(ChatResponse response) {
-        return texts(response).findFirst().orElse(null);
+        return texts(response)
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("No text found in response"));
     }
 
     private static boolean isThinking(AssistantMessage message) {

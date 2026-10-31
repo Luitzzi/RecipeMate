@@ -21,7 +21,9 @@ import de.example.backend.service.UserService;
 import de.example.backend.service.ai.ChatResponseUtils;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class RecipeTools {
 
@@ -56,7 +58,6 @@ public class RecipeTools {
         this.userService = userService;
     }
 
-    // TODO JPI: @Nullable Long originalRecipeId
     @Tool(name = "create-recipe", description = "Creates a recipe based on the given input, and returns the ID of the created recipe.")
     public Long createRecipe(RecipeAiDTO recipe) {
         // * Schema check (JSON Schema)
@@ -65,7 +66,8 @@ public class RecipeTools {
             String errors = violations.stream()
                     .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
                     .collect(Collectors.joining(", "));
-            throw new IllegalArgumentException("Recipe validation failed: " + errors);
+            log.warn("AI-created recipe failed schema validation: {}", errors);
+            throw new IllegalArgumentException("Recipe schema validation failed: " + errors);
         }
 
         String recipeJson = jsonMapper.writeValueAsString(recipe);
@@ -76,15 +78,14 @@ public class RecipeTools {
                 .user(recipeJson)
                 .call()
                 .chatResponse();
-        // Parse the response into a RecipeValidationAiDTO object
-        RecipeValidationAiDTO validation = VALIDATION_CONVERTER.convert(ChatResponseUtils.firstText(response));
-        // Check if the validation found any issues
-        if (!validation.getFindings().isEmpty()) {
-            String errors = String.join(", ", validation.getFindings());
+        RecipeValidationAiDTO validationResult = VALIDATION_CONVERTER.convert(ChatResponseUtils.firstText(response));
+        if (validationResult.getFindings().size() > 0) {
+            String errors = String.join(", ", validationResult.getFindings());
+            log.warn("AI-created recipe failed semantic validation: {}", errors);
             throw new IllegalArgumentException("Recipe semantic validation failed: " + errors);
         }
 
-        // If both checks pass, create the recipe in the database
+        // * Create the recipe in the database
         Long recipeId = recipeService.createFromAi(recipe, UserService.TEST_USER);
         return recipeId;
 
@@ -94,7 +95,7 @@ public class RecipeTools {
 
     @Tool(name = "get-recipe", description = "Retrieves a recipe by its ID.")
     public RecipeAiDTO getRecipe(Long recipeId) {
-        // TODO JPI: how to handle language??
+        // TODO JPI: Language into Recipe, then use it here!
         return recipeService.getForAi(recipeId, Language.EN)
                 .orElseThrow(() -> new IllegalArgumentException("Recipe not found"));
     }
