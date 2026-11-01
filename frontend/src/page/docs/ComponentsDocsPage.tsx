@@ -1,11 +1,4 @@
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import { tokens } from "../../theme/tokens.ts";
-import { Caption, DocsNav, Example, Section } from "./DocsLayout.tsx";
-import { blockStyle } from "./docsStyles.ts";
-import {
-  SectionHeader,
-  TitleDivider,
-} from "../../common/components/SectionHeader.tsx";
 import {
   App,
   Badge,
@@ -21,6 +14,15 @@ import {
   Tag,
   Typography,
 } from "antd";
+
+import {
+  SectionHeader,
+  TitleDivider,
+} from "#/common/components/SectionHeader.tsx";
+import { tokens } from "#/theme/tokens.ts";
+
+import { Caption, DocsNav, Example, Section } from "./DocsLayout.tsx";
+import { blockStyle } from "./docsStyles.ts";
 
 /**
  * Living reference for the basic components: how they are structured and

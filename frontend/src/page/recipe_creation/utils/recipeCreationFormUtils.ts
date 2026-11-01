@@ -1,3 +1,5 @@
+import type { UploadFile } from "antd";
+
 import {
   Cuisine,
   Diet,
@@ -6,7 +8,6 @@ import {
   type RecipeStepDTOUnion,
   Unit,
 } from "#/generated/interface-api.ts";
-import type { UploadFile } from "antd";
 
 export type UploadedImageResponse = {
   key: string;

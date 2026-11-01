@@ -1,7 +1,8 @@
-import type { StoveStepDTO } from "#/generated/interface-api.ts";
 import { Form, Select } from "antd";
-import { tokens } from "#/theme/tokens.ts";
+
 import { HEAT_LEVEL_OPTIONS } from "#/common/enumOptions.ts";
+import type { StoveStepDTO } from "#/generated/interface-api.ts";
+import { tokens } from "#/theme/tokens.ts";
 
 export type StoveStepInputsProps = {
   index: number;

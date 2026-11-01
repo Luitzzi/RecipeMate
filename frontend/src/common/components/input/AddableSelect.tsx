@@ -1,7 +1,8 @@
-import type { SelectOption } from "#/common/components/input/SelectOption.ts";
-import { Button, type RefSelectProps, Select, type SelectProps } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import { Button, type RefSelectProps, Select, type SelectProps } from "antd";
 import { useRef, useState } from "react";
+
+import type { SelectOption } from "#/common/components/input/SelectOption.ts";
 
 export type AddableSelectProps<ValueT extends string | number> = Omit<
   SelectProps,

@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react";
+
 import type { Api } from "./createApi";
 
 export const ApiContext = createContext<Api | null>(null);
