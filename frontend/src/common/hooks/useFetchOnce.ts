@@ -1,7 +1,5 @@
 import { useFetch } from "./useFetch.ts";
 
-export const useFetchOnce = <T>(
-  fetch: () => Promise<T>,
-): [T | undefined, boolean, Error | undefined] => {
+export const useFetchOnce = <T>(fetch: () => Promise<T>) => {
   return useFetch(fetch, []);
 };
