@@ -1,3 +1,4 @@
+import { UploadOutlined } from "@ant-design/icons";
 import {
   Button,
   Flex,
@@ -6,24 +7,23 @@ import {
   InputNumber,
   Radio,
   Select,
-  Slider,
   Upload,
   type UploadFile,
   type UploadProps,
 } from "antd";
 import { useEffect } from "react";
+
+import { useApi } from "#/api/apiContext.ts";
+import { putFile } from "#/api/putFile.ts";
+import { SectionHeader } from "#/common/components/SectionHeader.tsx";
 import {
-  CATEGORY_VALUES_FIELDS,
-  RECIPE_CREATION_FORM_FIELDS,
-  type RecipeCreationFormValues,
-} from "#/page/recipe_creation/utils/recipeCreationFormUtils.ts";
+  CUISINE_OPTIONS,
+  DIET_OPTIONS,
+  RECIPE_PROPERTY_OPTIONS,
+} from "#/common/enumOptions.ts";
 import { useMutation } from "#/common/hooks/useMutation.ts";
 import { useNotification } from "#/common/hooks/useNotification.tsx";
-import { useApi } from "#/api/apiContext.ts";
-import { UploadOutlined } from "@ant-design/icons";
-import { putFile } from "#/api/putFile.ts";
 import { IngredientSelectionList } from "#/page/recipe_creation/components/IngredientSelectionList.tsx";
-import { SectionHeader } from "#/common/components/SectionHeader.tsx";
 import { StepsList } from "#/page/recipe_creation/components/StepsList.tsx";
 import {
   ALLOWED_IMAGE_TYPES,
@@ -31,15 +31,15 @@ import {
   validateImage,
 } from "#/page/recipe_creation/utils/imageUploadUtils.ts";
 import {
+  CATEGORY_VALUES_FIELDS,
+  RECIPE_CREATION_FORM_FIELDS,
+  type RecipeCreationFormValues,
+} from "#/page/recipe_creation/utils/recipeCreationFormUtils.ts";
+import {
   DIFFICULTY_OPTIONS,
   toRecipeUiDTO,
 } from "#/page/recipe_creation/utils/recipeMapper.ts";
 import { tokens } from "#/theme/tokens.ts";
-import {
-  CUISINE_OPTIONS,
-  DIET_OPTIONS,
-  RECIPE_PROPERTY_OPTIONS,
-} from "#/common/enumOptions.ts";
 
 export const RecipeCreationForm = () => {
   const [form] = Form.useForm<RecipeCreationFormValues>();

@@ -1,7 +1,8 @@
 import { Form, InputNumber, Select, Switch } from "antd";
+
+import { OVEN_MODE_OPTIONS } from "#/common/enumOptions.ts";
 import type { OvenStepDTO } from "#/generated/interface-api.ts";
 import { tokens } from "#/theme/tokens.ts";
-import { OVEN_MODE_OPTIONS } from "#/common/enumOptions.ts";
 
 export type OvenStepInputsProps = {
   index: number;

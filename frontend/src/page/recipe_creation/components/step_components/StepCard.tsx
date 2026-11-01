@@ -1,10 +1,11 @@
-import { type RecipeStepDTO, StepMethod } from "#/generated/interface-api.ts";
-import { tokens } from "#/theme/tokens.ts";
 import { Flex, Form, Input, Select } from "antd";
 import { useState } from "react";
+
+import { STEP_OPTIONS } from "#/common/enumOptions.ts";
+import { type RecipeStepDTO, StepMethod } from "#/generated/interface-api.ts";
 import { OvenStepInputs } from "#/page/recipe_creation/components/step_components/OvenStepInputs.tsx";
 import { StoveStepInputs } from "#/page/recipe_creation/components/step_components/StoveStepInputs.tsx";
-import { STEP_OPTIONS } from "#/common/enumOptions.ts";
+import { tokens } from "#/theme/tokens.ts";
 
 export type StepCreationCardProps = {
   index: number;

@@ -1,7 +1,4 @@
-import type {
-  IngredientFormValues,
-  RecipeCreationFormValues,
-} from "#/page/recipe_creation/utils/recipeCreationFormUtils.ts";
+import { toSelectOptions } from "#/common/components/input/SelectOption.ts";
 import {
   Diet,
   HeatLevel,
@@ -14,7 +11,10 @@ import {
   type RecipeUiDTO,
   StepMethod,
 } from "#/generated/interface-api.ts";
-import { toSelectOptions } from "#/common/components/input/SelectOption.ts";
+import type {
+  IngredientFormValues,
+  RecipeCreationFormValues,
+} from "#/page/recipe_creation/utils/recipeCreationFormUtils.ts";
 
 export const toRecipeUiDTO = (
   formValues: RecipeCreationFormValues,

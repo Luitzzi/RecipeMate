@@ -1,9 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import { RootLayout } from "./page/layout/RootLayout.tsx";
-import { DocsPage } from "./page/docs/DocsPage.tsx";
-import { ComponentsDocsPage } from "./page/docs/ComponentsDocsPage.tsx";
-import { TestPage } from "#/page/test/TestPage.tsx";
+
 import { RecipeCreationPage } from "#/page/recipe_creation/RecipeCreationPage.tsx";
+import { TestPage } from "#/page/test/TestPage.tsx";
+
+import { ComponentsDocsPage } from "./page/docs/ComponentsDocsPage.tsx";
+import { DocsPage } from "./page/docs/DocsPage.tsx";
+import { RootLayout } from "./page/layout/RootLayout.tsx";
 
 export const AllRoutes = () => {
   return (

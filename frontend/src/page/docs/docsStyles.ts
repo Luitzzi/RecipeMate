@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
-import { tokens } from "../../theme/tokens.ts";
+
+import { tokens } from "#/theme/tokens.ts";
 
 /** Container around a live example. */
 export const panelStyle: CSSProperties = {
