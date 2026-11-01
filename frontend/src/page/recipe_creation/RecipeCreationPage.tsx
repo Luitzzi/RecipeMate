@@ -5,10 +5,7 @@ import { RecipeCreationForm } from "#/page/recipe_creation/components/RecipeCrea
 export const RecipeCreationPage = () => {
   return (
     <Flex vertical style={{ minHeight: "100%" }}>
-      <SectionHeader
-        title={"Rezepte Erstellung"}
-        description={"Erstellen Sie Ihr persönliches Rezept"}
-      />
+      <SectionHeader title={"Rezepte Erstellung"} />
       <RecipeCreationForm />
     </Flex>
   );
