@@ -2,6 +2,7 @@ package de.example.backend.boundary.exceptions;
 
 import de.example.backend.service.exception.NoAccessException;
 import de.example.backend.service.exception.image.InvalidImageException;
+import de.example.backend.service.exception.ingredient.InvalidIngredientException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -51,6 +52,14 @@ public class GlobalExceptionHandler {
         log.warn("Invalid image request", ex);
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
         problem.setTitle("Invalid image");
+        return problem;
+    }
+
+    @ExceptionHandler(InvalidIngredientException.class)
+    ProblemDetail handleInvalidIngredient(InvalidIngredientException ex) {
+        log.warn("Invalid ingredient request", ex);
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+        problem.setTitle("Invalid ingredient");
         return problem;
     }
 }
