@@ -24,6 +24,8 @@ import java.util.function.BiConsumer;
 @NoArgsConstructor
 public class RecipeEntity {
     public static final String tableName = "recipies";
+    public static final int DIFFICULTY_MIN = 1;
+    public static final int DIFFICULTY_MAX = 4;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -81,8 +83,8 @@ public class RecipeEntity {
     private Integer cookTimeInMinutes;
 
     @NotNull
-    @Min(1)
-    @Max(5)
+    @Min(RecipeEntity.DIFFICULTY_MIN)
+    @Max(RecipeEntity.DIFFICULTY_MAX)
     @Column(nullable = false)
     private Integer difficulty;
 
@@ -91,8 +93,7 @@ public class RecipeEntity {
     @Column(nullable = false)
     private Diet diet;
 
-    @NotNull
-    @Column(nullable = false)
+    @Nullable
     private String note;
 
     @Nullable

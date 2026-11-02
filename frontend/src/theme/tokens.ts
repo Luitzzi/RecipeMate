@@ -15,6 +15,19 @@ const spacing = {
   large: 24,
 };
 
+/** Heights of antd controls for size="small" | "middle" | "large". */
+const controlHeight = {
+  small: 24,
+  medium: 32,
+  large: 40,
+};
+
+const borderWidth = 1;
+const borderColor = {
+  default: "#D9D9D9",
+  subtle: "#F0F0F0",
+};
+
 export const tokens = {
   margin: spacing,
   padding: spacing,
@@ -44,10 +57,7 @@ export const tokens = {
       container: "#FFFFFF",
       subtle: "#FAFAFA",
     },
-    border: {
-      default: "#D9D9D9",
-      subtle: "#F0F0F0",
-    },
+    border: borderColor,
     /** Neutral fill for inactive indicators (e.g. an empty badge). */
     fill: "#F0F0F0",
   },
@@ -70,14 +80,17 @@ export const tokens = {
     large: 8,
   },
 
-  /** Heights of antd controls for size="small" | "middle" | "large". */
-  controlHeight: {
-    small: 24,
-    medium: 32,
-    large: 40,
+  controlHeight,
+
+  /** Widths of form fields in a row, derived from the large control height. */
+  width: {
+    numberField: controlHeight.large * 2,
+    selectField: controlHeight.large * 4,
   },
 
-  borderWidth: 1,
+  borderWidth,
+  /** Complete border for frames, e.g. `style={{ border: tokens.border }}`. */
+  border: `${borderWidth}px solid ${borderColor.subtle}`,
 
   shadow: {
     raised:
