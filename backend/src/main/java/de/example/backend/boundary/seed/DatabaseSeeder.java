@@ -17,6 +17,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +31,7 @@ import java.util.List;
 public class DatabaseSeeder implements ApplicationRunner {
 
     private static final String INGREDIENT_CSV = "db/ingredients.csv";
+    private final int NUM_TEST_RECIPES = 100;
 
     private final UserService userService;
     private final IngredientService ingredientService;
@@ -53,18 +55,31 @@ public class DatabaseSeeder implements ApplicationRunner {
                 log.info("Seeded {} standing data ingredients", createdIngredients);
         }
 
-        log.info("Try creating the test recipe...");
+        log.info("Try creating the test recipes...");
         if (!recipeService.hasRecipes(UserService.TEST_USER)) {
-            RecipeUiDTO createdRecipe = recipeService.create(testRecipe(), UserService.TEST_USER);
-            log.info("Seeded mock recipe {} for user {}", createdRecipe.getId(), UserService.TEST_USER.getId());
+            List<RecipeUiDTO> testRecipes = getTestRecipes();
+            List<RecipeUiDTO> createdRecipes = recipeService.createAll(testRecipes, UserService.TEST_USER);
+            log.info("Seeded {} mock recipes with id from {} to {} for user {}",
+                    NUM_TEST_RECIPES,
+                    createdRecipes.getFirst().getId(),
+                    createdRecipes.getLast().getId(),
+                    UserService.TEST_USER.getId());
         } else {
             log.info("The test user already has a recipe. Skip creating the test recipe.");
         }
     }
 
-    private RecipeUiDTO testRecipe() {
+    private List<RecipeUiDTO> getTestRecipes() {
+        List<RecipeUiDTO> testRecipes = new ArrayList<>();
+        for (int i = 0; i < NUM_TEST_RECIPES; i++) {
+            testRecipes.add(testRecipe(i + ". Rosemary Chicken with Roast Potatoes"));
+        }
+        return testRecipes;
+    }
+
+    private RecipeUiDTO testRecipe(String title) {
         RecipeUiDTO recipe = new RecipeUiDTO();
-        recipe.setTitle("Rosemary Chicken with Roast Potatoes");
+        recipe.setTitle(title);
         recipe.setDescription("Seared chicken breast and crispy rosemary potatoes from the oven.");
         recipe.setLanguage(Language.EN);
         recipe.setCookTimeInMinutes(55);

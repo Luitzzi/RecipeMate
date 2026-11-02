@@ -31,8 +31,6 @@ public class RecipeService {
 
     private final IngredientService ingredientService;
 
-    private final ImageStorageService imageStorageService;
-
     private final RecipeRepository recipeRepository;
 
     private final RecipeQueries recipeQueries;
@@ -68,28 +66,42 @@ public class RecipeService {
 
     @Transactional
     public RecipeUiDTO create(RecipeUiDTO recipeUiDTO, UserEntity owner) {
-        if (recipeUiDTO.getId() != null)
-            throw new IllegalArgumentException("Recipes must have id == null when created");
-
         RecipeEntity recipeEntity = recipeMapper.toEntity(recipeUiDTO, owner, null);
-        persistCustomIngredients(recipeEntity.getIngredients());
+        List<IngredientEntity> customIngredients = filterForCustomIngredients(recipeEntity.getIngredients());
+        ingredientService.createAll(customIngredients);
         RecipeEntity created = recipeRepository.persist(recipeEntity);
         return recipeMapper.toUiDTO(created);
+    }
+
+    public List<RecipeUiDTO> createAll(List<RecipeUiDTO> recipes, UserEntity owner) {
+        List<RecipeEntity> recipeEntities = recipes.stream()
+                .map(recipe -> recipeMapper.toEntity(recipe, owner, recipe.getSourceUrl()))
+                .toList();
+        List<RecipeIngredientEntity> recipeIngredients = recipeEntities.stream()
+                .flatMap(recipe -> recipe.getIngredients().stream())
+                .toList();
+        List<IngredientEntity> customIngredients = filterForCustomIngredients(recipeIngredients);
+        ingredientService.createAll(customIngredients);
+
+        Collection<RecipeEntity> createdRecipes = recipeRepository.persistAll(recipeEntities);
+        return createdRecipes.stream()
+                .map(recipeMapper::toUiDTO)
+                .toList();
     }
 
     @Transactional
     public Long createFromAi(RecipeAiDTO recipeAiDTO, UserEntity owner) {
         RecipeEntity recipeEntity = recipeMapper.toEntity(recipeAiDTO, owner);
-        persistCustomIngredients(recipeEntity.getIngredients());
+        List<IngredientEntity> customIngredients = filterForCustomIngredients(recipeEntity.getIngredients());
+        ingredientService.createAll(customIngredients);
         RecipeEntity created = recipeRepository.persist(recipeEntity);
         return created.getId();
     }
 
-    private void persistCustomIngredients(List<RecipeIngredientEntity> recipeIngredients) {
-        List<IngredientEntity> customIngredients = recipeIngredients.stream()
+    private List<IngredientEntity> filterForCustomIngredients(List<RecipeIngredientEntity> recipeIngredients) {
+        return recipeIngredients.stream()
                 .map(RecipeIngredientEntity::getIngredient)
                 .filter(ingredient -> ingredient.getId() == null)
                 .toList();
-        ingredientService.createAll(customIngredients);
     }
 }
