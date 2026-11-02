@@ -1,4 +1,5 @@
 import {
+  CalendarOutlined,
   InfoCircleOutlined,
   SnippetsOutlined,
   UserOutlined,
@@ -11,6 +12,7 @@ import { tokens } from "#/theme/tokens.ts";
 const { Header, Content } = Layout;
 
 const NAV_ITEMS = [
+  { key: "/meal-prepping", icon: <CalendarOutlined />, label: "Meal Prepping" },
   { key: "/docs", icon: <SnippetsOutlined />, label: "Documentation" },
   { key: "/test", icon: <InfoCircleOutlined />, label: "Test" },
 ];

@@ -5,15 +5,17 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
 import commonDE from "../../locales/de/common.json";
+import mealPreppingDE from "../../locales/de/meal-prepping.json";
 import commonEN from "../../locales/en/common.json";
+import mealPreppingEN from "../../locales/en/meal-prepping.json";
 
 export const defaultNS = "common";
 export const supportedLanguages = ["de", "en"] as const;
 export type SupportedLanguage = (typeof supportedLanguages)[number];
 
 export const resources = {
-  de: { common: commonDE },
-  en: { common: commonEN },
+  de: { common: commonDE, mealPrepping: mealPreppingDE },
+  en: { common: commonEN, mealPrepping: mealPreppingEN },
 } as const;
 
 i18n.on("languageChanged", (lng) => {
@@ -27,7 +29,7 @@ i18n
   .init({
     resources,
     defaultNS,
-    ns: [defaultNS],
+    ns: [defaultNS, "mealPrepping"],
     fallbackLng: "en",
     supportedLngs: supportedLanguages,
     load: "languageOnly", // de-DE -> de

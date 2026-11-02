@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import de.example.backend.service.exception.ChatNotFoundException;
 import de.example.backend.service.exception.ChatResponseFailedException;
+import de.example.backend.service.exception.InvalidMealPlanException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -25,6 +26,13 @@ public class GlobalExceptionHandler {
         log.error("Chat response failed", ex);
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_GATEWAY, ex.getMessage());
         problem.setTitle("Chat response failed unexpectedly");
+        return problem;
+    }
+
+    @ExceptionHandler(InvalidMealPlanException.class)
+    ProblemDetail handleInvalidMealPlan(InvalidMealPlanException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+        problem.setTitle("Invalid meal plan");
         return problem;
     }
 }

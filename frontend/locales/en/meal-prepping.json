@@ -1,0 +1,18 @@
+{
+  "title": "Meal Prepping",
+  "today": "Today",
+  "previousWeek": "Previous week",
+  "nextWeek": "Next week",
+  "summary": "{{from}} – {{to}} · {{meals}} · {{shopping}}× shopping",
+  "mealsPlanned_one": "{{count}} meal planned",
+  "mealsPlanned_other": "{{count}} meals planned",
+  "addRecipe": "Add Recipe",
+  "goShopping": "Go Shopping",
+  "searchPlaceholder": "Search recipe",
+  "noMatch": "No match",
+  "random": "Random",
+  "randomPicked": "Randomly picked: {{title}}",
+  "noRecipes": "No recipes available",
+  "loadFailed": "Meal plan could not be loaded",
+  "saveFailed": "Change could not be saved"
+}

@@ -1,0 +1,18 @@
+{
+  "title": "Meal Prepping",
+  "today": "Heute",
+  "previousWeek": "Vorherige Woche",
+  "nextWeek": "Nächste Woche",
+  "summary": "{{from}} – {{to}} · {{meals}} · {{shopping}}× einkaufen",
+  "mealsPlanned_one": "{{count}} Gericht geplant",
+  "mealsPlanned_other": "{{count}} Gerichte geplant",
+  "addRecipe": "Rezept hinzufügen",
+  "goShopping": "Einkaufen gehen",
+  "searchPlaceholder": "Rezept suchen",
+  "noMatch": "Kein Treffer",
+  "random": "Zufällig",
+  "randomPicked": "Zufällig gewählt: {{title}}",
+  "noRecipes": "Keine Rezepte vorhanden",
+  "loadFailed": "Wochenplan konnte nicht geladen werden",
+  "saveFailed": "Änderung konnte nicht gespeichert werden"
+}
