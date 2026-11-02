@@ -1,5 +1,7 @@
 import { useFetch } from "./useFetch.ts";
 
-export const useFetchOnce = <T>(fetch: () => Promise<T>) => {
+export const useFetchOnce = <T>(
+  fetch: () => Promise<T>,
+): readonly [T | undefined, boolean, Error | undefined] => {
   return useFetch(fetch, []);
 };

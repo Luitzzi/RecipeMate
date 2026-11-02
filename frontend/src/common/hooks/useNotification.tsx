@@ -20,7 +20,10 @@ const commonProps = {
   showProgress: true,
 };
 
-export const useNotification = () => {
+export const useNotification = (): Record<
+  "success" | "info" | "warn" | "error",
+  (props: NotificationProps) => void
+> => {
   const { notification } = App.useApp();
 
   const success = (props: NotificationProps) => {
