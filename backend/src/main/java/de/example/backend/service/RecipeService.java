@@ -1,20 +1,24 @@
 package de.example.backend.service;
 
+import de.example.backend.boundary.dto.PageUiDTO;
 import de.example.backend.boundary.dto.recipe.ai.RecipeAiDTO;
+import de.example.backend.boundary.dto.recipe.filter.RecipeFilterUiDTO;
 import de.example.backend.boundary.dto.recipe.ui.RecipeUiDTO;
-import de.example.backend.entity.Language;
 import de.example.backend.entity.user.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.recipe.RecipeEntity;
 import de.example.backend.entity.recipe.RecipeIngredientEntity;
 import de.example.backend.repository.RecipeRepository;
-import de.example.backend.service.image_storage.ImageStorageService;
+import de.example.backend.repository.querydsl.RecipeQueries;
 import de.example.backend.service.mapper.RecipeMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +35,21 @@ public class RecipeService {
 
     private final RecipeRepository recipeRepository;
 
+    private final RecipeQueries recipeQueries;
+
     public List<RecipeUiDTO> getAll(UserEntity user) {
         return recipeRepository.findAllByOwner(user).stream()
                 .map(recipe -> recipeMapper.toUiDTO(recipe))
                 .toList();
+    }
+
+    public PageUiDTO<RecipeUiDTO> filter(RecipeFilterUiDTO filter, UserEntity user, Pageable pageable) {
+        return PageUiDTO.from(recipeQueries.findPageOfOwnerMatchingFilter(filter, user, pageable)
+                .map(recipeMapper::toUiDTO));
+    }
+
+    public List<String> getRecipeTitles(UserEntity user) {
+        return recipeQueries.findDistinctTitlesOfOwnerSortedAlphabetically(user);
     }
 
     public boolean hasRecipes(UserEntity user) {
