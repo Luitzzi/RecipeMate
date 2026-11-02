@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
 
-export const useSessionStorage = <T>(key: string, initialValue: T) => {
+export const useSessionStorage = <T>(
+  key: string,
+  initialValue: T,
+): readonly [T, Dispatch<SetStateAction<T>>] => {
   const [value, setValue] = useState(() => {
     if (typeof window === "undefined") return initialValue;
     try {

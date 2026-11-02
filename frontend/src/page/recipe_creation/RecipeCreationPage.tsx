@@ -1,4 +1,5 @@
 import { Flex } from "antd";
+
 import { SectionHeader } from "#/common/components/SectionHeader.tsx";
 import { RecipeCreationForm } from "#/page/recipe_creation/components/RecipeCreationForm.tsx";
 

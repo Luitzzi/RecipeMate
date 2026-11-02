@@ -1,3 +1,4 @@
+import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import {
   Button,
   Flex,
@@ -6,26 +7,26 @@ import {
   InputNumber,
   Select,
 } from "antd";
+import { useMemo } from "react";
+
+import { AddableSelect } from "#/common/components/input/AddableSelect.tsx";
+import { toSelectOptions } from "#/common/components/input/SelectOption.ts";
+import { UNIT_OPTIONS } from "#/common/enumOptions.ts";
+import { useFetchOnce } from "#/common/hooks/useFetchOnce.ts";
+import { normalizeString } from "#/common/normalizeString.ts";
+import {
+  IngredientUiControllerClient,
+  type IngredientUiDTO,
+  Language,
+} from "#/generated/interface-api.ts";
 import {
   getEmptyIngredient,
   INGREDIENT_VALUES_FIELDS,
   type IngredientFormValues,
   RECIPE_CREATION_FORM_FIELDS,
   type RecipeCreationFormValues,
-} from "../utils/recipeCreationFormUtils";
-import {
-  IngredientUiControllerClient,
-  type IngredientUiDTO,
-  Language,
-} from "#/generated/interface-api.ts";
-import { useMemo } from "react";
-import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import { useFetchOnce } from "#/common/hooks/useFetchOnce.ts";
-import { toSelectOptions } from "#/common/components/input/SelectOption.ts";
-import { AddableSelect } from "#/common/components/input/AddableSelect.tsx";
+} from "#/page/recipe_creation/utils/recipeCreationFormUtils.ts";
 import { tokens } from "#/theme/tokens.ts";
-import { UNIT_OPTIONS } from "#/common/enumOptions.ts";
-import { normalizeString } from "#/common/normalizeString.ts";
 
 export type IngredientSelectProps = {
   form: FormInstance<RecipeCreationFormValues>;

@@ -1,4 +1,5 @@
 import "i18next";
+
 import type { defaultNS, resources } from "./i18n.ts";
 
 declare module "i18next" {

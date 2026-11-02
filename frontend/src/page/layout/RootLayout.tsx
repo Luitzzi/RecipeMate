@@ -5,7 +5,8 @@ import {
 } from "@ant-design/icons";
 import { Avatar, Flex, Grid, Layout, Menu } from "antd";
 import { Link, Outlet, useLocation, useNavigate } from "react-router";
-import logo from "../../assets/holidaymate-logo.png";
+
+import logo from "#/assets/holidaymate-logo.png";
 import { tokens } from "#/theme/tokens.ts";
 
 const { Header, Content } = Layout;
