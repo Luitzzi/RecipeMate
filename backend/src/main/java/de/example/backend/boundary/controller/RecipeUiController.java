@@ -26,18 +26,16 @@ public class RecipeUiController {
 
     @GetMapping
     @Operation(summary = "Get all recipes created by an user in a given language")
-    public List<RecipeUiDTO> getAll(@RequestParam Language language) {
+    public List<RecipeUiDTO> getAll() {
         UserEntity owner = UserService.TEST_USER;
-        return recipeService.getAll(
-                owner, language);
+        return recipeService.getAll(owner);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get a recipe")
     public ResponseEntity<RecipeUiDTO> get(
-            @PathVariable Long id,
-            @RequestParam Language language) {
-        return recipeService.get(id, language)
+            @PathVariable Long id) {
+        return recipeService.get(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

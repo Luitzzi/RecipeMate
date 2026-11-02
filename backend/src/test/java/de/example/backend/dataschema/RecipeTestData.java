@@ -31,6 +31,7 @@ public final class RecipeTestData {
         recipe.setDifficulty(2);
         recipe.setDiet(Diet.OMNIVORE);
         recipe.setNote("Tastes better the next day");
+        recipe.setLanguage(Language.EN);
         return recipe;
     }
 

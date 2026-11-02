@@ -2,6 +2,7 @@ package de.example.backend.boundary.dto.recipe;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import de.example.backend.entity.Language;
 import de.example.backend.entity.recipe.Cuisine;
 import de.example.backend.entity.recipe.Diet;
 import de.example.backend.entity.recipe.RecipeEntity;
@@ -67,4 +68,8 @@ public abstract class RecipeDTO {
 
     @NotNull
     private Set<@NotNull RecipeProperty> properties = new HashSet<>();
+
+    @NotNull
+    @JsonPropertyDescription("The language of the recipe.")
+    private Language language;
 }
