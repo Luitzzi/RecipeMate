@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 
 import { RecipeCreationPage } from "#/page/recipe_creation/RecipeCreationPage.tsx";
+import { RecipeSearchPage } from "#/page/recipe_search/RecipeSearchPage.tsx";
 import { TestPage } from "#/page/test/TestPage.tsx";
 
 import { ComponentsDocsPage } from "./page/docs/ComponentsDocsPage.tsx";
@@ -12,7 +13,7 @@ export const AllRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<RootLayout />}>
-          <Route path={"/"} element={<></>} />
+          <Route path={"/"} element={<RecipeSearchPage />} />
           <Route path={"/recipe-creation"} element={<RecipeCreationPage />} />
           <Route path={"/test"} element={<TestPage />} />
           <Route path={"/docs"} element={<DocsPage />} />
