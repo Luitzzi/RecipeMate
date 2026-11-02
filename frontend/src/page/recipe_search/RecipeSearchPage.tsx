@@ -1,13 +1,29 @@
-import { Form, Pagination } from "antd";
+import { Alert, Form, Pagination } from "antd";
 import { useState } from "react";
 
+import { useApi } from "#/api/apiContext.ts";
 import { SectionHeader } from "#/common/components/SectionHeader.tsx";
+import { useMutation } from "#/common/hooks/useMutation.ts";
+import type { RecipeFilterUiDTO } from "#/generated/interface-api.ts";
 import { RecipeSearchBox } from "#/page/recipe_search/components/RecipeSearchBox.tsx";
+import { RecipeSearchResults } from "#/page/recipe_search/components/RecipeSearchResults.tsx";
+import { toRecipeFilterUiDTO } from "#/page/recipe_search/utils/recipeFilterMapper.ts";
 import type { RecipeSearchFormValues } from "#/page/recipe_search/utils/recipeSearchFormUtils.ts";
+import { tokens } from "#/theme/tokens.ts";
+
+const RESULTS_PER_PAGE = 20;
 
 export const RecipeSearchPage = () => {
+  const { recipe } = useApi();
   const [form] = Form.useForm<RecipeSearchFormValues>();
   const [folderName, setFolderName] = useState<string>();
+  // Changing the page must keep the searched filter, even if the form was edited since
+  const [searchedFilter, setSearchedFilter] = useState<RecipeFilterUiDTO>();
+
+  const [searchRecipes, resultPage, searching, searchError] = useMutation(
+    (filter: RecipeFilterUiDTO, page: number) =>
+      recipe.filter(filter, { page, size: RESULTS_PER_PAGE }),
+  );
 
   const getResultsPrefix = () => {
     if (folderName !== undefined) {
@@ -17,16 +33,53 @@ export const RecipeSearchPage = () => {
   };
 
   const handleSearch = (values: RecipeSearchFormValues) => {
-    const folder = values.filterByFolder ? values.folderName?.trim() : "";
-    setFolderName(folder || undefined);
-    // TODO: Request the recipes as soon as the filter endpoint is available
+    const filter = toRecipeFilterUiDTO(values);
+    setFolderName(filter.folderName);
+    setSearchedFilter(filter);
+    void searchRecipes(filter, 0);
   };
 
   return (
     <>
-      <RecipeSearchBox form={form} onSearch={handleSearch} />
-      <SectionHeader title={"Ergebnisse" + getResultsPrefix()} />
-      <Pagination />
+      <RecipeSearchBox
+        form={form}
+        onSearch={handleSearch}
+        searching={searching}
+      />
+      <SectionHeader
+        title={"Ergebnisse" + getResultsPrefix()}
+        description={
+          resultPage && !searchError
+            ? `${resultPage.totalElements} Rezepte gefunden`
+            : undefined
+        }
+      />
+      {searchError && (
+        <Alert
+          type={"error"}
+          showIcon
+          title={"Die Suche ist fehlgeschlagen"}
+          description={searchError.message}
+        />
+      )}
+      {resultPage && !searchError && (
+        <>
+          <RecipeSearchResults recipes={resultPage.content} />
+          <Pagination
+            align={"center"}
+            current={resultPage.page + 1}
+            pageSize={resultPage.size}
+            total={resultPage.totalElements}
+            showSizeChanger={false}
+            hideOnSinglePage
+            disabled={searching}
+            onChange={(page) => {
+              if (searchedFilter) void searchRecipes(searchedFilter, page - 1);
+            }}
+            style={{ marginTop: tokens.margin.medium }}
+          />
+        </>
+      )}
     </>
   );
 };

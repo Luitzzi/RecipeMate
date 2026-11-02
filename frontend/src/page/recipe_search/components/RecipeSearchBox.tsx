@@ -1,4 +1,5 @@
 import {
+  AutoComplete,
   Button,
   Checkbox,
   Collapse,
@@ -34,14 +35,30 @@ import { tokens } from "#/theme/tokens.ts";
 export type RecipeSearchBoxProps = {
   form: FormInstance<RecipeSearchFormValues>;
   onSearch: (values: RecipeSearchFormValues) => void;
+  searching: boolean;
 };
 
-export const RecipeSearchBox = ({ form, onSearch }: RecipeSearchBoxProps) => {
-  const { ingredient } = useApi();
+export const RecipeSearchBox = ({
+  form,
+  onSearch,
+  searching,
+}: RecipeSearchBoxProps) => {
+  const { ingredient, recipe } = useApi();
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
   const filterByFolder: boolean | undefined = Form.useWatch(
     RECIPE_SEARCH_FORM_VALUES_FIELDS.filterByFolder,
     form,
+  );
+
+  const [recipeTitles] = useFetchOnce(() => recipe.getRecipeTitles());
+  const titleOptions = useMemo(
+    () =>
+      toSelectOptions(
+        recipeTitles ?? [],
+        (title) => title,
+        (title) => title,
+      ),
+    [recipeTitles],
   );
 
   const [ingredients, ingredientsLoading] = useFetchOnce(() =>
@@ -101,7 +118,17 @@ export const RecipeSearchBox = ({ form, onSearch }: RecipeSearchBoxProps) => {
                     name={RECIPE_SEARCH_FORM_VALUES_FIELDS.title}
                     style={{ flex: 1, minWidth: 0, marginBottom: 0 }}
                   >
-                    <Input placeholder={"Title"} />
+                    <AutoComplete
+                      allowClear
+                      placeholder={"Title"}
+                      options={titleOptions}
+                      showSearch={{
+                        filterOption: (input, option) =>
+                          normalizeString(option?.value ?? "").includes(
+                            normalizeString(input),
+                          ),
+                      }}
+                    />
                   </Form.Item>
                   <Form.Item
                     name={RECIPE_SEARCH_FORM_VALUES_FIELDS.language}
@@ -227,7 +254,12 @@ export const RecipeSearchBox = ({ form, onSearch }: RecipeSearchBoxProps) => {
                   </>
                 )}
 
-                <Button type={"primary"} htmlType={"submit"} block>
+                <Button
+                  type={"primary"}
+                  htmlType={"submit"}
+                  block
+                  loading={searching}
+                >
                   Suchen
                 </Button>
               </Flex>

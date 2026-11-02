@@ -13,8 +13,8 @@ export type RecipeSearchFormValues = {
   diet?: Diet;
   cookingTime?: number;
   difficulty?: number;
-  cuisines: Cuisine[];
-  properties: RecipeProperty[];
+  cuisines?: Cuisine[];
+  properties?: RecipeProperty[];
   filterByFolder?: boolean;
   folderName?: string;
 };
