@@ -6,6 +6,7 @@ import {
   Diet,
   HeatLevel,
   type IngredientUiDTO,
+  Language,
   OvenMode,
   type OvenStepDTO,
   type PrepareStepDTO,
@@ -34,6 +35,7 @@ export const toRecipeUiDTO = (
   diet: formValues.categories.diet as Diet,
   cuisines: formValues.categories.cuisine,
   properties: formValues.categories.properties,
+  language: Language.EN, // TODO LGE/FDA: Retrieve language from the context
 });
 
 const toRecipeIngredient = (
