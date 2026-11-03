@@ -17,6 +17,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +31,59 @@ import java.util.List;
 public class DatabaseSeeder implements ApplicationRunner {
 
     private static final String INGREDIENT_CSV = "db/ingredients.csv";
+    private final List<String> TEST_TITLES = List.of(
+            "a",
+            "ax",
+            "AB",
+            "aaa",
+            "aab",
+            "abc",
+            "a_b",
+            "a%c",
+            "Äa",
+            "a b",
+            "Aioli",
+            "Apfelkuchen",
+            "Avocado-Toast",
+            "Apfelstrudel mit Vanillesoße",
+            "Arancini mit Mozzarella",
+            "Auberginen-Lasagne",
+            "Bananenbrot",
+            "Bratkartoffeln",
+            "Blumenkohl-Curry",
+            "Butter Chicken",
+            "Chili con Carne",
+            "Caesar Salad",
+            "Dampfnudeln",
+            "Erbsensuppe",
+            "Flammkuchen",
+            "Frikadellen",
+            "Gulasch",
+            "Gemüse-Risotto",
+            "Hähnchen-Tikka-Masala",
+            "Hummus",
+            "Kartoffelsalat",
+            "Käsespätzle",
+            "Kürbissuppe",
+            "Linsen-Dal",
+            "Lasagne Bolognese",
+            "Maultaschen",
+            "Minestrone",
+            "Nudelauflauf",
+            "Ofengemüse",
+            "Pfannkuchen",
+            "Pad Thai",
+            "Ratatouille",
+            "Rinderrouladen",
+            "Schokoladenkuchen",
+            "Shakshuka",
+            "Spaghetti Carbonara",
+            "Tiramisu",
+            "Tomatensuppe",
+            "Waffeln",
+            "Zwiebelkuchen"
+    );
+    private final int NUM_TEST_RECIPES = TEST_TITLES.size();
 
     private final UserService userService;
     private final IngredientService ingredientService;
@@ -53,18 +107,31 @@ public class DatabaseSeeder implements ApplicationRunner {
                 log.info("Seeded {} standing data ingredients", createdIngredients);
         }
 
-        log.info("Try creating the test recipe...");
+        log.info("Try creating the test recipes...");
         if (!recipeService.hasRecipes(UserService.TEST_USER)) {
-            RecipeUiDTO createdRecipe = recipeService.create(testRecipe(), UserService.TEST_USER);
-            log.info("Seeded mock recipe {} for user {}", createdRecipe.getId(), UserService.TEST_USER.getId());
+            List<RecipeUiDTO> testRecipes = getTestRecipes();
+            List<RecipeUiDTO> createdRecipes = recipeService.createAll(testRecipes, UserService.TEST_USER);
+            log.info("Seeded {} mock recipes with id from {} to {} for user {}",
+                    NUM_TEST_RECIPES,
+                    createdRecipes.getFirst().getId(),
+                    createdRecipes.getLast().getId(),
+                    UserService.TEST_USER.getId());
         } else {
             log.info("The test user already has a recipe. Skip creating the test recipe.");
         }
     }
 
-    private RecipeUiDTO testRecipe() {
+    private List<RecipeUiDTO> getTestRecipes() {
+        List<RecipeUiDTO> testRecipes = new ArrayList<>();
+        for (int i = 0; i < NUM_TEST_RECIPES; i++) {
+            testRecipes.add(testRecipe(TEST_TITLES.get(i)));
+        }
+        return testRecipes;
+    }
+
+    private RecipeUiDTO testRecipe(String title) {
         RecipeUiDTO recipe = new RecipeUiDTO();
-        recipe.setTitle("Rosemary Chicken with Roast Potatoes");
+        recipe.setTitle(title);
         recipe.setDescription("Seared chicken breast and crispy rosemary potatoes from the oven.");
         recipe.setLanguage(Language.EN);
         recipe.setCookTimeInMinutes(55);

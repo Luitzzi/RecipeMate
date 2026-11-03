@@ -1,4 +1,4 @@
-package de.example.backend.dataschema;
+package de.example.backend.recipe;
 
 import de.example.backend.boundary.dto.recipe.ui.RecipeUiDTO;
 import de.example.backend.entity.ingredient.IngredientEntity;

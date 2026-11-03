@@ -1,11 +1,8 @@
-package de.example.backend.dataschema;
+package de.example.backend.recipe;
 
-import de.example.backend.entity.user.UserEntity;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor

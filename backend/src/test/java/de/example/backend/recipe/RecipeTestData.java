@@ -1,4 +1,4 @@
-package de.example.backend.dataschema;
+package de.example.backend.recipe;
 
 import de.example.backend.boundary.dto.ingredient.IngredientUiDTO;
 import de.example.backend.boundary.dto.recipe.OvenStepDTO;
@@ -20,18 +20,26 @@ import java.math.BigDecimal;
  */
 public final class RecipeTestData {
 
+    public static final String TITLE = "Title";
+    public static final String DESCRIPTION = "Description";
+    public static final int COOK_TIME_IN_MINUTES = 30;
+    public static final int DIFFICULTY = 2;
+    public static final Diet DIET = Diet.OMNIVORE;
+    public static final String NOTE = "Note";
+    public static final Language LANGUAGE = Language.EN;
+
     private RecipeTestData() {
     }
 
     public static RecipeUiDTO createRecipeUiDTO() {
         RecipeUiDTO recipe = new RecipeUiDTO();
-        recipe.setTitle("Spaghetti Bolognese");
-        recipe.setDescription("Classic italian pasta");
-        recipe.setCookTimeInMinutes(30);
-        recipe.setDifficulty(2);
-        recipe.setDiet(Diet.OMNIVORE);
-        recipe.setNote("Tastes better the next day");
-        recipe.setLanguage(Language.EN);
+        recipe.setTitle(TITLE);
+        recipe.setDescription(DESCRIPTION);
+        recipe.setCookTimeInMinutes(COOK_TIME_IN_MINUTES);
+        recipe.setDifficulty(DIFFICULTY);
+        recipe.setDiet(DIET);
+        recipe.setNote(NOTE);
+        recipe.setLanguage(LANGUAGE);
         return recipe;
     }
 

@@ -1,8 +1,12 @@
-import { useParams } from "react-router";
+import { Button } from "antd";
+import { useNavigate } from "react-router";
 
-/* /recipe/:id */
 export default function RecipeOverviewPage() {
-  const { id } = useParams();
+  const navigate = useNavigate();
 
-  return <>recipe: {id}</>;
+  return (
+    <Button type={"primary"} onClick={() => navigate("/recipe-creation")}>
+      Create Recipe
+    </Button>
+  );
 }
