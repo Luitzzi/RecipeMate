@@ -30,7 +30,6 @@ i18n
   .init({
     resources,
     defaultNS,
-    ns: [defaultNS],
     fallbackLng: "en",
     supportedLngs: supportedLanguages,
     load: "languageOnly", // de-DE -> de

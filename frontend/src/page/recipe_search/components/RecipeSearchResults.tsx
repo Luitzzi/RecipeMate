@@ -21,7 +21,7 @@ export const RecipeSearchResults = ({ recipes }: RecipeSearchResultsProps) => {
     <Row gutter={[tokens.gap.small, tokens.gap.small]}>
       {recipes.map((recipe) => (
         <Col key={recipe.id} xs={12} md={8}>
-          <Card size={"small"} title={recipe.title} style={{ height: "100%" }}>
+          <Card size={"small"} title={recipe.title} style={{ height: "100%" }} onClick={() => window.location.assign(`/recipe/${recipe.id}`)}>
             <Typography.Paragraph
               type={"secondary"}
               ellipsis={{ rows: 2 }}
