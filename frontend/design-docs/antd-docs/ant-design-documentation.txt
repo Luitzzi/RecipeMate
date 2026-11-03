@@ -15783,7 +15783,7 @@ Common props ref：[Common props](/docs/react/common-props)
 | bordered | Whether to display the border | boolean | false |  | × |
 | classNames | Customize class for each semantic structure inside the component. Supports object or function. | Record<[SemanticDOM](#semantic-dom), string> \| (info: { props })=> Record<[SemanticDOM](#semantic-dom), string> | - |  | 5.23.0 |
 | colon | Change default props `colon` value of Descriptions.Item. Indicates whether the colon after the label is displayed | boolean | true |  | × |
-| column | The number of `DescriptionItems` in a row, could be an object (like `{ xs: 8, sm: 16, md: 24}`, but must have `bordered={true}`) or a number | number \| [Record<Breakpoint, number>](https://github.com/ant-design/ant-design/blob/84ca0d23ae52e4f0940f20b0e22eabe743f90dca/components/descriptions/index.tsx#L111C21-L111C56) | 3 |  | × |
+| column | The number of `DescriptionItems` in a row, could be an object (like `{ xs: 8, sm: 16, md: 24}`, but must have `bordered={true}`) or a number | number \| [Record<Breakpoint, number>](https://github.com/ant-design/ant-design/blob/84ca0d23ae52e4f0940f20b0e22eabe743f90dca/components/descriptions/ProfilePage.tsx#L111C21-L111C56) | 3 |  | × |
 | ~~contentStyle~~ | Customize content style, Please use `styles.content` instead | CSSProperties | - | 4.10.0 | × |
 | extra | The action area of the description list, placed at the top-right | ReactNode | - | 4.5.0 | × |
 | items | Describe the contents of the list item | [DescriptionsItem](#descriptionitem)[] | - | 5.8.0 | × |
@@ -58101,7 +58101,7 @@ Common props ref：[Common props](/docs/react/common-props)
 | --- | --- | --- | --- | --- | --- |
 | actions | A set of operations that are sorted from top to bottom. When an array of strings is provided, default buttons will be used; when an array of ReactNode is provided, custom elements will be used | ReactNode\[] | \[`>`, `<`] | 6.0.0 | × |
 | classNames | Customize class for each semantic structure inside the component. Supports object or function. | Record<[SemanticDOM](#semantic-dom), string> \| (info: { props })=> Record<[SemanticDOM](#semantic-dom), string> | - | 6.0.0 | 6.0.0 |
-| dataSource | Used for setting the source data. The elements that are part of this array will be present the left column. Except the elements whose keys are included in `targetKeys` prop | [RecordType extends TransferItem = TransferItem](https://github.com/ant-design/ant-design/blob/1bf0bab2a7bc0a774119f501806e3e0e3a6ba283/components/transfer/index.tsx#L12)\[] | \[] |  | × |
+| dataSource | Used for setting the source data. The elements that are part of this array will be present the left column. Except the elements whose keys are included in `targetKeys` prop | [RecordType extends TransferItem = TransferItem](https://github.com/ant-design/ant-design/blob/1bf0bab2a7bc0a774119f501806e3e0e3a6ba283/components/transfer/ProfilePage.tsx#L12)\[] | \[] |  | × |
 | disabled | Whether disabled transfer | boolean | false |  | × |
 | selectionsIcon | custom dropdown icon | React.ReactNode |  | 5.8.0 | 5.14.0 |
 | filterOption | A function to determine whether an item should show in search result list, only works when searching, (add `direction` support since 5.9.0+) | (inputValue, option, direction: `left` \| `right`): boolean | - |  | × |

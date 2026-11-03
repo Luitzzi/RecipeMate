@@ -21,3 +21,4 @@ compose.override.yaml
 .DS_Store
 
 /frontend/src/generated/
+/data
