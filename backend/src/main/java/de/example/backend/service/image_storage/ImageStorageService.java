@@ -7,11 +7,16 @@ import de.example.backend.repository.RecipeImageRepository;
 import de.example.backend.service.exception.NoAccessException;
 import de.example.backend.service.exception.image.InvalidImageException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectsResponse;
 import software.amazon.awssdk.services.s3.model.HeadObjectResponse;
+import software.amazon.awssdk.services.s3.model.ObjectIdentifier;
+import software.amazon.awssdk.services.s3.model.S3Error;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
@@ -20,10 +25,15 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 import java.net.URL;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ImageStorageService {
@@ -35,6 +45,7 @@ public class ImageStorageService {
     private static final Duration UPLOAD_TTL = Duration.ofMinutes(5);
     private static final Duration DOWNLOAD_TTL = Duration.ofMinutes(15);
     private static final long MAX_IMAGE_SIZE_BYTES = 10L * 1024 * 1024;
+    private static final int IMAGE_DELETION_MAX_BATCH_SIZE = 1000;
 
     private final RecipeImageRepository recipeImageRepository;
     private final S3Client s3Client;
@@ -134,5 +145,61 @@ public class ImageStorageService {
 
     private boolean doesUserOwnKey(String key, UserEntity user) {
         return recipeImageRepository.existsByKeyAndCreatedBy(key, user);
+    }
+
+    /**
+     * Delete all expired images (images with status RESERVED and createdAt longer than 24 hours in the past)
+     * every Monday at 6 am.
+     */
+    @Scheduled(cron = "0 0 6 * * Mon", zone = "Europe/Berlin")
+    void imageGarbageCollector() {
+        List<RecipeImageEntity> expiredImages = recipeImageRepository
+                .findAllByCreatedAtBeforeAndStatus(
+                        Instant.now().minus(Duration.ofHours(24)),
+                        RecipeImageEntity.ImageUploadStatus.RESERVED);
+        if (expiredImages.isEmpty()) {
+            log.info("Image Garbage-Collector: No images to delete");
+            return;
+        }
+
+        log.info("Image Garbage-Collector: Deleting expired images: {}", expiredImages.stream().map(RecipeImageEntity::getKey).toList());
+        for (int i = 0; i < expiredImages.size(); i += IMAGE_DELETION_MAX_BATCH_SIZE) {
+            List<RecipeImageEntity> chunk = expiredImages
+                    .subList(
+                            i,
+                            Math.min(
+                                    expiredImages.size(),
+                                    i + IMAGE_DELETION_MAX_BATCH_SIZE));
+            deleteImages(chunk);
+        }
+    }
+
+    private void deleteImages(List<RecipeImageEntity> images) {
+        List<ObjectIdentifier> ids = images.stream()
+                .map(image -> ObjectIdentifier.builder().key(image.getKey()).build())
+                .toList();
+
+        DeleteObjectsResponse deletionResponse = s3Client.deleteObjects(requestBuilder -> requestBuilder
+                .bucket(bucketName)
+                .delete(delete -> delete
+                        .objects(ids)));
+
+        List<RecipeImageEntity> deleted = images;
+        if (deletionResponse.hasErrors()) {
+            Set<String> errorKeys = deletionResponse.errors().stream()
+                    .map(S3Error::key)
+                    .collect(Collectors.toSet());
+
+            log.error("""
+                    Failed to delete images.
+                    Failed keys: {},
+                    Errors: {}
+                    """, errorKeys, deletionResponse.errors());
+
+            deleted = images.stream()
+                    .filter(image -> !errorKeys.contains(image.getKey()))
+                    .toList();
+        }
+        recipeImageRepository.deleteAll(deleted);
     }
 }
