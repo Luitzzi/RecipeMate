@@ -1,5 +1,5 @@
 import {ShoppingCartOutlined} from "@ant-design/icons";
-import {Button, Drawer, Empty, Flex} from "antd";
+import {Button, Drawer, Empty, Flex, Grid} from "antd";
 import {Fragment, useState} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -14,6 +14,12 @@ type Props = {
 export default function MealDrawer({recipes}: Props) {
 	const {t} = useTranslation("mealPrepping");
 	const [open, setOpen] = useState(false);
+	const screens = Grid.useBreakpoint();
+
+	// Bottom sheet on phones, side panel on larger screens.
+	const mobile = !screens.md;
+
+	const close = () => setOpen(false);
 
 	return (
 		<Fragment>
@@ -28,14 +34,29 @@ export default function MealDrawer({recipes}: Props) {
 
 			<Drawer
 				title={t("shoppingList")}
-				placement="bottom"
-				onClose={() => setOpen(false)}
+				placement={mobile ? "bottom" : "right"}
+				size={mobile ? "85%" : "default"}
+				closable={{placement: "end"}}
+				onClose={close}
 				open={open}
+				styles={{
+					body: {
+						padding: mobile ? tokens.layout.gutter.mobile : tokens.padding.large,
+					},
+				}}
+				// Thumb-reachable close action on phones
+				footer={
+					mobile && (
+						<Button type="primary" size="large" block onClick={close}>
+							{t("done")}
+						</Button>
+					)
+				}
 			>
 				{recipes.length === 0 ? (
 					<Empty description={t("noRecipesPlanned")}/>
 				) : (
-					<Flex vertical gap={tokens.gap.medium}>
+					<Flex vertical gap={tokens.gap.small}>
 						{recipes.map((recipe, index) => (
 							// The same recipe can be planned multiple times a day
 							<MealDrawerRecipe key={`${recipe.id}-${index}`} recipe={recipe}/>

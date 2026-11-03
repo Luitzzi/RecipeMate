@@ -1,4 +1,4 @@
-import {Card, Checkbox, type CheckboxProps, Flex, Typography} from "antd";
+import {Checkbox, type CheckboxProps, Collapse, Flex, Typography} from "antd";
 import {useState} from "react";
 
 import {UNIT_LABELS} from "#/common/enumOptions.ts";
@@ -21,36 +21,53 @@ export default function MealDrawerRecipe({recipe}: Props) {
 		setCheckedList(event.target.checked ? allIndices : []);
 
 	return (
-		<Card
-			size="small"
-			title={
-				<Checkbox
-					indeterminate={indeterminate}
-					checked={checkAll}
-					onChange={onCheckAllChange}
-				>
-					{recipe.title}
-				</Checkbox>
-			}
-		>
-			<Checkbox.Group
-				value={checkedList}
-				onChange={setCheckedList}
-				style={{width: "100%"}}
-			>
-				<Flex vertical gap={tokens.gap.small}>
-					{recipe.ingredients.map((item, index) => (
-						<Checkbox key={index} value={index}>
-							{item.ingredient.name}
-							{item.amount != null && (
-								<Typography.Text type="secondary">
-									{` · ${item.amount} ${UNIT_LABELS[item.unit]}`}
-								</Typography.Text>
-							)}
+		<Collapse
+			size="large"
+			items={[
+				{
+					key: "ingredients",
+					label: recipe.title,
+					extra: (
+						<Checkbox
+							indeterminate={indeterminate}
+							checked={checkAll}
+							onChange={onCheckAllChange}
+							// Toggling all ingredients must not expand the panel
+							onClick={(event) => event.stopPropagation()}
+						>
+							{`${checkedList.length}/${allIndices.length}`}
 						</Checkbox>
-					))}
-				</Flex>
-			</Checkbox.Group>
-		</Card>
+					),
+					children: (
+						<Checkbox.Group
+							value={checkedList}
+							onChange={setCheckedList}
+							style={{width: "100%"}}
+						>
+							<Flex vertical style={{width: "100%"}}>
+								{recipe.ingredients.map((item, index) => (
+									<Checkbox
+										key={index}
+										value={index}
+										// Full-width rows with control height for easy tapping
+										style={{
+											minHeight: tokens.controlHeight.large,
+											alignItems: "center",
+										}}
+									>
+										{item.ingredient.name}
+										{item.amount != null && (
+											<Typography.Text type="secondary">
+												{` · ${item.amount} ${UNIT_LABELS[item.unit]}`}
+											</Typography.Text>
+										)}
+									</Checkbox>
+								))}
+							</Flex>
+						</Checkbox.Group>
+					),
+				},
+			]}
+		/>
 	);
 }
