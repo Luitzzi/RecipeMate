@@ -31,7 +31,59 @@ import java.util.List;
 public class DatabaseSeeder implements ApplicationRunner {
 
     private static final String INGREDIENT_CSV = "db/ingredients.csv";
-    private final int NUM_TEST_RECIPES = 100;
+    private final List<String> TEST_TITLES = List.of(
+            "a",
+            "ax",
+            "AB",
+            "aaa",
+            "aab",
+            "abc",
+            "a_b",
+            "a%c",
+            "Äa",
+            "a b",
+            "Aioli",
+            "Apfelkuchen",
+            "Avocado-Toast",
+            "Apfelstrudel mit Vanillesoße",
+            "Arancini mit Mozzarella",
+            "Auberginen-Lasagne",
+            "Bananenbrot",
+            "Bratkartoffeln",
+            "Blumenkohl-Curry",
+            "Butter Chicken",
+            "Chili con Carne",
+            "Caesar Salad",
+            "Dampfnudeln",
+            "Erbsensuppe",
+            "Flammkuchen",
+            "Frikadellen",
+            "Gulasch",
+            "Gemüse-Risotto",
+            "Hähnchen-Tikka-Masala",
+            "Hummus",
+            "Kartoffelsalat",
+            "Käsespätzle",
+            "Kürbissuppe",
+            "Linsen-Dal",
+            "Lasagne Bolognese",
+            "Maultaschen",
+            "Minestrone",
+            "Nudelauflauf",
+            "Ofengemüse",
+            "Pfannkuchen",
+            "Pad Thai",
+            "Ratatouille",
+            "Rinderrouladen",
+            "Schokoladenkuchen",
+            "Shakshuka",
+            "Spaghetti Carbonara",
+            "Tiramisu",
+            "Tomatensuppe",
+            "Waffeln",
+            "Zwiebelkuchen"
+    );
+    private final int NUM_TEST_RECIPES = TEST_TITLES.size();
 
     private final UserService userService;
     private final IngredientService ingredientService;
@@ -72,7 +124,7 @@ public class DatabaseSeeder implements ApplicationRunner {
     private List<RecipeUiDTO> getTestRecipes() {
         List<RecipeUiDTO> testRecipes = new ArrayList<>();
         for (int i = 0; i < NUM_TEST_RECIPES; i++) {
-            testRecipes.add(testRecipe(i + ". Rosemary Chicken with Roast Potatoes"));
+            testRecipes.add(testRecipe(TEST_TITLES.get(i)));
         }
         return testRecipes;
     }
