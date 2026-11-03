@@ -12,6 +12,7 @@ import de.example.backend.entity.recipe.QRecipeEntity;
 import de.example.backend.entity.recipe.RecipeEntity;
 import de.example.backend.entity.recipe.RecipeProperty;
 import de.example.backend.entity.user.UserEntity;
+import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,12 +54,23 @@ public class RecipeQueries {
                 .fetchOne();
     }
 
-    public List<String> findDistinctTitlesOfOwnerSortedAlphabetically(UserEntity owner) {
+    /**
+     * Finds the distinct titles starting with the prefix.
+     * Limits the result to 50 Titles and prioritizes results with a low distance to the prefix.
+     * For example the search for "a" should result to "ab", "abc", not to long results like "aaaaaaaaaa".
+     * For long results the user have to search more specifically.
+     * <p>
+     * Additionally, it can be optionally filtered for the owner-
+     */
+    public List<String> findTop50DistinctTitlesStartingWithAndLowDistanceTo(String prefix, @Nullable UserEntity owner) {
         return queryFactory.select(ENTITY.title)
-                .distinct()
                 .from(ENTITY)
-                .where(isOwnedBy(owner))
-                .orderBy(ENTITY.title.asc())
+                .where(ENTITY.title.startsWithIgnoreCase(prefix),
+                        isOwnedBy(owner))
+                .groupBy(ENTITY.title)
+                .orderBy(ENTITY.title.length().asc(),
+                        ENTITY.title.asc())
+                .limit(50)
                 .fetch();
     }
 
@@ -76,27 +88,32 @@ public class RecipeQueries {
                 containsAllIngredients(filter.getIngredientIds()));
     }
 
-    private BooleanExpression isOwnedBy(UserEntity owner) {
-        return ENTITY.owner.eq(owner);
+    @Nullable
+    private BooleanExpression isOwnedBy(@Nullable UserEntity owner) {
+        return owner != null ? ENTITY.owner.eq(owner) : null;
     }
 
-    private BooleanExpression titleEqualsExactly(String title) {
+    @Nullable
+    private BooleanExpression titleEqualsExactly(@Nullable String title) {
         return StringUtils.hasText(title) ? ENTITY.title.eq(title) : null;
     }
 
     private BooleanExpression languageEquals(Language language) {
-        return language != null ? ENTITY.language.eq(language) : null;
+        return ENTITY.language.eq(language);
     }
 
-    private BooleanExpression dietMatchesSearchedDiet(Diet searchedDiet) {
+    @Nullable
+    private BooleanExpression dietMatchesSearchedDiet(@Nullable Diet searchedDiet) {
         return searchedDiet != null ? ENTITY.diet.in(searchedDiet.getRecipeDietsMatchingThisDiet()) : null;
     }
 
-    private BooleanExpression cookTimeIsAtMost(Integer maxCookTimeInMinutes) {
+    @Nullable
+    private BooleanExpression cookTimeIsAtMost(@Nullable Integer maxCookTimeInMinutes) {
         return maxCookTimeInMinutes != null ? ENTITY.cookTimeInMinutes.loe(maxCookTimeInMinutes) : null;
     }
 
-    private BooleanExpression difficultyIsAtMost(Integer maxDifficulty) {
+    @Nullable
+    private BooleanExpression difficultyIsAtMost(@Nullable Integer maxDifficulty) {
         return maxDifficulty != null ? ENTITY.difficulty.loe(maxDifficulty) : null;
     }
 

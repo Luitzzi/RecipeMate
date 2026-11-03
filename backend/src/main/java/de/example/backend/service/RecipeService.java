@@ -11,6 +11,7 @@ import de.example.backend.entity.recipe.RecipeIngredientEntity;
 import de.example.backend.repository.RecipeRepository;
 import de.example.backend.repository.querydsl.RecipeQueries;
 import de.example.backend.service.mapper.RecipeMapper;
+import jakarta.annotation.Nullable;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,8 +47,8 @@ public class RecipeService {
                 .map(recipeMapper::toUiDTO));
     }
 
-    public List<String> getRecipeTitles(UserEntity user) {
-        return recipeQueries.findDistinctTitlesOfOwnerSortedAlphabetically(user);
+    public List<String> getRecipeTitles(String prefix, @Nullable UserEntity owner) {
+        return recipeQueries.findTop50DistinctTitlesStartingWithAndLowDistanceTo(prefix, owner);
     }
 
     public boolean hasRecipes(UserEntity user) {

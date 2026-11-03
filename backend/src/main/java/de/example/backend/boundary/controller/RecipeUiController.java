@@ -3,7 +3,6 @@ package de.example.backend.boundary.controller;
 import de.example.backend.boundary.dto.PageUiDTO;
 import de.example.backend.boundary.dto.recipe.filter.RecipeFilterUiDTO;
 import de.example.backend.boundary.dto.recipe.ui.RecipeUiDTO;
-import de.example.backend.entity.Language;
 import de.example.backend.entity.user.UserEntity;
 import de.example.backend.service.RecipeService;
 import de.example.backend.service.UserService;
@@ -36,13 +35,6 @@ public class RecipeUiController {
         return recipeService.getAll(owner);
     }
 
-    @GetMapping("/titles")
-    @Operation(summary = "Get the distinct titles of all recipes of an user")
-    public List<String> getRecipeTitles() {
-        UserEntity owner = UserService.TEST_USER;
-        return recipeService.getRecipeTitles(owner);
-    }
-
     @GetMapping("/{id}")
     @Operation(summary = "Get a recipe")
     public ResponseEntity<RecipeUiDTO> get(
@@ -50,6 +42,15 @@ public class RecipeUiController {
         return recipeService.get(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/titles")
+    @Operation(summary = "Get the distinct titles of all recipes of an user")
+    public List<String> getRecipeTitles(@RequestParam String titlePrefix, @RequestParam Boolean considerOwner) {
+        UserEntity owner = null;
+        if (considerOwner)
+            owner = UserService.TEST_USER;
+        return recipeService.getRecipeTitles(titlePrefix, owner);
     }
 
     @PostMapping("/filter")
