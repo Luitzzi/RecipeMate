@@ -1,10 +1,11 @@
-package de.example.backend.dataschema;
+package de.example.backend.recipe;
 
 import de.example.backend.boundary.dto.mealprep.MealPlanDayUiDTO;
 import de.example.backend.entity.mealprep.MealPlanDayEntity;
 import de.example.backend.entity.recipe.Diet;
 import de.example.backend.entity.recipe.RecipeEntity;
 import de.example.backend.entity.user.UserEntity;
+import de.example.backend.recipe.DataSchemaTestUtils;
 import de.example.backend.repository.MealPlanDayRepository;
 import de.example.backend.service.MealPlanService;
 import de.example.backend.service.exception.InvalidMealPlanException;
