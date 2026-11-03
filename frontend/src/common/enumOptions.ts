@@ -21,7 +21,7 @@ export const LANGUAGE_OPTIONS = toSelectOptions(
   (language) => LANGUAGE_LABELS[language],
 );
 
-const UNIT_LABELS: Record<Unit, string> = {
+export const UNIT_LABELS: Record<Unit, string> = {
   [Unit.GRAM]: "g",
   [Unit.KILOGRAM]: "kg",
   [Unit.MILLILITER]: "ml",

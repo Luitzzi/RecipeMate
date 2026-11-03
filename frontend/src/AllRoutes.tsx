@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 
 import FeedPage from "#/page/feed/FeedPage.tsx";
-import MealPreppingPage from "#/page/meal-prepping/ShoppingListPage.tsx";
 import ProfilePage from "#/page/profile/ProfilePage.tsx";
 import RecipeOverviewPage from "#/page/recipe/RecipeOverviewPage.tsx";
 import { RecipeCreationPage } from "#/page/recipe_creation/RecipeCreationPage.tsx";
@@ -12,6 +11,7 @@ import { TestPage } from "#/page/test/TestPage.tsx";
 import { ComponentsDocsPage } from "./page/docs/ComponentsDocsPage.tsx";
 import { DocsPage } from "./page/docs/DocsPage.tsx";
 import { RootLayout } from "./page/layout/RootLayout.tsx";
+import {MealPreppingPage} from "#/page/meal-prepping/MealPreppingPage.tsx";
 
 export const AllRoutes = () => {
   return (

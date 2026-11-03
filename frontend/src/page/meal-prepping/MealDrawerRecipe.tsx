@@ -1,9 +1,9 @@
 import {Checkbox, type CheckboxProps, Collapse, Flex, Typography} from "antd";
 import {useState} from "react";
 
-import {UNIT_LABELS} from "#/common/enumOptions.ts";
 import type {RecipeUiDTO} from "#/generated/interface-api.ts";
 import {tokens} from "#/theme/tokens.ts";
+import {UNIT_LABELS} from "#/common/enumOptions.ts";
 
 type Props = {
 	recipe: RecipeUiDTO;
