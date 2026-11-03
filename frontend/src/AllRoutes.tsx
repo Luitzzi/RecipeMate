@@ -21,22 +21,20 @@ import { RootLayout } from "./page/layout/RootLayout.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Routes>
-      <Route element={<RootLayout />}>
-        <Route path={"/"} element={<FeedPage />} />
-        <Route path={"/my-recipes"} element={<RecipeOverviewPage />} />
-        <Route path={"/recipe/:id"} element={<RecipeOverviewPage />} />
-        <Route path={"/recipe-search"} element={<RecipeSearchPage />} />
-        <Route path={"/recipe-creation"} element={<RecipeCreationPage />} />
-        <Route path={"/meal-prepping"} element={<MealPreppingPage />} />
-        <Route path={"/shopping-list"} element={<ShoppingListPage />} />
-        <Route path={"/profile"} element={<ProfilePage />} />
+    <Route element={<RootLayout />}>
+      <Route path={"/"} element={<FeedPage />} />
+      <Route path={"/my-recipes"} element={<RecipeOverviewPage />} />
+      <Route path={"/recipe/:id"} element={<RecipeOverviewPage />} />
+      <Route path={"/recipe-search"} element={<RecipeSearchPage />} />
+      <Route path={"/recipe-creation"} element={<RecipeCreationPage />} />
+      <Route path={"/meal-prepping"} element={<MealPreppingPage />} />
+      <Route path={"/shopping-list"} element={<ShoppingListPage />} />
+      <Route path={"/profile"} element={<ProfilePage />} />
 
-        <Route path={"/test"} element={<TestPage />} />
-        <Route path={"/docs"} element={<DocsPage />} />
-        <Route path={"/docs/components"} element={<ComponentsDocsPage />} />
-      </Route>
-    </Routes>,
+      <Route path={"/test"} element={<TestPage />} />
+      <Route path={"/docs"} element={<DocsPage />} />
+      <Route path={"/docs/components"} element={<ComponentsDocsPage />} />
+    </Route>,
   ),
 );
 
