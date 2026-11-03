@@ -8,6 +8,8 @@
   "mealsPlanned_other": "{{count}} Gerichte geplant",
   "addRecipe": "Rezept hinzufügen",
   "goShopping": "Einkaufen gehen",
+  "shoppingList": "Einkaufsliste",
+  "noRecipesPlanned": "Für diesen Tag sind keine Rezepte geplant",
   "searchPlaceholder": "Rezept suchen",
   "noMatch": "Kein Treffer",
   "random": "Zufällig",

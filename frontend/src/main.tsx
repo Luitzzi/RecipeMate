@@ -1,8 +1,8 @@
+import "./i18n/i18n.ts";
+
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
-import "./i18n/i18n.ts";
-import App from "./App.tsx";
 import { ApiProvider } from "./api/ApiProvider.tsx";
 import { fetchHttpClient } from "./api/httpClient.ts";
 import App from "./App.tsx";

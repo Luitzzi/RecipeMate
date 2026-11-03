@@ -9,7 +9,7 @@ import {
   Unit,
 } from "#/generated/interface-api.ts";
 
-const UNIT_LABELS: Record<Unit, string> = {
+export const UNIT_LABELS: Record<Unit, string> = {
   [Unit.GRAM]: "g",
   [Unit.KILOGRAM]: "kg",
   [Unit.MILLILITER]: "ml",

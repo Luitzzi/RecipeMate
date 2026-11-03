@@ -1,5 +1,5 @@
-import {PlusOutlined, ShoppingCartOutlined} from "@ant-design/icons";
-import {Button, Card, Checkbox, Flex, Tag} from "antd";
+import {PlusOutlined} from "@ant-design/icons";
+import {Button, Card, Flex, Tag} from "antd";
 import dayjs, {type Dayjs} from "dayjs";
 import {useTranslation} from "react-i18next";
 import type {
@@ -8,6 +8,7 @@ import type {
 } from "#/generated/interface-api.ts";
 import {tokens} from "#/theme/tokens.ts";
 import {RecipePickerPopover} from "./RecipePickerPopover.tsx";
+import MealDrawer from "#/page/meal-prepping/MealDrawer.tsx";
 
 type MealPlanDayCardProps = {
 	date: Dayjs;
@@ -18,15 +19,9 @@ type MealPlanDayCardProps = {
 };
 
 export const MealPlanDayCard = (props: MealPlanDayCardProps) => {
-	const {
-		date,
-		day,
-		recipes,
-		recipesById,
-		onChange,
-	} = props;
+	const {date, day, recipes, recipesById, onChange} = props;
 
-	const { t } = useTranslation("mealPrepping");
+	const {t} = useTranslation("mealPrepping");
 	const isToday = date.isSame(dayjs(), "day");
 
 	const removeRecipe = (index: number) =>
@@ -82,14 +77,13 @@ export const MealPlanDayCard = (props: MealPlanDayCardProps) => {
 						{t("addRecipe")}
 					</Button>
 				</RecipePickerPopover>
-				<Checkbox
-					checked={day.goShopping}
-					onChange={(event) =>
-						onChange({...day, goShopping: event.target.checked})
-					}
-				>
-					<ShoppingCartOutlined/> {t("goShopping")}
-				</Checkbox>
+
+				{/* CTA */}
+				<MealDrawer
+					recipes={day.recipeIds
+						.map((recipeId) => recipesById.get(recipeId))
+						.filter((recipe) => recipe !== undefined)}
+				/>
 			</Flex>
 		</Card>
 	);

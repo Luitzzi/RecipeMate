@@ -8,6 +8,8 @@
   "mealsPlanned_other": "{{count}} meals planned",
   "addRecipe": "Add Recipe",
   "goShopping": "Go Shopping",
+  "shoppingList": "Shopping List",
+  "noRecipesPlanned": "No recipes planned for this day",
   "searchPlaceholder": "Search recipe",
   "noMatch": "No match",
   "random": "Random",
