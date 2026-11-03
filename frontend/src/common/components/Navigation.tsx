@@ -1,7 +1,14 @@
 import { Flex, Menu } from "antd";
 import { Link, useLocation, useNavigate } from "react-router";
 import { tokens } from "#/theme/tokens.ts";
-import {Calendar, CookingPot, Home, List, ShoppingCart, User} from "lucide-react";
+import {
+  Calendar,
+  CookingPot,
+  Home,
+  List,
+  ShoppingCart,
+  User,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 const DESKTOP_ICON_SIZE = 16;
