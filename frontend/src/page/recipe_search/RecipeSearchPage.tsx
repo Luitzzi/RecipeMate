@@ -1,9 +1,10 @@
-import { Alert, Form, Pagination } from "antd";
-import { useState } from "react";
+import { Form, Pagination } from "antd";
+import { useEffect, useState } from "react";
 
 import { useApi } from "#/api/apiContext.ts";
 import { SectionHeader } from "#/common/components/SectionHeader.tsx";
 import { useMutation } from "#/common/hooks/useMutation.ts";
+import { useNotification } from "#/common/hooks/useNotification.tsx";
 import type { RecipeFilterUiDTO } from "#/generated/interface-api.ts";
 import { RecipeSearchBox } from "#/page/recipe_search/components/RecipeSearchBox.tsx";
 import { RecipeSearchResults } from "#/page/recipe_search/components/RecipeSearchResults.tsx";
@@ -15,7 +16,9 @@ const RESULTS_PER_PAGE = 20;
 
 export const RecipeSearchPage = () => {
   const { recipe } = useApi();
+  const notify = useNotification();
   const [form] = Form.useForm<RecipeSearchFormValues>();
+
   const [folderName, setFolderName] = useState<string>();
   // Changing the page must keep the searched filter, even if the form was edited since
   const [searchedFilter, setSearchedFilter] = useState<RecipeFilterUiDTO>();
@@ -24,6 +27,11 @@ export const RecipeSearchPage = () => {
     (filter: RecipeFilterUiDTO, page: number) =>
       recipe.filter(filter, { page, size: RESULTS_PER_PAGE }),
   );
+  useEffect(() => {
+    if (searchError !== undefined) {
+      notify.error({ title: "Die Suche ist fehlgeschlagen" });
+    }
+  }, [searchError, notify]);
 
   const getResultsPrefix = () => {
     if (folderName !== undefined) {
@@ -46,6 +54,7 @@ export const RecipeSearchPage = () => {
         onSearch={handleSearch}
         searching={searching}
       />
+
       <SectionHeader
         title={"Ergebnisse" + getResultsPrefix()}
         description={
@@ -54,14 +63,6 @@ export const RecipeSearchPage = () => {
             : undefined
         }
       />
-      {searchError && (
-        <Alert
-          type={"error"}
-          showIcon
-          title={"Die Suche ist fehlgeschlagen"}
-          description={searchError.message}
-        />
-      )}
       {resultPage && !searchError && (
         <>
           <RecipeSearchResults recipes={resultPage.content} />

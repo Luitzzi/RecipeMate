@@ -31,6 +31,8 @@ import {
   type RecipeSearchFormValues,
 } from "#/page/recipe_search/utils/recipeSearchFormUtils.ts";
 import { tokens } from "#/theme/tokens.ts";
+import { useDebouncedValue } from "#/common/hooks/useDebouncedValue.ts";
+import { useFetch } from "#/common/hooks/useFetch.ts";
 
 export type RecipeSearchBoxProps = {
   form: FormInstance<RecipeSearchFormValues>;
@@ -50,7 +52,19 @@ export const RecipeSearchBox = ({
     form,
   );
 
-  const [recipeTitles] = useFetchOnce(() => recipe.getRecipeTitles());
+  const titleFilter: string | undefined = Form.useWatch(
+    RECIPE_SEARCH_FORM_VALUES_FIELDS.title,
+    form,
+  );
+  const debouncedTitleFilter = useDebouncedValue(titleFilter, 300);
+  const [recipeTitles] = useFetch(
+    () =>
+      recipe.getRecipeTitles({
+        titlePrefix: debouncedTitleFilter ?? "",
+        considerOwner: false,
+      }),
+    [debouncedTitleFilter],
+  );
   const titleOptions = useMemo(
     () =>
       toSelectOptions(
