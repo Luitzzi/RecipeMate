@@ -1,20 +1,18 @@
 import { Flex, Menu } from "antd";
 import { Link, useLocation, useNavigate } from "react-router";
 import { tokens } from "#/theme/tokens.ts";
-import { CookingPot, Home, List, ShoppingCart, User } from "lucide-react";
+import {Calendar, CookingPot, Home, List, ShoppingCart, User} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-// Antd's horizontal Menu icon slot is tuned for ~16px icons; the mobile tab
-// bar has room for lucide's own default size.
 const DESKTOP_ICON_SIZE = 16;
 const MOBILE_ICON_SIZE = 24;
 
 const NAV_ITEMS: { key: string; icon: LucideIcon; label: string }[] = [
   { key: "/shopping-list", icon: ShoppingCart, label: "Shopping List" },
-  { key: "/meal-prepping", icon: CookingPot, label: "Meal Prepping" },
+  { key: "/meal-prepping", icon: Calendar, label: "Meal Prepping" },
   { key: "/", icon: Home, label: "Feed" },
-  { key: "/recipe", icon: User, label: "Meine Rezepte" },
-  { key: "/profile", icon: List, label: "Profile" },
+  { key: "/recipe", icon: List, label: "Meine Rezepte" },
+  { key: "/profile", icon: User, label: "Profile" },
 ];
 
 const selectedKeyFor = (pathname: string) =>
