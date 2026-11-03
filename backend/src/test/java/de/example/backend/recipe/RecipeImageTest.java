@@ -1,4 +1,4 @@
-package de.example.backend.dataschema;
+package de.example.backend.recipe;
 
 import de.example.backend.boundary.dto.recipe.ui.RecipeUiDTO;
 import de.example.backend.entity.recipe.RecipeEntity;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import static de.example.backend.dataschema.RecipeTestData.createRecipeUiDTO;
+import static de.example.backend.recipe.RecipeTestData.createRecipeUiDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.tuple;

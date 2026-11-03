@@ -1,6 +1,5 @@
 import { Flex, Menu } from "antd";
-import { Link, useLocation, useNavigate } from "react-router";
-import { tokens } from "#/theme/tokens.ts";
+import type { LucideIcon } from "lucide-react";
 import {
   Calendar,
   CookingPot,
@@ -9,7 +8,9 @@ import {
   ShoppingCart,
   User,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router";
+
+import { tokens } from "#/theme/tokens.ts";
 
 const DESKTOP_ICON_SIZE = 16;
 const MOBILE_ICON_SIZE = 24;
@@ -18,7 +19,7 @@ const NAV_ITEMS: { key: string; icon: LucideIcon; label: string }[] = [
   { key: "/shopping-list", icon: ShoppingCart, label: "Shopping List" },
   { key: "/meal-prepping", icon: Calendar, label: "Meal Prepping" },
   { key: "/", icon: Home, label: "Feed" },
-  { key: "/recipe", icon: List, label: "Meine Rezepte" },
+  { key: "/my-recipes", icon: List, label: "Meine Rezepte" },
   { key: "/profile", icon: User, label: "Profile" },
 ];
 

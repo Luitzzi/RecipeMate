@@ -1,4 +1,4 @@
-package de.example.backend.dataschema;
+package de.example.backend.recipe;
 
 import de.example.backend.boundary.dto.recipe.OvenStepDTO;
 import de.example.backend.boundary.dto.recipe.PrepareStepDTO;
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
-import static de.example.backend.dataschema.RecipeTestData.*;
+import static de.example.backend.recipe.RecipeTestData.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RecipeCreationTest extends AbstractRecipeServiceTest {
@@ -170,12 +170,13 @@ public class RecipeCreationTest extends AbstractRecipeServiceTest {
 
     private void assertRecipeFields(RecipeEntity loaded) {
         assertThat(loaded.getOwner().getId()).isEqualTo(owner.getId());
-        assertThat(loaded.getTitle()).isEqualTo("Spaghetti Bolognese");
-        assertThat(loaded.getDescription()).isEqualTo("Classic italian pasta");
-        assertThat(loaded.getCookTimeInMinutes()).isEqualTo(30);
-        assertThat(loaded.getDifficulty()).isEqualTo(2);
-        assertThat(loaded.getDiet()).isEqualTo(Diet.OMNIVORE);
-        assertThat(loaded.getNote()).isEqualTo("Tastes better the next day");
+        assertThat(loaded.getTitle()).isEqualTo(TITLE);
+        assertThat(loaded.getDescription()).isEqualTo(DESCRIPTION);
+        assertThat(loaded.getCookTimeInMinutes()).isEqualTo(COOK_TIME_IN_MINUTES);
+        assertThat(loaded.getDifficulty()).isEqualTo(DIFFICULTY);
+        assertThat(loaded.getDiet()).isEqualTo(DIET);
+        assertThat(loaded.getNote()).isEqualTo(NOTE);
+        assertThat(loaded.getLanguage()).isEqualTo(LANGUAGE);
     }
 
     private void assertCustomIngredient(

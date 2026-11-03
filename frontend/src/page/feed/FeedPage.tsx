@@ -1,18 +1,26 @@
-import { tokens } from "#/theme/tokens.ts";
+import { SearchOutlined } from "@ant-design/icons";
+import { Button, Card, Flex, Input } from "antd";
+import { Meta } from "antd/es/list/Item";
+import { useNavigate } from "react-router";
+
 import { SectionHeader } from "#/common/components/SectionHeader.tsx";
 import { DocsNav } from "#/page/docs/DocsLayout.tsx";
-import { Button, Card, Flex, Input } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
-import { Meta } from "antd/es/list/Item";
+import { tokens } from "#/theme/tokens.ts";
 
 export default function FeedPage() {
+  const navigation = useNavigate();
+
   return (
     <Flex vertical style={{ paddingBottom: tokens.padding.large }}>
-      <Input.Search size="large" placeholder="Filled" variant="filled" />
-
       <SectionHeader
         title="Rezepte Feed"
         description="Living reference for docs/design-tokens.md. Every example reads its values from src/theme/tokens.ts."
+        extra={
+          <Button
+            icon={<SearchOutlined />}
+            onClick={() => navigation("/recipe-search")}
+          />
+        }
       />
 
       {/* Infinity Scrolls */}

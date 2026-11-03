@@ -3,11 +3,23 @@ import {
   Cuisine,
   Diet,
   HeatLevel,
+  Language,
   OvenMode,
   RecipeProperty,
   StepMethod,
   Unit,
 } from "#/generated/interface-api.ts";
+
+const LANGUAGE_LABELS: Record<Language, string> = {
+  [Language.DE]: "Deutsch",
+  [Language.EN]: "English",
+};
+
+export const LANGUAGE_OPTIONS = toSelectOptions(
+  Object.keys(LANGUAGE_LABELS) as Language[],
+  (language) => language,
+  (language) => LANGUAGE_LABELS[language],
+);
 
 const UNIT_LABELS: Record<Unit, string> = {
   [Unit.GRAM]: "g",
