@@ -9,5 +9,5 @@ import java.net.URL;
 @AllArgsConstructor
 public class ImageUrlUiDTO {
     private String key;
-    private URL url;
+    private String url;
 }

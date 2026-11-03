@@ -14,7 +14,7 @@ export type FetchResult<T> = {
 export const useFetch = <T>(
   fetch: () => Promise<T>,
   dependencies: DependencyList,
-): [T | undefined, boolean, Error | undefined] => {
+): readonly [T | undefined, boolean, Error | undefined] => {
   const [result, setResult] = useState<T | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | undefined>(undefined);
@@ -29,5 +29,5 @@ export const useFetch = <T>(
     // eslint-disable-next-line
   }, dependencies);
 
-  return [result, loading, error];
+  return [result, loading, error] as const;
 };

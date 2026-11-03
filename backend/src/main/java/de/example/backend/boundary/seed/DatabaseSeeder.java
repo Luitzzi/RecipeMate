@@ -4,6 +4,7 @@ import de.example.backend.boundary.dto.ingredient.IngredientUiDTO;
 import de.example.backend.boundary.dto.recipe.*;
 import de.example.backend.boundary.dto.recipe.ui.RecipeIngredientUiDTO;
 import de.example.backend.boundary.dto.recipe.ui.RecipeUiDTO;
+import de.example.backend.entity.Language;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.recipe.*;
 import de.example.backend.service.*;
@@ -46,7 +47,8 @@ public class DatabaseSeeder implements ApplicationRunner {
         if (ingredientService.doesIngredientsExist()) {
             log.info("Ingredients already exist, skip seeding");
         } else {
-            int createdIngredients = ingredientService.importStandingDataIngredients(new ClassPathResource(INGREDIENT_CSV));
+            int createdIngredients = ingredientService
+                    .importStandingDataIngredients(new ClassPathResource(INGREDIENT_CSV));
             if (createdIngredients > 0)
                 log.info("Seeded {} standing data ingredients", createdIngredients);
         }
@@ -64,6 +66,7 @@ public class DatabaseSeeder implements ApplicationRunner {
         RecipeUiDTO recipe = new RecipeUiDTO();
         recipe.setTitle("Rosemary Chicken with Roast Potatoes");
         recipe.setDescription("Seared chicken breast and crispy rosemary potatoes from the oven.");
+        recipe.setLanguage(Language.EN);
         recipe.setCookTimeInMinutes(55);
         recipe.setDifficulty(2);
         recipe.setDiet(Diet.OMNIVORE);

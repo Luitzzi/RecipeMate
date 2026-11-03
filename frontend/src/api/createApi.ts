@@ -1,10 +1,10 @@
 import {
   ChatUiControllerClient,
+  type HttpClient,
   ImageUiControllerClient,
   IngredientUiControllerClient,
   MealPrepUiControllerClient,
   RecipeUiControllerClient,
-  type HttpClient,
 } from "#/generated/interface-api.ts";
 
 export const createApi = (httpClient: HttpClient) => ({

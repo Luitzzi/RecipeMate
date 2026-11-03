@@ -1,6 +1,12 @@
 import { Badge, Button, Col, Flex, Grid, Row, Tag, Typography } from "antd";
 import { Fragment } from "react";
-import { tokens } from "../../theme/tokens.ts";
+import { useTranslation } from "react-i18next";
+
+import { SectionHeader } from "#/common/components/SectionHeader.tsx";
+import { useEffectOnce } from "#/common/hooks/useEffectOnce.ts";
+import { useNotification } from "#/common/hooks/useNotification.tsx";
+import { tokens } from "#/theme/tokens.ts";
+
 import {
   Caption,
   DocsNav,
@@ -9,10 +15,6 @@ import {
   TokenLabel,
 } from "./DocsLayout.tsx";
 import { blockStyle, panelStyle } from "./docsStyles.ts";
-import { SectionHeader } from "../../common/components/SectionHeader.tsx";
-import { useEffectOnce } from "#/common/hooks/useEffectOnce.ts";
-import { useNotification } from "#/common/hooks/useNotification.tsx";
-import { useTranslation } from "react-i18next";
 
 /**
  * Living reference for docs/design-tokens.md: every example is rendered
