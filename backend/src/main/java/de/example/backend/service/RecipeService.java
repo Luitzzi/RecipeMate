@@ -31,9 +31,9 @@ public class RecipeService {
 
     private final RecipeRepository recipeRepository;
 
-    public List<RecipeUiDTO> getAll(UserEntity user, Language language) {
+    public List<RecipeUiDTO> getAll(UserEntity user) {
         return recipeRepository.findAllByOwner(user).stream()
-                .map(recipe -> recipeMapper.toUiDTO(recipe, language))
+                .map(recipe -> recipeMapper.toUiDTO(recipe))
                 .toList();
     }
 
@@ -41,14 +41,14 @@ public class RecipeService {
         return recipeRepository.existsByOwnerId(user.getId());
     }
 
-    public Optional<RecipeUiDTO> get(Long id, Language language) {
+    public Optional<RecipeUiDTO> get(Long id) {
         return recipeRepository.findById(id)
-                .map(recipe -> recipeMapper.toUiDTO(recipe, language));
+                .map(recipe -> recipeMapper.toUiDTO(recipe));
     }
 
-    public Optional<RecipeAiDTO> getForAi(Long id, Language language) {
+    public Optional<RecipeAiDTO> getForAi(Long id) {
         return recipeRepository.findById(id)
-                .map(recipe -> recipeMapper.toAiDTO(recipe, language));
+                .map(recipe -> recipeMapper.toAiDTO(recipe));
     }
 
     @Transactional
@@ -59,7 +59,7 @@ public class RecipeService {
         RecipeEntity recipeEntity = recipeMapper.toEntity(recipeUiDTO, owner, null);
         persistCustomIngredients(recipeEntity.getIngredients());
         RecipeEntity created = recipeRepository.persist(recipeEntity);
-        return recipeMapper.toUiDTO(created, Language.EN);
+        return recipeMapper.toUiDTO(created);
     }
 
     @Transactional

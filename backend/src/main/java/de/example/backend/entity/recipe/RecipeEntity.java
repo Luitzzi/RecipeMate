@@ -1,5 +1,6 @@
 package de.example.backend.entity.recipe;
 
+import de.example.backend.entity.Language;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.user.UserEntity;
 
@@ -32,7 +33,7 @@ public class RecipeEntity {
     private Long id;
 
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "recipe", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "recipe", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @OrderBy("position")
     @NotNull
     private List<RecipeImageEntity> images = new ArrayList<>();
@@ -95,6 +96,11 @@ public class RecipeEntity {
 
     @Nullable
     private String note;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Language language;
 
     @Nullable
     @URL(regexp = "^https?://.*")

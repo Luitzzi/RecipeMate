@@ -1,11 +1,9 @@
-import type {
-  IngredientFormValues,
-  RecipeCreationFormValues,
-} from "#/page/recipe_creation/utils/recipeCreationFormUtils.ts";
+import { toSelectOptions } from "#/common/components/input/SelectOption.ts";
 import {
   Diet,
   HeatLevel,
   type IngredientUiDTO,
+  Language,
   OvenMode,
   type OvenStepDTO,
   type PrepareStepDTO,
@@ -14,7 +12,10 @@ import {
   type RecipeUiDTO,
   StepMethod,
 } from "#/generated/interface-api.ts";
-import { toSelectOptions } from "#/common/components/input/SelectOption.ts";
+import type {
+  IngredientFormValues,
+  RecipeCreationFormValues,
+} from "#/page/recipe_creation/utils/recipeCreationFormUtils.ts";
 
 export const toRecipeUiDTO = (
   formValues: RecipeCreationFormValues,
@@ -34,6 +35,7 @@ export const toRecipeUiDTO = (
   diet: formValues.categories.diet as Diet,
   cuisines: formValues.categories.cuisine,
   properties: formValues.categories.properties,
+  language: Language.EN, // TODO LGE/FDA: Retrieve language from the context
 });
 
 const toRecipeIngredient = (

@@ -1,11 +1,12 @@
-import dayjs from "dayjs";
 import "dayjs/locale/de";
+
+import dayjs from "dayjs";
 import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
-import commonDE from "../../locales/de/common.json";
-import commonEN from "../../locales/en/common.json";
+import commonDE from "##/locales/de/common.json";
+import commonEN from "##/locales/en/common.json";
 
 export const defaultNS = "common";
 export const supportedLanguages = ["de", "en"] as const;

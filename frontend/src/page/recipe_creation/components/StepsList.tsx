@@ -1,7 +1,8 @@
-import { RECIPE_CREATION_FORM_FIELDS } from "#/page/recipe_creation/utils/recipeCreationFormUtils.ts";
-import { Button, Flex, Form } from "antd";
-import { StepCard } from "#/page/recipe_creation/components/step_components/StepCard.tsx";
 import { PlusOutlined } from "@ant-design/icons";
+import { Button, Flex, Form } from "antd";
+
+import { StepCard } from "#/page/recipe_creation/components/step_components/StepCard.tsx";
+import { RECIPE_CREATION_FORM_FIELDS } from "#/page/recipe_creation/utils/recipeCreationFormUtils.ts";
 import { tokens } from "#/theme/tokens.ts";
 
 export const StepsList = () => {

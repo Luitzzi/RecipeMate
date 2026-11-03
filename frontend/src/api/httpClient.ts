@@ -1,4 +1,4 @@
-import type { HttpClient } from "../generated/interface-api";
+import type { HttpClient } from "#/generated/interface-api.ts";
 
 type QueryParams = Record<string, unknown> | undefined;
 
