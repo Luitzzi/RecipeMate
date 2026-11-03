@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
+
+import type { HttpClient } from "#/generated/interface-api.ts";
+
 import { ApiContext } from "./apiContext";
 import { createApi } from "./createApi";
-import type { HttpClient } from "#/generated/interface-api.ts";
 
 export const ApiProvider = ({
   httpClient,

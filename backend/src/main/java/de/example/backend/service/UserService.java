@@ -18,7 +18,7 @@ public class UserService {
 
     public static final UserEntity TEST_USER = new UserEntity(
             UUID.fromString("00000000-0000-0000-0000-000000000000"),
-            null, null);
+            null, null, null);
 
     private final UserRepository userRepository;
     private final UserQueries userQueries;
