@@ -3,7 +3,6 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
-  Routes,
 } from "react-router";
 
 import FeedPage from "#/page/feed/FeedPage.tsx";

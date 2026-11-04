@@ -1,10 +1,9 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Card, Flex, Input } from "antd";
+import { Button, Card, Flex } from "antd";
 import { Meta } from "antd/es/list/Item";
 import { useNavigate } from "react-router";
 
 import { SectionHeader } from "#/common/components/SectionHeader.tsx";
-import { DocsNav } from "#/page/docs/DocsLayout.tsx";
 import { tokens } from "#/theme/tokens.ts";
 
 export default function FeedPage() {

@@ -1,13 +1,6 @@
 import { Flex, Menu } from "antd";
 import type { LucideIcon } from "lucide-react";
-import {
-  Calendar,
-  CookingPot,
-  Home,
-  List,
-  ShoppingCart,
-  User,
-} from "lucide-react";
+import { Calendar, Home, List, ShoppingCart, User } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";
 
 import { tokens } from "#/theme/tokens.ts";

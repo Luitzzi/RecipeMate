@@ -22,6 +22,8 @@ import {
   LANGUAGE_OPTIONS,
   RECIPE_PROPERTY_OPTIONS,
 } from "#/common/enumOptions.ts";
+import { useDebouncedValue } from "#/common/hooks/useDebouncedValue.ts";
+import { useFetch } from "#/common/hooks/useFetch.ts";
 import { useFetchOnce } from "#/common/hooks/useFetchOnce.ts";
 import { normalizeString } from "#/common/normalizeString.ts";
 import { type IngredientUiDTO, Language } from "#/generated/interface-api.ts";
@@ -31,8 +33,6 @@ import {
   type RecipeSearchFormValues,
 } from "#/page/recipe_search/utils/recipeSearchFormUtils.ts";
 import { tokens } from "#/theme/tokens.ts";
-import { useDebouncedValue } from "#/common/hooks/useDebouncedValue.ts";
-import { useFetch } from "#/common/hooks/useFetch.ts";
 
 export type RecipeSearchBoxProps = {
   form: FormInstance<RecipeSearchFormValues>;
