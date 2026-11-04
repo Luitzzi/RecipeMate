@@ -50,6 +50,13 @@ mise run dev
 
 # Generates the frontend interfaces from all *UiDTO backend classes.
 mise run ts-gen
+
+# DESTRUCTIVE: deletes the DB data, build outputs and dependencies
+# docker compose down -v && rm -rf backend/target frontend/{node_modules,dist,src/generated} site .venv
+mise run clean
+
+# DESTRUCTIVE: clean + install + ts-gen
+mise run reset
 ```
 
 ## Docs
