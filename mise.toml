@@ -2,13 +2,16 @@
 node = "24"
 java = "temurin-21"
 
+[env]
+_.file = ".env"
+
 [tasks.install]
 description = "Install frontend npm dependencies"
 dir = "{{config_root}}/frontend"
 run = "npm install"
 
 [tasks."dev:db"]
-description = "Start the Postgres DB and wait until it is healthy"
+description = "Start all docker containers and wait until it is healthy. Contains postgres for the db and garage as the object storage"
 run = "docker compose up -d --wait"
 
 [tasks."dev:backend"]
@@ -30,6 +33,34 @@ depends = ["dev:backend", "dev:frontend"]
 description = "Generate TS interfaces from *UiDTO backend classes"
 dir = "{{config_root}}/backend"
 run = "./mvnw clean compile typescript-generator:generate"
+
+[tasks."s3:stats"]
+description = "List number and size of the images in the Garage bucket"
+quiet = true
+run = '''
+docker exec -e RUST_LOG=warn garage /garage bucket info "$S3_BUCKET_NAME" | grep -E '^(Size|Objects):'
+'''
+
+[tasks."s3:exists"]
+description = "Check whether an image key exists in the Garage bucket"
+quiet = true
+usage = 'arg "<key>" help="Image key, e.g. users/<user-id>/<uuid>"'
+run = '''
+if docker run --rm --network host \
+    -e AWS_ACCESS_KEY_ID="$S3_ACCESS_KEY" \
+    -e AWS_SECRET_ACCESS_KEY="$S3_SECRET_KEY" \
+    -e AWS_DEFAULT_REGION="$S3_REGION" \
+    -e AWS_ENDPOINT_URL="$S3_ENDPOINT" \
+    amazon/aws-cli:2.39.3 s3api head-object \
+    --bucket "$S3_BUCKET_NAME" --key "$usage_key" \
+    --query '{ContentType: ContentType, Size: ContentLength, LastModified: LastModified}' --output table 2>/dev/null
+then
+  echo "Key exists: $usage_key"
+else
+  echo "Key not found: $usage_key" >&2
+  exit 1
+fi
+'''
 
 [tasks.docs]
 description = "Serve the mkdocs docs pages"
