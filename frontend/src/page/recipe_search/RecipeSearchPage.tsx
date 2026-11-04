@@ -1,5 +1,5 @@
 import { Form, Pagination } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { useApi } from "#/api/apiContext.ts";
 import { SectionHeader } from "#/common/components/SectionHeader.tsx";
@@ -26,12 +26,8 @@ export const RecipeSearchPage = () => {
   const [searchRecipes, resultPage, searching, searchError] = useMutation(
     (filter: RecipeFilterUiDTO, page: number) =>
       recipe.filter(filter, { page, size: RESULTS_PER_PAGE }),
+    { onError: () => notify.error({ title: "Die Suche ist fehlgeschlagen" }) },
   );
-  useEffect(() => {
-    if (searchError !== undefined) {
-      notify.error({ title: "Die Suche ist fehlgeschlagen" });
-    }
-  }, [searchError, notify]);
 
   const getResultsPrefix = () => {
     if (folderName !== undefined) {

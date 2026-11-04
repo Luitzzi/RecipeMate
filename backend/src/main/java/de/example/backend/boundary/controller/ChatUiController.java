@@ -33,7 +33,7 @@ public class ChatUiController {
     @PostMapping("/{chatId}")
     @Operation(summary = "Send a message to an existing chat")
     @ApiResponse(responseCode = "404", description = "Chat not found")
-    @ApiResponse(responseCode = "502", description = "Chat response failed unexpectedly")
+    @ApiResponse(responseCode = "502", description = "AI service unavailable or returned an error")
     ResponseEntity<ChatResponseUiDTO> sendMessage(
             @PathVariable UUID chatId,
             @Valid @RequestBody ChatRequestUiDTO request) {

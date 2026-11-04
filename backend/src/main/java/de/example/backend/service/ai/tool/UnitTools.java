@@ -4,8 +4,10 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import org.springframework.ai.tool.annotation.*;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class UnitTools {
     public enum Unit {
         MILLIGRAM,
