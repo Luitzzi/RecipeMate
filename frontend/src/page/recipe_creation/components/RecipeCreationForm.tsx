@@ -11,7 +11,6 @@ import {
   type UploadFile,
   type UploadProps,
 } from "antd";
-import { useEffect } from "react";
 
 import { useApi } from "#/api/apiContext.ts";
 import { putFile } from "#/api/putFile.ts";
@@ -51,21 +50,22 @@ export const RecipeCreationForm = () => {
   // Derived from the file list, because the mutation state is shared by parallel uploads
   const isUploading = images.some((image) => image.status === "uploading");
 
-  const [uploadImage, , , uploadError] = useMutation(async (file: File) => {
-    const { key, url } = await image.getUploadUrl({
-      contentType: file.type,
-    });
-    await putFile(url, file);
-    return key;
-  });
-
-  useEffect(() => {
-    if (uploadError)
-      notify.error({
-        title: "Upload fehlgeschlagen",
-        description: uploadError.message,
+  const [uploadImage] = useMutation(
+    async (file: File) => {
+      const { key, url } = await image.getUploadUrl({
+        contentType: file.type,
       });
-  }, [notify, uploadError]);
+      await putFile(url, file);
+      return key;
+    },
+    {
+      onError: (error) =>
+        notify.error({
+          title: "Upload fehlgeschlagen",
+          description: error.message,
+        }),
+    },
+  );
 
   const beforeImageUpload: UploadProps["beforeUpload"] = (file) => {
     const validationError = validateImage(file);

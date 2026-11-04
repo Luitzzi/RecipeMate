@@ -7,8 +7,7 @@
     "node": "^22.22.0 || >=24"
   },
   "imports": {
-    "#/*": "./src/*",
-    "##/*": "./*"
+    "#/*": "./src/*"
   },
   "scripts": {
     "dev": "vite",
@@ -20,6 +19,8 @@
   },
   "dependencies": {
     "@ant-design/icons": "^6.3.4",
+    "@ant-design/x": "^2.10.0",
+    "@ant-design/x-markdown": "^2.10.0",
     "antd": "^6.6.2",
     "dayjs": "^1.11.23",
     "i18next": "^26.5.6",

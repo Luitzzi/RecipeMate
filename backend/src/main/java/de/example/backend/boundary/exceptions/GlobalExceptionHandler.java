@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.anthropic.errors.AnthropicServiceException;
+import com.anthropic.errors.PermissionDeniedException;
+import com.anthropic.errors.UnauthorizedException;
+
 import de.example.backend.service.exception.chat.ChatNotFoundException;
 import de.example.backend.service.exception.chat.ChatResponseFailedException;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
-     * Log all exceptions Spring MVC raises itself, e.g. unreadable bodies and failed bean validation.
+     * Log all exceptions Spring MVC raises itself, e.g. unreadable bodies and
+     * failed bean validation.
      */
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(
@@ -50,6 +55,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_GATEWAY, ex.getMessage());
         problem.setTitle("Chat response failed unexpectedly");
         return problem;
+    }
+
+    @ExceptionHandler({ UnauthorizedException.class, PermissionDeniedException.class })
+    public ResponseEntity<ProblemDetail> handleAiAuthFailed(AnthropicServiceException ex) {
+        log.error("Anthropic auth failed, check API key config", ex);
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                .body(ProblemDetail.forStatusAndDetail(HttpStatus.BAD_GATEWAY, "AI service currently unavailable"));
     }
 
     @ExceptionHandler(NoAccessException.class)

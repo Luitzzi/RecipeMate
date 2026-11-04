@@ -12,7 +12,7 @@ import lombok.Setter;
 public class CurrentViewUiDTO {
 
     public enum ViewType {
-        NONE,
+        GENERIC,
         RECIPE,
     }
 
@@ -23,7 +23,7 @@ public class CurrentViewUiDTO {
     private Long id;
 
     public String describe() {
-        if (type == null || type == ViewType.NONE) {
+        if (type == null || type == ViewType.GENERIC) {
             return "The user is not viewing anything specific.";
         }
         if (id == null) {
