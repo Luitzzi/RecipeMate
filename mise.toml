@@ -2,6 +2,9 @@
 node = "24"
 java = "temurin-21"
 
+[env]
+_.file = ".env"
+
 [tasks.install]
 description = "Install frontend npm dependencies"
 dir = "{{config_root}}/frontend"
@@ -34,19 +37,15 @@ run = "./mvnw clean compile typescript-generator:generate"
 [tasks."s3:stats"]
 description = "List number and size of the images in the Garage bucket"
 quiet = true
-dir = "{{config_root}}"
 run = '''
-set -a; . ./.env; set +a
 docker exec -e RUST_LOG=warn garage /garage bucket info "$S3_BUCKET_NAME" | grep -E '^(Size|Objects):'
 '''
 
 [tasks."s3:exists"]
 description = "Check whether an image key exists in the Garage bucket"
 quiet = true
-dir = "{{config_root}}"
 usage = 'arg "<key>" help="Image key, e.g. users/<user-id>/<uuid>"'
 run = '''
-set -a; . ./.env; set +a
 if docker run --rm --network host \
     -e AWS_ACCESS_KEY_ID="$S3_ACCESS_KEY" \
     -e AWS_SECRET_ACCESS_KEY="$S3_SECRET_KEY" \
