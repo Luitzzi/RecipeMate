@@ -65,3 +65,20 @@ fi
 [tasks.docs]
 description = "Serve the mkdocs docs pages"
 run = "uv run mkdocs serve"
+
+[tasks.clean]
+description = "DESTRUCTIVE: remove containers, DB volumes, build outputs and dependencies"
+confirm = "Delete all containers, the database volume, build outputs and dependencies?"
+run = [
+  "docker compose down -v --remove-orphans",
+  "docker compose -f compose.prod.yaml down -v --remove-orphans",
+  "rm -rf backend/target frontend/node_modules frontend/dist frontend/src/generated site .venv",
+]
+
+[tasks.reset]
+description = "DESTRUCTIVE: clean, then reinstall dependencies and regenerate TS interfaces"
+run = [
+  { task = "clean" },
+  { task = "install" },
+  { task = "ts-gen" },
+]

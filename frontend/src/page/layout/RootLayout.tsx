@@ -1,7 +1,8 @@
 import { Flex, Grid, Layout } from "antd";
 import { Outlet } from "react-router";
-import { tokens } from "#/theme/tokens.ts";
+
 import { Navigation } from "#/common/components/Navigation.tsx";
+import { tokens } from "#/theme/tokens.ts";
 
 const { Content } = Layout;
 

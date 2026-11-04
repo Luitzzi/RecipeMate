@@ -16,10 +16,17 @@
 
   amateur, line cook, sous-chef, chef
 
+- **Mobile min. resulution**
+
+  360 : 640
+
+### Decisions for AI Chat
+
 - **Name des Chatbots:**
 
   Mate
 
-- **Mobile min. resulution**
+- **AI Rezept Erstellung/Modifikation**
 
-  360 : 640
+  Immer neues Rezept, Chatbot gibt einen Link dazu.
+  -> Grund: Editieren überschreibt Daten -> man bräuchte Diff-View mit accept/revert

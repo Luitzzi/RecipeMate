@@ -81,6 +81,13 @@ mise run ts-gen
 
 # List the number and size of images in garage
 mise run s3:stats
+
+# DESTRUCTIVE: deletes the DB data, Garage data, build outputs and dependencies
+# docker compose down -v && rm -rf backend/target frontend/{node_modules,dist,src/generated} site .venv
+mise run clean
+
+# DESTRUCTIVE: clean + install + ts-gen
+mise run reset
 ```
 
 ## Docs

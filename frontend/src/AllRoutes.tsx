@@ -1,4 +1,9 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router";
 
 import FeedPage from "#/page/feed/FeedPage.tsx";
 import MealPreppingPage from "#/page/meal-prepping/ShoppingListPage.tsx";
@@ -13,25 +18,23 @@ import { ComponentsDocsPage } from "./page/docs/ComponentsDocsPage.tsx";
 import { DocsPage } from "./page/docs/DocsPage.tsx";
 import { RootLayout } from "./page/layout/RootLayout.tsx";
 
-export const AllRoutes = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<RootLayout />}>
-          <Route path={"/"} element={<FeedPage />} />
-          <Route path={"/my-recipes"} element={<RecipeOverviewPage />} />
-          <Route path={"/recipe/:id"} element={<RecipeOverviewPage />} />
-          <Route path={"/recipe-search"} element={<RecipeSearchPage />} />
-          <Route path={"/recipe-creation"} element={<RecipeCreationPage />} />
-          <Route path={"/meal-prepping"} element={<MealPreppingPage />} />
-          <Route path={"/shopping-list"} element={<ShoppingListPage />} />
-          <Route path={"/profile"} element={<ProfilePage />} />
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<RootLayout />}>
+      <Route path={"/"} element={<FeedPage />} />
+      <Route path={"/my-recipes"} element={<RecipeOverviewPage />} />
+      <Route path={"/recipe/:id"} element={<RecipeOverviewPage />} />
+      <Route path={"/recipe-search"} element={<RecipeSearchPage />} />
+      <Route path={"/recipe-creation"} element={<RecipeCreationPage />} />
+      <Route path={"/meal-prepping"} element={<MealPreppingPage />} />
+      <Route path={"/shopping-list"} element={<ShoppingListPage />} />
+      <Route path={"/profile"} element={<ProfilePage />} />
 
-          <Route path={"/test"} element={<TestPage />} />
-          <Route path={"/docs"} element={<DocsPage />} />
-          <Route path={"/docs/components"} element={<ComponentsDocsPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
-};
+      <Route path={"/test"} element={<TestPage />} />
+      <Route path={"/docs"} element={<DocsPage />} />
+      <Route path={"/docs/components"} element={<ComponentsDocsPage />} />
+    </Route>,
+  ),
+);
+
+export const AllRoutes = () => <RouterProvider router={router} />;
