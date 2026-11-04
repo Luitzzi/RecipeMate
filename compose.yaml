@@ -14,5 +14,47 @@ services:
       timeout: 3s
       retries: 15
 
+  # S3-compatible object storage. Creates layout, access key and bucket on startup.
+  garage:
+    image: dxflrs/garage:v2.5.0
+    container_name: garage
+    command: ["/garage", "server", "--single-node", "--default-bucket"]
+    environment:
+      GARAGE_RPC_SECRET: ${GARAGE_RPC_SECRET}
+      GARAGE_ADMIN_TOKEN: ${GARAGE_ADMIN_TOKEN}
+      GARAGE_DEFAULT_ACCESS_KEY: ${S3_ACCESS_KEY}
+      GARAGE_DEFAULT_SECRET_KEY: ${S3_SECRET_KEY}
+      GARAGE_DEFAULT_BUCKET: ${S3_BUCKET_NAME}
+    ports:
+      - "127.0.0.1:3900:3900"
+    volumes:
+      - ./garage/garage.toml:/etc/garage.toml:ro
+      - garage-data:/var/lib/garage
+    healthcheck:
+      test: ["CMD", "/garage", "status"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+
+  # One-shot: sets the CORS rules so the browser can use the presigned URLs
+  garage-init:
+    image: amazon/aws-cli:2.39.3
+    depends_on:
+      garage:
+        condition: service_healthy
+    environment:
+      AWS_ACCESS_KEY_ID: ${S3_ACCESS_KEY}
+      AWS_SECRET_ACCESS_KEY: ${S3_SECRET_KEY}
+      AWS_DEFAULT_REGION: ${S3_REGION}
+    volumes:
+      - ./garage/cors.json:/cors.json:ro
+    command: >-
+      --endpoint-url http://garage:3900
+      s3api put-bucket-cors
+      --bucket ${S3_BUCKET_NAME}
+      --cors-configuration file:///cors.json
+    restart: "no"
+
 volumes:
   postgres-data:
+  garage-data:

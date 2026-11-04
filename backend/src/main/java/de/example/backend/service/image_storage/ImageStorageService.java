@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ImageStorageService {
 
-    @Value("${r2.bucket}")
+    @Value("${s3.bucket}")
     private String bucketName;
 
     private static final Set<String> ALLOWED_TYPES = Set.of("image/jpeg", "image/png", "image/webp");

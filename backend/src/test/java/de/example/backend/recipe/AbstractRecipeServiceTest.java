@@ -22,7 +22,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Shared setup for all RecipeService tests: owner, ingredient standing data and the mocked R2 client.
+ * Shared setup for all RecipeService tests: owner, ingredient standing data and the mocked S3 client.
  */
 @SpringBootTest
 @Transactional
