@@ -3,6 +3,7 @@ package de.example.backend.service;
 import de.example.backend.boundary.dto.chat.ChatRequestUiDTO;
 import de.example.backend.service.chat.ChatResponseUtils;
 import de.example.backend.service.chat.advisor.CurrentViewAdvisor;
+import de.example.backend.service.chat.tool.RecipeTools;
 import de.example.backend.service.chat.tool.UnitTools;
 import de.example.backend.service.exception.chat.ChatNotFoundException;
 import de.example.backend.service.exception.chat.ChatResponseFailedException;
@@ -34,7 +35,8 @@ public class ChatService {
 
     public ChatService(ChatClient.Builder builder,
             @Value("classpath:prompts/mate.md") Resource systemPrompt,
-            UnitTools unitTools) {
+            UnitTools unitTools,
+            RecipeTools recipeTools) {
 
         this.chatMemory = MessageWindowChatMemory.builder()
                 .maxMessages(200)
@@ -60,7 +62,8 @@ public class ChatService {
                                 .setOrder(ToolCallingAdvisor.DEFAULT_ORDER - 100))
                 // Tools (can be called by the LLM)
                 .defaultTools(
-                        unitTools)
+                        unitTools,
+                        recipeTools)
                 .build();
     }
 
