@@ -1,4 +1,8 @@
-# Software Engineering Template
+# RecipeMate
+
+The documentation is hosted at [recipe.mate-universe.de](https://recipe.mate-universe.de/).
+
+[UI-Planning](https://recipe.mate-universe.de/planning/ui-planning/) - [Project Specifications](https://recipe.mate-universe.de/planning/project-specifications/) - [Conventions](https://recipe.mate-universe.de/conventions/git-usage/)
 
 ## Configuration
 
