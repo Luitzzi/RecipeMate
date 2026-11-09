@@ -57,13 +57,13 @@ Use `flex: 1` instead of a width for the main input of a row.
 
 ### Colors — `color`
 
-| Group        | Tokens                                           | Use                                             |
-| ------------ | ------------------------------------------------ | ----------------------------------------------- |
-| Brand/status | `primary`, `success`, `warning`, `error`, `info` | Actions, links, feedback states                 |
-| `text`       | `primary`, `secondary`, `tertiary`, `disabled`   | Body, descriptions, hints, disabled/placeholder |
-| `background` | `layout`, `container`, `subtle`                  | Page, cards/forms, table headers/hover          |
-| `border`     | `default`, `subtle`                              | Control outlines, dividers/frames               |
-| `fill`       | —                                                | Inactive indicators (e.g. empty badge)          |
+| Group        | Tokens                                                      | Use                                                                       |
+| ------------ | ----------------------------------------------------------- | ------------------------------------------------------------------------- |
+| Brand/status | `primary`, `success`, `warning`, `error`, `info`            | Actions, links, feedback states                                           |
+| `text`       | `primary`, `secondary`, `tertiary`, `disabled`, `onPrimary` | Body, descriptions, hints, disabled/placeholder, text on a `primary` fill |
+| `background` | `layout`, `container`, `subtle`                             | Page, cards/forms, table headers/hover                                    |
+| `border`     | `default`, `subtle`                                         | Control outlines, dividers/frames                                         |
+| `fill`       | —                                                           | Inactive indicators (e.g. empty badge)                                    |
 
 Rules:
 

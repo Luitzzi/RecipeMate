@@ -51,6 +51,7 @@ export const tokens = {
       secondary: "rgba(0, 0, 0, 0.65)",
       tertiary: "rgba(0, 0, 0, 0.45)",
       disabled: "rgba(0, 0, 0, 0.25)",
+      onPrimary: "rgba(255, 255, 255, 1)",
     },
     background: {
       layout: "#F5F5F5",
