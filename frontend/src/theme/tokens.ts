@@ -73,6 +73,11 @@ export const tokens = {
     regular: 400,
     strong: 600,
   },
+  /** Sizes of lucide-react icons, passed as `size={tokens.iconSize.medium}`. */
+  iconSize: {
+    medium: 16,
+    large: 24,
+  },
 
   radius: {
     small: 4,

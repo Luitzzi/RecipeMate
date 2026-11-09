@@ -80,6 +80,16 @@ Rules:
 `fontWeight` has only `regular` (400) and `strong` (600). Headings use
 `Typography.Title` levels instead of custom sizes.
 
+### Icons — `iconSize`
+
+Sizes of `lucide-react` icons, passed as `size={tokens.iconSize.medium}`.
+`@ant-design/icons` inherit the font size and need no size.
+
+| Token    | Value | Use                                          |
+| -------- | ----- | -------------------------------------------- |
+| `medium` | 16 px | Icons in buttons, menus and inline with text |
+| `large`  | 24 px | Standalone icons, e.g. mobile tab bar        |
+
 ### Shape and elevation
 
 | Token           | small | medium | large | Use                                                     |
