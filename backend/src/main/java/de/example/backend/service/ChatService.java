@@ -3,8 +3,8 @@ package de.example.backend.service;
 import de.example.backend.boundary.dto.chat.ChatRequestUiDTO;
 import de.example.backend.boundary.dto.chat.ChatResponseUiDTO;
 import de.example.backend.boundary.dto.chat.ChatResponseUiDTO.ChatResponseStatus;
-import de.example.backend.service.ai.advisor.CurrentViewAdvisor;
-import de.example.backend.service.ai.tool.UnitTools;
+import de.example.backend.service.chat.advisor.CurrentViewAdvisor;
+import de.example.backend.service.chat.tool.UnitTools;
 import de.example.backend.service.exception.chat.ChatNotFoundException;
 import de.example.backend.service.exception.chat.ChatResponseFailedException;
 
@@ -36,7 +36,8 @@ public class ChatService {
 
     // TODO JPI: Docstrings
     public ChatService(ChatClient.Builder builder,
-                       @Value("classpath:prompts/mate.md") Resource systemPrompt) {
+                       @Value("classpath:prompts/mate.md") Resource systemPrompt,
+                       UnitTools unitTools) {
         this.chatMemory = MessageWindowChatMemory.builder()
                 .maxMessages(10)
                 .build();
@@ -56,7 +57,7 @@ public class ChatService {
                         new CurrentViewAdvisor()
                                 .setOrder(ToolCallingAdvisor.DEFAULT_ORDER - 100))
                 .defaultTools(
-                        new UnitTools())
+                        unitTools)
                 .build();
     }
 
