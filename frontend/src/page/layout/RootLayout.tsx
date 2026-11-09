@@ -2,6 +2,7 @@ import { Flex, Grid, Layout } from "antd";
 import { Outlet } from "react-router";
 
 import { Navigation } from "#/common/components/Navigation.tsx";
+import { AiChat } from "#/page/ai_chat/AiChat.tsx";
 import { tokens } from "#/theme/tokens.ts";
 
 const { Content } = Layout;
@@ -54,6 +55,7 @@ export const RootLayout = () => {
 
         {!framed && <Navigation framed={framed} />}
       </Flex>
+      <AiChat />
     </Layout>
   );
 };
