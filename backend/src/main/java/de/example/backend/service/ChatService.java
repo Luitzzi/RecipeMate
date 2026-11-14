@@ -30,7 +30,8 @@ public class ChatService {
     private final ChatClient chatClient;
     private final ChatMemory chatMemory;
 
-    // Cache that tracks active chats and clears the chat memory on expiry.
+    // Cache that tracks the IDs of active chats and cleans up the chat memory after
+    // chat expiration.
     private final Cache<UUID, Boolean> activeChats;
 
     public ChatService(ChatClient.Builder builder,
@@ -53,13 +54,13 @@ public class ChatService {
                 .defaultSystem(systemPrompt)
                 // Advisors ("middlewares")
                 .defaultAdvisors(
-                        // Stores and injects the conversation history.
-                        MessageChatMemoryAdvisor.builder(this.chatMemory)
-                                .order(ToolCallingAdvisor.DEFAULT_ORDER + 100)
-                                .build(),
                         // Injects the current view of the UI into the chat context.
                         new CurrentViewAdvisor()
-                                .setOrder(ToolCallingAdvisor.DEFAULT_ORDER - 100))
+                                .setOrder(ToolCallingAdvisor.DEFAULT_ORDER - 100), // low order => runs early
+                        // Stores and injects the conversation history.
+                        MessageChatMemoryAdvisor.builder(this.chatMemory)
+                                .order(ToolCallingAdvisor.DEFAULT_ORDER + 100) // high order => runs late
+                                .build())
                 // Tools (can be called by the LLM)
                 .defaultTools(
                         unitTools,
@@ -69,8 +70,6 @@ public class ChatService {
 
     public UUID startChat() {
         UUID chatId = UUID.randomUUID();
-        // Mark the chat as active and store it in the cache.
-        // No need to initialize the chat memory, it is auto-created on first use.
         activeChats.put(chatId, true);
         return chatId;
     }
