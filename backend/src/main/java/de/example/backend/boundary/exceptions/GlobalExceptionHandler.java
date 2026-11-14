@@ -1,5 +1,6 @@
 package de.example.backend.boundary.exceptions;
 
+import de.example.backend.service.exception.AlreadyExistsException;
 import de.example.backend.service.exception.NoAccessException;
 import de.example.backend.service.exception.image.InvalidImageException;
 import org.springframework.http.HttpHeaders;
@@ -69,6 +70,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         log.warn("NoAccess error", ex);
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
         problem.setTitle("The user has no access to the requested element");
+        return problem;
+    }
+
+    @ExceptionHandler(AlreadyExistsException.class)
+    ProblemDetail handleAlreadyExists(AlreadyExistsException ex) {
+        log.warn("AlreadyExists error", ex);
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
+        problem.setTitle("Element already exists");
         return problem;
     }
 
