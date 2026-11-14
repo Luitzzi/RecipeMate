@@ -2,6 +2,7 @@ package de.example.backend.boundary.exceptions;
 
 import de.example.backend.service.exception.AlreadyExistsException;
 import de.example.backend.service.exception.NoAccessException;
+import de.example.backend.service.exception.NotFoundException;
 import de.example.backend.service.exception.image.InvalidImageException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,6 @@ import com.anthropic.errors.AnthropicServiceException;
 import com.anthropic.errors.PermissionDeniedException;
 import com.anthropic.errors.UnauthorizedException;
 
-import de.example.backend.service.exception.chat.ChatNotFoundException;
 import de.example.backend.service.exception.chat.ChatResponseFailedException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,10 +43,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(ex, body, headers, statusCode, request);
     }
 
-    @ExceptionHandler(ChatNotFoundException.class)
-    ProblemDetail handleChatNotFound(ChatNotFoundException ex) {
+    @ExceptionHandler(NotFoundException.class)
+    ProblemDetail handleNotFound(NotFoundException ex) {
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
-        problem.setTitle("Chat not found");
+        problem.setTitle("Element not found");
         return problem;
     }
 

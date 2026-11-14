@@ -5,7 +5,7 @@ import de.example.backend.service.chat.ChatResponseUtils;
 import de.example.backend.service.chat.advisor.CurrentViewAdvisor;
 import de.example.backend.service.chat.tool.RecipeTools;
 import de.example.backend.service.chat.tool.UnitTools;
-import de.example.backend.service.exception.chat.ChatNotFoundException;
+import de.example.backend.service.exception.NotFoundException;
 import de.example.backend.service.exception.chat.ChatResponseFailedException;
 
 import org.springframework.ai.chat.client.ChatClient;
@@ -76,7 +76,7 @@ public class ChatService {
 
     public String sendMessage(ChatRequestUiDTO request, UUID chatId) {
         if (this.activeChats.getIfPresent(chatId) == null) {
-            throw new ChatNotFoundException(chatId);
+            throw new NotFoundException("Chat with ID " + chatId);
         }
 
         ChatResponse response = this.chatClient.prompt()
