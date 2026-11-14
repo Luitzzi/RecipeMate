@@ -12,7 +12,7 @@ run = "npm install"
 
 [tasks."dev:db"]
 description = "Start all docker containers and wait until it is healthy. Contains postgres for the db and garage as the object storage"
-run = "docker compose up -d --wait"
+run = "docker compose up -d --wait postgres garage && docker compose run --rm garage-init"
 
 [tasks."dev:backend"]
 description = "Start the backend"
