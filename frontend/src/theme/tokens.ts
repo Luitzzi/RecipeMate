@@ -51,6 +51,7 @@ export const tokens = {
       secondary: "rgba(0, 0, 0, 0.65)",
       tertiary: "rgba(0, 0, 0, 0.45)",
       disabled: "rgba(0, 0, 0, 0.25)",
+      onPrimary: "rgba(255, 255, 255, 1)",
     },
     background: {
       layout: "#F5F5F5",
@@ -72,6 +73,11 @@ export const tokens = {
   fontWeight: {
     regular: 400,
     strong: 600,
+  },
+  /** Sizes of lucide-react icons, passed as `size={tokens.iconSize.medium}`. */
+  iconSize: {
+    medium: 16,
+    large: 24,
   },
 
   radius: {

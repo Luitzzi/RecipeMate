@@ -1,10 +1,10 @@
 package de.example.backend.service;
 
 import de.example.backend.boundary.dto.chat.ChatRequestUiDTO;
-import de.example.backend.boundary.dto.chat.ChatResponseUiDTO;
-import de.example.backend.boundary.dto.chat.ChatResponseUiDTO.ChatResponseStatus;
-import de.example.backend.service.ai.advisor.CurrentViewAdvisor;
-import de.example.backend.service.ai.tool.UnitTools;
+import de.example.backend.service.chat.ChatResponseUtils;
+import de.example.backend.service.chat.advisor.CurrentViewAdvisor;
+import de.example.backend.service.chat.tool.RecipeTools;
+import de.example.backend.service.chat.tool.UnitTools;
 import de.example.backend.service.exception.chat.ChatNotFoundException;
 import de.example.backend.service.exception.chat.ChatResponseFailedException;
 
@@ -13,15 +13,12 @@ import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.ToolCallingAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
-import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.RemovalCause;
+import com.github.benmanes.caffeine.cache.*;
 
 import java.time.Duration;
 import java.util.UUID;
@@ -32,13 +29,18 @@ public class ChatService {
 
     private final ChatClient chatClient;
     private final ChatMemory chatMemory;
+
+    // Cache that tracks the IDs of active chats and cleans up the chat memory after
+    // chat expiration.
     private final Cache<UUID, Boolean> activeChats;
 
-    // TODO JPI: Docstrings
     public ChatService(ChatClient.Builder builder,
-                       @Value("classpath:prompts/mate.md") Resource systemPrompt) {
+            @Value("classpath:prompts/mate.md") Resource systemPrompt,
+            UnitTools unitTools,
+            RecipeTools recipeTools) {
+
         this.chatMemory = MessageWindowChatMemory.builder()
-                .maxMessages(10)
+                .maxMessages(200)
                 .build();
 
         this.activeChats = Caffeine.newBuilder()
@@ -48,15 +50,21 @@ public class ChatService {
                 .build();
 
         this.chatClient = builder
+                // Set the system prompt for the chat client.
                 .defaultSystem(systemPrompt)
+                // Advisors ("middlewares")
                 .defaultAdvisors(
-                        MessageChatMemoryAdvisor.builder(this.chatMemory)
-                                .order(ToolCallingAdvisor.DEFAULT_ORDER + 100)
-                                .build(),
+                        // Injects the current view of the UI into the chat context.
                         new CurrentViewAdvisor()
-                                .setOrder(ToolCallingAdvisor.DEFAULT_ORDER - 100))
+                                .setOrder(ToolCallingAdvisor.DEFAULT_ORDER - 100), // low order => runs early
+                        // Stores and injects the conversation history.
+                        MessageChatMemoryAdvisor.builder(this.chatMemory)
+                                .order(ToolCallingAdvisor.DEFAULT_ORDER + 100) // high order => runs late
+                                .build())
+                // Tools (can be called by the LLM)
                 .defaultTools(
-                        new UnitTools())
+                        unitTools,
+                        recipeTools)
                 .build();
     }
 
@@ -66,12 +74,13 @@ public class ChatService {
         return chatId;
     }
 
-    public ChatResponseUiDTO sendMessage(ChatRequestUiDTO request, UUID chatId) {
+    public String sendMessage(ChatRequestUiDTO request, UUID chatId) {
         if (this.activeChats.getIfPresent(chatId) == null) {
             throw new ChatNotFoundException(chatId);
         }
 
         ChatResponse response = this.chatClient.prompt()
+                // Advisor parameters (current view & conversation ID)
                 .advisors(advisor -> advisor
                         .param(CurrentViewAdvisor.CURRENT_VIEW, request.getCurrentView())
                         .param(ChatMemory.CONVERSATION_ID, chatId.toString()))
@@ -79,39 +88,22 @@ public class ChatService {
                 .call()
                 .chatResponse();
 
-        ChatResponseStatus status = extractStatus(response);
-        if (status == ChatResponseStatus.ERROR) {
+        boolean responseSuccess = isResponseSuccess(response);
+        if (!responseSuccess)
             throw new ChatResponseFailedException();
-        }
-
-        return new ChatResponseUiDTO(extractAnswer(response), status);
+        return extractAnswer(response);
     }
 
     private static String extractAnswer(ChatResponse response) {
-        // Taken from
-        // https://docs.spring.io/spring-ai/reference/api/chat/anthropic-chat.html#_non_streaming_example
-        if (response == null) {
-            return "";
-        }
-        return response.getResults().stream()
-                .map(result -> result.getOutput())
-                .filter(message -> !isThinking(message))
-                .map(message -> message.getText())
-                .filter(text -> text != null && !text.isBlank())
+        return ChatResponseUtils.texts(response)
                 .collect(Collectors.joining("\n\n"));
     }
 
-    private static ChatResponseStatus extractStatus(ChatResponse response) {
+    private static boolean isResponseSuccess(ChatResponse response) {
         String reason = response.getResult().getMetadata().getFinishReason();
-        return switch (reason == null ? "" : reason.toLowerCase()) {
-            case "end_turn", "stop_sequence" -> ChatResponseStatus.SUCCESS;
-            case "refusal" -> ChatResponseStatus.REFUSAL;
-            default -> ChatResponseStatus.ERROR;
+        return switch (reason.toLowerCase()) {
+            case "stop_sequence", "end_turn" -> true;
+            default -> false;
         };
-    }
-
-    private static boolean isThinking(AssistantMessage message) {
-        return message.getMetadata().containsKey("signature")
-                || message.getMetadata().containsKey("data");
     }
 }

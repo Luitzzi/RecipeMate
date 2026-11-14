@@ -57,13 +57,13 @@ Use `flex: 1` instead of a width for the main input of a row.
 
 ### Colors — `color`
 
-| Group        | Tokens                                           | Use                                             |
-| ------------ | ------------------------------------------------ | ----------------------------------------------- |
-| Brand/status | `primary`, `success`, `warning`, `error`, `info` | Actions, links, feedback states                 |
-| `text`       | `primary`, `secondary`, `tertiary`, `disabled`   | Body, descriptions, hints, disabled/placeholder |
-| `background` | `layout`, `container`, `subtle`                  | Page, cards/forms, table headers/hover          |
-| `border`     | `default`, `subtle`                              | Control outlines, dividers/frames               |
-| `fill`       | —                                                | Inactive indicators (e.g. empty badge)          |
+| Group        | Tokens                                                      | Use                                                                       |
+| ------------ | ----------------------------------------------------------- | ------------------------------------------------------------------------- |
+| Brand/status | `primary`, `success`, `warning`, `error`, `info`            | Actions, links, feedback states                                           |
+| `text`       | `primary`, `secondary`, `tertiary`, `disabled`, `onPrimary` | Body, descriptions, hints, disabled/placeholder, text on a `primary` fill |
+| `background` | `layout`, `container`, `subtle`                             | Page, cards/forms, table headers/hover                                    |
+| `border`     | `default`, `subtle`                                         | Control outlines, dividers/frames                                         |
+| `fill`       | —                                                           | Inactive indicators (e.g. empty badge)                                    |
 
 Rules:
 
@@ -79,6 +79,16 @@ Rules:
 
 `fontWeight` has only `regular` (400) and `strong` (600). Headings use
 `Typography.Title` levels instead of custom sizes.
+
+### Icons — `iconSize`
+
+Sizes of `lucide-react` icons, passed as `size={tokens.iconSize.medium}`.
+`@ant-design/icons` inherit the font size and need no size.
+
+| Token    | Value | Use                                          |
+| -------- | ----- | -------------------------------------------- |
+| `medium` | 16 px | Icons in buttons, menus and inline with text |
+| `large`  | 24 px | Standalone icons, e.g. mobile tab bar        |
 
 ### Shape and elevation
 
