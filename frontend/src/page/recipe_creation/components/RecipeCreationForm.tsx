@@ -50,22 +50,13 @@ export const RecipeCreationForm = () => {
   // Derived from the file list, because the mutation state is shared by parallel uploads
   const isUploading = images.some((image) => image.status === "uploading");
 
-  const [uploadImage] = useMutation(
-    async (file: File) => {
-      const { key, url } = await image.getUploadUrl({
-        contentType: file.type,
-      });
-      await putFile(url, file);
-      return key;
-    },
-    {
-      onError: (error) =>
-        notify.error({
-          title: "Upload fehlgeschlagen",
-          description: error.message,
-        }),
-    },
-  );
+  const [uploadImage] = useMutation(async (file: File) => {
+    const { key, url } = await image.getUploadUrl({
+      contentType: file.type,
+    });
+    await putFile(url, file);
+    return key;
+  });
 
   const beforeImageUpload: UploadProps["beforeUpload"] = (file) => {
     const validationError = validateImage(file);
@@ -80,7 +71,12 @@ export const RecipeCreationForm = () => {
     onSuccess,
     onError,
   }) => {
-    const key = await uploadImage(file as File);
+    const key = await uploadImage(file as File).catch((err: Error) =>
+      notify.error({
+        title: "Upload fehlgeschlagen",
+        description: err.message,
+      }),
+    );
     if (key) onSuccess?.({ key });
     else onError?.(new Error("Upload failed"));
   };

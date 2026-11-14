@@ -26,7 +26,6 @@ export const RecipeSearchPage = () => {
   const [searchRecipes, resultPage, searching, searchError] = useMutation(
     (filter: RecipeFilterUiDTO, page: number) =>
       recipe.filter(filter, { page, size: RESULTS_PER_PAGE }),
-    { onError: () => notify.error({ title: "Die Suche ist fehlgeschlagen" }) },
   );
 
   const getResultsPrefix = () => {
@@ -36,11 +35,19 @@ export const RecipeSearchPage = () => {
     return "";
   };
 
+  const searchRecipesWithErrorHandling = (
+    filter: RecipeFilterUiDTO,
+    page: number,
+  ) =>
+    searchRecipes(filter, page).catch(() =>
+      notify.error({ title: "Die Suche ist fehlgeschlagen" }),
+    );
+
   const handleSearch = (values: RecipeSearchFormValues) => {
     const filter = toRecipeFilterUiDTO(values);
     setFolderName(filter.folderName);
     setSearchedFilter(filter);
-    void searchRecipes(filter, 0);
+    searchRecipesWithErrorHandling(filter, 0);
   };
 
   return (
@@ -71,7 +78,8 @@ export const RecipeSearchPage = () => {
             hideOnSinglePage
             disabled={searching}
             onChange={(page) => {
-              if (searchedFilter) void searchRecipes(searchedFilter, page - 1);
+              if (searchedFilter)
+                searchRecipesWithErrorHandling(searchedFilter, page - 1);
             }}
             style={{ marginTop: tokens.margin.medium }}
           />
