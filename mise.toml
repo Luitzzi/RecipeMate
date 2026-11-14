@@ -41,7 +41,7 @@ confirm = "Delete all containers, the database volume, build outputs and depende
 run = [
   "docker compose down -v --remove-orphans",
   "docker compose -f compose.prod.yaml down -v --remove-orphans",
-  "rm -rf backend/target frontend/node_modules frontend/dist frontend/src/generated site .venv",
+  "rm -rf backend/target backend/target-ide frontend/node_modules frontend/dist frontend/src/generated site .venv",
 ]
 
 [tasks.reset]
