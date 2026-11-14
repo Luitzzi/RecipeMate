@@ -3,9 +3,11 @@ package de.example.backend.repository.querydsl;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import de.example.backend.boundary.dto.recipe.filter.RecipeFilterUiDTO;
 import de.example.backend.entity.Language;
+import de.example.backend.entity.QFolderEntity;
 import de.example.backend.entity.recipe.Cuisine;
 import de.example.backend.entity.recipe.Diet;
 import de.example.backend.entity.recipe.QRecipeEntity;
@@ -77,7 +79,6 @@ public class RecipeQueries {
                 .fetch();
     }
 
-    // TODO LGE/JPI: Apply filter.getFolderName() as soon as folders exist in the data model
     private Predicate isOwnedByAndMatchesFilter(RecipeFilterUiDTO filter, UserEntity owner) {
         return Expressions.allOf(
                 isOwnedBy(owner),
@@ -88,7 +89,8 @@ public class RecipeQueries {
                 difficultyIsAtMost(filter.getMaxDifficulty()),
                 hasAtLeastOneOfCuisines(filter.getCuisines()),
                 hasAllProperties(filter.getProperties()),
-                containsAllIngredients(filter.getIngredientIds()));
+                containsAllIngredients(filter.getIngredientIds()),
+                isInFolder(filter.getFolderId()));
     }
 
     @Nullable
@@ -136,5 +138,17 @@ public class RecipeQueries {
         return Expressions.allOf(ingredientIds.stream()
                 .map(ingredientId -> ENTITY.ingredients.any().ingredient.id.eq(ingredientId))
                 .toArray(BooleanExpression[]::new));
+    }
+
+    @Nullable
+    private BooleanExpression isInFolder(@Nullable Long folderId) {
+        if (folderId == null)
+            return null;
+        QFolderEntity folder = QFolderEntity.folderEntity;
+        return JPAExpressions.selectOne()
+                .from(folder)
+                .where(folder.id.eq(folderId),
+                        folder.recipes.contains(ENTITY))
+                .exists();
     }
 }

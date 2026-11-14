@@ -7,12 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Component;
 
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import de.example.backend.entity.FolderEntity;
 import de.example.backend.entity.QFolderEntity;
-import de.example.backend.entity.recipe.QRecipeEntity;
 import de.example.backend.entity.user.UserEntity;
 import lombok.RequiredArgsConstructor;
 

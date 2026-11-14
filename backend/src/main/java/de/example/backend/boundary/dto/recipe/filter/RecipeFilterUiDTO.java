@@ -20,7 +20,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Search criteria for recipes. A criterion that is null or empty is not applied.
+ * Search criteria for recipes. A criterion that is null or empty is not
+ * applied.
  */
 @Getter
 @Setter
@@ -55,6 +56,6 @@ public class RecipeFilterUiDTO {
     private Set<@NotNull RecipeProperty> properties = new HashSet<>();
 
     @Nullable
-    private String folderName;
+    private Long folderId;
 
 }
