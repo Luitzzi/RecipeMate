@@ -1,0 +1,22 @@
+# Garage object storage for local development (single node, no replication).
+# Secrets come from .env: GARAGE_RPC_SECRET, GARAGE_ADMIN_TOKEN.
+# Layout, access key and bucket are created on startup via
+# `garage server --single-node --default-bucket` (see compose.yaml).
+
+metadata_dir = "/var/lib/garage/meta"
+data_dir = "/var/lib/garage/data"
+db_engine = "sqlite"
+
+replication_factor = 1
+
+rpc_bind_addr = "[::]:3901"
+rpc_public_addr = "127.0.0.1:3901"
+
+[s3_api]
+# Must match S3_REGION in .env, otherwise the request signatures are rejected
+s3_region = "garage"
+api_bind_addr = "[::]:3900"
+root_domain = ".s3.garage.localhost"
+
+[admin]
+api_bind_addr = "[::]:3903"

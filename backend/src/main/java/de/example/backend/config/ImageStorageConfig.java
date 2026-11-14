@@ -15,21 +15,24 @@ import java.net.URI;
 @Configuration
 public class ImageStorageConfig {
 
-    @Value("${r2.account-id}")
-    private String accountId;
+    @Value("${s3.endpoint}")
+    private String endpoint;
 
-    @Value("${r2.access-key}")
+    @Value("${s3.region}")
+    private String region;
+
+    @Value("${s3.access-key}")
     private String accessKey;
 
-    @Value("${r2.secret-key}")
+    @Value("${s3.secret-key}")
     private String secretKey;
 
     @Bean
     public S3Client s3Client() {
         return S3Client.builder()
-                .endpointOverride(URI.create(getEndpoint()))
+                .endpointOverride(URI.create(endpoint))
                 .credentialsProvider(getCredentials())
-                .region(Region.of("auto"))
+                .region(Region.of(region))
                 .serviceConfiguration(S3Configuration.builder()
                         .pathStyleAccessEnabled(true)
                         .chunkedEncodingEnabled(false)
@@ -40,17 +43,13 @@ public class ImageStorageConfig {
     @Bean
     public S3Presigner s3Presigner() {
         return S3Presigner.builder()
-                .endpointOverride(URI.create(getEndpoint()))
+                .endpointOverride(URI.create(endpoint))
                 .credentialsProvider(getCredentials())
-                .region(Region.of("auto"))
+                .region(Region.of(region))
                 .serviceConfiguration(S3Configuration.builder()
                         .pathStyleAccessEnabled(true)
                         .build())
                 .build();
-    }
-
-    private String getEndpoint() {
-        return "https://" + accountId + ".r2.cloudflarestorage.com";
     }
 
     private StaticCredentialsProvider getCredentials() {
