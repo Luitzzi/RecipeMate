@@ -73,8 +73,7 @@ public class ImageStorageService {
     }
 
     public List<RecipeImageEntity> loadImages(
-            List<String> keys, UserEntity user
-    ) {
+            List<String> keys, UserEntity user) {
         if (new HashSet<>(keys).size() != keys.size())
             throw new IllegalArgumentException("Duplicate image keys");
 
@@ -102,20 +101,19 @@ public class ImageStorageService {
         }
 
         if (!ALLOWED_TYPES.contains(head.contentType()))
-            throw new InvalidImageException("Content type %s of image %s is not allowed".formatted(head.contentType(), key));
+            throw new InvalidImageException(
+                    "Content type %s of image %s is not allowed".formatted(head.contentType(), key));
         if (head.contentLength() > MAX_IMAGE_SIZE_BYTES)
             throw new InvalidImageException("Image %s exceeds the maximum size".formatted(key));
     }
 
     private List<RecipeImageEntity> orderImages(
             List<String> orderedKeys,
-            Set<RecipeImageEntity> images
-    ) {
+            Set<RecipeImageEntity> images) {
         Map<String, RecipeImageEntity> imagesByKey = images.stream()
                 .collect(Collectors.toMap(
                         RecipeImageEntity::getKey,
-                        Function.identity())
-                );
+                        Function.identity()));
         return orderedKeys.stream()
                 .map(imagesByKey::get)
                 .toList();
@@ -123,7 +121,7 @@ public class ImageStorageService {
 
     public ImageUrlUiDTO createDownloadUrl(String key, UserEntity user) {
         if (!doesUserOwnKey(key, user)) {
-            throw new NoAccessException("image");
+            throw new NoAccessException("Image %s".formatted(key), user.getId().toString());
         }
 
         GetObjectPresignRequest getRequest = GetObjectPresignRequest.builder()
@@ -138,8 +136,7 @@ public class ImageStorageService {
 
     private void persistReservedImage(String key, UserEntity user) {
         RecipeImageEntity reservedImage = new RecipeImageEntity(
-                user, Instant.now(), key, RecipeImageEntity.ImageUploadStatus.RESERVED
-        );
+                user, Instant.now(), key, RecipeImageEntity.ImageUploadStatus.RESERVED);
         recipeImageRepository.persist(reservedImage);
     }
 
@@ -148,7 +145,8 @@ public class ImageStorageService {
     }
 
     /**
-     * Delete all expired images (images with status RESERVED and createdAt longer than 24 hours in the past)
+     * Delete all expired images (images with status RESERVED and createdAt longer
+     * than 24 hours in the past)
      * every Monday at 6 am.
      */
     @Scheduled(cron = "0 0 6 * * Mon", zone = "Europe/Berlin")
@@ -162,7 +160,8 @@ public class ImageStorageService {
             return;
         }
 
-        log.info("Image Garbage-Collector: Deleting expired images: {}", expiredImages.stream().map(RecipeImageEntity::getKey).toList());
+        log.info("Image Garbage-Collector: Deleting expired images: {}",
+                expiredImages.stream().map(RecipeImageEntity::getKey).toList());
         for (int i = 0; i < expiredImages.size(); i += IMAGE_DELETION_MAX_BATCH_SIZE) {
             List<RecipeImageEntity> chunk = expiredImages
                     .subList(

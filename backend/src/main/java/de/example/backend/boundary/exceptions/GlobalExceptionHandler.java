@@ -68,8 +68,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NoAccessException.class)
     ProblemDetail handleNoAccess(NoAccessException ex) {
         log.warn("NoAccess error", ex);
-        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
-        problem.setTitle("The user has no access to the requested element");
+        // Return NOT_FOUND instead of FORBIDDEN to avoid leaking existence information.
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, "Element not found");
+        problem.setTitle("Element not found");
         return problem;
     }
 
