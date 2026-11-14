@@ -13,12 +13,14 @@ import de.example.backend.boundary.dto.chat.ChatRequestUiDTO;
 import de.example.backend.service.ChatService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/chat")
 @RequiredArgsConstructor
+@Tag(name = "Chats", description = "Create and interact with chats")
 public class ChatUiController {
 
     private final ChatService chatBA;
