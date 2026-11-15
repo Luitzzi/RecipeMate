@@ -4,6 +4,7 @@ import { DocsPage } from "./page/docs/DocsPage.tsx";
 import { ComponentsDocsPage } from "./page/docs/ComponentsDocsPage.tsx";
 import { TestPage } from "#/page/test/TestPage.tsx";
 import { RecipeCreationPage } from "#/page/recipe_creation/RecipeCreationPage.tsx";
+import { ProfilePage } from "#/page/profile/ProfilePage.tsx";
 
 export const AllRoutes = () => {
   return (
@@ -12,6 +13,7 @@ export const AllRoutes = () => {
         <Route element={<RootLayout />}>
           <Route path={"/"} element={<></>} />
           <Route path={"/recipe-creation"} element={<RecipeCreationPage />} />
+          <Route path={"/profile"} element={<ProfilePage />} />
           <Route path={"/test"} element={<TestPage />} />
           <Route path={"/docs"} element={<DocsPage />} />
           <Route path={"/docs/components"} element={<ComponentsDocsPage />} />

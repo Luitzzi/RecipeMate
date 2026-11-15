@@ -83,7 +83,9 @@ export const RootLayout = () => {
             onClick={({ key }) => navigate(key)}
             style={{ flex: 1, minWidth: 0, borderBottom: "none" }}
           />
-          <Avatar size="large" icon={<UserOutlined />} />
+          <Link to="/profile" aria-label="Profile">
+            <Avatar size="large" icon={<UserOutlined />} />
+          </Link>
         </Header>
         <Content style={{ padding: `${gutter}px ${gutter}px 0` }}>
           <Outlet />

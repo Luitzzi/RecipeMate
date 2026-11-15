@@ -2,5 +2,95 @@
   "buttons": {
     "save": "Speichern",
     "cancel": "Abbrechen"
+  },
+  "profile": {
+    "title": "Profil",
+    "description": "Verwalte dein Profil und deine Vorlieben",
+    "preferences": {
+      "title": "Vorlieben",
+      "diet": "Ernährungsform",
+      "cookingSkill": "Kochniveau",
+      "preferredCuisines": "Lieblingsküchen",
+      "allergens": "Allergene",
+      "saved": "Vorlieben gespeichert",
+      "saveFailed": "Speichern fehlgeschlagen",
+      "loadFailed": "Laden der Vorlieben fehlgeschlagen",
+      "dislikedIngredients": "Abgelehnte Zutaten"
+    },
+    "info": {
+      "title": "Persönliche Daten",
+      "name": "Name",
+      "email": "E-Mail"
+    }
+  },
+  "enums": {
+    "diet": {
+      "VEGAN": "Vegan",
+      "VEGETARIAN": "Vegetarisch",
+      "PESCATARIAN": "Pescetarisch",
+      "OMNIVORE": "Alles"
+    },
+    "cookingSkill": {
+      "BEGINNER": "Anfänger",
+      "INTERMEDIATE": "Fortgeschritten",
+      "ADVANCED": "Erfahren",
+      "PROFESSIONAL": "Profi"
+    },
+    "cuisine": {
+      "AMERICAN": "Amerikanisch",
+      "ARGENTINIAN": "Argentinisch",
+      "AUSTRIAN": "Österreichisch",
+      "BRAZILIAN": "Brasilianisch",
+      "BRITISH": "Britisch",
+      "CARIBBEAN": "Karibisch",
+      "CHINESE": "Chinesisch",
+      "EASTERN_EUROPEAN": "Osteuropäisch",
+      "ETHIOPIAN": "Äthiopisch",
+      "FILIPINO": "Philippinisch",
+      "FRENCH": "Französisch",
+      "FUSION": "Fusion",
+      "GERMAN": "Deutsch",
+      "GREEK": "Griechisch",
+      "INDIAN": "Indisch",
+      "INDONESIAN": "Indonesisch",
+      "IRISH": "Irisch",
+      "ITALIAN": "Italienisch",
+      "JAPANESE": "Japanisch",
+      "KOREAN": "Koreanisch",
+      "MALAYSIAN": "Malaysisch",
+      "MEDITERRANEAN": "Mediterran",
+      "MEXICAN": "Mexikanisch",
+      "MIDDLE_EASTERN": "Nahöstlich",
+      "NORTH_AFRICAN": "Nordafrikanisch",
+      "PAKISTANI": "Pakistanisch",
+      "PERSIAN": "Persisch",
+      "PERUVIAN": "Peruanisch",
+      "PORTUGUESE": "Portugiesisch",
+      "SCANDINAVIAN": "Skandinavisch",
+      "SPANISH": "Spanisch",
+      "SWISS": "Schweizerisch",
+      "THAI": "Thailändisch",
+      "TURKISH": "Türkisch",
+      "VIETNAMESE": "Vietnamesisch",
+      "WEST_AFRICAN": "Westafrikanisch",
+      "OTHER": "Sonstige"
+    },
+    "allergen": {
+      "GLUTEN": "Gluten",
+      "CRUSTACEANS": "Krebstiere",
+      "EGGS": "Eier",
+      "FISH": "Fisch",
+      "PEANUTS": "Erdnüsse",
+      "SOY": "Soja",
+      "MILK": "Milch",
+      "TREE_NUTS": "Schalenfrüchte",
+      "CELERY": "Sellerie",
+      "MUSTARD": "Senf",
+      "SESAME": "Sesam",
+      "SULPHITES": "Sulfite",
+      "LUPIN": "Lupinen",
+      "MOLLUSCS": "Weichtiere",
+      "LACTOSE": "Laktose"
+    }
   }
 }

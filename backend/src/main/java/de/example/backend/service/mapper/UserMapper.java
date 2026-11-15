@@ -6,7 +6,6 @@ import de.example.backend.entity.Language;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.user.UserEntity;
 import de.example.backend.repository.IngredientRepository;
-import de.example.backend.service.exception.NoAccessException;
 import de.example.backend.service.exception.ingredient.InvalidIngredientException;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
@@ -33,28 +32,21 @@ public abstract class UserMapper {
         entity.replaceAllergens(dto.getAllergens());
 
         List<IngredientEntity> dislikedIngredients = dto.getDislikedIngredients().stream()
-                .map(ingredient -> resolveDislikedIngredient(ingredient, entity))
+                .map(this::resolveDislikedIngredient)
                 .toList();
         entity.replaceDislikedIngredients(dislikedIngredients);
     }
 
     /**
-     * Disliked ingredients must already exist. Custom ingredients are not created here,
-     * because the user would otherwise reference an unsaved ingredient.
-     * Custom ingredients of other users are not accessible.
+     * Disliked ingredients must be standing data. Custom ingredients are not allowed,
+     * so a preference can never reference an ingredient a user is able to delete.
      */
-    private IngredientEntity resolveDislikedIngredient(IngredientUiDTO dto, UserEntity user) {
+    private IngredientEntity resolveDislikedIngredient(IngredientUiDTO dto) {
         if (dto.getId() == null) {
             throw new InvalidIngredientException("Disliked ingredient '" + dto.getName() + "' has no id.");
         }
-        IngredientEntity ingredient = ingredientRepository.findById(dto.getId())
+        return ingredientRepository.findByIdAndCreatedByNull(dto.getId())
                 .orElseThrow(() -> new InvalidIngredientException(
-                        "Ingredient with ID " + dto.getId() + " not found."));
-
-        UserEntity createdBy = ingredient.getCreatedBy();
-        if (createdBy != null && !createdBy.getId().equals(user.getId())) {
-            throw new NoAccessException("ingredient");
-        }
-        return ingredient;
+                        "Ingredient with ID " + dto.getId() + " is not a standing data ingredient."));
     }
 }

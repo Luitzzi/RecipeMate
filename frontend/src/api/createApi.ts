@@ -3,6 +3,7 @@ import {
   ImageUiControllerClient,
   IngredientUiControllerClient,
   RecipeUiControllerClient,
+  UserUiControllerClient,
   type HttpClient,
 } from "#/generated/interface-api.ts";
 
@@ -11,6 +12,7 @@ export const createApi = (httpClient: HttpClient) => ({
   image: new ImageUiControllerClient(httpClient),
   ingredient: new IngredientUiControllerClient(httpClient),
   recipe: new RecipeUiControllerClient(httpClient),
+  user: new UserUiControllerClient(httpClient),
 });
 
 export type Api = ReturnType<typeof createApi>;
