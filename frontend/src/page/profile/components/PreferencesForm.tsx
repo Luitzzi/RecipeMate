@@ -63,8 +63,10 @@ export const PreferencesForm = () => {
       notify.success({ title: t("profile.preferences.saved") });
   };
 
-  const options = <T extends string>(values: T[], group: string) =>
-    values.map((value) => ({ value, label: t(`enums.${group}.${value}`) }));
+  const options = <T extends string>(
+    values: T[],
+    label: (value: T) => string,
+  ) => values.map((value) => ({ value, label: label(value) }));
 
   if (loading) return <Skeleton active />;
 
@@ -81,25 +83,40 @@ export const PreferencesForm = () => {
         label={t("profile.preferences.diet")}
         rules={[{ required: true }]}
       >
-        <Select options={options(DIETS, "diet")} />
+        <Select options={options(DIETS, (diet) => t(`enums.diet.${diet}`))} />
       </Form.Item>
       <Form.Item
         name={PREFERENCES_FORM_FIELDS.cookingSkill}
         label={t("profile.preferences.cookingSkill")}
       >
-        <Select allowClear options={options(COOKING_SKILLS, "cookingSkill")} />
+        <Select
+          allowClear
+          options={options(COOKING_SKILLS, (skill) =>
+            t(`enums.cookingSkill.${skill}`),
+          )}
+        />
       </Form.Item>
       <Form.Item
         name={PREFERENCES_FORM_FIELDS.preferredCuisines}
         label={t("profile.preferences.preferredCuisines")}
       >
-        <Select mode={"multiple"} options={options(CUISINES, "cuisine")} />
+        <Select
+          mode={"multiple"}
+          options={options(CUISINES, (cuisine) =>
+            t(`enums.cuisine.${cuisine}`),
+          )}
+        />
       </Form.Item>
       <Form.Item
         name={PREFERENCES_FORM_FIELDS.allergens}
         label={t("profile.preferences.allergens")}
       >
-        <Select mode={"multiple"} options={options(ALLERGENS, "allergen")} />
+        <Select
+          mode={"multiple"}
+          options={options(ALLERGENS, (allergen) =>
+            t(`enums.allergen.${allergen}`),
+          )}
+        />
       </Form.Item>
       <Form.Item
         name={PREFERENCES_FORM_FIELDS.dislikedIngredientIds}
