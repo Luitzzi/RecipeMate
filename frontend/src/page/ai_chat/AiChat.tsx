@@ -6,9 +6,9 @@ import mate_head from "#/assets/mate/mate_head.webp";
 import { tokens } from "#/theme/tokens.ts";
 import { useAiChatCurrentView } from "##/src/common/hooks/useAiChatCurrentView.ts";
 
-import { ChatHeader } from "./ChatHeader";
-import { ChatInput } from "./ChatInput";
-import { ChatMessages } from "./ChatMessages";
+import { ChatHeader } from "./components/ChatHeader";
+import { ChatInput } from "./components/ChatInput";
+import { ChatMessages } from "./components/ChatMessages";
 import { useChatMessaging } from "./hooks/useChatMessaging";
 
 // TODO JPI: mobile view (in navigationsleiste unten?)
