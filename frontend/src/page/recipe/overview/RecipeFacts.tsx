@@ -6,13 +6,11 @@ import {
 } from "@ant-design/icons";
 import { Card, Col, Flex, Row, Tag, Typography } from "antd";
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
+
 import type { RecipeUiDTO } from "#/generated/interface-api.ts";
+import { useRecipeLabels } from "#/page/recipe/recipeLabels.ts";
 import { tokens } from "#/theme/tokens.ts";
-import {
-  dietLabels,
-  formatMinutes,
-  getDifficultyLabel,
-} from "../recipeLabels.ts";
 
 type FactCardProps = {
   icon: ReactNode;
@@ -40,26 +38,32 @@ type RecipeFactsProps = {
 
 /** Cuisine, diet and difficulty of a recipe followed by its tags and cook time. */
 export const RecipeFacts = ({ recipe }: RecipeFactsProps) => {
+  const { t, getDifficultyLabel, formatMinutes } = useRecipeLabels();
+  const { t: tOverview } = useTranslation("recipeOverview");
   const cuisines =
-    recipe.cuisines.map((cuisine) => cuisine.name).join(", ") || "–";
+    recipe.cuisines.map((cuisine) => t(`cuisine.${cuisine}`)).join(", ") || "–";
 
   return (
     <Flex vertical gap={tokens.gap.medium}>
       <Row gutter={tokens.gap.small}>
         <Col span={8}>
-          <FactCard icon={<GlobalOutlined />} label="Küche" value={cuisines} />
+          <FactCard
+            icon={<GlobalOutlined />}
+            label={tOverview("facts.cuisine")}
+            value={cuisines}
+          />
         </Col>
         <Col span={8}>
           <FactCard
             icon={<HeartOutlined />}
-            label="Ernährung"
-            value={dietLabels[recipe.diet]}
+            label={tOverview("facts.diet")}
+            value={t(`diet.${recipe.diet}`)}
           />
         </Col>
         <Col span={8}>
           <FactCard
             icon={<DashboardOutlined />}
-            label="Schwierigkeit"
+            label={tOverview("facts.difficulty")}
             value={getDifficultyLabel(recipe.difficulty)}
           />
         </Col>
@@ -67,8 +71,8 @@ export const RecipeFacts = ({ recipe }: RecipeFactsProps) => {
       <Flex align="center" justify="space-between" gap={tokens.gap.small}>
         <Flex wrap gap={tokens.gap.small}>
           {recipe.properties.map((property) => (
-            <Tag key={property.id} color="blue" style={{ margin: 0 }}>
-              {property.name}
+            <Tag key={property} color="blue" style={{ margin: 0 }}>
+              {t(`recipeProperty.${property}`)}
             </Tag>
           ))}
         </Flex>

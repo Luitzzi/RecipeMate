@@ -1,9 +1,11 @@
 import { PictureOutlined } from "@ant-design/icons";
 import { Carousel, Flex, Skeleton } from "antd";
 import type { CSSProperties } from "react";
+import { useTranslation } from "react-i18next";
+
+import { useApi } from "#/api/apiContext.ts";
 import { useFetch } from "#/common/hooks/useFetch.ts";
 import { tokens } from "#/theme/tokens.ts";
-import { useApi } from "#/api/apiContext.ts";
 
 const imageFrameStyle: CSSProperties = {
   width: "100%",
@@ -22,6 +24,7 @@ export const RecipeImageCarousel = ({
   imageKeys,
   title,
 }: RecipeImageCarouselProps) => {
+  const { t } = useTranslation("recipeOverview");
   const api = useApi();
   const [imageUrls, loading] = useFetch(
     () =>
@@ -58,7 +61,7 @@ export const RecipeImageCarousel = ({
         <div key={url}>
           <img
             src={url}
-            alt={`${title} – Bild ${index + 1}`}
+            alt={t("imageAlt", { title, index: index + 1 })}
             style={{ ...imageFrameStyle, display: "block", objectFit: "cover" }}
           />
         </div>

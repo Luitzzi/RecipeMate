@@ -1,22 +1,24 @@
 import { FireOutlined } from "@ant-design/icons";
 import { Button, Flex, Result, Skeleton, Tooltip, Typography } from "antd";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
+
+import { useApi } from "#/api/apiContext.ts";
 import {
   SectionHeader,
   TitleDivider,
 } from "#/common/components/SectionHeader.tsx";
 import { useFetch } from "#/common/hooks/useFetch.ts";
-import { Language } from "#/generated/interface-api.ts";
 import { tokens } from "#/theme/tokens.ts";
+
 import { IngredientList } from "./IngredientList.tsx";
 import { RecipeFacts } from "./RecipeFacts.tsx";
 import { RecipeImageCarousel } from "./RecipeImageCarousel.tsx";
 import { StepList } from "./StepList.tsx";
-import { useApi } from "#/api/apiContext.ts";
-import { useEffect } from "react";
 
 export const RecipeOverviewPage = () => {
   const { id } = useParams();
+  const { t } = useTranslation("recipeOverview");
 
   const api = useApi();
 
@@ -29,8 +31,8 @@ export const RecipeOverviewPage = () => {
     return (
       <Result
         status="404"
-        title="Rezept nicht gefunden"
-        subTitle="Das Rezept existiert nicht oder konnte nicht geladen werden."
+        title={t("notFound.title")}
+        subTitle={t("notFound.subTitle")}
       />
     );
   }
@@ -45,7 +47,7 @@ export const RecipeOverviewPage = () => {
       gap={tokens.gap.large}
       style={{ paddingBottom: tokens.padding.large }}
     >
-      <SectionHeader title="Rezepte Übersicht" />
+      <SectionHeader title={t("title")} />
 
       <div
         style={{
@@ -56,9 +58,9 @@ export const RecipeOverviewPage = () => {
       >
         <h1 style={{ fontSize: "20px", fontWeight: "500" }}>{recipe.title}</h1>
 
-        <Tooltip title="Der Kochmodus folgt bald">
+        <Tooltip title={t("cookComingSoon")}>
           <Button type="primary" icon={<FireOutlined />} disabled>
-            Kochen
+            {t("cook")}
           </Button>
         </Tooltip>
       </div>
@@ -67,18 +69,18 @@ export const RecipeOverviewPage = () => {
       <RecipeFacts recipe={recipe} />
 
       <Flex vertical gap={tokens.gap.medium}>
-        <TitleDivider title="Zutaten" />
+        <TitleDivider title={t("sections.ingredients")} />
         <IngredientList ingredients={recipe.ingredients} />
       </Flex>
 
       <Flex vertical gap={tokens.gap.medium}>
-        <TitleDivider title="Arbeitsschritte" />
+        <TitleDivider title={t("sections.steps")} />
         <StepList steps={recipe.steps} />
       </Flex>
 
       {recipe.note && (
         <Flex vertical gap={tokens.gap.medium}>
-          <TitleDivider title="Notiz" />
+          <TitleDivider title={t("sections.note")} />
           <Typography.Paragraph style={{ margin: 0, whiteSpace: "pre-line" }}>
             {recipe.note}
           </Typography.Paragraph>
@@ -87,7 +89,7 @@ export const RecipeOverviewPage = () => {
 
       {recipe.sourceUrl && (
         <Typography.Text type="secondary">
-          Quelle:{" "}
+          {t("source")}{" "}
           <Typography.Link href={recipe.sourceUrl} target="_blank">
             {recipe.sourceUrl}
           </Typography.Link>

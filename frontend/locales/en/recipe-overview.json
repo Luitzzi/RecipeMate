@@ -1,3 +1,24 @@
 {
-  "title": "Recipe Overview"
+  "title": "Recipe Overview",
+  "notFound": {
+    "title": "Recipe not found",
+    "subTitle": "The recipe does not exist or could not be loaded."
+  },
+  "cook": "Cook",
+  "cookComingSoon": "Cooking mode is coming soon",
+  "sections": {
+    "ingredients": "Ingredients",
+    "steps": "Steps",
+    "note": "Note"
+  },
+  "source": "Source:",
+  "facts": {
+    "cuisine": "Cuisine",
+    "diet": "Diet",
+    "difficulty": "Difficulty"
+  },
+  "noIngredients": "No ingredients",
+  "noSteps": "No steps",
+  "preheat": "preheat",
+  "imageAlt": "{{title}} – image {{index}}"
 }

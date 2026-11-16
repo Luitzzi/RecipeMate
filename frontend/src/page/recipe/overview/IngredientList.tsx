@@ -1,15 +1,22 @@
 import { Flex, Typography } from "antd";
+import { useTranslation } from "react-i18next";
+
 import type { RecipeIngredientUiDTO } from "#/generated/interface-api.ts";
+import { useRecipeLabels } from "#/page/recipe/recipeLabels.ts";
 import { tokens } from "#/theme/tokens.ts";
-import { formatAmount } from "../recipeLabels.ts";
 
 type IngredientListProps = {
   ingredients: RecipeIngredientUiDTO[];
 };
 
 export const IngredientList = ({ ingredients }: IngredientListProps) => {
+  const { formatAmount } = useRecipeLabels();
+  const { t } = useTranslation("recipeOverview");
+
   if (ingredients.length === 0) {
-    return <Typography.Text type="secondary">Keine Zutaten</Typography.Text>;
+    return (
+      <Typography.Text type="secondary">{t("noIngredients")}</Typography.Text>
+    );
   }
 
   return (

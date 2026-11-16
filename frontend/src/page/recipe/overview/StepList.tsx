@@ -1,26 +1,31 @@
 import { Card, Flex, Typography } from "antd";
-import type { RecipeStepUiDTOUnion } from "#/generated/interface-api.ts";
+import type { TFunction } from "i18next";
+import { useTranslation } from "react-i18next";
+
+import type { RecipeStepDTOUnion } from "#/generated/interface-api.ts";
+import { useRecipeLabels } from "#/page/recipe/recipeLabels.ts";
 import { tokens } from "#/theme/tokens.ts";
-import {
-  formatMinutes,
-  heatLevelLabels,
-  ovenModeLabels,
-  stepMethodLabels,
-} from "../recipeLabels.ts";
 
 /** Additional information depending on the step method, e.g. the oven temperature. */
-const getStepDetails = (step: RecipeStepUiDTOUnion): string | undefined => {
+const getStepDetails = (
+  step: RecipeStepDTOUnion,
+  t: TFunction<"enums">,
+  formatMinutes: (minutes: number) => string,
+  preheatLabel: string,
+): string | undefined => {
   switch (step.stepMethod) {
     case "PREPARE":
       return undefined;
     case "STOVE":
-      return heatLevelLabels[step.heatLevel];
+      return t(`heatLevel.${step.heatLevel}`);
     case "OVEN":
       return [
         `${step.temperatureC} °C`,
-        ovenModeLabels[step.ovenMode],
-        formatMinutes(Math.round(step.durationSeconds / 60)),
-        step.preheat ? "vorheizen" : undefined,
+        t(`ovenMode.${step.ovenMode}`),
+        step.durationSeconds == null
+          ? undefined
+          : formatMinutes(Math.round(step.durationSeconds / 60)),
+        step.preheat ? preheatLabel : undefined,
       ]
         .filter(Boolean)
         .join(" · ");
@@ -28,13 +33,16 @@ const getStepDetails = (step: RecipeStepUiDTOUnion): string | undefined => {
 };
 
 type StepListProps = {
-  steps: RecipeStepUiDTOUnion[];
+  steps: RecipeStepDTOUnion[];
 };
 
 export const StepList = ({ steps }: StepListProps) => {
+  const { t, formatMinutes } = useRecipeLabels();
+  const { t: tOverview } = useTranslation("recipeOverview");
+
   if (steps.length === 0) {
     return (
-      <Typography.Text type="secondary">Keine Arbeitsschritte</Typography.Text>
+      <Typography.Text type="secondary">{tOverview("noSteps")}</Typography.Text>
     );
   }
 
@@ -42,12 +50,12 @@ export const StepList = ({ steps }: StepListProps) => {
     <Flex vertical gap={tokens.gap.medium}>
       {steps.map((step, index) => (
         <Card
-          key={step.id ?? index}
+          key={index}
           size="small"
-          title={`${index + 1}. ${stepMethodLabels[step.stepMethod]}`}
+          title={`${index + 1}. ${t(`stepMethod.${step.stepMethod}`)}`}
           extra={
             <Typography.Text type="secondary">
-              {getStepDetails(step)}
+              {getStepDetails(step, t, formatMinutes, tOverview("preheat"))}
             </Typography.Text>
           }
         >
