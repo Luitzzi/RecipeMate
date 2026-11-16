@@ -47,16 +47,17 @@ export const RecipeOverviewPage = () => {
       gap={tokens.gap.large}
       style={{ paddingBottom: tokens.padding.large }}
     >
-      <SectionHeader title={t("title")} />
-
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
-          gridGap: "12px",
+          alignItems: "center",
+          gridGap: tokens.gap.medium,
         }}
       >
-        <h1 style={{ fontSize: "20px", fontWeight: "500" }}>{recipe.title}</h1>
+        <Typography.Title level={3} style={{ margin: 0 }}>
+          {recipe.title}
+        </Typography.Title>
 
         <Tooltip title={t("cookComingSoon")}>
           <Button type="primary" icon={<FireOutlined />} disabled>
