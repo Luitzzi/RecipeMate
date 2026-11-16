@@ -1,4 +1,4 @@
-package de.example.backend.repository.querydsl;
+package de.example.backend.repository.query;
 
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -8,7 +8,6 @@ import de.example.backend.boundary.dto.recipe.filter.RecipeFilterUiDTO;
 import de.example.backend.entity.Language;
 import de.example.backend.entity.recipe.Cuisine;
 import de.example.backend.entity.recipe.Diet;
-import de.example.backend.entity.recipe.QRecipeEntity;
 import de.example.backend.entity.recipe.RecipeEntity;
 import de.example.backend.entity.recipe.RecipeProperty;
 import de.example.backend.entity.user.UserEntity;
@@ -19,6 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+
+import de.example.backend.entity.recipe.QRecipeEntity;
 
 import java.util.List;
 import java.util.Set;
@@ -35,7 +36,7 @@ public class RecipeQueries {
      * Ordered from newest to oldest. The sort of the pageable is not applied.
      */
     public Page<RecipeEntity> findPageOfOwnerMatchingFilter(RecipeFilterUiDTO filter, UserEntity owner,
-            Pageable pageable) {
+                                                            Pageable pageable) {
         Predicate ownerAndFilterCriteria = isOwnedByAndMatchesFilter(filter, owner);
 
         List<RecipeEntity> recipes = queryFactory.selectFrom(ENTITY)

@@ -9,7 +9,7 @@ import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.recipe.RecipeEntity;
 import de.example.backend.entity.recipe.RecipeIngredientEntity;
 import de.example.backend.repository.RecipeRepository;
-import de.example.backend.repository.querydsl.RecipeQueries;
+import de.example.backend.repository.query.RecipeQueries;
 import de.example.backend.service.mapper.RecipeMapper;
 import jakarta.annotation.Nullable;
 import jakarta.transaction.Transactional;

@@ -12,7 +12,6 @@ import de.example.backend.repository.UserRepository;
 import de.example.backend.repository.query.UserQueries;
 import de.example.backend.service.exception.user.UserNotFoundException;
 import de.example.backend.service.mapper.UserMapper;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
