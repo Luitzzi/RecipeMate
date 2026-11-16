@@ -3,7 +3,7 @@ import { Carousel, Flex, Skeleton } from "antd";
 import type { CSSProperties } from "react";
 import { useFetch } from "#/common/hooks/useFetch.ts";
 import { tokens } from "#/theme/tokens.ts";
-import {useApi} from "#/api/apiContext.ts";
+import { useApi } from "#/api/apiContext.ts";
 
 const imageFrameStyle: CSSProperties = {
   width: "100%",
