@@ -1,19 +1,9 @@
 import { Flex, Menu } from "antd";
 import type { LucideIcon } from "lucide-react";
-import {
-  Calendar,
-  CookingPot,
-  Home,
-  List,
-  ShoppingCart,
-  User,
-} from "lucide-react";
+import { Calendar, Home, List, ShoppingCart, User } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";
 
 import { tokens } from "#/theme/tokens.ts";
-
-const DESKTOP_ICON_SIZE = 16;
-const MOBILE_ICON_SIZE = 24;
 
 const NAV_ITEMS: { key: string; icon: LucideIcon; label: string }[] = [
   { key: "/shopping-list", icon: ShoppingCart, label: "Shopping List" },
@@ -30,7 +20,7 @@ const selectedKeyFor = (pathname: string) =>
 
 const menuItems = NAV_ITEMS.map(({ key, icon: Icon, label }) => ({
   key,
-  icon: <Icon size={DESKTOP_ICON_SIZE} />,
+  icon: <Icon size={tokens.iconSize.medium} />,
   label,
 }));
 
@@ -67,7 +57,7 @@ const MobileTabBar = ({ selectedKey }: { selectedKey: string }) => (
             overflow: "hidden",
           }}
         >
-          <Icon size={MOBILE_ICON_SIZE} />
+          <Icon size={tokens.iconSize.large} />
         </Link>
       );
     })}

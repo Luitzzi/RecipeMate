@@ -1,4 +1,4 @@
-package de.example.backend.service.ai.advisor;
+package de.example.backend.service.chat.advisor;
 
 import org.springframework.ai.chat.client.ChatClientRequest;
 import org.springframework.ai.chat.client.ChatClientResponse;

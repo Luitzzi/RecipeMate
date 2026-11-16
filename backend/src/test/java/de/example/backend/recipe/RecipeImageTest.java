@@ -31,12 +31,12 @@ public class RecipeImageTest extends AbstractRecipeServiceTest {
 
     private static final long MAX_IMAGE_SIZE_BYTES = 10L * 1024 * 1024;
 
-    // Objects that exist in the mocked R2 bucket, by key
+    // Objects that exist in the mocked S3 bucket, by key
     private final Map<String, HeadObjectResponse> uploadedObjects = new HashMap<>();
 
     @BeforeEach
     void setUp() {
-        mockR2HeadObject();
+        mockS3HeadObject();
     }
 
     @Test
@@ -178,10 +178,10 @@ public class RecipeImageTest extends AbstractRecipeServiceTest {
 
     /**
      * Answers HeadObject requests from {@link #uploadedObjects}
-     * and throws a 404 like R2 for every other key.
+     * and throws a 404 like S3 for every other key.
      */
     @SuppressWarnings("unchecked")
-    private void mockR2HeadObject() {
+    private void mockS3HeadObject() {
         when(s3Client.headObject(any(Consumer.class))).thenAnswer(invocation -> {
             Consumer<HeadObjectRequest.Builder> buildRequest = invocation.getArgument(0);
             HeadObjectRequest.Builder requestBuilder = HeadObjectRequest.builder();
@@ -196,14 +196,14 @@ public class RecipeImageTest extends AbstractRecipeServiceTest {
     }
 
     /**
-     * Reserves an image in the db without uploading it to R2.
+     * Reserves an image in the db without uploading it to S3.
      */
     private void reserveImage(String key) {
         entityManager.persist(new RecipeImageEntity(owner, Instant.now(), key, ImageUploadStatus.RESERVED));
     }
 
     /**
-     * Reserves a valid image for the owner and uploads it to the mocked R2.
+     * Reserves a valid image for the owner and uploads it to the mocked S3.
      */
     private void uploadImage(String key) {
         uploadImage(key, owner, ImageUploadStatus.RESERVED, "image/png", 1_000L);

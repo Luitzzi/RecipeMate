@@ -1,11 +1,12 @@
-package de.example.backend.service.ai.tool;
+package de.example.backend.service.chat.tool;
 
 import java.util.EnumMap;
 import java.util.Map;
 
 import org.springframework.ai.tool.annotation.*;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class UnitTools {
     public enum Unit {
         MILLIGRAM,
@@ -14,14 +15,13 @@ public class UnitTools {
         OUNCE,
         POUND
     }
- 
+
     private static final Map<Unit, Float> weightTable = new EnumMap<>(Map.of(
-        Unit.MILLIGRAM, 0.001f,
-        Unit.GRAM,      1f,
-        Unit.KILOGRAM,  1000f,
-        Unit.OUNCE,     28.349523f,
-        Unit.POUND,     453.59237f
-    ));
+            Unit.MILLIGRAM, 0.001f,
+            Unit.GRAM, 1f,
+            Unit.KILOGRAM, 1000f,
+            Unit.OUNCE, 28.349523f,
+            Unit.POUND, 453.59237f));
 
     @Tool(description = "Convert between weight units.")
     public float convertWeight(

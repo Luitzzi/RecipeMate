@@ -131,6 +131,35 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <!-- IDEs build into their own folder, so `mvn clean` on the CLI
+             does not race with the IDE rebuilding target/ -->
+        <!-- VS Code (m2e / jdt.ls) and Eclipse -->
+        <profile>
+            <id>ide-m2e</id>
+            <activation>
+                <property>
+                    <name>m2e.version</name>
+                </property>
+            </activation>
+            <build>
+                <directory>${project.basedir}/target-ide</directory>
+            </build>
+        </profile>
+        <!-- IntelliJ IDEA Maven import -->
+        <profile>
+            <id>ide-intellij</id>
+            <activation>
+                <property>
+                    <name>idea.maven.embedder.version</name>
+                </property>
+            </activation>
+            <build>
+                <directory>${project.basedir}/target-ide</directory>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>

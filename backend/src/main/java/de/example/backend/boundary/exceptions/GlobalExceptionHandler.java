@@ -1,6 +1,8 @@
 package de.example.backend.boundary.exceptions;
 
+import de.example.backend.service.exception.AlreadyExistsException;
 import de.example.backend.service.exception.NoAccessException;
+import de.example.backend.service.exception.NotFoundException;
 import de.example.backend.service.exception.image.InvalidImageException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,7 +14,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import de.example.backend.service.exception.chat.ChatNotFoundException;
+import com.anthropic.errors.AnthropicServiceException;
+import com.anthropic.errors.PermissionDeniedException;
+import com.anthropic.errors.UnauthorizedException;
+
 import de.example.backend.service.exception.chat.ChatResponseFailedException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
-     * Log all exceptions Spring MVC raises itself, e.g. unreadable bodies and failed bean validation.
+     * Log all exceptions Spring MVC raises itself, e.g. unreadable bodies and
+     * failed bean validation.
      */
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(
@@ -37,10 +43,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(ex, body, headers, statusCode, request);
     }
 
-    @ExceptionHandler(ChatNotFoundException.class)
-    ProblemDetail handleChatNotFound(ChatNotFoundException ex) {
+    @ExceptionHandler(NotFoundException.class)
+    ProblemDetail handleNotFound(NotFoundException ex) {
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
-        problem.setTitle("Chat not found");
+        problem.setTitle("Element not found");
         return problem;
     }
 
@@ -52,11 +58,27 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return problem;
     }
 
+    @ExceptionHandler({ UnauthorizedException.class, PermissionDeniedException.class })
+    public ResponseEntity<ProblemDetail> handleAiAuthFailed(AnthropicServiceException ex) {
+        log.error("Anthropic auth failed, check API key config", ex);
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                .body(ProblemDetail.forStatusAndDetail(HttpStatus.BAD_GATEWAY, "AI service currently unavailable"));
+    }
+
     @ExceptionHandler(NoAccessException.class)
     ProblemDetail handleNoAccess(NoAccessException ex) {
         log.warn("NoAccess error", ex);
-        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
-        problem.setTitle("The user has no access to the requested element");
+        // Return NOT_FOUND instead of FORBIDDEN to avoid leaking existence information.
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, "Element not found");
+        problem.setTitle("Element not found");
+        return problem;
+    }
+
+    @ExceptionHandler(AlreadyExistsException.class)
+    ProblemDetail handleAlreadyExists(AlreadyExistsException ex) {
+        log.warn("AlreadyExists error", ex);
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
+        problem.setTitle("Element already exists");
         return problem;
     }
 

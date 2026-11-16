@@ -34,7 +34,8 @@ public class RecipeQueries {
     /**
      * Ordered from newest to oldest. The sort of the pageable is not applied.
      */
-    public Page<RecipeEntity> findPageOfOwnerMatchingFilter(RecipeFilterUiDTO filter, UserEntity owner, Pageable pageable) {
+    public Page<RecipeEntity> findPageOfOwnerMatchingFilter(RecipeFilterUiDTO filter, UserEntity owner,
+            Pageable pageable) {
         Predicate ownerAndFilterCriteria = isOwnedByAndMatchesFilter(filter, owner);
 
         List<RecipeEntity> recipes = queryFactory.selectFrom(ENTITY)
@@ -56,8 +57,10 @@ public class RecipeQueries {
 
     /**
      * Finds the distinct titles starting with the prefix.
-     * Limits the result to 50 Titles and prioritizes results with a low distance to the prefix.
-     * For example the search for "a" should result to "ab", "abc", not to long results like "aaaaaaaaaa".
+     * Limits the result to 50 Titles and prioritizes results with a low distance to
+     * the prefix.
+     * For example the search for "a" should result to "ab", "abc", not to long
+     * results like "aaaaaaaaaa".
      * For long results the user have to search more specifically.
      * <p>
      * Additionally, it can be optionally filtered for the owner-
@@ -98,8 +101,9 @@ public class RecipeQueries {
         return StringUtils.hasText(title) ? ENTITY.title.eq(title) : null;
     }
 
-    private BooleanExpression languageEquals(Language language) {
-        return ENTITY.language.eq(language);
+    @Nullable
+    private BooleanExpression languageEquals(@Nullable Language language) {
+        return language != null ? ENTITY.language.eq(language) : null;
     }
 
     @Nullable
@@ -117,6 +121,7 @@ public class RecipeQueries {
         return maxDifficulty != null ? ENTITY.difficulty.loe(maxDifficulty) : null;
     }
 
+    @Nullable
     private BooleanExpression hasAtLeastOneOfCuisines(Set<Cuisine> cuisines) {
         return cuisines.isEmpty() ? null : ENTITY.cuisines.any().in(cuisines);
     }
