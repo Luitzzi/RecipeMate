@@ -1,12 +1,13 @@
-import type { ReactNode } from "react";
-import { App } from "antd";
 import {
   CheckCircleTwoTone,
   InfoCircleTwoTone,
   WarningTwoTone,
 } from "@ant-design/icons";
-import { tokens } from "#/theme/tokens.ts";
+import { App } from "antd";
 import type { ArgsProps } from "antd/es/notification";
+import type { ReactNode } from "react";
+
+import { tokens } from "#/theme/tokens.ts";
 
 export type NotificationProps = Omit<ArgsProps, "type"> & {
   title: ReactNode;
@@ -19,7 +20,10 @@ const commonProps = {
   showProgress: true,
 };
 
-export const useNotification = () => {
+export const useNotification = (): Record<
+  "success" | "info" | "warn" | "error",
+  (props: NotificationProps) => void
+> => {
   const { notification } = App.useApp();
 
   const success = (props: NotificationProps) => {

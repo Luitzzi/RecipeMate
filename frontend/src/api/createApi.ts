@@ -1,5 +1,6 @@
 import {
   ChatUiControllerClient,
+  type HttpClient,
   ImageUiControllerClient,
   IngredientUiControllerClient,
   RecipeUiControllerClient,

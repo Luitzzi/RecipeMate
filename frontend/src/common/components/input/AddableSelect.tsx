@@ -1,14 +1,15 @@
-import type { SelectOption } from "#/common/components/input/SelectOption.ts";
-import { Button, type RefSelectProps, Select, type SelectProps } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import { Button, type RefSelectProps, Select, type SelectProps } from "antd";
 import { useRef, useState } from "react";
+
+import type { SelectOption } from "#/common/components/input/SelectOption.ts";
 
 export type AddableSelectProps<ValueT extends string | number> = Omit<
   SelectProps,
   "options"
 > & {
   selectOptions: SelectOption<ValueT>[];
-  onCreate: (newName: string) => void;
+  onCreate?: (newName: string) => void;
   isElementValid?: (newName: string) => boolean;
 };
 
@@ -22,12 +23,13 @@ export const AddableSelect = <ValueT extends string | number>({
   const [open, setOpen] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
   const newName = search.trim();
-  const canCreate = isElementValid
-    ? isElementValid(newName) && newName !== ""
-    : !selectProps.disabled;
+  const canCreate =
+    newName !== "" &&
+    !selectProps.disabled &&
+    (isElementValid?.(newName) ?? true);
 
   const create = () => {
-    onCreate(newName);
+    onCreate?.(newName);
     selectProps.onChange?.(newName);
     setSearch("");
     setOpen(false);

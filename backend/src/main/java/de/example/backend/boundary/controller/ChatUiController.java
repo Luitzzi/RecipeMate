@@ -10,16 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import de.example.backend.boundary.dto.chat.ChatRequestUiDTO;
-import de.example.backend.boundary.dto.chat.ChatResponseUiDTO;
 import de.example.backend.service.ChatService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/chat")
 @RequiredArgsConstructor
+@Tag(name = "Chats", description = "Create and interact with chats")
 public class ChatUiController {
 
     private final ChatService chatBA;
@@ -33,8 +34,8 @@ public class ChatUiController {
     @PostMapping("/{chatId}")
     @Operation(summary = "Send a message to an existing chat")
     @ApiResponse(responseCode = "404", description = "Chat not found")
-    @ApiResponse(responseCode = "502", description = "Chat response failed unexpectedly")
-    ResponseEntity<ChatResponseUiDTO> sendMessage(
+    @ApiResponse(responseCode = "502", description = "AI service unavailable or returned an error")
+    ResponseEntity<String> sendMessage(
             @PathVariable UUID chatId,
             @Valid @RequestBody ChatRequestUiDTO request) {
         return ResponseEntity.ok(this.chatBA.sendMessage(request, chatId));

@@ -3,6 +3,7 @@ package de.example.backend.service;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import de.example.backend.boundary.dto.user.UserUiDTO;
 import de.example.backend.entity.Language;

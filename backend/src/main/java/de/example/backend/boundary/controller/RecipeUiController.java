@@ -1,7 +1,8 @@
 package de.example.backend.boundary.controller;
 
+import de.example.backend.boundary.dto.PageUiDTO;
+import de.example.backend.boundary.dto.recipe.filter.RecipeFilterUiDTO;
 import de.example.backend.boundary.dto.recipe.ui.RecipeUiDTO;
-import de.example.backend.entity.Language;
 import de.example.backend.entity.user.UserEntity;
 import de.example.backend.service.RecipeService;
 import de.example.backend.service.UserService;
@@ -9,6 +10,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -26,20 +30,36 @@ public class RecipeUiController {
 
     @GetMapping
     @Operation(summary = "Get all recipes created by an user in a given language")
-    public List<RecipeUiDTO> getAll(@RequestParam Language language) {
+    public List<RecipeUiDTO> getAll() {
         UserEntity owner = UserService.TEST_USER;
-        return recipeService.getAll(
-                owner, language);
+        return recipeService.getAll(owner);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get a recipe")
     public ResponseEntity<RecipeUiDTO> get(
-            @PathVariable Long id,
-            @RequestParam Language language) {
-        return recipeService.get(id, language)
+            @PathVariable Long id) {
+        return recipeService.get(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/titles")
+    @Operation(summary = "Get the distinct titles of all recipes of an user")
+    public List<String> getRecipeTitles(@RequestParam String titlePrefix, @RequestParam Boolean considerOwner) {
+        UserEntity owner = null;
+        if (considerOwner)
+            owner = UserService.TEST_USER;
+        return recipeService.getRecipeTitles(titlePrefix, owner);
+    }
+
+    @PostMapping("/filter")
+    @Operation(summary = "Filter for recipes, ordered from newest to oldest")
+    public PageUiDTO<RecipeUiDTO> filter(
+            @RequestBody @Valid RecipeFilterUiDTO filter,
+            @ParameterObject @PageableDefault(size = 20) Pageable pageable) {
+        UserEntity owner = UserService.TEST_USER;
+        return recipeService.filter(filter, owner, pageable);
     }
 
     @PostMapping

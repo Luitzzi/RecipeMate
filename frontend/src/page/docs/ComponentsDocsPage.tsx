@@ -1,11 +1,4 @@
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import { tokens } from "../../theme/tokens.ts";
-import { Caption, DocsNav, Example, Section } from "./DocsLayout.tsx";
-import { blockStyle } from "./docsStyles.ts";
-import {
-  SectionHeader,
-  TitleDivider,
-} from "../../common/components/SectionHeader.tsx";
 import {
   App,
   Badge,
@@ -21,6 +14,15 @@ import {
   Tag,
   Typography,
 } from "antd";
+
+import {
+  SectionHeader,
+  TitleDivider,
+} from "#/common/components/SectionHeader.tsx";
+import { tokens } from "#/theme/tokens.ts";
+
+import { Caption, DocsNav, Example, Section } from "./DocsLayout.tsx";
+import { blockStyle } from "./docsStyles.ts";
 
 /**
  * Living reference for the basic components: how they are structured and
@@ -150,7 +152,7 @@ const InputSection = () => (
 
     <Example
       title="Repeating rows"
-      description="For lists of entries (Form.List): the main input takes the remaining space, short numeric inputs are controlHeight.large × 2 wide, the delete action is a text icon button with aria-label. Rows and the dashed add button are separated by gap.small; Form.Item margins are removed."
+      description="For lists of entries (Form.List): the main input takes the remaining space, short numeric inputs use width.numberField, the delete action is a text icon button with aria-label. Rows and the dashed add button are separated by gap.small; Form.Item margins are removed."
       usage='<Flex gap={tokens.gap.small} align="start">'
     >
       <Flex vertical gap={tokens.gap.small}>
@@ -166,7 +168,7 @@ const InputSection = () => (
               precision={0}
               defaultValue={item.amount}
               aria-label="Amount"
-              style={{ width: tokens.controlHeight.large * 2 }}
+              style={{ width: tokens.width.numberField }}
             />
             <Button
               type="text"

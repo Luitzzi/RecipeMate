@@ -14,6 +14,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,12 +39,14 @@ public class IngredientService {
         List<IngredientEntity> ingredients = ingredientQueries.get(userId);
         return ingredients.stream()
                 .map(ingredient -> ingredientMapper.toDTO(ingredient, language))
+                .sorted(Comparator.comparing(IngredientUiDTO::getName))
                 .toList();
     }
 
     public List<IngredientUiDTO> getStandingDataIngredients(Language language) {
         return ingredientRepository.findAllByCreatedByNull().stream()
                 .map(ingredient -> ingredientMapper.toDTO(ingredient, language))
+                .sorted(Comparator.comparing(IngredientUiDTO::getName))
                 .toList();
     }
 

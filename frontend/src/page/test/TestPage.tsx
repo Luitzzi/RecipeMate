@@ -1,11 +1,12 @@
+import { Flex, Select } from "antd";
 import { useMemo, useState } from "react";
+
+import { AddableSelect } from "#/common/components/input/AddableSelect.tsx";
 import {
   type SelectOption,
   toSelectOption,
   toSelectOptions,
 } from "#/common/components/input/SelectOption.ts";
-import { Flex, Select } from "antd";
-import { AddableSelect } from "#/common/components/input/AddableSelect.tsx";
 import { tokens } from "#/theme/tokens.ts";
 
 type Element = {

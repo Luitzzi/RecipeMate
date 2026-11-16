@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 
 export const useMutation = <TArgs extends unknown[], T>(
   mutation: (...args: TArgs) => Promise<T>,
-): [
+): readonly [
   (...args: TArgs) => Promise<T | undefined>,
   T | undefined,
   boolean,
@@ -29,5 +29,5 @@ export const useMutation = <TArgs extends unknown[], T>(
     [mutation],
   );
 
-  return [execute, result, loading, error];
+  return [execute, result, loading, error] as const;
 };

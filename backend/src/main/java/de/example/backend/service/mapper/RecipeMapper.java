@@ -30,11 +30,18 @@ public abstract class RecipeMapper {
     @Autowired
     private RecipeStepMapper recipeStepMapper;
 
-    @Mapping(target = "imageKeys", source = "images")
-    public abstract RecipeUiDTO toUiDTO(RecipeEntity entity, @Context Language language);
+    public RecipeUiDTO toUiDTO(RecipeEntity entity) {
+        return toUiDTO(entity, entity.getLanguage());
+    }
 
-    // TODO JPI: how to handle languages? eg. attach language to RecipeDTO?
-    public abstract RecipeAiDTO toAiDTO(RecipeEntity entity, @Context Language language);
+    public RecipeAiDTO toAiDTO(RecipeEntity entity) {
+        return toAiDTO(entity, entity.getLanguage());
+    }
+
+    @Mapping(target = "imageKeys", source = "images")
+    protected abstract RecipeUiDTO toUiDTO(RecipeEntity entity, @Context Language language);
+
+    protected abstract RecipeAiDTO toAiDTO(RecipeEntity entity, @Context Language language);
 
     /**
      * Maps a RecipeUiDTO to a RecipeEntity
@@ -86,6 +93,7 @@ public abstract class RecipeMapper {
         recipeEntity.setDifficulty(dto.getDifficulty());
         recipeEntity.setDiet(dto.getDiet());
         recipeEntity.setNote(dto.getNote());
+        recipeEntity.setLanguage(dto.getLanguage());
         return recipeEntity;
     }
 
