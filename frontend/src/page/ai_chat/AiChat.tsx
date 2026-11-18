@@ -32,6 +32,7 @@ export const AiChat = () => {
     ? tokens.layout.gutter.desktop
     : tokens.layout.gutter.mobile;
 
+  // --- Render ---
   if (!currentView) return null;
   return (
     <Popover
