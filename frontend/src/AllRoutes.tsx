@@ -17,6 +17,7 @@ import { TestPage } from "#/page/test/TestPage.tsx";
 import { AI_CHAT_HANDLE } from "./common/hooks/useAiChatCurrentView.ts";
 import { ComponentsDocsPage } from "./page/docs/ComponentsDocsPage.tsx";
 import { DocsPage } from "./page/docs/DocsPage.tsx";
+import { FolderPage } from "./page/folders/FolderPage.tsx";
 import { RootLayout } from "./page/layout/RootLayout.tsx";
 
 const router = createBrowserRouter(
@@ -27,7 +28,7 @@ const router = createBrowserRouter(
         element={<FeedPage />}
         handle={AI_CHAT_HANDLE.generic}
       />
-      <Route path={"/my-recipes"} element={<RecipeOverviewPage />} />
+      <Route path={"/my-recipes"} element={<FolderPage />} />
       <Route
         path={"/recipe/:id"}
         element={<RecipeOverviewPage />}

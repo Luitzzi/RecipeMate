@@ -1,5 +1,6 @@
 import {
   ChatUiControllerClient,
+  FolderUiControllerClient,
   type HttpClient,
   ImageUiControllerClient,
   IngredientUiControllerClient,
@@ -8,6 +9,7 @@ import {
 
 export const createApi = (httpClient: HttpClient) => ({
   chat: new ChatUiControllerClient(httpClient),
+  folder: new FolderUiControllerClient(httpClient),
   image: new ImageUiControllerClient(httpClient),
   ingredient: new IngredientUiControllerClient(httpClient),
   recipe: new RecipeUiControllerClient(httpClient),
