@@ -4,6 +4,7 @@ import de.example.backend.boundary.dto.recipe.*;
 import de.example.backend.boundary.dto.recipe.ai.RecipeAiDTO;
 import de.example.backend.boundary.dto.recipe.ui.RecipeUiDTO;
 import de.example.backend.entity.Language;
+import de.example.backend.entity.image.ImageEntity;
 import de.example.backend.entity.user.UserEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.recipe.*;
@@ -55,7 +56,7 @@ public abstract class RecipeMapper {
         addIngredients(recipeEntity, dto.getIngredients(),
                 ingredient -> ingredientMapper.toEntity(ingredient.getIngredient(), owner));
         recipeEntity.setSourceUrl(existingSourceUrl);
-        List<RecipeImageEntity> images = imageStorageService.loadImages(dto.getImageKeys(), owner);
+        List<ImageEntity> images = imageStorageService.loadImages(dto.getImageKeys(), owner);
         recipeEntity.setImages(images);
         return recipeEntity;
     }
@@ -71,9 +72,9 @@ public abstract class RecipeMapper {
         return recipeEntity;
     }
 
-    protected List<String> getImageKeys(List<RecipeImageEntity> images) {
+    protected List<String> getImageKeys(List<ImageEntity> images) {
         return images.stream()
-                .map(RecipeImageEntity::getKey)
+                .map(ImageEntity::getKey)
                 .toList();
     }
 

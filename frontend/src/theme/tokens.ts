@@ -10,6 +10,7 @@ import type { ThemeConfig } from "antd";
 
 /** Spacing scale on the 4 px grid, shared by margins, paddings and gaps. */
 const spacing = {
+  xsmall: 4,
   small: 8,
   medium: 16,
   large: 24,

@@ -2,8 +2,8 @@ package de.example.backend.recipe;
 
 import de.example.backend.boundary.dto.recipe.ui.RecipeUiDTO;
 import de.example.backend.entity.recipe.RecipeEntity;
-import de.example.backend.entity.recipe.RecipeImageEntity;
-import de.example.backend.entity.recipe.RecipeImageEntity.ImageUploadStatus;
+import de.example.backend.entity.image.ImageEntity;
+import de.example.backend.entity.image.ImageEntity.ImageUploadStatus;
 import de.example.backend.entity.user.UserEntity;
 import de.example.backend.service.exception.image.InvalidImageException;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,11 +53,10 @@ public class RecipeImageTest extends AbstractRecipeServiceTest {
         assertThat(created.getImageKeys()).containsExactly("image-a", "image-b");
         RecipeEntity loaded = loadRecipe(created);
         assertThat(loaded.getImages())
-                .extracting(RecipeImageEntity::getKey, RecipeImageEntity::getStatus,
-                        image -> image.getRecipe().getId())
+                .extracting(ImageEntity::getKey, ImageEntity::getStatus)
                 .containsExactly(
-                        tuple("image-a", ImageUploadStatus.ACTIVE, loaded.getId()),
-                        tuple("image-b", ImageUploadStatus.ACTIVE, loaded.getId()));
+                        tuple("image-a", ImageUploadStatus.ACTIVE),
+                        tuple("image-b", ImageUploadStatus.ACTIVE));
     }
 
     @Test
@@ -75,10 +74,10 @@ public class RecipeImageTest extends AbstractRecipeServiceTest {
 
         RecipeEntity loaded = loadRecipe(created);
         assertThat(loaded.getImages())
-                .extracting(RecipeImageEntity::getKey, RecipeImageEntity::getPosition)
-                .containsExactly(tuple("image-a", 0), tuple("image-b", 1), tuple("image-c", 2));
+                .extracting(ImageEntity::getKey)
+                .containsExactly("image-a", "image-b", "image-c");
         assertThat(loaded.getCoverImage())
-                .map(RecipeImageEntity::getKey)
+                .map(ImageEntity::getKey)
                 .contains("image-a");
     }
 
@@ -199,7 +198,7 @@ public class RecipeImageTest extends AbstractRecipeServiceTest {
      * Reserves an image in the db without uploading it to S3.
      */
     private void reserveImage(String key) {
-        entityManager.persist(new RecipeImageEntity(owner, Instant.now(), key, ImageUploadStatus.RESERVED));
+        entityManager.persist(new ImageEntity(owner, Instant.now(), key, ImageUploadStatus.RESERVED));
     }
 
     /**
@@ -212,7 +211,7 @@ public class RecipeImageTest extends AbstractRecipeServiceTest {
     private void uploadImage(
             String key, UserEntity createdBy, ImageUploadStatus status,
             String contentType, long contentLength) {
-        entityManager.persist(new RecipeImageEntity(createdBy, Instant.now(), key, status));
+        entityManager.persist(new ImageEntity(createdBy, Instant.now(), key, status));
         uploadedObjects.put(key, HeadObjectResponse.builder()
                 .contentType(contentType)
                 .contentLength(contentLength)
