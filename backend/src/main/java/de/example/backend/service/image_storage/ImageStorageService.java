@@ -1,9 +1,9 @@
 package de.example.backend.service.image_storage;
 
 import de.example.backend.boundary.dto.image_storage.ImageUrlUiDTO;
-import de.example.backend.entity.recipe.RecipeImageEntity;
+import de.example.backend.entity.image.ImageEntity;
 import de.example.backend.entity.user.UserEntity;
-import de.example.backend.repository.RecipeImageRepository;
+import de.example.backend.repository.ImageRepository;
 import de.example.backend.service.exception.NoAccessException;
 import de.example.backend.service.exception.image.InvalidImageException;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +47,7 @@ public class ImageStorageService {
     private static final long MAX_IMAGE_SIZE_BYTES = 10L * 1024 * 1024;
     private static final int IMAGE_DELETION_MAX_BATCH_SIZE = 1000;
 
-    private final RecipeImageRepository recipeImageRepository;
+    private final ImageRepository imageRepository;
     private final S3Client s3Client;
     private final S3Presigner presigner;
 
@@ -72,15 +72,15 @@ public class ImageStorageService {
         return new ImageUrlUiDTO(key, presignedUploadURL.toString());
     }
 
-    public List<RecipeImageEntity> loadImages(
+    public List<ImageEntity> loadImages(
             List<String> keys, UserEntity user) {
         if (new HashSet<>(keys).size() != keys.size())
             throw new IllegalArgumentException("Duplicate image keys");
 
-        Set<RecipeImageEntity> images = recipeImageRepository
+        Set<ImageEntity> images = imageRepository
                 .findAllByKeyInAndCreatedByAndStatus(
                         keys, user,
-                        RecipeImageEntity.ImageUploadStatus.RESERVED);
+                        ImageEntity.ImageUploadStatus.RESERVED);
         if (keys.size() != images.size())
             throw new InvalidImageException("Image[s] in the request does not exist or do not belong to the user");
 
@@ -107,12 +107,12 @@ public class ImageStorageService {
             throw new InvalidImageException("Image %s exceeds the maximum size".formatted(key));
     }
 
-    private List<RecipeImageEntity> orderImages(
+    private List<ImageEntity> orderImages(
             List<String> orderedKeys,
-            Set<RecipeImageEntity> images) {
-        Map<String, RecipeImageEntity> imagesByKey = images.stream()
+            Set<ImageEntity> images) {
+        Map<String, ImageEntity> imagesByKey = images.stream()
                 .collect(Collectors.toMap(
-                        RecipeImageEntity::getKey,
+                        ImageEntity::getKey,
                         Function.identity()));
         return orderedKeys.stream()
                 .map(imagesByKey::get)
@@ -135,13 +135,13 @@ public class ImageStorageService {
     }
 
     private void persistReservedImage(String key, UserEntity user) {
-        RecipeImageEntity reservedImage = new RecipeImageEntity(
-                user, Instant.now(), key, RecipeImageEntity.ImageUploadStatus.RESERVED);
-        recipeImageRepository.persist(reservedImage);
+        ImageEntity reservedImage = new ImageEntity(
+                user, Instant.now(), key, ImageEntity.ImageUploadStatus.RESERVED);
+        imageRepository.persist(reservedImage);
     }
 
     private boolean doesUserOwnKey(String key, UserEntity user) {
-        return recipeImageRepository.existsByKeyAndCreatedBy(key, user);
+        return imageRepository.existsByKeyAndCreatedBy(key, user);
     }
 
     /**
@@ -151,19 +151,19 @@ public class ImageStorageService {
      */
     @Scheduled(cron = "0 0 6 * * Mon", zone = "Europe/Berlin")
     void imageGarbageCollector() {
-        List<RecipeImageEntity> expiredImages = recipeImageRepository
+        List<ImageEntity> expiredImages = imageRepository
                 .findAllByCreatedAtBeforeAndStatus(
                         Instant.now().minus(Duration.ofHours(24)),
-                        RecipeImageEntity.ImageUploadStatus.RESERVED);
+                        ImageEntity.ImageUploadStatus.RESERVED);
         if (expiredImages.isEmpty()) {
             log.info("Image Garbage-Collector: No images to delete");
             return;
         }
 
         log.info("Image Garbage-Collector: Deleting expired images: {}",
-                expiredImages.stream().map(RecipeImageEntity::getKey).toList());
+                expiredImages.stream().map(ImageEntity::getKey).toList());
         for (int i = 0; i < expiredImages.size(); i += IMAGE_DELETION_MAX_BATCH_SIZE) {
-            List<RecipeImageEntity> chunk = expiredImages
+            List<ImageEntity> chunk = expiredImages
                     .subList(
                             i,
                             Math.min(
@@ -173,7 +173,7 @@ public class ImageStorageService {
         }
     }
 
-    private void deleteImages(List<RecipeImageEntity> images) {
+    private void deleteImages(List<ImageEntity> images) {
         List<ObjectIdentifier> ids = images.stream()
                 .map(image -> ObjectIdentifier.builder().key(image.getKey()).build())
                 .toList();
@@ -183,7 +183,7 @@ public class ImageStorageService {
                 .delete(delete -> delete
                         .objects(ids)));
 
-        List<RecipeImageEntity> deleted = images;
+        List<ImageEntity> deleted = images;
         if (deletionResponse.hasErrors()) {
             Set<String> errorKeys = deletionResponse.errors().stream()
                     .map(S3Error::key)
@@ -199,6 +199,6 @@ public class ImageStorageService {
                     .filter(image -> !errorKeys.contains(image.getKey()))
                     .toList();
         }
-        recipeImageRepository.deleteAll(deleted);
+        imageRepository.deleteAll(deleted);
     }
 }

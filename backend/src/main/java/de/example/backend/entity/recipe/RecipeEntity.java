@@ -1,6 +1,7 @@
 package de.example.backend.entity.recipe;
 
 import de.example.backend.entity.Language;
+import de.example.backend.entity.image.ImageEntity;
 import de.example.backend.entity.ingredient.IngredientEntity;
 import de.example.backend.entity.user.UserEntity;
 
@@ -33,10 +34,11 @@ public class RecipeEntity {
     private Long id;
 
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "recipe", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @OrderBy("position")
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "recipe_images", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "image_id", unique = true))
+    @OrderColumn(name = "position")
     @NotNull
-    private List<RecipeImageEntity> images = new ArrayList<>();
+    private List<ImageEntity> images = new ArrayList<>();
 
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -106,38 +108,32 @@ public class RecipeEntity {
     @URL(regexp = "^https?://.*")
     private String sourceUrl;
 
-    public List<RecipeImageEntity> getImages() {
+    public List<ImageEntity> getImages() {
         return Collections.unmodifiableList(images);
     }
 
-    public void setImages(List<RecipeImageEntity> images) {
+    public void setImages(List<ImageEntity> images) {
         if (!this.images.isEmpty())
             throw new IllegalStateException("The recipe already contains images.");
 
-        for (int position = 0; position < images.size(); position++) {
-            RecipeImageEntity image = images.get(position);
-            updateImage(image, position);
-            this.images.add(image);
-        }
+        images.forEach(this::activateImage);
+        this.images.addAll(images);
     }
 
-    public void addImage(RecipeImageEntity image, int position) {
-        updateImage(image, position);
+    public void addImage(ImageEntity image, int position) {
+        activateImage(image);
         images.add(position, image);
-        reindex(images, RecipeImageEntity::setPosition);
     }
 
-    private void updateImage(RecipeImageEntity image, int position) {
-        image.setPosition(position);
-        image.setStatus(RecipeImageEntity.ImageUploadStatus.ACTIVE);
-        image.setRecipe(this);
+    private void activateImage(ImageEntity image) {
+        image.setStatus(ImageEntity.ImageUploadStatus.ACTIVE);
     }
 
     public void removeImage(String key) {
         throw new NotImplementedException();
     }
 
-    public Optional<RecipeImageEntity> getCoverImage() {
+    public Optional<ImageEntity> getCoverImage() {
         return images.stream()
                 .findFirst();
     }
