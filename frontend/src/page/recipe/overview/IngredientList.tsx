@@ -2,7 +2,7 @@ import { Flex, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 
 import type { RecipeIngredientUiDTO } from "#/generated/interface-api.ts";
-import { useRecipeLabels } from "#/page/recipe/recipeLabels.ts";
+import { useRecipeFormats } from "#/page/recipe/recipeLabels.ts";
 import { tokens } from "#/theme/tokens.ts";
 
 type IngredientListProps = {
@@ -10,7 +10,7 @@ type IngredientListProps = {
 };
 
 export const IngredientList = ({ ingredients }: IngredientListProps) => {
-  const { formatAmount } = useRecipeLabels();
+  const { formatAmount } = useRecipeFormats();
   const { t } = useTranslation("recipeOverview");
 
   if (ingredients.length === 0) {

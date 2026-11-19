@@ -5,12 +5,13 @@ import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
-import commonDE from "../../locales/de/common.json";
-import enumsDE from "../../locales/de/enums.json";
-import recipeOverviewDE from "../../locales/de/recipe-overview.json";
-import commonEN from "../../locales/en/common.json";
-import enumsEN from "../../locales/en/enums.json";
-import recipeOverviewEN from "../../locales/en/recipe-overview.json";
+import commonDE from "##/locales/de/common.json";
+import enumsDE from "##/locales/de/enums.json";
+import recipeOverviewDE from "##/locales/de/recipe-overview.json";
+import commonEN from "##/locales/en/common.json";
+import enumsEN from "##/locales/en/enums.json";
+import recipeOverviewEN from "##/locales/en/recipe-overview.json";
+
 import type { EnumTranslations } from "./enumTranslations.ts";
 
 export const defaultNS = "common";

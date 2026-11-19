@@ -9,7 +9,10 @@ import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { RecipeUiDTO } from "#/generated/interface-api.ts";
-import { useRecipeLabels } from "#/page/recipe/recipeLabels.ts";
+import {
+  isKnownDifficulty,
+  useRecipeFormats,
+} from "#/page/recipe/recipeLabels.ts";
 import { tokens } from "#/theme/tokens.ts";
 
 type FactCardProps = {
@@ -38,10 +41,19 @@ type RecipeFactsProps = {
 
 /** Cuisine, diet and difficulty of a recipe followed by its tags and cook time. */
 export const RecipeFacts = ({ recipe }: RecipeFactsProps) => {
-  const { t, getDifficultyLabel, formatMinutes } = useRecipeLabels();
+  const { formatMinutes } = useRecipeFormats();
   const { t: tOverview } = useTranslation("recipeOverview");
+  const { t: tDifficulties } = useTranslation("enums");
+
+  const getDifficultyLabel = (difficulty: number) =>
+    isKnownDifficulty(difficulty)
+      ? tDifficulties(`difficulty.${difficulty}`)
+      : tDifficulties("difficulty.fallback", { level: difficulty });
+
   const cuisines =
-    recipe.cuisines.map((cuisine) => t(`cuisine.${cuisine}`)).join(", ") || "–";
+    recipe.cuisines
+      .map((cuisine) => tDifficulties(`cuisine.${cuisine}`))
+      .join(", ") || "–";
 
   return (
     <Flex vertical gap={tokens.gap.medium}>
@@ -57,7 +69,7 @@ export const RecipeFacts = ({ recipe }: RecipeFactsProps) => {
           <FactCard
             icon={<HeartOutlined />}
             label={tOverview("facts.diet")}
-            value={t(`diet.${recipe.diet}`)}
+            value={tDifficulties(`diet.${recipe.diet}`)}
           />
         </Col>
         <Col span={8}>
@@ -72,7 +84,7 @@ export const RecipeFacts = ({ recipe }: RecipeFactsProps) => {
         <Flex wrap gap={tokens.gap.small}>
           {recipe.properties.map((property) => (
             <Tag key={property} color="blue" style={{ margin: 0 }}>
-              {t(`recipeProperty.${property}`)}
+              {tDifficulties(`recipeProperty.${property}`)}
             </Tag>
           ))}
         </Flex>

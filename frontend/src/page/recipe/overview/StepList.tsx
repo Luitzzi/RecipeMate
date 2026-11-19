@@ -3,7 +3,7 @@ import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 
 import type { RecipeStepDTOUnion } from "#/generated/interface-api.ts";
-import { useRecipeLabels } from "#/page/recipe/recipeLabels.ts";
+import { useRecipeFormats } from "#/page/recipe/recipeLabels.ts";
 import { tokens } from "#/theme/tokens.ts";
 
 /** Additional information depending on the step method, e.g. the oven temperature. */
@@ -37,8 +37,9 @@ type StepListProps = {
 };
 
 export const StepList = ({ steps }: StepListProps) => {
-  const { t, formatMinutes } = useRecipeLabels();
+  const { formatMinutes } = useRecipeFormats();
   const { t: tOverview } = useTranslation("recipeOverview");
+  const { t: tEnum } = useTranslation("enums");
 
   if (steps.length === 0) {
     return (
@@ -52,10 +53,10 @@ export const StepList = ({ steps }: StepListProps) => {
         <Card
           key={index}
           size="small"
-          title={`${index + 1}. ${t(`stepMethod.${step.stepMethod}`)}`}
+          title={`${index + 1}. ${tEnum(`stepMethod.${step.stepMethod}`)}`}
           extra={
             <Typography.Text type="secondary">
-              {getStepDetails(step, t, formatMinutes, tOverview("preheat"))}
+              {getStepDetails(step, tEnum, formatMinutes, tOverview("preheat"))}
             </Typography.Text>
           }
         >

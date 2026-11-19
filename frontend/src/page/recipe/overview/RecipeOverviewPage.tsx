@@ -1,13 +1,10 @@
 import { FireOutlined } from "@ant-design/icons";
-import { Button, Flex, Result, Skeleton, Tooltip, Typography } from "antd";
+import { Button, Flex, Result, Spin, Tooltip, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
 import { useApi } from "#/api/apiContext.ts";
-import {
-  SectionHeader,
-  TitleDivider,
-} from "#/common/components/SectionHeader.tsx";
+import { TitleDivider } from "#/common/components/SectionHeader.tsx";
 import { useFetch } from "#/common/hooks/useFetch.ts";
 import { tokens } from "#/theme/tokens.ts";
 
@@ -38,7 +35,11 @@ export const RecipeOverviewPage = () => {
   }
 
   if (loading || !recipe) {
-    return <Skeleton active paragraph={{ rows: 8 }} />;
+    return (
+      <Flex align="center" justify="center" style={{ height: "100vh" }}>
+        <Spin />
+      </Flex>
+    );
   }
 
   return (

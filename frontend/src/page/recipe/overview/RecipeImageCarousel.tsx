@@ -1,5 +1,5 @@
 import { PictureOutlined } from "@ant-design/icons";
-import { Carousel, Flex, Skeleton } from "antd";
+import { Carousel, Flex, Image, Spin } from "antd";
 import type { CSSProperties } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -51,7 +51,9 @@ export const RecipeImageCarousel = ({
 
   if (loading || !imageUrls) {
     return (
-      <Skeleton.Node active style={{ ...imageFrameStyle, height: "auto" }} />
+      <Flex align="center" justify="center" style={{ height: "100vh" }}>
+        <Spin />
+      </Flex>
     );
   }
 
@@ -59,7 +61,7 @@ export const RecipeImageCarousel = ({
     <Carousel arrows={imageUrls.length > 1} dots={imageUrls.length > 1}>
       {imageUrls.map((url, index) => (
         <div key={url}>
-          <img
+          <Image
             src={url}
             alt={t("imageAlt", { title, index: index + 1 })}
             style={{ ...imageFrameStyle, display: "block", objectFit: "cover" }}
