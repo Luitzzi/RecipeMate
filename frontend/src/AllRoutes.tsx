@@ -8,7 +8,7 @@ import {
 import FeedPage from "#/page/feed/FeedPage.tsx";
 import MealPreppingPage from "#/page/meal-prepping/ShoppingListPage.tsx";
 import ProfilePage from "#/page/profile/ProfilePage.tsx";
-import RecipeOverviewPage from "#/page/recipe/RecipeOverviewPage.tsx";
+import { RecipeOverviewPage } from "#/page/recipe/overview/RecipeOverviewPage.tsx";
 import { RecipeCreationPage } from "#/page/recipe_creation/RecipeCreationPage.tsx";
 import { RecipeSearchPage } from "#/page/recipe_search/RecipeSearchPage.tsx";
 import ShoppingListPage from "#/page/shopping-list/ShoppingListPage.tsx";
