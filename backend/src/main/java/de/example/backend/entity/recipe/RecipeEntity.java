@@ -13,9 +13,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.NotImplementedException;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.URL;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.*;
 import java.util.function.BiConsumer;
 
@@ -55,6 +58,16 @@ public class RecipeEntity {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private UserEntity owner;
+
+    /**
+     * Set by Hibernate on insert.
+     * The column default fills recipes that existed before this column was added.
+     */
+    @CreationTimestamp
+    @ColumnDefault("now()")
+    @Column(nullable = false, updatable = false)
+    @Setter(AccessLevel.NONE)
+    private Instant createdAt;
 
     @Setter(AccessLevel.NONE)
     @ElementCollection

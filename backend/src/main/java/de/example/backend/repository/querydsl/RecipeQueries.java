@@ -1,11 +1,13 @@
 package de.example.backend.repository.querydsl;
 
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import de.example.backend.boundary.dto.recipe.filter.RecipeFilterUiDTO;
 import de.example.backend.entity.Language;
+import de.example.backend.entity.image.QImageEntity;
 import de.example.backend.entity.recipe.Cuisine;
 import de.example.backend.entity.recipe.Diet;
 import de.example.backend.entity.recipe.QRecipeEntity;
@@ -46,6 +48,37 @@ public class RecipeQueries {
                 .fetch();
 
         return PageableExecutionUtils.getPage(recipes, pageable, () -> getTotalCount(ownerAndFilterCriteria));
+    }
+
+    /**
+     * Compact recipes of the owner having all given properties (all recipes if empty).
+     * Ordered from newest to oldest.
+     * The sort of the pageable is not applied.
+     */
+    public Page<RecipeSummaryProjection> findSummaryPageOfOwnerWithProperties(UserEntity owner,
+            Set<RecipeProperty> properties, Pageable pageable) {
+        Predicate criteria = Expressions.allOf(isOwnedBy(owner), hasAllProperties(properties));
+        QImageEntity coverImage = new QImageEntity("coverImage");
+
+        List<RecipeSummaryProjection> recipes = queryFactory
+                .select(Projections.constructor(RecipeSummaryProjection.class,
+                        ENTITY.id,
+                        ENTITY.title,
+                        ENTITY.cookTimeInMinutes,
+                        ENTITY.difficulty,
+                        ENTITY.diet,
+                        coverImage.key))
+                .from(ENTITY)
+                // The cover image is the image at position 0 of the ordered image list
+                .leftJoin(ENTITY.images, coverImage)
+                .on(Expressions.numberTemplate(Integer.class, "index({0})", coverImage).eq(0))
+                .where(criteria)
+                .orderBy(ENTITY.createdAt.desc(), ENTITY.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        return PageableExecutionUtils.getPage(recipes, pageable, () -> getTotalCount(criteria));
     }
 
     public Long getTotalCount(Predicate ownerAndFilterCriteria) {

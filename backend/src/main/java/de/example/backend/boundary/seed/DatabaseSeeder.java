@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Create a test user and a recipe for him if he does not exist yet.
@@ -85,6 +86,18 @@ public class DatabaseSeeder implements ApplicationRunner {
     );
     private final int NUM_TEST_RECIPES = TEST_TITLES.size();
 
+    // Rotated over the test recipes, so every feed section and filter has matching recipes
+    private static final List<Set<RecipeProperty>> TEST_PROPERTIES = List.of(
+            Set.of(RecipeProperty.DINNER, RecipeProperty.MAIN_COURSE, RecipeProperty.HIGH_PROTEIN),
+            Set.of(RecipeProperty.BREAKFAST, RecipeProperty.QUICK),
+            Set.of(RecipeProperty.DESSERT, RecipeProperty.BAKED_GOODS),
+            Set.of(RecipeProperty.LUNCH, RecipeProperty.MAIN_COURSE, RecipeProperty.QUICK),
+            Set.of(RecipeProperty.SOUP, RecipeProperty.COMFORT_FOOD),
+            Set.of(RecipeProperty.BREAKFAST, RecipeProperty.HEALTHY),
+            Set.of(RecipeProperty.DESSERT, RecipeProperty.QUICK));
+    private static final List<Cuisine> TEST_CUISINES = List.of(
+            Cuisine.MEDITERRANEAN, Cuisine.GERMAN, Cuisine.ITALIAN, Cuisine.INDIAN, Cuisine.THAI);
+
     private final UserService userService;
     private final IngredientService ingredientService;
     private final RecipeService recipeService;
@@ -124,12 +137,12 @@ public class DatabaseSeeder implements ApplicationRunner {
     private List<RecipeUiDTO> getTestRecipes() {
         List<RecipeUiDTO> testRecipes = new ArrayList<>();
         for (int i = 0; i < NUM_TEST_RECIPES; i++) {
-            testRecipes.add(testRecipe(TEST_TITLES.get(i)));
+            testRecipes.add(testRecipe(TEST_TITLES.get(i), i));
         }
         return testRecipes;
     }
 
-    private RecipeUiDTO testRecipe(String title) {
+    private RecipeUiDTO testRecipe(String title, int index) {
         RecipeUiDTO recipe = new RecipeUiDTO();
         recipe.setTitle(title);
         recipe.setDescription("Seared chicken breast and crispy rosemary potatoes from the oven.");
@@ -158,10 +171,8 @@ public class DatabaseSeeder implements ApplicationRunner {
         recipe.getSteps().add(prepareStep(
                 "Slice the chicken and serve it on top of the potatoes."));
 
-        recipe.getCuisines().add(Cuisine.MEDITERRANEAN);
-        recipe.getProperties().add(RecipeProperty.DINNER);
-        recipe.getProperties().add(RecipeProperty.MAIN_COURSE);
-        recipe.getProperties().add(RecipeProperty.HIGH_PROTEIN);
+        recipe.getCuisines().add(TEST_CUISINES.get(index % TEST_CUISINES.size()));
+        recipe.getProperties().addAll(TEST_PROPERTIES.get(index % TEST_PROPERTIES.size()));
         return recipe;
     }
 

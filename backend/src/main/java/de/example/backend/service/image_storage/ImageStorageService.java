@@ -25,6 +25,7 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 import java.net.URL;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -123,7 +124,25 @@ public class ImageStorageService {
         if (!doesUserOwnKey(key, user)) {
             throw new NoAccessException("Image %s".formatted(key), user.getId().toString());
         }
+        return new ImageUrlUiDTO(key, presignDownloadUrl(key));
+    }
 
+    /**
+     * Creates the download urls of many images with one ownership query.
+     * Presigning itself runs locally without a request to the storage.
+     *
+     * @return Presigned download urls by key. Keys of images the user does not own are skipped.
+     */
+    public Map<String, String> createDownloadUrls(Collection<String> keys, UserEntity user) {
+        if (keys.isEmpty()) {
+            return Map.of();
+        }
+        return imageRepository.findAllByKeyInAndCreatedBy(keys, user).stream()
+                .map(ImageEntity::getKey)
+                .collect(Collectors.toMap(Function.identity(), this::presignDownloadUrl));
+    }
+
+    private String presignDownloadUrl(String key) {
         GetObjectPresignRequest getRequest = GetObjectPresignRequest.builder()
                 .signatureDuration(DOWNLOAD_TTL)
                 .getObjectRequest(request -> request
@@ -131,7 +150,7 @@ public class ImageStorageService {
                         .key(key))
                 .build();
         URL presignedDownloadURL = presigner.presignGetObject(getRequest).url();
-        return new ImageUrlUiDTO(key, presignedDownloadURL.toString());
+        return presignedDownloadURL.toString();
     }
 
     private void persistReservedImage(String key, UserEntity user) {

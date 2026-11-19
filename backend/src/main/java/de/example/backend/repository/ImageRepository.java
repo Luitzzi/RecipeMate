@@ -15,6 +15,8 @@ import java.util.Set;
 public interface ImageRepository extends JpaRepository<ImageEntity, Long>, PersistFragment<ImageEntity> {
     boolean existsByKeyAndCreatedBy(String key, UserEntity createdBy);
 
+    Set<ImageEntity> findAllByKeyInAndCreatedBy(Collection<String> keys, UserEntity createdBy);
+
     Set<ImageEntity> findAllByKeyInAndCreatedByAndStatus(
             Collection<String> keys, UserEntity createdBy,
             ImageEntity.ImageUploadStatus status);

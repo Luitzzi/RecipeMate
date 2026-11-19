@@ -1,88 +1,69 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Card, Flex } from "antd";
-import { Meta } from "antd/es/list/Item";
+import { Button, Empty, Flex, Result, Spin } from "antd";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
+import { useApi } from "#/api/apiContext.ts";
 import { SectionHeader } from "#/common/components/SectionHeader.tsx";
+import { useFetchOnce } from "#/common/hooks/useFetchOnce.ts";
+import { FeedRow } from "#/page/feed/FeedRow.tsx";
 import { tokens } from "#/theme/tokens.ts";
 
 export default function FeedPage() {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
+  const { t } = useTranslation("feed");
+  const api = useApi();
+
+  // The backend defines the sections and omits empty ones
+  const [sections, loading, error] = useFetchOnce(() => api.feed.getSections());
+
+  const renderSections = () => {
+    if (error) {
+      return (
+        <Result
+          status="error"
+          title={t("loadError.title")}
+          subTitle={t("loadError.subTitle")}
+        />
+      );
+    }
+
+    if (loading || !sections) {
+      return (
+        <Flex align="center" justify="center" style={{ height: "50vh" }}>
+          <Spin />
+        </Flex>
+      );
+    }
+
+    if (sections.length === 0) {
+      return (
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t("empty")} />
+      );
+    }
+
+    return sections.map((section) => (
+      <FeedRow key={`${section.type}-${section.property}`} section={section} />
+    ));
+  };
 
   return (
-    <Flex vertical style={{ paddingBottom: tokens.padding.large }}>
+    <Flex
+      vertical
+      gap={tokens.gap.large}
+      style={{ paddingBottom: tokens.padding.large }}
+    >
       <SectionHeader
-        title="Rezepte Feed"
-        description="Living reference for docs/design-tokens.md. Every example reads its values from src/theme/tokens.ts."
+        title={t("title")}
         extra={
           <Button
             icon={<SearchOutlined />}
-            onClick={() => navigation("/recipe-search")}
+            aria-label={t("search")}
+            onClick={() => navigate("/recipe-search")}
           />
         }
       />
-
-      {/* Infinity Scrolls */}
-
-      <div>
-        <SectionHeader
-          title="Noodles"
-          description="Living reference for docs/design-tokens.md. Every example reads its values from src/theme/tokens.ts."
-        />
-
-        <Flex style={{ overflowX: "scroll" }} gap={tokens.padding.large}>
-          <FeedPageCard />
-          <FeedPageCard />
-          <FeedPageCard />
-          <FeedPageCard />
-          <FeedPageCard />
-        </Flex>
-      </div>
-
-      <SectionHeader
-        title="Meat"
-        description="Living reference for docs/design-tokens.md. Every example reads its values from src/theme/tokens.ts."
-      />
+      {renderSections()}
     </Flex>
   );
 }
-
-const FeedPageCard = () => (
-  <Card
-    hoverable
-    variant="borderless"
-    styles={{
-      root: {
-        boxShadow: "none",
-        background: "#f2f2f2",
-        minWidth: "14rem",
-        overflow: "hidden",
-      },
-      cover: { position: "relative", backgroundSize: "cover", height: "100%" },
-      body: {
-        padding: "0 1rem",
-        fontSize: tokens.fontSize.large,
-        position: "absolute",
-        bottom: "0",
-        background: "linear-gradient(to top, black, transparent)",
-        width: "100%",
-        color: "white",
-        margin: "0",
-      },
-    }}
-    cover={
-      <img
-        style={{
-          aspectRatio: "1/1",
-          backgroundSize: "cover",
-          objectFit: "cover",
-        }}
-        draggable={false}
-        alt="example"
-        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fkochkarussell.com%2Fwp-content%2Fuploads%2F2023%2F10%2FBolognese-1.jpg&f=1&nofb=1&ipt=3768ff5a431ebe49a47343ab006b235b4cda5a1bdb03f0bd384e0c51ff71a694&ipo=images"
-      />
-    }
-  >
-    <Meta title="Bolognese" />
-  </Card>
-);

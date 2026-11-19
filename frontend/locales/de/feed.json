@@ -1,0 +1,16 @@
+{
+  "title": "Rezepte Feed",
+  "search": "Rezepte suchen",
+  "sections": {
+    "recent": "Zuletzt hinzugefügt"
+  },
+  "recipeCount_one": "{{count}} Rezept",
+  "recipeCount_other": "{{count}} Rezepte",
+  "empty": "Noch keine Rezepte",
+  "loadError": {
+    "title": "Rezepte konnten nicht geladen werden",
+    "subTitle": "Bitte versuche es später erneut."
+  },
+  "loadMoreError": "Weitere Rezepte konnten nicht geladen werden",
+  "retry": "Erneut versuchen"
+}

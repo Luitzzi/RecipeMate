@@ -3,6 +3,7 @@ package de.example.backend.boundary.exceptions;
 import de.example.backend.service.exception.AlreadyExistsException;
 import de.example.backend.service.exception.NoAccessException;
 import de.example.backend.service.exception.NotFoundException;
+import de.example.backend.service.exception.feed.InvalidFeedSectionException;
 import de.example.backend.service.exception.image.InvalidImageException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -87,6 +88,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         log.warn("Invalid image request", ex);
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
         problem.setTitle("Invalid image");
+        return problem;
+    }
+
+    @ExceptionHandler(InvalidFeedSectionException.class)
+    ProblemDetail handleInvalidFeedSection(InvalidFeedSectionException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+        problem.setTitle("Invalid feed section");
         return problem;
     }
 }

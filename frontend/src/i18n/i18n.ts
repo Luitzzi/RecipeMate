@@ -7,9 +7,11 @@ import { initReactI18next } from "react-i18next";
 
 import commonDE from "##/locales/de/common.json";
 import enumsDE from "##/locales/de/enums.json";
+import feedDE from "##/locales/de/feed.json";
 import recipeOverviewDE from "##/locales/de/recipe-overview.json";
 import commonEN from "##/locales/en/common.json";
 import enumsEN from "##/locales/en/enums.json";
+import feedEN from "##/locales/en/feed.json";
 import recipeOverviewEN from "##/locales/en/recipe-overview.json";
 
 import type { EnumTranslations } from "./enumTranslations.ts";
@@ -21,11 +23,13 @@ export type SupportedLanguage = (typeof supportedLanguages)[number];
 export const resources = {
   de: {
     common: commonDE,
+    feed: feedDE,
     recipeOverview: recipeOverviewDE,
     enums: enumsDE satisfies EnumTranslations,
   },
   en: {
     common: commonEN,
+    feed: feedEN,
     recipeOverview: recipeOverviewEN,
     enums: enumsEN satisfies EnumTranslations,
   },
