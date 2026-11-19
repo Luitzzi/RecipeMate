@@ -1,0 +1,24 @@
+{
+  "title": "Rezepte Übersicht",
+  "notFound": {
+    "title": "Rezept nicht gefunden",
+    "subTitle": "Das Rezept existiert nicht oder konnte nicht geladen werden."
+  },
+  "cook": "Kochen",
+  "cookComingSoon": "Der Kochmodus folgt bald",
+  "sections": {
+    "ingredients": "Zutaten",
+    "steps": "Arbeitsschritte",
+    "note": "Notiz"
+  },
+  "source": "Quelle:",
+  "facts": {
+    "cuisine": "Küche",
+    "diet": "Ernährung",
+    "difficulty": "Schwierigkeit"
+  },
+  "noIngredients": "Keine Zutaten",
+  "noSteps": "Keine Arbeitsschritte",
+  "preheat": "vorheizen",
+  "imageAlt": "{{title}} – Bild {{index}}"
+}

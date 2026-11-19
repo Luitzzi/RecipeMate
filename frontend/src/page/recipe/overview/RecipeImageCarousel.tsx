@@ -1,0 +1,73 @@
+import { PictureOutlined } from "@ant-design/icons";
+import { Carousel, Flex, Image, Spin } from "antd";
+import type { CSSProperties } from "react";
+import { useTranslation } from "react-i18next";
+
+import { useApi } from "#/api/apiContext.ts";
+import { useFetch } from "#/common/hooks/useFetch.ts";
+import { tokens } from "#/theme/tokens.ts";
+
+const imageFrameStyle: CSSProperties = {
+  width: "100%",
+  aspectRatio: "4 / 3",
+  borderRadius: tokens.radius.large,
+  background: tokens.color.background.subtle,
+};
+
+type RecipeImageCarouselProps = {
+  imageKeys: string[];
+  title: string;
+};
+
+/** Cycles through the recipe images, which are loaded via presigned download urls. */
+export const RecipeImageCarousel = ({
+  imageKeys,
+  title,
+}: RecipeImageCarouselProps) => {
+  const { t } = useTranslation("recipeOverview");
+  const api = useApi();
+  const [imageUrls, loading] = useFetch(
+    () =>
+      Promise.all(
+        imageKeys.map((key) =>
+          api.image.getDownloadUrl({ key }).then((image) => image.url),
+        ),
+      ),
+    [imageKeys],
+  );
+
+  if (imageKeys.length === 0) {
+    return (
+      <Flex align="center" justify="center" style={imageFrameStyle}>
+        <PictureOutlined
+          style={{
+            fontSize: tokens.controlHeight.large,
+            color: tokens.color.text.disabled,
+          }}
+        />
+      </Flex>
+    );
+  }
+
+  if (loading || !imageUrls) {
+    return (
+      <Flex align="center" justify="center" style={{ height: "100vh" }}>
+        <Spin />
+      </Flex>
+    );
+  }
+
+  return (
+    <Carousel arrows={imageUrls.length > 1} dots={imageUrls.length > 1}>
+      {imageUrls.map((url, index) => (
+        <div key={url}>
+          <Image
+            src={url}
+            alt={t("imageAlt", { title, index: index + 1 })}
+            style={{ ...imageFrameStyle, display: "block", objectFit: "cover" }}
+          />
+        </div>
+      ))}
+    </Carousel>
+  );
+};
