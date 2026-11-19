@@ -109,6 +109,7 @@ export const AiChat = () => {
           height: "auto",
           aspectRatio: 1,
           minHeight: 0,
+          bottom: "calc(85px + 20px)",
         }}
       />
     </Popover>
