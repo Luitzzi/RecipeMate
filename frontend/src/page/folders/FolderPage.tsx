@@ -110,7 +110,9 @@ export const FolderPage = () => {
             folder={folder}
             imageUrl={getImageUrl(folder.imageKey)}
             onOpen={(folder) =>
-              navigate(`/recipe-search?folderId=${folder.id}`)
+              navigate(`/recipe-search`, {
+                state: { filter: { folderId: folder.id } },
+              })
             }
             onEdit={folderActions.openEdit}
             onDelete={folderActions.confirmDelete}
