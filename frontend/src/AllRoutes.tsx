@@ -8,6 +8,7 @@ import {
 import FeedPage from "#/page/feed/FeedPage.tsx";
 import MealPreppingPage from "#/page/meal-prepping/ShoppingListPage.tsx";
 import ProfilePage from "#/page/profile/ProfilePage.tsx";
+import { RecipeOverviewPage } from "#/page/recipe/overview/RecipeOverviewPage.tsx";
 import { RecipeCreationPage } from "#/page/recipe_creation/RecipeCreationPage.tsx";
 import { RecipeSearchPage } from "#/page/recipe_search/RecipeSearchPage.tsx";
 import ShoppingListPage from "#/page/shopping-list/ShoppingListPage.tsx";
@@ -16,9 +17,8 @@ import { TestPage } from "#/page/test/TestPage.tsx";
 import { AI_CHAT_HANDLE } from "./common/hooks/useAiChatCurrentView.ts";
 import { ComponentsDocsPage } from "./page/docs/ComponentsDocsPage.tsx";
 import { DocsPage } from "./page/docs/DocsPage.tsx";
+import { FolderPage } from "./page/folders/FolderPage.tsx";
 import { RootLayout } from "./page/layout/RootLayout.tsx";
-import { RecipeOverviewPage } from "#/page/recipe/overview/RecipeOverviewPage.tsx";
-import MyRecipesPage from "#/page/my-recipes/MyRecipesPage.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,7 +28,7 @@ const router = createBrowserRouter(
         element={<FeedPage />}
         handle={AI_CHAT_HANDLE.generic}
       />
-      <Route path={"/my-recipes"} element={<MyRecipesPage />} />
+      <Route path={"/my-recipes"} element={<FolderPage />} />
       <Route
         path={"/recipe/:id"}
         element={<RecipeOverviewPage />}

@@ -55,6 +55,6 @@ public class RecipeFilterUiDTO {
     private Set<@NotNull RecipeProperty> properties = new HashSet<>();
 
     @Nullable
-    private String folderName;
+    private Long folderId;
 
 }

@@ -88,6 +88,11 @@ public class ImageStorageService {
         return orderImages(keys, images);
     }
 
+    public ImageEntity loadImage(String key, UserEntity user) {
+        // TODO JPI/LGE: Workaround for simplicity, is this fine?
+        return loadImages(List.of(key), user).get(0);
+    }
+
     private void verifyUploaded(String key) {
         HeadObjectResponse head;
         try {

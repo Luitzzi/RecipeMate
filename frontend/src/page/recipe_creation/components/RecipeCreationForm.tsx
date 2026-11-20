@@ -9,26 +9,23 @@ import {
   Select,
   Upload,
   type UploadFile,
-  type UploadProps,
 } from "antd";
 
 import { useApi } from "#/api/apiContext.ts";
-import { putFile } from "#/api/putFile.ts";
 import { SectionHeader } from "#/common/components/SectionHeader.tsx";
 import {
   CUISINE_OPTIONS,
   DIET_OPTIONS,
   RECIPE_PROPERTY_OPTIONS,
 } from "#/common/enumOptions.ts";
-import { useMutation } from "#/common/hooks/useMutation.ts";
+import { useImageUpload } from "#/common/hooks/useImageUpload.ts";
 import { useNotification } from "#/common/hooks/useNotification.tsx";
-import { IngredientSelectionList } from "#/page/recipe_creation/components/IngredientSelectionList.tsx";
-import { StepsList } from "#/page/recipe_creation/components/StepsList.tsx";
 import {
   ALLOWED_IMAGE_TYPES,
   MAX_IMAGE_AMOUNT,
-  validateImage,
-} from "#/page/recipe_creation/utils/imageUploadUtils.ts";
+} from "#/common/imageUploadUtils.ts";
+import { IngredientSelectionList } from "#/page/recipe_creation/components/IngredientSelectionList.tsx";
+import { StepsList } from "#/page/recipe_creation/components/StepsList.tsx";
 import {
   CATEGORY_VALUES_FIELDS,
   RECIPE_CREATION_FORM_FIELDS,
@@ -42,44 +39,14 @@ import { tokens } from "#/theme/tokens.ts";
 
 export const RecipeCreationForm = () => {
   const [form] = Form.useForm<RecipeCreationFormValues>();
-  const { ingredient, recipe, image } = useApi();
+  const { ingredient, recipe } = useApi();
   const notify = useNotification();
 
   const images: UploadFile[] =
     Form.useWatch(RECIPE_CREATION_FORM_FIELDS.images, form) ?? [];
   // Derived from the file list, because the mutation state is shared by parallel uploads
   const isUploading = images.some((image) => image.status === "uploading");
-
-  const [uploadImage] = useMutation(async (file: File) => {
-    const { key, url } = await image.getUploadUrl({
-      contentType: file.type,
-    });
-    await putFile(url, file);
-    return key;
-  });
-
-  const beforeImageUpload: UploadProps["beforeUpload"] = (file) => {
-    const validationError = validateImage(file);
-    if (!validationError) return true;
-
-    notify.error({ title: validationError });
-    return Upload.LIST_IGNORE;
-  };
-
-  const customImageUploadRequest: UploadProps["customRequest"] = async ({
-    file,
-    onSuccess,
-    onError,
-  }) => {
-    const key = await uploadImage(file as File).catch((err: Error) =>
-      notify.error({
-        title: "Upload fehlgeschlagen",
-        description: err.message,
-      }),
-    );
-    if (key) onSuccess?.({ key });
-    else onError?.(new Error("Upload failed"));
-  };
+  const { beforeUpload, customRequest } = useImageUpload();
 
   const saveRecipe = () => {
     const formValues = form.getFieldsValue(true);
@@ -143,8 +110,8 @@ export const RecipeCreationForm = () => {
             listType={"picture"}
             accept={ALLOWED_IMAGE_TYPES.join(",")}
             maxCount={MAX_IMAGE_AMOUNT}
-            beforeUpload={beforeImageUpload}
-            customRequest={customImageUploadRequest}
+            beforeUpload={beforeUpload}
+            customRequest={customRequest}
             styles={{
               root: {
                 display: "flex",

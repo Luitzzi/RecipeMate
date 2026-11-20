@@ -14,6 +14,8 @@ import { tokens } from "#/theme/tokens.ts";
 
 const RESULTS_PER_PAGE = 20;
 
+// TODO LGE/JPI: Handle passed state. See ./search-state-idea.md for possible implementation.
+
 export const RecipeSearchPage = () => {
   const { recipe } = useApi();
   const notify = useNotification();

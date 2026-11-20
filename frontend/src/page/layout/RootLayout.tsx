@@ -47,10 +47,14 @@ export const RootLayout = () => {
         <Content
           style={{
             flex: 1,
+            display: "flex",
+            flexDirection: "column",
             padding: `${gutter}px ${gutter}px ${framed ? 0 : gutter}px`,
           }}
         >
-          <Outlet />
+          <div style={{ flex: 1, position: "relative" }}>
+            <Outlet />
+          </div>
         </Content>
 
         {!framed && <Navigation framed={framed} />}
